@@ -4,16 +4,13 @@
 
 The members of the group:
 
-| Student Nr.	   | Name			    |
-|--------------|------------------------------|
-| **[1170000](1170000/readme.md)**  | John Doe                |
-|              | 						        |
-|              | 						        |
-|              | 						        |
-|              | 						        |
-|              | 						        |
-|              | 						        |
-
+| Student Nr.	                     | Name			           |
+|----------------------------------|-------------------|
+| **[1201951](1201951/readme.md)** | Miguel Cardoso    |
+| **[1210857](1210857/readme.md)** | Patricia Teixeira |
+| **[1210855](1210855/readme.md)** | Mariana Rocha     |
+| **[1100358](1100358/readme.md)** | Miguel Seixas     |
+| **[1210850](1100358/readme.md)** | Duarte Fonseca    |
 
 ## 2. Task Assignment
 
