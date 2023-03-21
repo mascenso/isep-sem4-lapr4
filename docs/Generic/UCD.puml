@@ -1,0 +1,46 @@
+@startuml UseCaseDiagram
+left to right direction
+
+:System: as Sys
+:Manager: as Manager
+:Teacher: as Teacher
+:Student: as Student
+:BoardOwner: as BO
+:BoardUser: as BU
+
+'Use cases are not yet fully defined, the Actor "USER", for now, acts like a wildcard
+
+Manager  -->  (FRC01: Create a Course )
+Manager -->   (FRC02: Open/Close Enrollments in Course)
+Manager -->   (FRC03: Open/Close a Course)
+Manager -->   (FRC04: Set Course Teachers)
+
+Manager -->   (FRC05: List Courses)
+Student -->   (FRC05: List Courses)
+Teacher -->   (FRC05: List Courses)
+
+Manager -->   (FRC06: Bulk Enroll Students in Course)
+Student -->   (FRC07: Request Enrollment in Course)
+Manager -->   (FRC08: Approve/Reject Enlistment in Course)
+Teacher --> (FRC09: Schedule a Class)
+Teacher --> (FRC10: Schedule of Extra Class)
+Teacher --> (FRC11: Update Schedule of Class)
+Teacher --> (FRE01: Create Exam)
+Student --> (FRE02: List Exams)
+Teacher --> (FRE03: List Course Exams)
+Student --> (FRE04: Take Exam)
+Student --> (FRE05: List Grades)
+Teacher --> (FRE06: List Course Grades)
+BU --> (FRB01: Create Board)
+BU --> (FRB02: Share Board)
+BU --> (FRB04: Create Post-it)
+BU --> (FRB05: Change Post-it)
+BU --> (FRB06: Undo Post-it Change)
+BU --> (FRB07: View Board History)
+BO --> (FRB08: Archive Board)
+BU --> (FRM01: Schedule a Meeting)
+BU --> (FRM02: Cancel Meeting)
+BU --> (FRM03: Accept/Reject Meeting)
+Sys --> (FRM04: List Participants)
+
+@enduml
