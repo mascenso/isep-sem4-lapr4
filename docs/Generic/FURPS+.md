@@ -65,6 +65,7 @@
 
 - The System must have good response speed, with minimal loading and processing times, even for large amounts of data and simultaneous access.
 - The System must be able to adapt to different traffic volumes and user growth, without compromising quality and response speed.
+- The System should be able to handle large files without slowing down or crashing.
 
 #### CPU Usage
 - The System must be lightweight and avoid heavy CPU usage.
@@ -76,6 +77,7 @@
 - The System will be used in the browser, and must be compatible with different operating systems.
 - The System must have efficient and responsive user support, with contact options by e-mail or chat.
 - The System must have detailed, up-to-date documentation, including user and developer manuals, technical and business specifications, and troubleshooting guides.
+- The System should have the ability to initialize some default data.
 
 #### Testability
 - The System's software requirements should be converted to test cases before the software is fully developed, using a Test-Driven Development approach.
@@ -97,6 +99,7 @@
 ### Implementation Constraints
 - All the software will be implemented using Java as programming language, using the best pratices of coding like camelCase for the naming of variables.
 - The user interface should be implemented using VUE, CSS and HTML.
+- The System will use the ANTLR tool for parsing and analyzing exam results.
 
 ### Interface Constraints
 - The System must be implemented in order to be available to every operational system (Browser/Virtual Machine).
