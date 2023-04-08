@@ -5,14 +5,29 @@
 	
 	<groupId>org.springframework</groupId>
 	<artifactId>gs-maven</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<version>0.1.0</version>
 
 	<properties>
+		<eapli.framework.core.version>v21.1.0-RELEASE</eapli.framework.core.version>
+		<eapli.framework.authz.version>v21.1.0-RELEASE</eapli.framework.authz.version>
+		<eapli.framework.pubsub.version>v21.1.0-RELEASE</eapli.framework.pubsub.version>
+
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>	
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
+
+	<modules>
+		<module>base.app.backoffice.console</module>
+		<module>base.app.user.console</module>
+		<module>base.app.other.console</module>
+		<module>base.app.common.console</module>
+		<module>base.app.bootstrap</module>
+		<module>base.bootstrappers</module>
+		<module>base.core</module>
+		<module>base.persistence.impl</module>
+	</modules>
 
 	<dependencies>
 		<!-- tag::junit[] -->
