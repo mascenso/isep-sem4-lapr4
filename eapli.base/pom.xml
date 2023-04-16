@@ -28,7 +28,6 @@
         <module>base.app.bootstrap</module>
         <module>base.bootstrappers</module>
         <module>base.core</module>
-        <module>base.infrastructure.application</module>
         <module>base.persistence.impl</module>
     </modules>
 
