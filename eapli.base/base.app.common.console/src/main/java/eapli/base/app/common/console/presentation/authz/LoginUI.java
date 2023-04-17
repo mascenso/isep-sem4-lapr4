@@ -23,67 +23,63 @@
  */
 package eapli.base.app.common.console.presentation.authz;
 
-import eapli.base.infrastructure.authz.CredentialHandler;
+import eapli.framework.infrastructure.authz.application.AuthenticationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
-/** 
- * UI for user login action. 
- *
- * @author nuno on 21/03/16.
+/**
+ * UI for user login action. Created by nuno on 21/03/16.
  */
 @SuppressWarnings("squid:S106")
 public class LoginUI extends AbstractUI {
 
-	private Role onlyWithThis;
-	private static final int DEFAULT_MAX_ATTEMPTS = 3;
-	private final int maxAttempts;
+    private final AuthenticationService authenticationService = AuthzRegistry.authenticationService();
 
-	private final CredentialHandler credentialHandler;
+    private Role onlyWithThis;
+    private static final int DEFAULT_MAX_ATTEMPTS = 3;
+    private final int maxAttempts;
 
-	public LoginUI(CredentialHandler credentialHandler) {
-		maxAttempts = DEFAULT_MAX_ATTEMPTS;
-		this.credentialHandler = credentialHandler;
-	}
+    public LoginUI() {
+        maxAttempts = DEFAULT_MAX_ATTEMPTS;
+    }
 
-	public LoginUI(CredentialHandler credentialHandler, final Role onlyWithThis) {
-		this.onlyWithThis = onlyWithThis;
-		maxAttempts = DEFAULT_MAX_ATTEMPTS;
-		this.credentialHandler = credentialHandler;
-	}
+    public LoginUI(final Role onlyWithThis) {
+        this.onlyWithThis = onlyWithThis;
+        maxAttempts = DEFAULT_MAX_ATTEMPTS;
+    }
 
-	public LoginUI(CredentialHandler credentialHandler, final Role onlyWithThis, final int maxAttempts) {
-		this.onlyWithThis = onlyWithThis;
-		this.maxAttempts = maxAttempts;
-		this.credentialHandler = credentialHandler;
-	}
+    public LoginUI(final Role onlyWithThis, final int maxAttempts) {
+        this.onlyWithThis = onlyWithThis;
+        this.maxAttempts = maxAttempts;
+    }
 
-	public LoginUI(CredentialHandler credentialHandler, final int maxAttempts) {
-		this.maxAttempts = maxAttempts;
-		this.credentialHandler = credentialHandler;
-	}
+    public LoginUI(final int maxAttempts) {
+        this.maxAttempts = maxAttempts;
+    }
 
-	@Override
-	protected boolean doShow() {
-		var attempt = 1;
-		while (attempt <= maxAttempts) {
-			final String userName = Console.readNonEmptyLine("Username:", "Please provide a username");
-			final String password = Console.readLine("Password:");
+    @Override
+    protected boolean doShow() {
+        int attempt = 1;
+        while (attempt <= maxAttempts) {
+            final String userName = Console.readLine("Username:");
+            final String password = Console.readLine("Password:");
 
-			if (credentialHandler.authenticated(userName, password, onlyWithThis)) {
-				return true;
-			}
-			System.out.printf("Wrong username or password. You have %d attempts left.%n%n»»»»»»»»»%n",
-					maxAttempts - attempt);
-			attempt++;
-		}
-		System.out.println("Sorry, we are unable to authenticate you. Please contact your system admnistrator.");
-		return false;
-	}
+            if (authenticationService.authenticate(userName, password, onlyWithThis).isPresent()) {
+                return true;
+            } else {
+                System.out.printf("Wrong username or password. You have %d attempts left.%n%n»»»»»»»»»%n",
+                        maxAttempts - attempt);
+            }
+            attempt++;
+        }
+        System.out.println("Sorry, we are unable to authenticate you. Please contact your system admnistrator.");
+        return false;
+    }
 
-	@Override
-	public String headline() {
-		return "Login";
-	}
+    @Override
+    public String headline() {
+        return "Login";
+    }
 }
