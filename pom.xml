@@ -29,6 +29,7 @@
 		<module>eapli.base/base.bootstrappers</module>
 		<module>eapli.base/base.core</module>
 		<module>eapli.base/base.persistence.impl</module>
+		<module>eapli.base/eCourse.util.ci</module>
 	</modules>
 
 	<dependencies>
@@ -141,6 +142,7 @@
 	</build>
 
 	<reporting>
+		<!--
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -155,6 +157,7 @@
           </reportSets>
         </plugin>
       </plugins>
+      -->
     </reporting>	
 
 </project>
