@@ -20,14 +20,28 @@
  */
 package eapli.base.persistence.impl.jpa;
 
+import eapli.base.Application;
+import eapli.framework.infrastructure.repositories.impl.jpa.JpaTransactionalRepository;
+
 /**
+ * a base class for all transactional repositories to use the same persistence
+ * unit
  *
- * Created by nuno on 21/03/16.
+ * @param <T>
+ * @param <K>
+ *
+ * @author Paulo Gandra de Sousa
  */
-class PersistenceSettings {
+/* package */ class BaseJpaRepositoryBase<T, K, I>
+        extends JpaTransactionalRepository<T, K, I> {
 
-    public static final String PERSISTENCE_UNIT_NAME = "eapli.base";
+    BaseJpaRepositoryBase(final String persistenceUnitName, final String identityFieldName) {
+        super(persistenceUnitName, Application.settings().getExtendedPersistenceProperties(),
+                identityFieldName);
+    }
 
-    private PersistenceSettings() {
+    BaseJpaRepositoryBase(final String identityFieldName) {
+        super(Application.settings().getPersistenceUnitName(),
+                Application.settings().getExtendedPersistenceProperties(), identityFieldName);
     }
 }
