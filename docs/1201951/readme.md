@@ -5,7 +5,7 @@
 
 | Sprint | Task                            |
 |--------|---------------------------------|
-| **B**  | [US 1002](../US_1002/readme.md) |
+| **B**  | [US 1002](../SPRINT%20B/US_1002/readme.md) |
 | **B**  | [US 1012](../US_1012/readme.md) |
 | **B**  | [US 3001](../US_3001/readme.md) |
 | **B**  | [US 2008](../US_2008/readme.md) |
