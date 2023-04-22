@@ -28,7 +28,8 @@ The system creates the shared board with the information provided by the user an
 2. The User selects the option to create a new shared board.
 3. The system presents a necessary information to create a shared board for the user to fill.
 4. The user fills information requested and submit.
-5. The system creates the shared board and show the user.
+5. The system creates the shared board.
+6. The system displays a status create confirmation message.
 
 #### Extensions (or Alternative flows):
 
