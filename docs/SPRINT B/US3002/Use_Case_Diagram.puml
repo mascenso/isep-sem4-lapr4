@@ -4,13 +4,13 @@
 
 
 
-actor User
-    User -down-> (Authenticates to the system)
-    (Authenticates to the system) --> (Select the option to create a Shared Board)
-    (Select the option to create a Shared Board) --> (Fill the request data and optional shares)
+actor Manager
+    Manager -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option to open and close Courses)
+    (Select the option to open and close Courses) --> (The manager chooses if wants to open or close a Course)
 
-  (Fill the request data and optional shares) --> (Save)
-  (Fill the request data and optional shares) --> (Cancel)
+  (The manager chooses if wants to open or close a Course) --> (Save)
+  (The manager chooses if wants to open or close a Course) --> (Cancel)
 
 
 @enduml
