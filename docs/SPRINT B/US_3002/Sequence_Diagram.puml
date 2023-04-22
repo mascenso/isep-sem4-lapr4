@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor User
+
+User -> CreateSharedBoardUI: Select the option to create Shared Board
+activate CreateSharedBoardUI
+CreateSharedBoardUI --> User: Requests data
+User -> CreateSharedBoardUI: Answer the resquest data
+
+control CreateSharedBoardController
+CreateSharedBoardUI -> CreateSharedBoardController: create()
+activate CreateSharedBoardController
+CreateSharedBoardUI -> CreateSharedBoardController: createSharedBoard()
+
+CreateSharedBoardController -> PersistenceContext: repositories()
+database RepositoryFactory
+PersistenceContext -> RepositoryFactory: create()
+database SharedBoardRepository
+RepositoryFactory -> SharedBoardRepository: create()
+CreateSharedBoardController -> SharedBoard: newSharedBoard = create()
+CreateSharedBoardController -> SharedBoardRepository: save(newSharedBoard)
+CreateSharedBoardController --> CreateSharedBoardUI:
+CreateSharedBoardUI --> User: Request confirm
+User -> CreateSharedBoardUI: Confirms
+CreateSharedBoardUI --> User: Shows info Shared Board created
+deactivate CreateSharedBoardController
+
+
+@enduml
