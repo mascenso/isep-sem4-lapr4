@@ -5,24 +5,24 @@ autonumber
 
 actor Manager
 
-Manager -> OpenOrCloseCoursesUI: Select the option to open or close the courses
+Manager -> OpenAndCloseCoursesUI: Select the option to open or close the courses
 
-activate OpenOrCloseCoursesUI
-control OpenOrCloseCoursesController
-OpenOrCloseCoursesUI -> OpenOrCloseCoursesController: findAll()
-activate OpenOrCloseCoursesController
+activate OpenAndCloseCoursesUI
+control OpenAndCloseCoursesController
+OpenAndCloseCoursesUI -> OpenAndCloseCoursesController: findAll()
+activate OpenAndCloseCoursesController
 
 database CoursesRepository
-OpenOrCloseCoursesController -> CoursesRepository: findAll()
+OpenAndCloseCoursesController -> CoursesRepository: findAll()
 activate CoursesRepository
-CoursesRepository --> OpenOrCloseCoursesUI: show()
+CoursesRepository --> OpenAndCloseCoursesUI: show()
 deactivate CoursesRepository
-OpenOrCloseCoursesUI --> Manager: Show available Courses
-Manager -> OpenOrCloseCoursesUI: Select the course
+OpenAndCloseCoursesUI --> Manager: Show available Courses
+Manager -> OpenAndCloseCoursesUI: Select the course
 
 
-OpenOrCloseCoursesUI -> OpenOrCloseCoursesController: updateCourse()
-OpenOrCloseCoursesController -> PersistenceContext: repositories()
+OpenAndCloseCoursesUI -> OpenAndCloseCoursesController: updateCourse()
+OpenAndCloseCoursesController -> PersistenceContext: repositories()
 activate PersistenceContext
 database RepositoryFactory
 PersistenceContext -> RepositoryFactory: update()
@@ -30,12 +30,12 @@ deactivate PersistenceContext
 activate RepositoryFactory
 RepositoryFactory --> CoursesRepository: update()
 deactivate RepositoryFactory
-OpenOrCloseCoursesController -> Courses: updateCourses() = update()
-OpenOrCloseCoursesController -> CoursesRepository: save(updateCourses)
-OpenOrCloseCoursesController --> OpenOrCloseCoursesUI
-deactivate OpenOrCloseCoursesController
-OpenOrCloseCoursesUI --> Manager: Request confirm
-Manager -> OpenOrCloseCoursesUI: Confirms
-OpenOrCloseCoursesUI --> Manager: Shows info about Course updates
+OpenAndCloseCoursesController -> Courses: updateCourses() = update()
+OpenAndCloseCoursesController -> CoursesRepository: save(updateCourses)
+OpenAndCloseCoursesController --> OpenAndCloseCoursesUI
+deactivate OpenAndCloseCoursesController
+OpenAndCloseCoursesUI --> Manager: Request confirm
+Manager -> OpenAndCloseCoursesUI: Confirms
+OpenAndCloseCoursesUI --> Manager: Shows info about Course updates
 
 @enduml

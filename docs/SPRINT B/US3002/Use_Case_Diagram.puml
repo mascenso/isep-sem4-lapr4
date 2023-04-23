@@ -2,8 +2,6 @@
 'https://plantuml.com/use-case-diagram
 
 
-
-
 actor User
     User -down-> (Authenticates to the system)
     (Authenticates to the system) --> (Select the option to create a Shared Board)
