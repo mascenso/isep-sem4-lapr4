@@ -20,7 +20,6 @@
  */
 package eapli.base.app.common.console.presentation.authz;
 
-import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
@@ -47,6 +46,6 @@ public class LoginAction implements Action {
 
     @Override
     public boolean execute() {
-        return new LoginUI(new AuthenticationCredentialHandler(), onlyWithThis).show();
+        return new LoginUI(onlyWithThis).show();
     }
 }
