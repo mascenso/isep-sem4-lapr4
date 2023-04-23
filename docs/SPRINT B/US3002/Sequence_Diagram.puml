@@ -23,6 +23,7 @@ RepositoryFactory -> SharedBoardRepository: create()
 CreateSharedBoardController -> SharedBoard: newSharedBoard = create()
 CreateSharedBoardController -> SharedBoardRepository: save(newSharedBoard)
 CreateSharedBoardController --> CreateSharedBoardUI:
+deactivate CreateSharedBoardController
 CreateSharedBoardUI --> User: Request confirm
 User -> CreateSharedBoardUI: Confirms
 CreateSharedBoardUI --> User: Shows info Shared Board created
