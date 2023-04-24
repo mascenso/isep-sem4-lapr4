@@ -51,12 +51,12 @@
 
 ### 4.4. Tests
 
-**Test 1:** *Verifies that it is not possible to create a Course without id.*
-**Test 2:** *Verifies that it is not possible to create a Course without name.*
-**Test 3:** *Verifies that it is not possible to create a Course without description.*
-**Test 4:** *Verifies that it is not possible to create a Course without edition.*
-**Test 5:** *Verifies that it is not possible to create a Course without state.*
-**Test 6:** *Verifies that it is possible to create a Course with all parameters fill.*
+**CreateCourseWithoutId:** *Verifies that it is not possible to create a Course without id.*
+**CreateCourseWithoutName:** *Verifies that it is not possible to create a Course without name.*
+**CreateCourseWithoutDescription:** *Verifies that it is not possible to create a Course without description.*
+**CreateCourseWithoutEdition:** *Verifies that it is not possible to create a Course without edition.*
+**CreateCourseWithoutState:** *Verifies that it is not possible to create a Course without state.*
+**CreateCourseWithAllParameters:** *Verifies that it is possible to create a Course with all parameters fill.*
 
 
 ```
