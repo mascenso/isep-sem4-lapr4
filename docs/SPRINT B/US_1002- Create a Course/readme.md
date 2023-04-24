@@ -31,9 +31,15 @@
 *In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
 *Rational*
 
-| Interaction ID | Question: Which class is responsible for...| Answer| Justification (with patterns)|
-|:---------------|:-------------------------------------------|:------|:-----------------------------|
-| Step 1| ... interacting with the actor? | 
+| Interaction ID | Question: Which class is responsible for... | Answer| Justification (with patterns)|
+|:---------------|:--------------------------------------------|:------|:-----------------------------|
+| Step 1| ... interacting with the actor?             | CreateCourseUI| |
+| | ... coordinating the US?                    |CreateCourseController| |
+| Step 2| Create Course?| CourseBuilder| Create a course on a valid state|
+|Step 3| Saving the course| PercistenceContext| |
+|Step 4| show course information for user| CreateCourseUI| |
+
+
 
 ### 4.1. Realization
 
