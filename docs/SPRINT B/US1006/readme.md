@@ -6,25 +6,29 @@
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies).*
+**US 1006** As {Ator} I want to list all the courses that are available to me
 
-*Example*
+    FRC05 - List Courses All users are able to execute this functionality.
 
-**US G002** As {Ator} I Want...
+É necessário o utilizador estar logado na aplicação e no menu inicial consegue listar todos os cursos existentes.
+Esta US depende da *US1002- Create Course*, só depois de os cursos serem criados é que é possivel listar.
 
-- G002.1. Blá Blá Blá ...
-
-- G002.2. Blá Blá Blá ...
-
-*Regarding this requirement we understand that it relates to...*
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+*In this section, the team should report the study/analysis/comparison 
+that was done in order to take the best design decisions for the requirement. 
+This section should also include supporting diagrams/artifacts 
+(such as domain model; use case diagrams, etc.),*
 
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
+*In this sections, the team should present the solution design that was 
+adopted to solve the requirement. This should include, at least, a diagram of the 
+realization of the functionality (e.g., sequence diagram), a class diagram 
+(presenting the classes that support the functionality), 
+the identification and rational behind the applied design 
+patterns and the specification of the main tests used to validade the functionality.*
 
 ### 4.1. Realization
 
@@ -36,7 +40,7 @@
 
 ### 4.4. Tests
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+**ShowAllCourses:** *Make sure that all courses are shown when we choose the course list option.*
 
 ```
 @Test(expected = IllegalArgumentException.class)
@@ -47,15 +51,21 @@ public void ensureNullIsNotAllowed() {
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+*In this section the team should present, if necessary, some evidencies that the 
+implementation is according to the design. It should also describe and explain other 
+important artifacts necessary to fully understand the implementation like, for instance, 
+configuration files.*
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+*It is also a best practice to include a listing (with a brief summary) 
+of the major commits regarding this requirement.*
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
+*In this section the team should describe the efforts realized in order to 
+integrate this functionality with the other parts/components of the system*
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+*It is also important to explain any scripts or instructions required to execute an 
+demonstrate this functionality*
 
 ## 7. Observations
 
