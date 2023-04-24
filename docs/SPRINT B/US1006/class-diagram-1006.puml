@@ -23,7 +23,7 @@ activate UI
         App --> Controller
            deactivate App
         Controller -> Factory: Courses()
-        Factory --> Repository:create()
+        Factory --> Repository:create ()
         Controller -> Repository: List = all()
         activate Repository
             Repository --> Controller

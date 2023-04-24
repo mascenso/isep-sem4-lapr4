@@ -2,8 +2,10 @@
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
-
+This task is to develop a new functionality to the system. 
+It is not related to a bug fix or an incomplete task from a previous sprint. 
+The team has been assigned this task for the first time.
+Is an important task to be able to list courses in the system
 ## 2. Requirements
 
 **US 1006** As {Ator} I want to list all the courses that are available to me
@@ -21,14 +23,19 @@ that was done in order to take the best design decisions for the requirement.
 This section should also include supporting diagrams/artifacts 
 (such as domain model; use case diagrams, etc.),*
 
+To design the new functionality, we conducted an analysis of the requirements, using use case diagrams and sequence diagrams. 
+We also identified the necessary classes and their relationships, creating a class diagram to represent the structure of the system.
+
 ## 4. Design
 
-*In this sections, the team should present the solution design that was 
-adopted to solve the requirement. This should include, at least, a diagram of the 
-realization of the functionality (e.g., sequence diagram), a class diagram 
-(presenting the classes that support the functionality), 
-the identification and rational behind the applied design 
-patterns and the specification of the main tests used to validade the functionality.*
+
+| Interaction ID | Question: Which class is responsible for... | Answer               | Justification (with patterns)                                                                                                        |
+|:---------------|:--------------------------------------------|:---------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?             | ListCourseUI         | UI pattern: ListCourseUI is responsible for interacting with the actor by presenting the list of courses.                            |
+|                | ... coordinating the US?                    | ListCourseController | Controller pattern: ListCourseController is responsible for coordinating the use case and invoking necessary classes.                                                                                                                                     |
+| Step 2         | ... Validate User                           | AppSettings          | Settings pattern: AppSettings is responsible for validating if the user is valid based on application settings.                                                                                               |
+| Step 3         | .. return list of courses                   | CourseRepository     | Repository pattern: CourseRepository is responsible for retrieving the list of courses from the database.                                                                                                                                     |
+| Step 4         | .. show the course to the user              | ListCourseUI         | UI pattern: ListCourseUI is responsible for presenting the courses to the user.                                                                                                                                     |
 
 ### 4.1. Realization
 
