@@ -23,6 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation;
 
+import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
 import eapli.base.app.backoffice.console.presentation.authz.AddUserUI;
@@ -97,11 +98,16 @@ public class MainMenu extends AbstractUI {
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
-    private static final int SETTINGS_OPTION = 4;
+    private static final int SETTINGS_OPTION = 3;
+    private static final int COURSE_OPTION = 4;
     private static final int DISH_OPTION = 5;
     private static final int TRACEABILITY_OPTION = 6;
     private static final int MEALS_OPTION = 7;
     private static final int REPORTING_DISHES_OPTION = 8;
+
+    //COURSE
+
+    private static final int ADD_NEW_COURSE =1;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -151,7 +157,10 @@ public class MainMenu extends AbstractUI {
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
-
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)) {
+            final Menu courseMenu = buildCourseMenu();
+            mainMenu.addSubMenu(COURSE_OPTION, courseMenu);
+        }
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
@@ -181,6 +190,12 @@ public class MainMenu extends AbstractUI {
                 new AcceptRefuseSignupRequestAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
+        return menu;
+    }
+
+    private Menu buildCourseMenu(){
+        final Menu menu = new Menu("Course >");
+        menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
         return menu;
     }
 
