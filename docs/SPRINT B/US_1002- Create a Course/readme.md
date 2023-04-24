@@ -1,24 +1,15 @@
-# US 3004
-
-*This is an example template*
+# US 1002 As Manager, I want to create courses
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+*FRC01 - Create Course Different editions of a course are to be considered different courses (e.g., Intro-Math-Sem01, Intro-Math-Sem02). Only managers are able to execute this functionality.*
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies).*
+**US 1002** As Manager, I Want to create courses
 
-*Example*
-
-**US G002** As {Ator} I Want...
-
-- G002.1. Blá Blá Blá ...
-
-- G002.2. Blá Blá Blá ...
-
-*Regarding this requirement we understand that it relates to...*
+- US 1002.1. -Create Course Different editions of a course are to be considered different courses (e.g., Intro-Math-Sem01, Intro-Math-Sem02). 
+                Only managers are able to execute this functionality.
 
 ## 3. Analysis
 
@@ -32,13 +23,19 @@
 
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
+![a class diagram](sequence-diagram-1002.svg "A Class Diagram")
 
 ### 4.3. Applied Patterns
 
 ### 4.4. Tests
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+**Test 1:** *Verifies that it is not possible to create a Course without id.*
+**Test 2:** *Verifies that it is not possible to create a Course without name.*
+**Test 3:** *Verifies that it is not possible to create a Course without description.*
+**Test 4:** *Verifies that it is not possible to create a Course without edition.*
+**Test 5:** *Verifies that it is not possible to create a Course without state.*
+**Test 6:** *Verifies that it is possible to create a Course with all parameters fill.*
+
 
 ```
 @Test(expected = IllegalArgumentException.class)
