@@ -1,4 +1,4 @@
-# US 1001
+# US 2001 - As teacher, I want to create/update an exam.
 
 *This is an example template*
 
