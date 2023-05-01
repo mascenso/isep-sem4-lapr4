@@ -15,9 +15,31 @@
 
 *In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
 
+**input Data:**
+* Typed Data:
+    * id
+    * name
+    * description
+    * state
+    * edition
+  
+**Output Data:**
+* Course is created and save on repository
+
 ## 4. Design
 
 *In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
+*Rational*
+
+| Interaction ID | Question: Which class is responsible for... | Answer| Justification (with patterns)|
+|:---------------|:--------------------------------------------|:------|:-----------------------------|
+| Step 1| ... interacting with the actor?             | CreateCourseUI| |
+| | ... coordinating the US?                    |CreateCourseController| |
+| Step 2| Create Course?| CourseBuilder| Create a course on a valid state|
+|Step 3| Saving the course| PercistenceContext| |
+|Step 4| show course information for user| CreateCourseUI| |
+
+
 
 ### 4.1. Realization
 
@@ -29,12 +51,12 @@
 
 ### 4.4. Tests
 
-**Test 1:** *Verifies that it is not possible to create a Course without id.*
-**Test 2:** *Verifies that it is not possible to create a Course without name.*
-**Test 3:** *Verifies that it is not possible to create a Course without description.*
-**Test 4:** *Verifies that it is not possible to create a Course without edition.*
-**Test 5:** *Verifies that it is not possible to create a Course without state.*
-**Test 6:** *Verifies that it is possible to create a Course with all parameters fill.*
+**CreateCourseWithoutId:** *Verifies that it is not possible to create a Course without id.*
+**CreateCourseWithoutName:** *Verifies that it is not possible to create a Course without name.*
+**CreateCourseWithoutDescription:** *Verifies that it is not possible to create a Course without description.*
+**CreateCourseWithoutEdition:** *Verifies that it is not possible to create a Course without edition.*
+**CreateCourseWithoutState:** *Verifies that it is not possible to create a Course without state.*
+**CreateCourseWithAllParameters:** *Verifies that it is possible to create a Course with all parameters fill.*
 
 
 ```
