@@ -1,0 +1,15 @@
+@startuml
+actor User as Actor
+participant ListCourseUI as UI <<presentation>>
+participant ListCourseController as Controller <<aplication>>
+participant Course as Domain <<domain>>
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database CourseRepository as Repository <<repository>>
+
+Actor -> UI: Show()
+UI -> UI:doShow()
+
+
+
+@enduml
