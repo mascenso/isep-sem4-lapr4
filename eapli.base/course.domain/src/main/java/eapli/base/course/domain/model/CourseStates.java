@@ -1,4 +1,4 @@
-package eapli.base.course.domain;
+package eapli.base.course.domain.model;
 
 public final class CourseStates {
 
