@@ -13,5 +13,13 @@
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+    <dependencies>
+        <dependency>
+            <groupId>org.bitbucket.pag_isep.eapliframework</groupId>
+            <artifactId>eapli.framework.core</artifactId>
+            <version>v21.2.0-RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
 </project>
