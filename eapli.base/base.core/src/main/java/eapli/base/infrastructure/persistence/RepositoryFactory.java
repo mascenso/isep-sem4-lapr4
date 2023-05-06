@@ -84,6 +84,6 @@ public interface RepositoryFactory {
      */
     SignupRequestRepository signupRequests();
 
-    /*SharedBoardRepository sharedBoards();*/
+    SharedBoardRepository sharedBoards();
 
 }
