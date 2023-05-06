@@ -65,10 +65,10 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 		return new JpaSignupRequestRepository(Application.settings().getPersistenceUnitName());
 	}
 
-	/*@Override
+	@Override
 	public JpaSharedBoardRepository sharedBoards() {
 		return new JpaSharedBoardRepository(Application.settings().getPersistenceUnitName());
-	}*/
+	}
 
 
 	@Override
