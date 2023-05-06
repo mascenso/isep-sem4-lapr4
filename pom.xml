@@ -32,6 +32,8 @@
 		<module>eapli.base/eCourse.util.ci</module>
 		<module>eapli.base/course.application</module>
 		<module>eapli.base/course.domain</module>
+		<module>eapli.base/Lesson.application</module>
+		<module>eapli.base/Lesson.domain</module>
 	</modules>
 
 	<dependencies>
