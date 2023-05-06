@@ -23,7 +23,6 @@
  */
 package eapli.base.app.common.console.presentation.authz;
 
-import eapli.base.sharedBoard.domain.SharedBoardUI;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -62,7 +61,6 @@ public class MyUserMenu extends Menu {
             addItem(MenuItem.of(CHANGE_PASSWORD_OPTION, "Change password", new ChangePasswordUI()::show));
             addItem(MenuItem.of(LOGIN_OPTION, "Change user", new LoginUI(onlyWithThis)::show));
             addItem(MenuItem.of(LOGOUT_OPTION, "Logout", new LogoutUI()::show));
-            addItem(MenuItem.of(SHARED_BOARDS, "Shared Boards", new SharedBoardUI()::doShow));
         } else {
             addItem(MenuItem.of(LOGIN_OPTION, "Login", new LoginUI(onlyWithThis)::show));
         }
