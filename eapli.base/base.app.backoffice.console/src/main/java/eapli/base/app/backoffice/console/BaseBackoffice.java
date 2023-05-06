@@ -36,6 +36,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
+
 /**
  *
  * @author Paulo Gandra Sousa
@@ -57,7 +58,15 @@ public final class BaseBackoffice extends BaseApplication {
 		AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
 				new PlainTextEncoder());
 
+
+
+		//SharedBoard123 sharedBoard123 = new SharedBoard123();
+		//sharedBoard123.addSharedBoard("SharedBoard_1");
+
+
 		new BaseBackoffice().run(args);
+
+
 	}
 
 	@Override
@@ -86,4 +95,9 @@ public final class BaseBackoffice extends BaseApplication {
 		dispatcher.subscribe(new NewUserRegisteredFromSignupWatchDog(), NewUserRegisteredFromSignupEvent.class);
 		dispatcher.subscribe(new SignupAcceptedWatchDog(), SignupAcceptedEvent.class);
 	}
+
+
+
+
+
 }

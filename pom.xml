@@ -30,6 +30,14 @@
 		<module>eapli.base/base.core</module>
 		<module>eapli.base/base.persistence.impl</module>
 		<module>eapli.base/eCourse.util.ci</module>
+<<<<<<< HEAD
+		<module>sharedBoard</module>
+=======
+		<module>eapli.base/course.application</module>
+		<module>eapli.base/course.domain</module>
+		<module>eapli.base/Lesson.application</module>
+		<module>eapli.base/Lesson.domain</module>
+>>>>>>> 7d9989b30d320fab2f9097558f99e82aeb9da50e
 	</modules>
 
 	<dependencies>

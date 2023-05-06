@@ -23,12 +23,14 @@
  */
 package eapli.base.app.common.console.presentation.authz;
 
+import eapli.base.sharedBoard.domain.SharedBoardUI;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+//import eapli.base.shared_board.domain.SharedBoardUI;
 
 public class MyUserMenu extends Menu {
 
@@ -40,6 +42,8 @@ public class MyUserMenu extends Menu {
     private static final int CHANGE_PASSWORD_OPTION = 1;
     private static final int LOGIN_OPTION = 2;
     private static final int LOGOUT_OPTION = 3;
+
+    private static final int SHARED_BOARDS = 4;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -58,6 +62,7 @@ public class MyUserMenu extends Menu {
             addItem(MenuItem.of(CHANGE_PASSWORD_OPTION, "Change password", new ChangePasswordUI()::show));
             addItem(MenuItem.of(LOGIN_OPTION, "Change user", new LoginUI(onlyWithThis)::show));
             addItem(MenuItem.of(LOGOUT_OPTION, "Logout", new LogoutUI()::show));
+            addItem(MenuItem.of(SHARED_BOARDS, "Shared Boards", new SharedBoardUI()::doShow));
         } else {
             addItem(MenuItem.of(LOGIN_OPTION, "Login", new LoginUI(onlyWithThis)::show));
         }
