@@ -24,7 +24,7 @@
 package eapli.base.app.backoffice.console.presentation;
 
 import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
-import eapli.base.app.backoffice.console.presentation.sharedboard.CreateSharedBoardUI;
+import eapli.base.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
 import eapli.base.app.backoffice.console.presentation.authz.AddUserUI;
@@ -216,9 +216,9 @@ public class MainMenu extends AbstractUI {
     private Menu buildSharedBoardMenu() {
         final Menu menu = new Menu("Boards >");
 
-        menu.addItem(CREATE_BOARD_OPTION, "Create board", new CreateSharedBoardUI()::show);
-        menu.addItem(OPEN_BOARD_OPTION, "Open Board", new CreateSharedBoardUI()::show);
-        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new CreateSharedBoardUI()::show);
+        menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
+        menu.addItem(OPEN_BOARD_OPTION, "Open Board", new SharedBoardUI()::show);
+        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new SharedBoardUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
