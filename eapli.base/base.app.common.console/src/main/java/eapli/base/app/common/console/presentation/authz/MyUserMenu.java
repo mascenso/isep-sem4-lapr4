@@ -29,7 +29,6 @@ import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Role;
-//import eapli.base.shared_board.domain.SharedBoardUI;
 
 public class MyUserMenu extends Menu {
 

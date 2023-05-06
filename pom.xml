@@ -36,7 +36,7 @@
 		<module>eapli.base/Lesson.application</module>
 		<module>eapli.base/Lesson.domain</module>
 
-	</modules>
+    </modules>
 
 	<dependencies>
 		<dependency>
