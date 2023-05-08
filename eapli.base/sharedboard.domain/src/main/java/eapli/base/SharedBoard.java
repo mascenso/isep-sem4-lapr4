@@ -9,12 +9,21 @@ import javax.persistence.*;
 @Entity
 public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idBoard;
-
     @EmbeddedId
     private SharedBoardTitle title;
+
+    @Embedded
+    private SharedBoardColumnAndRow position;
+
+    @Embeddable
+    public class SharedBoardPosition {
+
+        @Column(name = "numberColumns")
+        private int column;
+
+        @Column(name = "numberRows")
+        private int row;
+    }
 
     @OneToOne()
     private SystemUser owner;
@@ -22,16 +31,19 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @Column
     private boolean archive;
 
-    public SharedBoard(){
 
-
-    }
-    public SharedBoard(final SharedBoardTitle title, boolean archive, final SystemUser owner) {
-        if (title == null || owner == null) {
+    public SharedBoard(final SharedBoardTitle title, boolean archive, final SystemUser owner, final SharedBoardColumnAndRow position) {
+        if (title == null || owner == null || position == null) {
             throw new IllegalArgumentException();
         }
         this.title = title;
         this.owner = owner;
+        this.archive = archive;
+        this.position = position;
+    }
+
+    protected SharedBoard() {
+
     }
 
     public SharedBoardTitle getTitle(){
@@ -77,4 +89,29 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     public boolean isArchive(){
         return true;
     }
+
+    public SharedBoardColumnAndRow getPosition() {
+        return position;
+    }
+
+    public void setPosition(SharedBoardColumnAndRow position) {
+        this.position = position;
+    }
+    
+    /*public String valueAtPosition( int column, int row){
+        if (column >= position.getNumberColumns() && column < position.getNumberColumns() + column && row >= position.getNumberRows() && row < position.getNumberRows() + column){
+            String[][] data = new String[column][row];
+            return data[column - position.getNumberColumns()][row - position.getNumberRows()];
+        } else {
+            throw new IllegalArgumentException("Position is out of bounds");
+        }
+    }
+    
+    public void showSharedBoard(){
+        for (int column = 1; column <= position.getNumberColumns(); column++){
+            for (int row = 1; row <= position.getNumberRows(); row++){
+                System.out.println();
+            }
+        }
+    }*/
 }

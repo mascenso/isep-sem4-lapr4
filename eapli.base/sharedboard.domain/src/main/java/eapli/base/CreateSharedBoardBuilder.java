@@ -8,6 +8,8 @@ public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
 
     private SharedBoardTitle title;
 
+    private SharedBoardColumnAndRow position;
+
     private boolean archive;
 
     private SystemUser owner;
@@ -16,6 +18,12 @@ public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
         this.title = new SharedBoardTitle(title);
         return this;
     }
+
+    public CreateSharedBoardBuilder withPosition(final SharedBoardColumnAndRow position){
+        this.position = position;
+        return this;
+    }
+
 
     public CreateSharedBoardBuilder withArchive(boolean archive){
         this.archive = archive;
@@ -30,7 +38,7 @@ public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
 
     @Override
     public SharedBoard build() {
-        return new SharedBoard(this.title, this.archive, this.owner);
+        return new SharedBoard(this.title, this.archive, this.owner, this.position);
 
     }
 
