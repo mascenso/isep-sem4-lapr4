@@ -33,6 +33,7 @@ public class CreateSharedBoardController {
                 .withOwner(user.get())
                 .build();
         PersistenceContext.repositories().sharedBoards().save(createSharedBoard);
+
     }
 
 
