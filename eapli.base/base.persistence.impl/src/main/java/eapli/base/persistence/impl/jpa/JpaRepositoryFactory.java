@@ -66,6 +66,12 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
+	public JpaSharedBoardRepository sharedBoards() {
+		return new JpaSharedBoardRepository(Application.settings().getPersistenceUnitName());
+	}
+
+
+	@Override
 	public TransactionalContext newTransactionalContext() {
 		return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),
 				Application.settings().getExtendedPersistenceProperties());

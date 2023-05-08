@@ -1,0 +1,41 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Manager
+
+Manager -> OpenAndCloseCoursesUI: Select the option to open or close the courses
+
+activate OpenAndCloseCoursesUI
+control OpenAndCloseCoursesController
+OpenAndCloseCoursesUI -> OpenAndCloseCoursesController: findAll()
+activate OpenAndCloseCoursesController
+
+database CoursesRepository
+OpenAndCloseCoursesController -> CoursesRepository: findAll()
+activate CoursesRepository
+CoursesRepository --> OpenAndCloseCoursesUI: show()
+deactivate CoursesRepository
+OpenAndCloseCoursesUI --> Manager: Show available Courses
+Manager -> OpenAndCloseCoursesUI: Select the course
+
+
+OpenAndCloseCoursesUI -> OpenAndCloseCoursesController: updateCourse()
+OpenAndCloseCoursesController -> PersistenceContext: repositories()
+activate PersistenceContext
+database RepositoryFactory
+PersistenceContext -> RepositoryFactory: update()
+deactivate PersistenceContext
+activate RepositoryFactory
+RepositoryFactory --> CoursesRepository: update()
+deactivate RepositoryFactory
+OpenAndCloseCoursesController -> Courses: updateCourses() = update()
+OpenAndCloseCoursesController -> CoursesRepository: save(updateCourses)
+OpenAndCloseCoursesController --> OpenAndCloseCoursesUI
+deactivate OpenAndCloseCoursesController
+OpenAndCloseCoursesUI --> Manager: Request confirm
+Manager -> OpenAndCloseCoursesUI: Confirms
+OpenAndCloseCoursesUI --> Manager: Shows info about Course updates
+
+@enduml

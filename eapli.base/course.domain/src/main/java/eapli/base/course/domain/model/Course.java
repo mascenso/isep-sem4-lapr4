@@ -6,22 +6,27 @@ import eapli.framework.general.domain.model.Designation;
 import eapli.framework.identities.IdentityGenerators;
 import eapli.framework.validations.Preconditions;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Course implements AggregateRoot<String> {
 
     private Designation name;
-
-    private IdentityGenerators id;
 
     private Description description;
 
     private CourseEdition edition;
 
     private CourseStates state;
-    protected Course (final Designation name, final IdentityGenerators id, final Description description, final CourseEdition edition, CourseStates state){
-        Preconditions.noneNull(name, id,description,edition,state);
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idBoard;
+    protected Course (final Designation name, final Description description, final CourseEdition edition, CourseStates state){
+        Preconditions.noneNull(name,description,edition,state);
 
         this.name = name;
-        this.id = id;
         this.edition = edition;
         this.state= state;
         this.description = description;
@@ -32,8 +37,6 @@ public class Course implements AggregateRoot<String> {
     }
 
     public Designation designation (){return name;}
-
-    public IdentityGenerators id (){return id;}
 
     public Description description (){return description;}
 
