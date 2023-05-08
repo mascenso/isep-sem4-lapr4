@@ -23,6 +23,8 @@
  */
 package eapli.base.app.backoffice.console.presentation;
 
+import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
+import eapli.base.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
 import eapli.base.app.backoffice.console.presentation.authz.AddUserUI;
@@ -97,15 +99,26 @@ public class MainMenu extends AbstractUI {
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
-    private static final int SETTINGS_OPTION = 4;
-    private static final int DISH_OPTION = 5;
+    private static final int SETTINGS_OPTION = 3;
+    private static final int COURSE_OPTION = 4;
+    private static final int SHAREDBOARD_OPTION = 5;
     private static final int TRACEABILITY_OPTION = 6;
     private static final int MEALS_OPTION = 7;
     private static final int REPORTING_DISHES_OPTION = 8;
 
+    //COURSE
+
+    private static final int ADD_NEW_COURSE =1;
+
     private static final String SEPARATOR_LABEL = "--------------";
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
+
+    //SHAREDBOARD
+    private static final int CREATE_BOARD_OPTION = 1;
+    private static final int OPEN_BOARD_OPTION = 2;
+    private static final int LIST_BOARDS_OPTION = 3;
+    private static final int ARCHIVE_BOARDS_OPTION = 4;
 
     @Override
     public boolean show() {
@@ -145,13 +158,23 @@ public class MainMenu extends AbstractUI {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
+
+
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)) {
             final Menu usersMenu = buildUsersMenu();
             mainMenu.addSubMenu(USERS_OPTION, usersMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)) {
+            final Menu courseMenu = buildCourseMenu();
+            mainMenu.addSubMenu(COURSE_OPTION, courseMenu);
+        }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)){
+            final Menu sharedBoardMenu = buildSharedBoardMenu();
+            mainMenu.addSubMenu(SHAREDBOARD_OPTION, sharedBoardMenu);
+        }
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
@@ -179,6 +202,23 @@ public class MainMenu extends AbstractUI {
         menu.addItem(DEACTIVATE_USER_OPTION, "Deactivate User", new DeactivateUserAction());
         menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
                 new AcceptRefuseSignupRequestAction());
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildCourseMenu(){
+        final Menu menu = new Menu("Course >");
+        menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
+        return menu;
+    }
+
+    private Menu buildSharedBoardMenu() {
+        final Menu menu = new Menu("Boards >");
+
+        menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
+        menu.addItem(OPEN_BOARD_OPTION, "Open Board", new SharedBoardUI()::show);
+        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new SharedBoardUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

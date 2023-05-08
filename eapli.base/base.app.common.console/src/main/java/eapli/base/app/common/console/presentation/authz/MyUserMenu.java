@@ -41,6 +41,8 @@ public class MyUserMenu extends Menu {
     private static final int LOGIN_OPTION = 2;
     private static final int LOGOUT_OPTION = 3;
 
+    private static final int SHARED_BOARDS = 4;
+
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
     public MyUserMenu() {
