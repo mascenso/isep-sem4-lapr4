@@ -23,6 +23,7 @@ package eapli.base.infrastructure.persistence;
 import eapli.base.SharedBoardRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
+import eapli.base.repositories.CourseRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
@@ -85,5 +86,7 @@ public interface RepositoryFactory {
     SignupRequestRepository signupRequests();
 
     SharedBoardRepository sharedBoards();
+
+    CourseRepository courses();
 
 }
