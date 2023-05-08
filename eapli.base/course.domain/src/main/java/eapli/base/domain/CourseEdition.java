@@ -1,9 +1,18 @@
-package eapli.base.course.domain.model;
+package eapli.base.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.validations.Preconditions;
 
-public class CourseEdition {
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
 
+@Embeddable
+public class CourseEdition {
+    @Column(
+            name = "Edition"
+    )
+    @XmlAttribute
+    @JsonProperty("Edition")
     private final String edition;
 
     protected CourseEdition(final String yearEdition){this.edition = yearEdition;}

@@ -4,6 +4,7 @@ participant CreateCourseUI as UI <<presentation>>
 participant CreateCourseController as Controller <<aplication>>
 participant CourseBuilder as Builder <<builder>>
 participant Course as Domain <<domain>>
+participant CourseStates as DomainState <<domain>>
 participant PersistenceContext as Persistence <<persistence>>
 participant RepositoryFactory as Factory <<factory>>
 database CourseRepository as Repository <<repository>>
@@ -14,6 +15,10 @@ activate UI
     UI --> Actor: Ask course information
     Actor --> UI: id, name, description,edition
 
+    UI -> Controller: getCourseStates
+    Controller -> DomainState: getCourseStates
+    DomainState--> Controller
+    Controller--> UI
     loop option !=0
         UI --> Actor: Show list/n of states
         Actor --> UI: State type
@@ -28,7 +33,7 @@ activate UI
         note right of Controller: Set the rest of the information
         Controller -> Builder: CreateCourse()
         activate Builder
-            Builder -> Domain: create (id,name\ndescription,state,edition)
+            Builder -> Domain: create name\ndescription,state,edition)
             Domain -> Builder: Course
             Builder -> Controller: Course
         deactivate builder

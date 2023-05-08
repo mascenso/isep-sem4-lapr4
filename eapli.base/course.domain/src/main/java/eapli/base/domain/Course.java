@@ -1,28 +1,33 @@
-package eapli.base.course.domain.model;
+package eapli.base.domain;
 
+import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
-import eapli.framework.identities.IdentityGenerators;
 import eapli.framework.validations.Preconditions;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-public class Course implements AggregateRoot<String> {
-
-    private Designation name;
-
-    private Description description;
-
-    private CourseEdition edition;
-
-    private CourseStates state;
+@Entity
+public class Course implements AggregateRoot<Designation> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idBoard;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idCourse;
+
+    @Embedded
+    private Designation name;
+
+    @Embedded
+    private Description description;
+
+    @Embedded
+    private CourseEdition edition;
+
+    @Embedded
+    private CourseStates state;
+
     protected Course (final Designation name, final Description description, final CourseEdition edition, CourseStates state){
         Preconditions.noneNull(name,description,edition,state);
 
@@ -50,7 +55,7 @@ public class Course implements AggregateRoot<String> {
     }
 
     @Override
-    public String identity() {
-        return null;
+    public Designation identity() {
+        return name;
     }
 }
