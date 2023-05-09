@@ -24,6 +24,7 @@
 package eapli.base.app.backoffice.console.presentation;
 
 import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
+import eapli.base.app.backoffice.console.presentation.exam.CreateUpdateExamUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
@@ -102,7 +103,7 @@ public class MainMenu extends AbstractUI {
     private static final int SETTINGS_OPTION = 3;
     private static final int COURSE_OPTION = 4;
     private static final int SHAREDBOARD_OPTION = 5;
-    private static final int TRACEABILITY_OPTION = 6;
+    private static final int EXAM_OPTION = 6;
     private static final int MEALS_OPTION = 7;
     private static final int REPORTING_DISHES_OPTION = 8;
 
@@ -113,6 +114,11 @@ public class MainMenu extends AbstractUI {
     private static final String SEPARATOR_LABEL = "--------------";
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
+
+    // EXAM
+
+    private static final int ADD_NEW_EXAM =1;
+    private static final int UPDATE_EXAM =2;
 
     //SHAREDBOARD
     private static final int CREATE_BOARD_OPTION = 1;
@@ -171,6 +177,11 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(COURSE_OPTION, courseMenu);
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.TEACHER)) {
+            final Menu examMenu = buildExamMenu();
+            mainMenu.addSubMenu(EXAM_OPTION, examMenu);
+        }
+
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)){
             final Menu sharedBoardMenu = buildSharedBoardMenu();
             mainMenu.addSubMenu(SHAREDBOARD_OPTION, sharedBoardMenu);
@@ -213,6 +224,12 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
+    private Menu buildExamMenu(){
+        final Menu menu = new Menu("Exam >");
+        menu.addItem(ADD_NEW_EXAM, "Create Exam", new CreateUpdateExamUI()::show);
+        menu.addItem(UPDATE_EXAM, "Update Exam", new CreateUpdateExamUI()::show);
+        return menu;
+    }
     private Menu buildSharedBoardMenu() {
         final Menu menu = new Menu("Boards >");
 
