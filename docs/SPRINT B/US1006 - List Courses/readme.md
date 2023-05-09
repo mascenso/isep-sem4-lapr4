@@ -41,7 +41,7 @@ We also identified the necessary classes and their relationships, creating a cla
 
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-1006.svg "A Class Diagram")
+![a class diagram](sd-1006.png "A SD Diagram")
 
 ### 4.3. Applied Patterns
 
