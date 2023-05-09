@@ -1,4 +1,4 @@
-package eapli.base.lesson.domain;
+package eapli.base.lesson.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
