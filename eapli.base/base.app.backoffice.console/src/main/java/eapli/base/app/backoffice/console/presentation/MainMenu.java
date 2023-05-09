@@ -222,7 +222,7 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
         menu.addItem(OPEN_BOARD_OPTION, "Select Board", new ListSharedBoardUI()::show);
-        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new SharedBoardUI()::show);
+        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
         //menu.addItem(LIST_BOARDS_OPTION, "Show Cells", new shared);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

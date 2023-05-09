@@ -17,14 +17,6 @@ public class ListSharedBoardController {
 
     SharedBoardRepository sharedBoardRepository;
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private SessionBuilder<SessionBuilder> sessionFactory;
-
-    public List<SharedBoard> getAllSharedBoards() {
-        try (Session session = sessionFactory.openSession()) {
-            Query<SharedBoard> query = session.createQuery("FROM SharedBoard", SharedBoard.class);
-            return query.getResultList();
-        }
-    }
 
     public Iterable<SharedBoard> listBoardsByUser() {
         authz.session().map(s -> s.authenticatedUser().identity());

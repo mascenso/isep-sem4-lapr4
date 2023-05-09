@@ -47,7 +47,7 @@ public class ListSharedBoardUI extends AbstractListUI {
 
     @Override
     protected String listHeader() {
-        return String.format("#  %-50s%-30s%-30s", "Title", "Owner", "Archive");
+        return String.format("#  %-30s%-20s%-20s%-50s%-20s", "Title", "NumberRows", "NumberColumns", "Owner", "Archive");
     }
 
 

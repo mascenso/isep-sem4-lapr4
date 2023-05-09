@@ -23,7 +23,7 @@
         <dependency>
             <groupId>eapli.base</groupId>
             <artifactId>sharedboard.domain</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.4.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

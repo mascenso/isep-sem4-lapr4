@@ -5,6 +5,8 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
@@ -15,7 +17,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @Embedded
     private SharedBoardColumnAndRow position;
 
-    @Embeddable
+   /* @Embeddable
     public class SharedBoardPosition {
 
         @Column(name = "numberColumns")
@@ -23,16 +25,25 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
         @Column(name = "numberRows")
         private int row;
-    }
+    }*/
 
-    @OneToOne()
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "SHARED_BOARD_TITLE")
+    private List<Colunas> colunas;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "SHARED_BOARD_TITLE")
+    private List<Linhas> linhas;
+
+    @ManyToOne
+    @JoinColumn()
     private SystemUser owner;
 
     @Column
     private boolean archive;
 
 
-    public SharedBoard(final SharedBoardTitle title, boolean archive, final SystemUser owner, final SharedBoardColumnAndRow position) {
+    public SharedBoard(final SharedBoardTitle title, boolean archive, final SystemUser owner, final SharedBoardColumnAndRow position, List<Colunas> columns, List<Linhas> rows) {
         if (title == null || owner == null || position == null) {
             throw new IllegalArgumentException();
         }
@@ -40,6 +51,8 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         this.owner = owner;
         this.archive = archive;
         this.position = position;
+        this.colunas = columns;
+        this.linhas = rows;
     }
 
     protected SharedBoard() {
@@ -56,6 +69,22 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
     public boolean getArchive(){
         return archive;
+    }
+
+    public List<Colunas> getColunas() {
+        return colunas;
+    }
+
+    public void setColunas(List<Colunas> colunas) {
+        this.colunas = colunas;
+    }
+
+    public List<Linhas> getLinhas() {
+        return linhas;
+    }
+
+    public void setLinhas(List<Linhas> linhas) {
+        this.linhas = linhas;
     }
 
     public void updateArchive(boolean archive) {
