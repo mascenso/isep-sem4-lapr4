@@ -1,5 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
+import eapli.base.Application;
 import eapli.base.lesson.domain.model.RecurringLesson;
 import eapli.base.lesson.domain.repositories.RecurringLessonRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -11,16 +12,11 @@ import java.util.Optional;
 
 public class JpaRecurringLessonRepository extends JpaAutoTxRepository<RecurringLesson, RecurringLesson, RecurringLesson> implements RecurringLessonRepository {
 
-    public JpaRecurringLessonRepository(String persistenceUnitName, String identityFieldName) {
-        super(persistenceUnitName, identityFieldName);
-    }
+    public JpaRecurringLessonRepository(final TransactionalContext autoTx) { super(autoTx, "LessonTitle");}
 
-    public JpaRecurringLessonRepository(String persistenceUnitName, Map properties, String identityFieldName) {
-        super(persistenceUnitName, properties, identityFieldName);
-    }
-
-    public JpaRecurringLessonRepository(TransactionalContext tx, String identityFieldName) {
-        super(tx, identityFieldName);
+    public JpaRecurringLessonRepository(final String puname) {
+        super(puname, Application.settings().getExtendedPersistenceProperties(),
+                "LessonTitle");
     }
 
     @Override
