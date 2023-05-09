@@ -29,6 +29,8 @@ We also identified the necessary classes and their relationships, creating a cla
 ## 4. Design
 
 
+
+
 | Interaction ID | Question: Which class is responsible for... | Answer               | Justification (with patterns)                                                                                                        |
 |:---------------|:--------------------------------------------|:---------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
 | Step 1         | ... interacting with the actor?             | ListCourseUI         | UI pattern: ListCourseUI is responsible for interacting with the actor by presenting the list of courses.                            |
