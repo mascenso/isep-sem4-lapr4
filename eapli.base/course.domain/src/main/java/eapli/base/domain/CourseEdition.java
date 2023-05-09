@@ -24,4 +24,8 @@ public class CourseEdition {
         return new CourseEdition(yearEdition);
     }
 
+    @Override
+    public String toString() {
+        return edition ;
+    }
 }

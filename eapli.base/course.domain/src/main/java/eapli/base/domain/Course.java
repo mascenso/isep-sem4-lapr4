@@ -51,7 +51,20 @@ public class Course implements AggregateRoot<Designation> {
 
     @Override
     public boolean sameAs(Object other) {
-        return false;
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof Course)) {
+            return false;
+        }
+
+        final Course otherCourse = (Course) other;
+
+        return name.equals(otherCourse.name)
+                && description.equals(otherCourse.description)
+                && edition.equals(otherCourse.edition)
+                && state.equals(otherCourse.state);
     }
 
     @Override
