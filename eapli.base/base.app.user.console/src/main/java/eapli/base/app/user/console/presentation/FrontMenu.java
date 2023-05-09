@@ -25,7 +25,6 @@ package eapli.base.app.user.console.presentation;
 
 import eapli.base.app.common.console.presentation.authz.LoginUI;
 import eapli.base.app.user.console.presentation.myuser.SignupRequestAction;
-import eapli.base.infrastructure.authz.AuthenticationCredentialHandler;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.ChainedAction;
 import eapli.framework.actions.menu.Menu;
@@ -57,7 +56,7 @@ public class FrontMenu extends AbstractUI {
     @Override
     public boolean doShow() {
         final Menu menu = new Menu();
-        menu.addItem(LOGIN_OPTION, "Login", new ChainedAction(new LoginUI(new AuthenticationCredentialHandler(), 
+        menu.addItem(LOGIN_OPTION, "Login", new ChainedAction(new LoginUI(
                 BaseRoles.CLIENT_USER)::show, () -> {
             new MainMenu().mainLoop();
             return true;

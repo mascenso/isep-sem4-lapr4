@@ -1,0 +1,19 @@
+@startuml
+
+class OpenCloseEnrollmentUI {
+}
+
+class openCloseEnrollmentController {
+}
+
+class OpenCloseEnrollmentRepository {
+}
+
+class Course {
+}
+
+OpenCloseEnrollmentUI --> openCloseEnrollmentController: uses
+openCloseEnrollmentController --> OpenCloseEnrollmentRepository: uses the repository
+openCloseEnrollmentController --> Course: Changes status
+
+@enduml

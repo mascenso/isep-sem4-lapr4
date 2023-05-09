@@ -1,0 +1,97 @@
+@startuml
+
+autoactivate on
+
+actor Teacher
+participant "Create/UpdateExamUI" as UI
+participant "Create/UpdateExamController" as EC
+participant "PersistenceContext" as PC
+participant "RepositoryFactory" as RF
+participant "Builder" as B
+participant "SequenceSection" as SQ
+participant "Header" as H
+participant "Question" as Q
+participant "Exam" as E
+database "ExamRepository" as ER
+database "QuestionRepository" as QR
+
+
+alt Create Exam
+Teacher -> UI: create exam
+UI -> EC: create
+UI --> Teacher: Ask sequence section information
+
+Loop Add Section
+Teacher->UI:Add section to exam
+UI->EC: newSQ=createSection(sectionNumber,decription,numberOfQuestions)
+EC->SQ: newSQ=createSection(sectionNumber,decription,numberOfQuestions)
+
+Loop Add questions to section
+
+
+Alt create question
+Teacher->UI:Create question to section
+UI->EC:newQuestion=createQuestion(Question,Solution,questionType)
+EC->B:create
+B->Q:newQuestion=createQuestion(Question,Solution,questionType)
+EC -> PC: repositories()
+PC -> RF: create
+RF -> QR: create
+EC->QR:save(newQuestion)
+
+else choose question
+
+Teacher->UI: Choose type question
+UI->EC:questionType
+EC -> QR: getQuestionByType(questionType)
+EC --> UI: questions
+UI-->Teacher:questions
+Teacher->UI:Select question to section
+UI->EC:newQuestion
+end
+
+EC->SQ:listOfQuestions=addQuestion(newQuestion)
+end
+
+EC->SQ: listOfSections=addQuestionsToSection(newSQ,listOfQuestions)
+end
+
+UI-->Teacher: Ask course, title and exam header
+Teacher->UI:headerInfo, title, course,startDate,endDate
+UI->EC:examInfo=infoForExam(course,title,headerInfo,listOfSections,startDate,endDate)
+EC->B:create
+EC->B:header=createHeader(feedbackType,gradeType,description)
+EC->B:setID(id)
+B->H:header=createHeader(feedbackType,gradeType,description)
+H-->B: header
+EC->B:newExam=createExam(id,course,title,header,listOfSections,startDate,endDate)
+B->E:newExam=createExam(id,course,title,header,listOfSections,startDate,endDate)
+E->E:validateExam(newExam)
+EC->ER: save(newExam)
+else
+Teacher -> UI: update exame
+UI-->Teacher: Ask course
+
+Teacher->UI: course
+UI -> EC: create
+EC -> PC: repositories()
+PC -> RF: create
+RF -> ER: create
+EC->ER:getExamsByCourse(course)
+EC-->UI:listOfExams
+UI-->Teacher:show exams
+
+Teacher->UI: select exam
+UI->ER:exam=getExam(exam)
+EC->E:getExam(exam)
+EC-->UI:exam
+UI-->Teacher: return exam
+
+Teacher->UI: update exam
+UI ->EC: updExam=updateExam(exam)
+EC->E:updExam=updateExam(exam)
+E->E:validateExam(updExam)
+EC->ER:save(updExam)
+
+end
+@enduml
