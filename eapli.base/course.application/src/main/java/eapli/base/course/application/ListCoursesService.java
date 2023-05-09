@@ -15,14 +15,7 @@ import org.springframework.stereotype.Component;
 @ApplicationService
 public class ListCoursesService {
 
-    @Autowired
-    private CourseRepository courseRepository;
-
-    @Autowired
-    private AuthorizationService authorizationService = AuthzRegistry.authorizationService();
-
     public Iterable<Course> allCourses(){
-       // authorizationService.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER,BaseRoles.MENU_MANAGER);
 
         return PersistenceContext.repositories().courses().findAll();
     }
