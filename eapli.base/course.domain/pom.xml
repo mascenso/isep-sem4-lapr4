@@ -7,11 +7,20 @@
     <groupId>isep.sem4.pi</groupId>
     <artifactId>course.domain</artifactId>
     <version>0.1.0</version>
+    <packaging>jar</packaging>
+    <name>course.domain</name>
 
+    <parent>
+        <groupId>eapli</groupId>
+        <artifactId>base</artifactId>
+        <relativePath>../</relativePath>
+        <version>1.4.0-SNAPSHOT</version>
+    </parent>
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 
 </project>

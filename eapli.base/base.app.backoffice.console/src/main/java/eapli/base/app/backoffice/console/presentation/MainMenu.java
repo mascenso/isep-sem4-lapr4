@@ -24,6 +24,7 @@
 package eapli.base.app.backoffice.console.presentation;
 
 import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
+import eapli.base.app.backoffice.console.presentation.courses.ListCoursesUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
@@ -108,7 +109,9 @@ public class MainMenu extends AbstractUI {
 
     //COURSE
 
-    private static final int ADD_NEW_COURSE =1;
+    private static final int ADD_NEW_COURSE =2;
+
+    private static final int LIST_ALL_COURSES =1;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -209,6 +212,7 @@ public class MainMenu extends AbstractUI {
 
     private Menu buildCourseMenu(){
         final Menu menu = new Menu("Course >");
+        menu.addItem(LIST_ALL_COURSES,"List all Courses", new ListCoursesUI()::show);
         menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
         return menu;
     }
