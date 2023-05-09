@@ -35,6 +35,8 @@
 		<module>eapli.base/course.domain</module>
 		<module>eapli.base/Lesson.application</module>
 		<module>eapli.base/Lesson.domain</module>
+		<module>eapli.base/sharedboard.domain</module>
+		<module>eapli.base/sharedboard.application</module>
 
     </modules>
 
