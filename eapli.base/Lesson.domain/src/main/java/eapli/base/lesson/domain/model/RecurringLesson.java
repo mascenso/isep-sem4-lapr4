@@ -7,8 +7,8 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.representations.RepresentationBuilder;
 import eapli.framework.representations.Representationable;
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.Duration;
