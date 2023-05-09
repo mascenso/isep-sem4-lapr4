@@ -20,7 +20,7 @@
  */
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.SharedBoardRepository;
+import eapli.base.repositories.SharedBoardRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;

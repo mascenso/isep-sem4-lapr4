@@ -9,7 +9,9 @@
     <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
     <class>eapli.base.clientusermanagement.domain.ClientUser</class>
     <class>eapli.base.clientusermanagement.domain.SignupRequest</class>
-    <class>eapli.base.SharedBoard</class>
+    <class>eapli.base.domain.SharedBoard</class>
+    <class>eapli.base.domain.Colunas</class>
+    <class>eapli.base.domain.Linhas</class>
     <class>eapli.base.domain.Course</class>
 
 
@@ -20,7 +22,7 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:~\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>
 
       <property name="javax.persistence.jdbc.user" value="sa"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.password" value="eapli"/>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
       <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
       <!-- <property name = "hibernate.show_sql" value = "true" /> -->

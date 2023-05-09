@@ -20,7 +20,7 @@
  */
 package eapli.base.infrastructure.persistence;
 
-import eapli.base.SharedBoardRepository;
+import eapli.base.repositories.SharedBoardRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.repositories.CourseRepository;
