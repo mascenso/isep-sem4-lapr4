@@ -16,12 +16,11 @@ The members of the group:
 
 The assignment of tasks (requirements/user stories/use cases) during the project.
 
-| Student Nr.	| Sprint A | Sprint B | Sprint C |
-|------------|----------|----------|----------|
-| [1170000](1170000/readme.md)| [US G002](us_g002/readme.md)| [US 1001](SPRINT%20B/template-US/readme.md)| [US 3004](SPRINT%20B/US_1002-%20Create%20a%20Course/readme.md) |
-|          	|          |          |          |
-|          	|          |          |          |
-|          	|          |          |          |
-|          	|          |          |          |
-|          	|          |          |          |
-|          	|          |          |          |
+| Student Nr.	                 | Sprint A | Sprint B | Sprint C |
+|------------------------------|----------|----------|----------|
+| 	                            |          |          |          |
+| 	                            |          |          |          |
+| 	                            |          |          |          |
+| 	                            |          |          |          |
+| 	                            |          |          |          |
+| 	                            |          |          |          |
