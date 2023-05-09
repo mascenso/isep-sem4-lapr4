@@ -1,5 +1,6 @@
 package eapli.base;
 
+import eapli.base.domain.*;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.framework.application.UseCaseController;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @UseCaseController

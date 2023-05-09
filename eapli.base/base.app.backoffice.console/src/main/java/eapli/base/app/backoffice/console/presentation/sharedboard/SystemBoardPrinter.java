@@ -1,6 +1,6 @@
 package eapli.base.app.backoffice.console.presentation.sharedboard;
 
-import eapli.base.SharedBoard;
+import eapli.base.domain.SharedBoard;
 import eapli.framework.visitor.Visitor;
 
 public class SystemBoardPrinter implements Visitor<SharedBoard> {

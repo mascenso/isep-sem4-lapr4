@@ -1,34 +1,34 @@
-package eapli.base;
-
-import eapli.framework.domain.model.ValueObject;
+package eapli.base.domain;
 
 import javax.persistence.*;
 
 @Entity
-public class Colunas {
-    private static final long serialVersionUID = 1L;
+public class Linhas {
+
+    //private static final long serialVersionUID = 1L;
 
     //private int position;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column
     private String name;
 
+    @ManyToOne SharedBoard sharedBoard;
 
-    /*public Colunas(int position){
-        if (position < 1){
-            throw new IllegalArgumentException("Column value must be between 1 and 10");
+    /*public Linhas(int position){
+        if ( (position < 1) && (position > 20) ){
+            throw new IllegalArgumentException("Row value must be between 1 and 20");
         }
         this.position = position;
     }*/
-    protected Colunas() {
+    protected Linhas() {
 
     }
 
-    public Colunas(String name) {
+    public Linhas(String name) {
         this.name = name;
-
     }
 
     public void setId(Long id) {

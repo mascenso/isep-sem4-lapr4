@@ -1,14 +1,13 @@
 package eapli.base;
 
+import eapli.base.domain.SharedBoard;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.repositories.SharedBoardRepository;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.apache.commons.collections4.IteratorUtils;
-import org.hibernate.Session;
-import org.hibernate.SessionBuilder;
-import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;

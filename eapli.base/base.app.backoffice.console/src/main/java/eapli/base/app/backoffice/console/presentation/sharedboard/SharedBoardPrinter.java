@@ -1,8 +1,8 @@
 package eapli.base.app.backoffice.console.presentation.sharedboard;
 
-import eapli.base.Colunas;
-import eapli.base.Linhas;
-import eapli.base.SharedBoard;
+import eapli.base.domain.Colunas;
+import eapli.base.domain.Linhas;
+import eapli.base.domain.SharedBoard;
 
 
 public class SharedBoardPrinter {

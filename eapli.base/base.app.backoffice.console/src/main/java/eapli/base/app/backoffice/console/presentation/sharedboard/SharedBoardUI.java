@@ -1,10 +1,10 @@
 package eapli.base.app.backoffice.console.presentation.sharedboard;
 
 
-import eapli.base.Colunas;
+import eapli.base.domain.Colunas;
 import eapli.base.CreateSharedBoardController;
-import eapli.base.Linhas;
-import eapli.base.SharedBoardColumnAndRow;
+import eapli.base.domain.Linhas;
+import eapli.base.domain.SharedBoardColumnAndRow;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;

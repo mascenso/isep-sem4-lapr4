@@ -23,7 +23,6 @@
  */
 package eapli.base.app.backoffice.console.presentation;
 
-import eapli.base.SharedBoard;
 import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.SharedBoardUI;

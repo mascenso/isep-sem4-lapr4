@@ -1,9 +1,9 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
-import eapli.base.SharedBoard;
-import eapli.base.SharedBoardRepository;
-import eapli.base.SharedBoardTitle;
+import eapli.base.domain.SharedBoard;
+import eapli.base.repositories.SharedBoardRepository;
+import eapli.base.domain.SharedBoardTitle;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;

@@ -1,17 +1,9 @@
 package eapli.base.app.backoffice.console.presentation.sharedboard;
 
 import eapli.base.ListSharedBoardController;
-import eapli.base.SharedBoard;
-import eapli.base.SharedBoardRepository;
-import eapli.base.SharedBoardTitle;
-import eapli.framework.infrastructure.authz.domain.model.Username;
-import eapli.framework.io.util.Console;
+import eapli.base.domain.SharedBoard;
 import eapli.framework.presentation.console.AbstractListUI;
-import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.visitor.Visitor;
-
-import java.util.List;
-import java.util.Optional;
 
 public class ListSharedBoardUI extends AbstractListUI {
 

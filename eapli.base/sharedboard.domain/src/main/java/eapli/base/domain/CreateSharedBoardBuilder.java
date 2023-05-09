@@ -1,4 +1,4 @@
-package eapli.base;
+package eapli.base.domain;
 
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
