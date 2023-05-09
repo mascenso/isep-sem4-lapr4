@@ -20,10 +20,12 @@
  */
 package eapli.base.persistence.impl.inmemory;
 
+import eapli.base.SharedBoardRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
+import eapli.base.repositories.CourseRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryUserRepository;
@@ -73,6 +75,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	@Override
 	public TransactionalContext newTransactionalContext() {
 		// in memory does not support transactions...
+		return null;
+	}
+
+	@Override
+	public SharedBoardRepository sharedBoards() {
+		return null;
+	}
+
+	@Override
+	public CourseRepository courses() {
 		return null;
 	}
 

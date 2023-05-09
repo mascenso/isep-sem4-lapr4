@@ -1,10 +1,13 @@
-# Student: John Doe - 1210857
+# Student: Patricia Teixeira - 1210857
 
 ## Developed Tasks
 
 
-| Sprint | Task     |
-|--------|--------------------|
-| **A**  | [US G002](../us_g002/readme.md) |
-| **B**  | [US 1001](../SPRINT%20B/template-US/readme.md) |
-| **C**  | [US 3004](../SPRINT%20B/US_1002/readme.md) |
+| Sprint | Task                                     |
+|--------|------------------------------------------|
+| **B**  | [US 1007](../SPRINT B/US_1007/readme.md) |
+| **B**  | [US 1009](../SPRINT B/US_1009/readme.md) |
+| **B**  | [US 2001](../SPRINT%20B/US2001-Create%20an%20Exam/readme.md) |
+| **B**  | [US 3003](../SPRINT B/US_3003/readme.md) |
+| **B**  | [US 4001](../SPRINT B/US_4001/readme.md) |
+

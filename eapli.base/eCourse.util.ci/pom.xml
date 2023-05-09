@@ -5,13 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>eapli</groupId>
-        <artifactId>base</artifactId>
-        <relativePath>../</relativePath>
-        <version>1.4.0-SNAPSHOT</version>
+        <groupId>isep.sem4.pi</groupId>
+        <artifactId>ecourse</artifactId>
+        <relativePath>../../</relativePath>
+        <version>0.1.0</version>
     </parent>
 
-    <groupId>eapli.base</groupId>
     <artifactId>eCourse.util.ci</artifactId>
     <packaging>pom</packaging>
 
