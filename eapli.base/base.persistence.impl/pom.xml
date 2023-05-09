@@ -37,6 +37,12 @@
             <version>0.1.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>eapli.base</groupId>
+            <artifactId>lesson.domain</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
 
 
     </dependencies>
