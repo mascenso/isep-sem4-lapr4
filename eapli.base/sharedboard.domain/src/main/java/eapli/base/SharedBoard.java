@@ -29,11 +29,11 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "SHARED_BOARD_TITLE")
-    private List<Colunas> colunas;
+    private List<Linhas> linhas;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "SHARED_BOARD_TITLE")
-    private List<Linhas> linhas;
+    private List<Colunas> colunas;
 
     @ManyToOne
     @JoinColumn()

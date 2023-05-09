@@ -1,5 +1,6 @@
 package eapli.base.app.backoffice.console.presentation.sharedboard;
 
+
 import eapli.base.Colunas;
 import eapli.base.CreateSharedBoardController;
 import eapli.base.Linhas;
@@ -28,7 +29,7 @@ public class SharedBoardUI extends AbstractUI {
         for (int i = 0; i < numberOfRows; i++) {
             rowNames[i] = Console.readLine("Row name " + (i+1) + ": " );
         }
-        final SharedBoardColumnAndRow sharedBoardColumnAndRow = new SharedBoardColumnAndRow(numberOfColumns, numberOfRows);
+        final SharedBoardColumnAndRow sharedBoardColumnAndRow = new SharedBoardColumnAndRow(numberOfRows, numberOfColumns);
 
         List<Colunas> columns = new ArrayList<>();
         for (String columnName : columnNames){

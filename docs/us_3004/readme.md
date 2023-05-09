@@ -1,6 +1,4 @@
-# US 3004
-
-*This is an example template*
+# US 2001 - As teacher, I want to create/update an exam.
 
 ## 1. Context
 

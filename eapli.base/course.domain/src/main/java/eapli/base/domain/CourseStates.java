@@ -37,4 +37,9 @@ public final class CourseStates {
         Preconditions.nonEmpty(state, "Edition cannot be empty");
         return new CourseStates(state);
     }
+
+    @Override
+    public String toString() {
+        return actualState;
+    }
 }
