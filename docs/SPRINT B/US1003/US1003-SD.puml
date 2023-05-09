@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Manager as Actor
+activate Actor
+participant OpenCloseEnrollmentUI as UI <<Presentation>>
+control OpenCloseEnrollmentController as Controller <<Application>>
+database CoursesRepository as Repository <<Repository>>
+participant "theCourse:Course" as Course <<Domain>>
+
+Actor -> UI: Select the option to \nopen/close the enrollment in courses
+activate UI
+UI -> Controller: listAllCourses()
+activate Controller
+Controller -> Repository: listAllCourses()
+UI -> UI: Output The Possible courses to \n Open/Close Enrollment
+Actor <- UI: Ask user to select a course
+Actor -> UI: Selects the course
+UI -> Controller: changeCourseStatus(course)
+Controller -> Course: changeCourseEnrollmentStatus(course)
+Controller -> Repository: save(course)
+UI <- Controller: course
+Actor <- UI: Back to menu
+
+
+@enduml
