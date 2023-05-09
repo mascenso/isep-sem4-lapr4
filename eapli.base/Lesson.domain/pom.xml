@@ -4,14 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>isep.sem4.pi</groupId>
+    <parent>
+        <groupId>isep.sem4.pi</groupId>
+        <artifactId>ecourse</artifactId>
+        <relativePath>../../</relativePath>
+        <version>0.1.0</version>
+    </parent>
+
     <artifactId>Lesson.domain</artifactId>
     <version>0.1.0</version>
 
     <properties>
-        <maven.compiler.source>19</maven.compiler.source>
-        <maven.compiler.target>19</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
 </project>
