@@ -45,7 +45,7 @@
 
 ### 4.2. Class Diagram
 
-![a class diagram](sequence-diagram-1002.svg "A Class Diagram")
+![a class diagram](sd-1002.png "A Class Diagram")
 
 ### 4.3. Applied Patterns
 
