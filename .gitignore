@@ -1,4 +1,4 @@
- Operating System Files
+# Operating System Files
 
 *.DS_Store
 Thumbs.db
@@ -16,11 +16,18 @@ target/
 bin/
 dependency-reduced-pom.xml
 
-# Eclipse Project Files
+## Eclipse ###
 
-.classpath
-.project
+.metadata
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
 .settings/
+.loadpath
+.recommenders
 
 # IntelliJ IDEA Files
 
@@ -30,4 +37,42 @@ dependency-reduced-pom.xml
 *.idea
 *.log
 
+*.vscode
 README.html
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# Java annotation processor (APT)
+.factorypath
+
+# PDT-specific (PHP Development Tools)
+.buildpath
+
+# sbteclipse plugin
+.target
+
+# Tern plugin
+.tern-project
+
+# TeXlipse plugin
+.texlipse
+
+# STS (Spring Tool Suite)
+.springBeans
+
+# Code Recommenders
+.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+.cache-main
+.scala_dependencies
+.worksheet
+
+### Eclipse Patch ###
+# Eclipse Core
+.project
+
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+

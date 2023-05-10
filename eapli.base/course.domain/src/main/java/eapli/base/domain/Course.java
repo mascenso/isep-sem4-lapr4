@@ -71,4 +71,5 @@ public class Course implements AggregateRoot<Designation> {
     public Designation identity() {
         return name;
     }
+
 }
