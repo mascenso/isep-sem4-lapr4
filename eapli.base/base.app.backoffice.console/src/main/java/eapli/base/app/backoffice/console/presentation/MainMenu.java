@@ -24,7 +24,8 @@
 package eapli.base.app.backoffice.console.presentation;
 
 import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
-import eapli.base.app.backoffice.console.presentation.courses.ListCoursesUI;
+import eapli.base.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
+import eapli.base.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
@@ -109,9 +110,9 @@ public class MainMenu extends AbstractUI {
 
     //COURSE
 
-    private static final int ADD_NEW_COURSE =2;
+    private static final int ADD_NEW_COURSE =1;
+    private static final int UPDATE_COURSE_STATE =2;
 
-    private static final int LIST_ALL_COURSES =1;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -119,9 +120,8 @@ public class MainMenu extends AbstractUI {
 
     //SHAREDBOARD
     private static final int CREATE_BOARD_OPTION = 1;
-    private static final int OPEN_BOARD_OPTION = 2;
-    private static final int LIST_BOARDS_OPTION = 3;
-    private static final int ARCHIVE_BOARDS_OPTION = 4;
+    private static final int LIST_BOARDS_OPTION = 2;
+
 
     @Override
     public boolean show() {
@@ -212,17 +212,17 @@ public class MainMenu extends AbstractUI {
 
     private Menu buildCourseMenu(){
         final Menu menu = new Menu("Course >");
-        menu.addItem(LIST_ALL_COURSES,"List all Courses", new ListCoursesUI()::show);
         menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
+        menu.addItem(UPDATE_COURSE_STATE, "Update Course State", new UpdateCourseStateUI()::show);
         return menu;
     }
+
 
     private Menu buildSharedBoardMenu() {
         final Menu menu = new Menu("Boards >");
 
         menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
-        menu.addItem(OPEN_BOARD_OPTION, "Open Board", new SharedBoardUI()::show);
-        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new SharedBoardUI()::show);
+        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

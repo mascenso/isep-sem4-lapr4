@@ -79,9 +79,12 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 
+	/*
 	@Override
 	public RecurringLessonRepository recurringLesson() { return new JpaRecurringLessonRepository(Application.settings().getPersistenceUnitName());}
 
+
+	 */
 	@Override
 	public TransactionalContext newTransactionalContext() {
 		return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),

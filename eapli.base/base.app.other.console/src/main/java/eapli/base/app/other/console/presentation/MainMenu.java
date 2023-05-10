@@ -96,16 +96,16 @@ public class MainMenu extends AbstractUI {
     private Menu buildMainMenu() {
         final Menu mainMenu = new Menu();
 
-        final Menu myUserMenu = new MyUserMenu(BaseRoles.CASHIER);
+        final Menu myUserMenu = new MyUserMenu(BaseRoles.TEACHER);
         mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.CASHIER)) {
-            final Menu cashierMenu = buildCashierMenu();
-            mainMenu.addSubMenu(SALES_OPTION, cashierMenu);
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER)) {
+            final Menu teacherMenu = buildTeacherMenu();
+            mainMenu.addSubMenu(SALES_OPTION, teacherMenu);
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -117,11 +117,11 @@ public class MainMenu extends AbstractUI {
         return mainMenu;
     }
 
-    private Menu buildCashierMenu() {
-        final Menu cashierMenu = new Menu("Sales  >");
+    private Menu buildTeacherMenu() {
+        final Menu teacherMenu = new Menu("Sales  >");
 
-        cashierMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+        teacherMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
-        return cashierMenu;
+        return teacherMenu;
     }
 }

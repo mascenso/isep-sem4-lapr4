@@ -1,10 +1,9 @@
 #Header------------------------------------------#
-[Sprint A]
+[Sprint B]
 
 # Body: Explain *what* and *why* (not *how*). # Wrap at 72 chars. -----#
 
-# At the end: Include Co-authored-by for all contributors.
-# Include at least one empty line before it. Format:
+
 # Co-authored-by: name <user@users.noreply.github.com>
 #
 # How to Write a Git Commit Message:

@@ -85,6 +85,20 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.threeten/threetenbp -->
+		<dependency>
+			<groupId>org.threeten</groupId>
+			<artifactId>threetenbp</artifactId>
+			<version>1.6.8</version>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -92,7 +106,7 @@
 			<dependency><!--Necessary to avoid drop-and-create failure with latest spring boot version-->
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>5.4.14.Final</version>
+				<version>5.4.24.Final</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
