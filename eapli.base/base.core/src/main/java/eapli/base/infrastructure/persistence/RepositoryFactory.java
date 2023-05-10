@@ -24,8 +24,11 @@ import eapli.base.SharedBoardRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.repositories.CourseRepository;
+import eapli.base.repositories.ExamRepository;
+import eapli.base.repositories.QuestionRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Paulo Gandra Sousa
@@ -88,5 +91,8 @@ public interface RepositoryFactory {
     SharedBoardRepository sharedBoards();
 
     CourseRepository courses();
+
+    ExamRepository examRepository();
+    QuestionRepository questionRepository();
 
 }
