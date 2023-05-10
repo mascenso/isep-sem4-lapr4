@@ -23,6 +23,7 @@ activate UI
         Actor --> UI: Participants
     end
 
+
     loop validateScheduleService = false
         UI --> Actor: Schedule of meeting
         Actor --> UI: Schedule
