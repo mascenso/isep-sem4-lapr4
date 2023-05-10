@@ -23,11 +23,6 @@ public class ListSharedBoardController {
         Iterable<SharedBoard> boardIterable = PersistenceContext.repositories().sharedBoards().findByUsername(user.get().identity());
         List<SharedBoard> boardListByUser = IteratorUtils.toList(boardIterable.iterator());
 
-        /*for (Board board : boardListByUser) {
-            System.out.println(board.getTitle());
-            System.out.println(board.getOwner().username());
-        }*/
-
         return boardListByUser;
     }
 }
