@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>Lesson.domain</artifactId>
-    <version>0.1.0</version>
+    <version>${project.parent.version}</version>
 
     <properties>
     </properties>
