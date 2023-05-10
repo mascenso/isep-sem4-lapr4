@@ -35,9 +35,9 @@ public final class BaseRoles {
      */
     public static final Role POWER_USER = Role.valueOf("POWER_USER");
     /**
-     * Utente
+     * Student
      */
-    public static final Role CLIENT_USER = Role.valueOf("CLIENT_USER");
+    public static final Role STUDENT = Role.valueOf("STUDENT");
     /**
      * Base Administrator
      */
@@ -45,15 +45,15 @@ public final class BaseRoles {
     /**
      *
      */
-    public static final Role KITCHEN_MANAGER = Role.valueOf("KITCHEN_MANAGER");
+    public static final Role PROJECT_MANAGER = Role.valueOf("PROJECT_MANAGER");
     /**
      *
      */
-    public static final Role MENU_MANAGER = Role.valueOf("MENU_MANAGER");
+    public static final Role MANAGER = Role.valueOf("MANAGER");
     /**
      *
      */
-    public static final Role CASHIER = Role.valueOf("CASHIER");
+    public static final Role TEACHER = Role.valueOf("TEACHER");
 
     /**
      * get available role types for adding new users
@@ -61,10 +61,10 @@ public final class BaseRoles {
      * @return
      */
     public static Role[] nonUserValues() {
-        return new Role[] { ADMIN, KITCHEN_MANAGER, MENU_MANAGER, CASHIER };
+        return new Role[] { ADMIN, PROJECT_MANAGER, MANAGER, TEACHER };
     }
 
     public boolean isCollaborator(final Role role) {
-        return role != CLIENT_USER;
+        return role != STUDENT;
     }
 }
