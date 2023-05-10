@@ -58,15 +58,7 @@ public final class BaseBackoffice extends BaseApplication {
 		AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
 				new PlainTextEncoder());
 
-
-
-		//SharedBoard123 sharedBoard123 = new SharedBoard123();
-		//sharedBoard123.addSharedBoard("SharedBoard_1");
-
-
 		new BaseBackoffice().run(args);
-
-
 	}
 
 	@Override
