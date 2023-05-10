@@ -13,7 +13,7 @@
 
     <groupId>isep.sem4.pi</groupId>
     <artifactId>course.domain</artifactId>
-    <version>0.1.0</version>
+    <version>${project.parent.version}</version>
     <packaging>jar</packaging>
     <name>course.domain</name>
 

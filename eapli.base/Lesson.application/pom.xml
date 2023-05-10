@@ -6,7 +6,7 @@
 
     <groupId>isep.sem4.pi</groupId>
     <artifactId>Lesson.application</artifactId>
-    <version>0.1.0</version>
+    <version>${project.parent.version}</version>
 
     <properties>
     </properties>
