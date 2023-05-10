@@ -6,9 +6,6 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import eapli.base.domain.*;
 import eapli.base.repositories.ExamRepository;
-import org.springframework.data.domain.Sort;
-
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 

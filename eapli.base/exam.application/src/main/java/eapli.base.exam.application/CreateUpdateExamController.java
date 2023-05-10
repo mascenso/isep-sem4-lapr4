@@ -44,7 +44,7 @@ public class CreateUpdateExamController {
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question))
                 .theQuestion(Question.valueOf(question, solution, matchingOptions, matchingAnswers, new QuestionBuilder().theQuestionType(option))).build();
 
-        return PersistenceContext.repositories().questionRepository().save(newQuestion);
+        return PersistenceContext.repositories().questions().save(newQuestion);
     }
 
 
@@ -58,7 +58,7 @@ public class CreateUpdateExamController {
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question))
                 .theQuestion(Question.valueOf(question, solutionIndex, multipleChoice, new QuestionBuilder().theQuestionType(option))).build();
 
-        return PersistenceContext.repositories().questionRepository().save(newQuestion);
+        return PersistenceContext.repositories().questions().save(newQuestion);
     }
 
 
@@ -68,14 +68,14 @@ public class CreateUpdateExamController {
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question))
                 .theQuestion(Question.valueOf(question, solution, new QuestionBuilder().theQuestionType(option))).build();
 
-        return PersistenceContext.repositories().questionRepository().save(newQuestion);
+        return PersistenceContext.repositories().questions().save(newQuestion);
     }
 
     @Transactional
     public Question createNumericalQuestion(final String question, final String[] solution, final String[] multipleChoice, double acceptanceError, final int option) {
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question))
                 .theQuestion(Question.valueOf(question, solution, multipleChoice, acceptanceError, new QuestionBuilder().theQuestionType(option))).build();
-        return PersistenceContext.repositories().questionRepository().save(newQuestion);
+        return PersistenceContext.repositories().questions().save(newQuestion);
     }
 
     @Transactional
@@ -86,14 +86,14 @@ public class CreateUpdateExamController {
         }
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question))
                 .theQuestion(Question.valueOf(question, solution, words, new QuestionBuilder().theQuestionType(option))).build();
-        return PersistenceContext.repositories().questionRepository().save(newQuestion);
+        return PersistenceContext.repositories().questions().save(newQuestion);
     }
 
     @Transactional
     public Question createTrueOrFalseQuestion(final String question, final String solution, final int option) {
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question))
                 .theQuestion(Question.valueOf(question, solution, new QuestionBuilder().theQuestionType(option))).build();
-        return PersistenceContext.repositories().questionRepository().save(newQuestion);
+        return PersistenceContext.repositories().questions().save(newQuestion);
     }
 
 }

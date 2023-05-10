@@ -79,12 +79,12 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public ExamRepository examRepository() {
+	public ExamRepository exams() {
 		return new JpaExamRepository(Application.settings().getPersistenceUnitName());
 	}
 
 	@Override
-	public QuestionRepository questionRepository() {
+	public QuestionRepository questions() {
 		return new JpaQuestionRepository(Application.settings().getPersistenceUnitName());
 	}
 

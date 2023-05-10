@@ -30,6 +30,8 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Properties;
+
 /**
  * @author Paulo Gandra Sousa
  *
@@ -92,7 +94,7 @@ public interface RepositoryFactory {
 
     CourseRepository courses();
 
-    ExamRepository examRepository();
-    QuestionRepository questionRepository();
+    ExamRepository exams();
+    QuestionRepository questions();
 
 }
