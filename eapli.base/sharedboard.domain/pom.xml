@@ -12,8 +12,8 @@
     </parent>
 
     <artifactId>sharedboard.domain</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <version>${project.parent.version}</version>
 
     <name>shareboard.domain</name>
 
