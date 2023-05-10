@@ -38,32 +38,41 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
 
     @Override
     public boolean execute() {
-        registerCashier("cashier", PASSWORD1, "Johny", "Cash", "johny.doe@emai.l.com");
-        registerKitchenManager("kitchen", PASSWORD1, "Oven", "Stove", "Oven.and.stove@emai.l.com");
-        registerMenuManager("chef", PASSWORD1, "Master", "Chef", "master.chef@emai.l.com");
+        registerTeacher("teacher", PASSWORD1, "Mick", "Jagger", "jagger@emai.l.com");
+        registerProjectManager("pm", PASSWORD1, "Michael", "Jackson", "pmmichael@emai.l.com");
+        registerManager("manager", PASSWORD1, "Patty", "Smith", "patty@emai.l.com");
+        registerStudent("student", PASSWORD1, "Jay", "Z", "jayz@isep.ipp.pt");
         return true;
     }
 
-    private void registerCashier(final String username, final String password,
+    private void registerTeacher(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.CASHIER);
+        roles.add(BaseRoles.TEACHER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private void registerKitchenManager(final String username, final String password,
+    private void registerProjectManager(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.KITCHEN_MANAGER);
+        roles.add(BaseRoles.PROJECT_MANAGER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
 
-    private void registerMenuManager(final String username, final String password,
+    private void registerManager(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.MENU_MANAGER);
+        roles.add(BaseRoles.MANAGER);
+
+        registerUser(username, password, firstName, lastName, email, roles);
+    }
+
+    private void registerStudent(final String username, final String password,
+            final String firstName, final String lastName, final String email) {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(BaseRoles.STUDENT);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }

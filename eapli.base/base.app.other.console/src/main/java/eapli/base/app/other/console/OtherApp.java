@@ -55,7 +55,7 @@ public final class OtherApp extends BaseApplication {
 	@Override
 	protected void doMain(String[] args) {
 		// login and go to main menu
-		if (new LoginAction(BaseRoles.CASHIER).execute()) {
+		if (new LoginAction(BaseRoles.TEACHER).execute()) {
 			final MainMenu menu = new MainMenu();
 			menu.mainLoop();
 		}
