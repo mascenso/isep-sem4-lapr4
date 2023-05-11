@@ -23,6 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation;
 
+import eapli.base.app.backoffice.console.presentation.RecurringLessons.CreateRecurringLessonsUI;
 import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eapli.base.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
@@ -104,7 +105,7 @@ public class MainMenu extends AbstractUI {
     private static final int SETTINGS_OPTION = 3;
     private static final int COURSE_OPTION = 4;
     private static final int SHAREDBOARD_OPTION = 5;
-    private static final int TRACEABILITY_OPTION = 6;
+    private static final int RECURRING_LESSON_OPTION = 1;
     private static final int MEALS_OPTION = 7;
     private static final int REPORTING_DISHES_OPTION = 8;
 
@@ -121,6 +122,10 @@ public class MainMenu extends AbstractUI {
     //SHAREDBOARD
     private static final int CREATE_BOARD_OPTION = 1;
     private static final int LIST_BOARDS_OPTION = 2;
+
+    //RECURRING LESSON
+
+    private static final int CREATE_RECURRING_LESSON_OPTION = 1;
 
 
     @Override
@@ -182,6 +187,14 @@ public class MainMenu extends AbstractUI {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER, BaseRoles.TEACHER)){
+            final Menu recurringLessonMenu = buildRecurringLessonBoardMenu();
+            mainMenu.addSubMenu(RECURRING_LESSON_OPTION, recurringLessonMenu);
+        }
+        if (!Application.settings().isMenuLayoutHorizontal()) {
+            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
+        }
+
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;
@@ -223,6 +236,15 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
         menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildRecurringLessonBoardMenu() {
+        final Menu menu = new Menu("Recurring Lesson >");
+
+        menu.addItem(CREATE_RECURRING_LESSON_OPTION, "Create Recurring Lesson", new CreateRecurringLessonsUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
