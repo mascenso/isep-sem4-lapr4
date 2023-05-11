@@ -13,9 +13,9 @@ import java.util.Calendar;
 
 public class CreateRecurringLessonsUI extends AbstractUI {
 
-    private CreateRecurringLessonController theController;
+    //private CreateRecurringLessonController theController;
 
-    //private final CreateRecurringLessonController theController = new CreateRecurringLessonController();
+    private final CreateRecurringLessonController theController = new CreateRecurringLessonController();
 
     @Override
     protected boolean doShow() {
