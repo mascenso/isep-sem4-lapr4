@@ -105,7 +105,7 @@ public class MainMenu extends AbstractUI {
     private static final int SETTINGS_OPTION = 3;
     private static final int COURSE_OPTION = 4;
     private static final int SHAREDBOARD_OPTION = 5;
-    private static final int RECURRING_LESSON_OPTION = 1;
+    private static final int RECURRING_LESSON_OPTION = 6;
     private static final int MEALS_OPTION = 7;
     private static final int REPORTING_DISHES_OPTION = 8;
 
