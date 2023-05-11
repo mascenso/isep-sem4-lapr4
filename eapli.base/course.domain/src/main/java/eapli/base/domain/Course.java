@@ -51,6 +51,13 @@ public class Course implements AggregateRoot<Designation> {
 
     public CourseEdition edition (){return edition;}
 
+    public CourseStates updateState(CourseStates newState) {
+        if (!this.state.equals(newState)) {
+            this.state = newState;
+        }
+        return newState;
+    }
+
     @Override
     public boolean sameAs(Object other) {
         if (this == other) {
