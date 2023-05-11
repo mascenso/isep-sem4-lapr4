@@ -11,7 +11,7 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class JpaQuestionRepository extends JpaAutoTxRepository<Question, Question, Question> implements QuestionRepository {
+public class JpaQuestionRepository extends JpaAutoTxRepository<Question, Designation, Designation> implements QuestionRepository {
     public JpaQuestionRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
                 "Question");
