@@ -36,6 +36,7 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
 /**
  *
+ *
  * @author Paulo Gandra de Sousa
  *
  */
