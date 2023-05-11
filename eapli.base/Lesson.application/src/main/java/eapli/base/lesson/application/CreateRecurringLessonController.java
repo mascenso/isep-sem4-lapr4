@@ -1,5 +1,6 @@
 package eapli.base.lesson.application;
 
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.lesson.domain.model.RecurringLesson;
 import eapli.base.lesson.domain.model.RecurringLessonBuilder;
 import eapli.base.lesson.domain.repositories.RecurringLessonRepository;
@@ -35,6 +36,7 @@ public class CreateRecurringLessonController {
                 .starting(startDate).ending(endDate)
                 .lasts(duration).build();
 
-        return recurringLessonRepository.save(newRecurringLesson);
+        //return recurringLessonRepository.save(newRecurringLesson);
+        return PersistenceContext.repositories().recurringLessons().save(newRecurringLesson);
     }
 }
