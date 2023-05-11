@@ -23,6 +23,8 @@ package eapli.base.persistence.impl.jpa;
 import eapli.base.Application;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
+
+import eapli.base.lesson.domain.repositories.RecurringLessonRepository;
 import eapli.base.repositories.CourseRepository;
 import eapli.base.repositories.ExamRepository;
 import eapli.base.repositories.QuestionRepository;
@@ -88,6 +90,8 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 		return new JpaQuestionRepository(Application.settings().getPersistenceUnitName());
 	}
 
+	@Override
+	public RecurringLessonRepository recurringLessons() { return new JpaRecurringLessonRepository(Application.settings().getPersistenceUnitName());}
 
 	@Override
 	public TransactionalContext newTransactionalContext() {

@@ -20,6 +20,8 @@
  */
 package eapli.base.persistence.impl.inmemory;
 
+import eapli.base.lesson.domain.repositories.RecurringLessonRepository;
+import eapli.base.repositories.SharedBoardRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
@@ -99,5 +101,8 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	public QuestionRepository questions() {
 		return null;
 	}
+
+	@Override
+	public RecurringLessonRepository recurringLessons() { return null;}
 
 }
