@@ -20,6 +20,8 @@
  */
 package eapli.base.infrastructure.persistence;
 
+import eapli.base.lesson.domain.model.RecurringLesson;
+import eapli.base.lesson.domain.repositories.RecurringLessonRepository;
 import eapli.base.repositories.SharedBoardRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
@@ -88,5 +90,7 @@ public interface RepositoryFactory {
     SharedBoardRepository sharedBoards();
 
     CourseRepository courses();
+
+    RecurringLessonRepository recurringLessons();
 
 }
