@@ -7,6 +7,7 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.representations.RepresentationBuilder;
 import eapli.framework.representations.Representationable;
+import org.springframework.boot.convert.DurationUnit;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -33,7 +34,6 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     @Column(nullable = false)
     private Calendar endDate;
 
-    @Temporal(TemporalType.TIME)
     @Column(nullable = false)
     private Duration duration;
 
