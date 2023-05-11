@@ -23,12 +23,15 @@ import java.util.Calendar;
 public class CreateRecurringLessonController {
 
     @Autowired
-    private final RecurringLessonRepository recurringLessonRepository;
+    private RecurringLessonRepository recurringLessonRepository;
 
+    /*
     public CreateRecurringLessonController(final RecurringLessonRepository recurringLessonRepository) {
         this.recurringLessonRepository = recurringLessonRepository;
     }
 
+
+     */
     @Transactional
     public RecurringLesson createRecurringLesson(final Designation title, final Calendar startDate, final Calendar endDate, final Duration duration) {
 
