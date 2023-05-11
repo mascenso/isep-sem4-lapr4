@@ -7,7 +7,6 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
-import java.util.Map;
 import java.util.Optional;
 
 public class JpaRecurringLessonRepository extends JpaAutoTxRepository<RecurringLesson, RecurringLesson, RecurringLesson> implements RecurringLessonRepository {
@@ -16,7 +15,7 @@ public class JpaRecurringLessonRepository extends JpaAutoTxRepository<RecurringL
 
     public JpaRecurringLessonRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "LessonTitle");
+                "RecurringLessonTitle");
     }
 
     @Override
