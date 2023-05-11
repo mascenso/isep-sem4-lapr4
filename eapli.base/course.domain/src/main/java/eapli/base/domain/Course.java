@@ -8,6 +8,8 @@ import eapli.framework.validations.Preconditions;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 @Entity
 public class Course implements AggregateRoot<Designation> {
@@ -71,5 +73,11 @@ public class Course implements AggregateRoot<Designation> {
     public Designation identity() {
         return name;
     }
+
+    public CourseStates getCourseState() {
+        return state;
+    }
+
+
 
 }

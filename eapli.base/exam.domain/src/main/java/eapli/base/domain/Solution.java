@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Solution {
@@ -20,6 +21,20 @@ public class Solution {
 
     @Column(nullable = false)
     private String[] solutionMatching;
+
+    @Override
+    public String toString() {
+        return "Solution{" +
+                "id=" + id +
+                ", solution='" + solution + '\'' +
+                ", solutionMatching=" + Arrays.toString(solutionMatching) +
+                ", solutionList=" + solutionList +
+                '}';
+    }
+
+    public Long getSolutionThroughId() {
+        return id;
+    }
 
     private List<String> solutionList = new ArrayList<>();
 

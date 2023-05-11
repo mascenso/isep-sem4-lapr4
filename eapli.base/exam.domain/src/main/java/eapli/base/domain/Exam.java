@@ -4,12 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
-import org.springframework.security.web.header.Header;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,46 +16,39 @@ public class Exam implements AggregateRoot<Designation> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
+    @ManyToOne
     private Course course;
-
     @XmlElement
     @JsonProperty
     @EmbeddedId
     private Designation designation;
     @Column(unique = true)
-    private String title;
+    private ExamTitle title;
 
     @Embedded
     private Header header;
 
     @Column(nullable = false)
-    private LocalDate startDate;
+    private Date openDate;
 
     @Column(nullable = false)
-    private LocalDate endDate;
-
+    private Date closeDate;
     @Embedded
     private List<SequenceSection> sequenceSections = new ArrayList<>();
 
-    protected Exam(final  Course course, final Designation designation, final String title, final Header header, final List<SequenceSection> sequenceSections, LocalDate startDate, LocalDate endDate){
-        Preconditions.noneNull(title,header,sequenceSections,startDate,endDate);
-        this.course=course;
-        this.designation=designation;
+    protected Exam(final Course course, final ExamTitle title, Date openDate, Date endDate, final Designation designation, final Header header, final List<SequenceSection> sequenceSections) {
+        Preconditions.noneNull(title, course, header, sequenceSections, openDate, endDate, designation);
+        this.course = course;
+        this.designation = designation;
+        this.openDate=openDate;
+        this.closeDate=endDate;
         this.title = title;
-        this.header= header;
+        this.header = header;
         this.sequenceSections = sequenceSections;
-        this.startDate = startDate;
-        this.endDate = endDate;
     }
 
-    protected Exam(){
+    protected Exam() {
         //for ORM only
-    }
-
-
-    public Designation designation(){
-        return designation;
     }
 
 
@@ -78,8 +69,8 @@ public class Exam implements AggregateRoot<Designation> {
                 && title.equals(otherExam.title)
                 && header.equals(otherExam.header)
                 && sequenceSections.equals(otherExam.sequenceSections)
-                && startDate.equals(otherExam.startDate)
-                && endDate.equals(otherExam.endDate);
+                && openDate.equals(otherExam.openDate)
+                && closeDate.equals(otherExam.closeDate);
     }
 
     @Override

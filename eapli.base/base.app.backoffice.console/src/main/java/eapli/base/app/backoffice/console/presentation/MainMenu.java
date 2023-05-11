@@ -136,7 +136,6 @@ public class MainMenu extends AbstractUI {
     private static final int CREATE_RECURRING_LESSON_OPTION = 1;
 
     private static final int OPEN_BOARD_OPTION = 2;
-    private static final int LIST_BOARDS_OPTION = 3;
     private static final int ARCHIVE_BOARDS_OPTION = 4;
 
     @Override

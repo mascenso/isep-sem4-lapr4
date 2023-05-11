@@ -9,41 +9,79 @@ public class QuestionBuilder implements DomainFactory<Question> {
 
     private Question theQuestion;
     private Solution theSolution;
-    private String[] multipleChoice;
-    private String[] matchingSolution;
+    private String[] multipleOrMatchingOptions;
+    private String[] multiOrMatchingSolutions;
 
     private Double acceptanceError;
 
     private String question;
     private Boolean caseSensitive;
 
-    private String answer;
-    private String[] matchingOptions;
+
 
     private String[] matchingAnswers;
-    private String[] solutions;
 
     private String solution;
 
     private QuestionType questionType;
 
 
-    public QuestionBuilder theQuestion(final Question question) {
-        this.theQuestion = question;
+
+    public QuestionBuilder definedMultipleOrMatchingOptions(final String[] multipleOrMatchingOptions) {
+        this.multipleOrMatchingOptions = multipleOrMatchingOptions;
         return this;
     }
+
+    public QuestionBuilder definedMultiOrMatchingSolutions(final String[] MultiOrMatchingSolutions) {
+        this.multiOrMatchingSolutions = MultiOrMatchingSolutions;
+        return this;
+    }
+
+    public QuestionBuilder definedMatchingAnswers(final String[] matchingAnswers) {
+        this.matchingAnswers = matchingAnswers;
+        return this;
+    }
+    public QuestionBuilder definedAcceptanceError(final Double acceptanceError) {
+        this.acceptanceError = acceptanceError;
+        return this;
+    }
+
+    public QuestionBuilder definedQuestion(final String question) {
+        this.question = question;
+        return this;
+    }
+
+    public QuestionBuilder definedSolution(final String solution) {
+        this.solution = solution;
+        return this;
+    }
+
+    public QuestionBuilder isCaseSensitive(final Boolean caseSensitive) {
+        this.caseSensitive = caseSensitive;
+        return this;
+    }
+
 
     public QuestionBuilder theSolution(final Solution solution) {
         this.theSolution = solution;
         return this;
     }
+    public QuestionBuilder ofType(final QuestionType questionType) {
+        this.questionType = questionType;
+        return this;
+    }
+
 
     public QuestionBuilder descriptioned(final Description question) {
         this.description = question;
         return this;
     }
 
-    public QuestionType theQuestionType(final int option) {
+    public QuestionType getQuestionType(final int option){
+        return questionTypeAssignement(option);
+    }
+
+    private QuestionType questionTypeAssignement(final int option) {
 
         switch (option) {
             case 1:
@@ -67,7 +105,7 @@ public class QuestionBuilder implements DomainFactory<Question> {
             case 0:
                 break;
         }
-        return this.questionType = questionType;
+        return this.questionType;
     }
 
     private Question buildOrThrow() {
@@ -80,22 +118,28 @@ public class QuestionBuilder implements DomainFactory<Question> {
         if (question != null && solution != null) {
             switch (questionType) {
                 case MATCHING:
-                    theQuestion = new Question(question, matchingSolution, matchingOptions, matchingAnswers, questionType);
+                    theSolution=new Solution(multiOrMatchingSolutions);
+                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, matchingAnswers, questionType);
                     break;
                 case MULTIPLE_CHOICE:
-                    theQuestion = new Question(question, solution, multipleChoice, questionType);
+                    theSolution=new Solution(solution);
+                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, questionType);
                     break;
                 case SHORT_ANSWER:
-                    theQuestion = new Question(question, solution, questionType);
+                    theSolution=new Solution(solution);
+                    theQuestion = new Question(question, theSolution, caseSensitive, questionType);
                     break;
                 case NUMERICAL:
-                    theQuestion = new Question(question, solutions, multipleChoice, acceptanceError, questionType);
+                    theSolution=new Solution(multiOrMatchingSolutions);
+                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, acceptanceError, questionType);
                     break;
                 case SELECT_MISSING_WORDS:
-                    theQuestion = new Question(question, solutions, multipleChoice, questionType);
+                    theSolution=new Solution(multiOrMatchingSolutions);
+                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, questionType);
                     break;
                 case TRUE_FALSE:
-                    theQuestion = new Question(question, solution, answer, questionType);
+                    theSolution=new Solution(solution);
+                    theQuestion = new Question(question, theSolution, questionType);
                     break;
             }
             return theQuestion;
