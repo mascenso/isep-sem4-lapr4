@@ -2,14 +2,15 @@ package eapli.base.repositories;
 
 import eapli.base.domain.Course;
 import eapli.base.domain.Exam;
-import org.springframework.data.jpa.repository.JpaRepository;
+import eapli.framework.domain.repositories.DomainRepository;
+import eapli.framework.general.domain.model.Designation;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ExamRepository extends JpaRepository<Exam, Long> {
+public interface ExamRepository extends DomainRepository<Designation, Exam> {
 
     List<Exam> findByCourse(Course course);
 

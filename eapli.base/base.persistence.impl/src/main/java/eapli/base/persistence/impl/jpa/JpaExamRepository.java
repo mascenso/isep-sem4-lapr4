@@ -3,6 +3,7 @@ package eapli.base.persistence.impl.jpa;
 import eapli.base.Application;
 import eapli.base.domain.Course;
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import eapli.base.domain.*;
 import eapli.base.repositories.ExamRepository;
@@ -30,14 +31,17 @@ public class JpaExamRepository extends JpaAutoTxRepository<Exam, ExamTitle, Exam
     }
 
 
-    @Override
-    public Optional<Exam> findById(Long aLong) {
-        return Optional.empty();
-    }
-
-
     public void deleteById(final ExamTitle id) {
         this.repo.deleteById(id);
     }
 
+    @Override
+    public Optional<Exam> ofIdentity(Designation id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void deleteOfIdentity(Designation entityId) {
+
+    }
 }
