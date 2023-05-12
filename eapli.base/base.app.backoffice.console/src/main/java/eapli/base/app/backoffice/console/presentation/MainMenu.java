@@ -25,6 +25,7 @@ package eapli.base.app.backoffice.console.presentation;
 
 import eapli.base.app.backoffice.console.presentation.RecurringLessons.CreateRecurringLessonsUI;
 import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
+import eapli.base.app.backoffice.console.presentation.courses.ListCoursesUI;
 import eapli.base.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
 import eapli.base.app.backoffice.console.presentation.exam.CreateUpdateExamUI;
 import eapli.base.app.backoffice.console.presentation.courses.ListCoursesUI;
@@ -115,6 +116,8 @@ public class MainMenu extends AbstractUI {
 
     private static final int ADD_NEW_COURSE =1;
     private static final int UPDATE_COURSE_STATE =2;
+    private static final int LIST_COURSES =3;
+
 
     private static final int LIST_ALL_COURSES =1;
 
@@ -243,6 +246,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_ALL_COURSES,"List all Courses", new ListCoursesUI()::show);
         menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
         menu.addItem(UPDATE_COURSE_STATE, "Update Course State", new UpdateCourseStateUI()::show);
+        menu.addItem(LIST_COURSES, "List Courses", new ListCoursesUI()::show);
+
         return menu;
     }
 
