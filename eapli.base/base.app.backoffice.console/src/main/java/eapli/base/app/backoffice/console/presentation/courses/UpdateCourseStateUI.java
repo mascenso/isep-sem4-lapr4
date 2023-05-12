@@ -23,7 +23,11 @@ public class UpdateCourseStateUI extends AbstractUI {
             System.out.println("Course: " + course.designation().toString());
             System.out.println("Current State: " + course.state().toString());
 
+
             CourseStates currentState = CourseStates.valueOf(String.valueOf(course.state()));
+
+           // String atualState = String.valueOf(course.state());
+
             String newState = null;
 
             do {

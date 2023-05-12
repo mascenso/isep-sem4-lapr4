@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public class UpdateCourseStateController {
     private final CourseRepository courseRepository;
+    private  Course course;
 
     public UpdateCourseStateController() {
         this.courseRepository = PersistenceContext.repositories().courses();
@@ -26,9 +27,11 @@ public class UpdateCourseStateController {
 
     public void updateCourseState(String designationName, String newState) throws IntegrityViolationException, ConcurrencyException {
         Optional<Course> optionalCourse = findCourseByDesignation(designationName);
-        CourseBuilder courseBuilder = new CourseBuilder();
-        Course updateState = courseBuilder.state(CourseStates.valueOf(newState)).build();
-        PersistenceContext.repositories().courses().save(updateState);
+        //CourseBuilder courseBuilder = new CourseBuilder();
+        //Course updateState = courseBuilder.state(CourseStates.valueOf(newState)).build();
+        optionalCourse.get().updateState(CourseStates.valueOf(newState));
+        PersistenceContext.repositories().courses().save(optionalCourse.get());
+        //PersistenceContext.repositories().courses().save(updateState);
 
     }
 
