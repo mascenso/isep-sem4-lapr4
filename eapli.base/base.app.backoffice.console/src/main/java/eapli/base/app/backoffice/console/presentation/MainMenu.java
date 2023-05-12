@@ -69,52 +69,19 @@ public class MainMenu extends AbstractUI {
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
 
-    // DISH TYPES
-    private static final int DISH_TYPE_REGISTER_OPTION = 1;
-    private static final int DISH_TYPE_LIST_OPTION = 2;
-    private static final int DISH_TYPE_CHANGE_OPTION = 3;
-    private static final int DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION = 4;
-
-    // DISHES
-    private static final int DISH_REGISTER_OPTION = 5;
-    private static final int DISH_LIST_OPTION = 6;
-    private static final int DISH_REGISTER_DTO_OPTION = 7;
-    private static final int DISH_LIST_DTO_OPTION = 8;
-    private static final int DISH_ACTIVATE_DEACTIVATE_OPTION = 9;
-    private static final int DISH_CHANGE_OPTION = 10;
-
-    // DISH PROPERTIES
-    private static final int CHANGE_DISH_NUTRICIONAL_INFO_OPTION = 1;
-    private static final int CHANGE_DISH_PRICE_OPTION = 2;
-
-    // MATERIALS
-    private static final int MATERIAL_REGISTER_OPTION = 1;
-    private static final int MATERIAL_LIST_OPTION = 2;
-
-    // REPORTING
-    private static final int REPORTING_DISHES_PER_DISHTYPE_OPTION = 1;
-    private static final int REPORTING_HIGH_CALORIES_DISHES_OPTION = 2;
-    private static final int REPORTING_DISHES_PER_CALORIC_CATEGORY_OPTION = 3;
-
-    // MEALS
-    private static final int LIST_MEALS_OPTION = 1;
-    private static final int MEAL_REGISTER_OPTION = 2;
-
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int SETTINGS_OPTION = 3;
     private static final int COURSE_OPTION = 4;
     private static final int SHAREDBOARD_OPTION = 5;
-    private static final int RECURRING_LESSON_OPTION = 6;
-    private static final int EXAM_OPTION = 7;
-    private static final int MEALS_OPTION = 7;
-    private static final int REPORTING_DISHES_OPTION = 8;
+    private static final int RECURRING_LESSON_OPTION = 3;
+    private static final int EXAM_OPTION = 2;
 
     //COURSE
 
-    private static final int ADD_NEW_COURSE =1;
-    private static final int UPDATE_COURSE_STATE =2;
+    private static final int ADD_NEW_COURSE =2;
+    private static final int UPDATE_COURSE_STATE =3;
 
     private static final int LIST_ALL_COURSES =1;
 
@@ -129,7 +96,7 @@ public class MainMenu extends AbstractUI {
 
     //SHAREDBOARD
     private static final int CREATE_BOARD_OPTION = 1;
-    private static final int LIST_BOARDS_OPTION = 2;
+    private static final int LIST_BOARDS_OPTION = 3;
 
     //RECURRING LESSON
 
@@ -203,7 +170,7 @@ public class MainMenu extends AbstractUI {
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER, BaseRoles.TEACHER)){
-            final Menu recurringLessonMenu = buildRecurringLessonBoardMenu();
+            final Menu recurringLessonMenu = buildRecurringLessonMenu();
             mainMenu.addSubMenu(RECURRING_LESSON_OPTION, recurringLessonMenu);
         }
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -250,6 +217,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Exam >");
         menu.addItem(ADD_NEW_EXAM, "Create Exam", new CreateUpdateExamUI()::show);
         menu.addItem(UPDATE_EXAM, "Update Exam", new CreateUpdateExamUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
     private Menu buildSharedBoardMenu() {
@@ -263,7 +231,7 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
-    private Menu buildRecurringLessonBoardMenu() {
+    private Menu buildRecurringLessonMenu() {
         final Menu menu = new Menu("Recurring Lesson >");
 
         menu.addItem(CREATE_RECURRING_LESSON_OPTION, "Create Recurring Lesson", new CreateRecurringLessonsUI()::show);
