@@ -64,8 +64,8 @@ public class CreateUpdateExamController {
             answers.add(matchingAnswers[i]);
         }
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theSolution(Solution.valueOf(solution))
-                .definedQuestion(question).definedMultiOrMatchingSolutions(solution).definedMultipleOrMatchingOptions(matchingOptions)
-                .definedMatchingAnswers(matchingAnswers).ofType(new QuestionBuilder().getQuestionType(option)).build();
+                .definedQuestion(question).definedMultiOrMatchingSolutions(solution).definedMultipleOrMatchingOptions(options)
+                .definedMatchingAnswers(answers).ofType(new QuestionBuilder().getQuestionType(option)).build();
 
         return PersistenceContext.repositories().questions().save(newQuestion);
     }
@@ -78,7 +78,7 @@ public class CreateUpdateExamController {
             options.add(multipleChoice[i]);
         }
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theSolution(Solution.valueOf(solutionIndex))
-                .definedQuestion(question).definedSolution(solutionIndex).definedMultipleOrMatchingOptions(multipleChoice)
+                .definedQuestion(question).definedSolution(solutionIndex).definedMultipleOrMatchingOptions(options)
                 .ofType(new QuestionBuilder().getQuestionType(option)).build();
 
         return PersistenceContext.repositories().questions().save(newQuestion);
@@ -96,9 +96,13 @@ public class CreateUpdateExamController {
 
     @Transactional
     public Question createNumericalQuestion(final String question, final String[] solution, final String[] multipleChoice, double acceptanceError, final int option) {
+        final List<String> options = new ArrayList<>();
+        for (int i = 0; i < multipleChoice.length; i++) {
+            options.add(multipleChoice[i]);
+        }
 
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theSolution(Solution.valueOf(solution)).definedQuestion(question)
-                .definedMultipleOrMatchingOptions(multipleChoice).definedAcceptanceError(acceptanceError).ofType(new QuestionBuilder().getQuestionType(option)).build();
+                .definedMultipleOrMatchingOptions(options).definedAcceptanceError(acceptanceError).ofType(new QuestionBuilder().getQuestionType(option)).build();
 
         return PersistenceContext.repositories().questions().save(newQuestion);
     }
@@ -111,7 +115,7 @@ public class CreateUpdateExamController {
         }
 
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theSolution(Solution.valueOf(solutions)).definedQuestion(question)
-                .definedMultiOrMatchingSolutions(solutions).definedMultipleOrMatchingOptions(words).ofType(new QuestionBuilder().getQuestionType(option)).build();
+                .definedMultiOrMatchingSolutions(solutions).definedMultipleOrMatchingOptions(missingWords).ofType(new QuestionBuilder().getQuestionType(option)).build();
 
         return PersistenceContext.repositories().questions().save(newQuestion);
     }

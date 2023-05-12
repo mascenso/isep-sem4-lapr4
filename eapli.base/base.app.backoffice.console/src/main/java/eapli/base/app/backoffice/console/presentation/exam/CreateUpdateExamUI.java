@@ -3,7 +3,6 @@ package eapli.base.app.backoffice.console.presentation.exam;
 
 import eapli.base.domain.*;
 import eapli.base.exam.application.CreateUpdateExamController;
-import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;

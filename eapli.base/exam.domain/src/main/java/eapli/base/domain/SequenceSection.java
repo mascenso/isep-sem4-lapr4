@@ -1,11 +1,10 @@
 package eapli.base.domain;
 
 import eapli.framework.validations.Preconditions;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
 public class SequenceSection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,12 +15,13 @@ public class SequenceSection {
 
     @Column(nullable = false)
     private String description;
+    @ManyToOne
+    private Exam exam;
 
-    @Embedded
+    @ManyToOne
     private Question question;
-
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questionsList = new ArrayList<>();
-
 
     protected SequenceSection(final int sectionNumber, final String description, final List<Question> questionsList) {
         Preconditions.noneNull(sectionNumber, questionsList);
@@ -30,7 +30,6 @@ public class SequenceSection {
         this.questionsList=questionsList;
 
     }
-
 
     protected SequenceSection() {
         //for ORM only
@@ -41,6 +40,4 @@ public class SequenceSection {
         Preconditions.nonEmpty(description, "Description cannot be empty");
         return new SequenceSection(sectionNumber, description, questionsList);
     }
-
-
 }

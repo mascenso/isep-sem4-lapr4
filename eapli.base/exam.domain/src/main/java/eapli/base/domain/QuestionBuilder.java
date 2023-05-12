@@ -3,13 +3,15 @@ package eapli.base.domain;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.general.domain.model.Description;
 
+import java.util.List;
+
 public class QuestionBuilder implements DomainFactory<Question> {
 
     private Description description;
 
     private Question theQuestion;
     private Solution theSolution;
-    private String[] multipleOrMatchingOptions;
+    private List<String> multipleOrMatchingOptions;
     private String[] multiOrMatchingSolutions;
 
     private Double acceptanceError;
@@ -19,7 +21,7 @@ public class QuestionBuilder implements DomainFactory<Question> {
 
 
 
-    private String[] matchingAnswers;
+    private List<String>  matchingAnswers;
 
     private String solution;
 
@@ -27,7 +29,7 @@ public class QuestionBuilder implements DomainFactory<Question> {
 
 
 
-    public QuestionBuilder definedMultipleOrMatchingOptions(final String[] multipleOrMatchingOptions) {
+    public QuestionBuilder definedMultipleOrMatchingOptions(final List<String> multipleOrMatchingOptions) {
         this.multipleOrMatchingOptions = multipleOrMatchingOptions;
         return this;
     }
@@ -37,7 +39,7 @@ public class QuestionBuilder implements DomainFactory<Question> {
         return this;
     }
 
-    public QuestionBuilder definedMatchingAnswers(final String[] matchingAnswers) {
+    public QuestionBuilder definedMatchingAnswers(final List<String>  matchingAnswers) {
         this.matchingAnswers = matchingAnswers;
         return this;
     }

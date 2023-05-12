@@ -6,12 +6,12 @@ import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Exam implements AggregateRoot<Designation> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,8 +33,8 @@ public class Exam implements AggregateRoot<Designation> {
 
     @Column(nullable = false)
     private Date closeDate;
-    @Embedded
-    private List<SequenceSection> sequenceSections = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SequenceSection> sequenceSections;
 
     protected Exam(final Course course, final ExamTitle title, Date openDate, Date endDate, final Designation designation, final Header header, final List<SequenceSection> sequenceSections) {
         Preconditions.noneNull(title, course, header, sequenceSections, openDate, endDate, designation);
