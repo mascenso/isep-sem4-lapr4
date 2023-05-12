@@ -26,7 +26,8 @@ package eapli.base.app.backoffice.console.presentation;
 import eapli.base.app.backoffice.console.presentation.RecurringLessons.CreateRecurringLessonsUI;
 import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eapli.base.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
-import eapli.base.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
+import eapli.base.app.backoffice.console.presentation.exam.CreateUpdateExamUI;
+import eapli.base.app.backoffice.console.presentation.courses.ListCoursesUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
@@ -106,6 +107,7 @@ public class MainMenu extends AbstractUI {
     private static final int COURSE_OPTION = 4;
     private static final int SHAREDBOARD_OPTION = 5;
     private static final int RECURRING_LESSON_OPTION = 6;
+    private static final int EXAM_OPTION = 7;
     private static final int MEALS_OPTION = 7;
     private static final int REPORTING_DISHES_OPTION = 8;
 
@@ -114,10 +116,16 @@ public class MainMenu extends AbstractUI {
     private static final int ADD_NEW_COURSE =1;
     private static final int UPDATE_COURSE_STATE =2;
 
+    private static final int LIST_ALL_COURSES =1;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
+
+    // EXAM
+
+    private static final int ADD_NEW_EXAM =1;
+    private static final int UPDATE_EXAM =2;
 
     //SHAREDBOARD
     private static final int CREATE_BOARD_OPTION = 1;
@@ -127,6 +135,8 @@ public class MainMenu extends AbstractUI {
 
     private static final int CREATE_RECURRING_LESSON_OPTION = 1;
 
+    private static final int OPEN_BOARD_OPTION = 2;
+    private static final int ARCHIVE_BOARDS_OPTION = 4;
 
     @Override
     public boolean show() {
@@ -179,6 +189,11 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(COURSE_OPTION, courseMenu);
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.TEACHER)) {
+            final Menu examMenu = buildExamMenu();
+            mainMenu.addSubMenu(EXAM_OPTION, examMenu);
+        }
+
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)){
             final Menu sharedBoardMenu = buildSharedBoardMenu();
             mainMenu.addSubMenu(SHAREDBOARD_OPTION, sharedBoardMenu);
@@ -225,17 +240,24 @@ public class MainMenu extends AbstractUI {
 
     private Menu buildCourseMenu(){
         final Menu menu = new Menu("Course >");
+        menu.addItem(LIST_ALL_COURSES,"List all Courses", new ListCoursesUI()::show);
         menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
         menu.addItem(UPDATE_COURSE_STATE, "Update Course State", new UpdateCourseStateUI()::show);
         return menu;
     }
 
-
+    private Menu buildExamMenu(){
+        final Menu menu = new Menu("Exam >");
+        menu.addItem(ADD_NEW_EXAM, "Create Exam", new CreateUpdateExamUI()::show);
+        menu.addItem(UPDATE_EXAM, "Update Exam", new CreateUpdateExamUI()::show);
+        return menu;
+    }
     private Menu buildSharedBoardMenu() {
         final Menu menu = new Menu("Boards >");
 
         menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
-        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
+        menu.addItem(OPEN_BOARD_OPTION, "Open Board", new SharedBoardUI()::show);
+        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new SharedBoardUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

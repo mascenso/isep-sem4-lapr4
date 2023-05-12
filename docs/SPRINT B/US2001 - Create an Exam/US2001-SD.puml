@@ -60,10 +60,9 @@ UI-->Teacher: Ask course, title and exam header
 Teacher->UI:headerInfo, title, course,startDate,endDate
 UI->EC:examInfo=infoForExam(course,title,headerInfo,listOfSections,startDate,endDate)
 EC->B:create
-EC->B:header=createHeader(feedbackType,gradeType,description)
+EC->H:header=createHeader(feedbackType,gradeType,description)
+H-->EC: header
 EC->B:setID(id)
-B->H:header=createHeader(feedbackType,gradeType,description)
-H-->B: header
 EC->B:newExam=createExam(id,course,title,header,listOfSections,startDate,endDate)
 B->E:newExam=createExam(id,course,title,header,listOfSections,startDate,endDate)
 E->E:validateExam(newExam)
