@@ -2,7 +2,6 @@ package eapli.base;
 
 import eapli.base.domain.SharedBoard;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.repositories.SharedBoardRepository;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
@@ -12,18 +11,9 @@ import org.apache.commons.collections4.IteratorUtils;
 import java.util.List;
 import java.util.Optional;
 
-public class ListSharedBoardController {
+public class ListSharedBoardService {
 
-    private ListSharedBoardService sharedBoardService = new ListSharedBoardService();
-
-    public Iterable<SharedBoard> listBoardsByUser(){
-        return sharedBoardService.listBoardsByUser();
-    }
-
-    /*SharedBoardRepository sharedBoardRepository;
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
-
-    private
 
     public Iterable<SharedBoard> listBoardsByUser() {
         authz.session().map(s -> s.authenticatedUser().identity());
@@ -32,6 +22,6 @@ public class ListSharedBoardController {
         List<SharedBoard> boardListByUser = IteratorUtils.toList(boardIterable.iterator());
 
         return boardListByUser;
-    }*/
-}
 
+    }
+}
