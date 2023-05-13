@@ -25,8 +25,7 @@ import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 
 import eapli.base.lesson.domain.repositories.RecurringLessonRepository;
-import eapli.base.repositories.CourseRepository;
-import eapli.base.repositories.MeetingsRepository;
+import eapli.base.repositories.*;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.jpa.JpaAutoTxUserRepository;
@@ -80,12 +79,24 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
+	public ExamRepository exams() {
+		return new JpaExamRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public QuestionRepository questions() {
+		return new JpaQuestionRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
 	public RecurringLessonRepository recurringLessons() { return new JpaRecurringLessonRepository(Application.settings().getPersistenceUnitName());}
 
 	@Override
 	public MeetingsRepository meetings()  {
 		return new JpaMeetingRepository(Application.settings().getPersistenceUnitName());
 	}
+
+
 
 	@Override
 	public TransactionalContext newTransactionalContext() {

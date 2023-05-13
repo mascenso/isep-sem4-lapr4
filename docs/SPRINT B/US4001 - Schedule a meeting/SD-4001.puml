@@ -38,6 +38,9 @@ activate UI
     note right of Builder: On schedule a meeting The timestamp is always empty and\n status is schedule.
     Controller -> Builder:ScheduleMeeting(participants,schedule, duration)
     Builder -> Domain: ScheduleMeeting(participants,schedule, duration)
+    loop number of participants
+        Domain -> ParticipantOfMeeting: create (meeting, participant)
+    end
     Domain --> Builder: meeting
     Builder --> Controller: meeting
     Controller -> MeetingRepository: save(meeting)

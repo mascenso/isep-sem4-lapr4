@@ -22,14 +22,17 @@ public class ScheduleMeetingsUI extends AbstractUI {
         final Iterable<SystemUser> allUsers= theController.allUsers();
         final List<SystemUser> participants = showAllUsersTOChooseParticipants(allUsers);
         boolean validSchedule = false;
+        Date dateOfSchedule = null;
+        int duration = 0;
 
         //It will ask for the time until a time that works for all participants is introduced
         do {
-            final Date dateOfSchedule = Console.readDate("Date for meeting (dd/MM/yyyy HH:mm)", "dd/MM/yyyy HH:mm");
-            final int duration = Console.readInteger("Insert the duration of meeting (on minuts)");
-            validSchedule = new ValidateSchedule().validateScheduleForAllParticipants(participants,dateOfSchedule, duration);
+            dateOfSchedule = Console.readDate("Date for meeting (dd/MM/yyyy HH:mm)", "dd/MM/yyyy HH:mm");
+             duration = Console.readInteger("Insert the duration of meeting (on minuts)");
+            validSchedule = theController.validateSchedule(participants, dateOfSchedule, duration);
         }while(validSchedule==false);
 
+        theController.scheduleMeeting(name,participants,dateOfSchedule,duration);
         return false;
     }
 

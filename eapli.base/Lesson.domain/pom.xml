@@ -19,5 +19,12 @@
 
     <properties>
     </properties>
-    
+    <dependencies>
+        <dependency>
+            <groupId>org.microjpa</groupId>
+            <artifactId>microjpa</artifactId>
+            <version>1.2.4</version>
+        </dependency>
+    </dependencies>
+
 </project>

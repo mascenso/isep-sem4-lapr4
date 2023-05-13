@@ -14,8 +14,16 @@ import java.util.Optional;
 
 public class ListSharedBoardController {
 
-    SharedBoardRepository sharedBoardRepository;
+    private ListSharedBoardService sharedBoardService = new ListSharedBoardService();
+
+    public Iterable<SharedBoard> listBoardsByUser(){
+        return sharedBoardService.listBoardsByUser();
+    }
+
+    /*SharedBoardRepository sharedBoardRepository;
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
+
+    private
 
     public Iterable<SharedBoard> listBoardsByUser() {
         authz.session().map(s -> s.authenticatedUser().identity());
@@ -24,6 +32,6 @@ public class ListSharedBoardController {
         List<SharedBoard> boardListByUser = IteratorUtils.toList(boardIterable.iterator());
 
         return boardListByUser;
-    }
+    }*/
 }
 

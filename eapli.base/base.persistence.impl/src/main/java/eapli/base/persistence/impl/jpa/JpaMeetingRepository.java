@@ -25,13 +25,14 @@ public class JpaMeetingRepository extends JpaAutoTxRepository<Meeting, String,St
                 "MeetingName");
     }
 
+
     @Override
-    public Optional<Meeting> ofIdentity(Designation id) {
+    public Optional<Meeting> ofIdentity(Long id) {
         return Optional.empty();
     }
 
     @Override
-    public void deleteOfIdentity(Designation entityId) {
+    public void deleteOfIdentity(Long entityId) {
 
     }
 }

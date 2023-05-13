@@ -5,35 +5,58 @@ import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.validations.Preconditions;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Meeting implements AggregateRoot<Designation> {
+@Entity
+public class Meeting implements AggregateRoot<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMeeting;
 
+    @Embedded
     private Designation title;
 
-    private List<SystemUser> participants;
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
+    private List<ParticipantsOfMeeting> participants;
+
 
     //duration on minuts
     private int duration;
 
+    @Column
     //date on format dd/mm/yyyy hh:mm
     private Date schedule;
 
-    public Meeting(Designation name, List<SystemUser> participants, Date schedule, int duration){
-        Preconditions.noneNull(name,participants,schedule,duration);
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MeetingStatus meetingStatus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MeetingTimeStamp meetingTimeStamp;
+
+    public Meeting(Designation name, Date schedule, List<SystemUser> listOfParticipants,int  duration){
+        Preconditions.noneNull(name,schedule,duration);
 
         this.title = name;
-        this.participants = participants;
         this.duration = duration;
         this.schedule = schedule;
+
+        this.participants = new ArrayList<>();
+        for(SystemUser participant : listOfParticipants){
+
+            this.participants.add(new ParticipantsOfMeeting(this,participant));
+        }
+        this.meetingStatus = MeetingStatus.SCHEDULE;
+        this.meetingTimeStamp = MeetingTimeStamp.SCHEDULE;
+    }
+
+    public Meeting() {
+
     }
 
     @Override
@@ -42,7 +65,7 @@ public class Meeting implements AggregateRoot<Designation> {
     }
 
     @Override
-    public Designation identity() {
-        return title;
+    public Long identity() {
+        return this.idMeeting;
     }
 }
