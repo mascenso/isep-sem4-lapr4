@@ -14,7 +14,8 @@
     <class>eapli.base.domain.Linhas</class>
     <class>eapli.base.domain.Course</class>
     <class>eapli.base.lesson.domain.model.RecurringLesson</class>
-
+    <class>eapli.base.domain.Meeting</class>
+    <class>eapli.base.domain.ParticipantsOfMeeting</class>
 
 
     <properties>

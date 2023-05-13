@@ -39,6 +39,8 @@
 		<module>eapli.base/sharedboard.application</module>
 		<module>eapli.base/exam.domain</module>
 		<module>eapli.base/exam.application</module>
+        <module>eapli.base/meeting.application</module>
+        <module>eapli.base/meeting.domain</module>
 
     </modules>
 
@@ -99,6 +101,11 @@
 			<groupId>org.threeten</groupId>
 			<artifactId>threetenbp</artifactId>
 			<version>1.6.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.microjpa</groupId>
+			<artifactId>microjpa</artifactId>
+			<version>1.2.4</version>
 		</dependency>
 
 	</dependencies>

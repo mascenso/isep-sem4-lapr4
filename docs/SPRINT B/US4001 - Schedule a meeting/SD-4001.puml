@@ -1,0 +1,53 @@
+@startuml
+actor User as Actor
+participant ScheduleMeetingUI as UI <<presentation>>
+participant ScheduleMeetingController as Controller <<aplication>>
+participant ScheduleMeetingBuilder as Builder <<builder>>
+participant Meeting as Domain <<domain>>
+participant ValidateSchedule as Service <<service>>
+database UsersRepository as UsersRepository <<repository>>
+database MeetingRepository as MeetingRepository <<repository>>
+
+note right of Controller:Some steps have been skipped in order to facilitate reading \n namely Persistence Context and Repository factor \n for an example with these steps see US1002
+Actor -> UI: Schedule Meeting
+activate UI
+    UI --> Actor: Name of meeting
+    Actor --> UI: name
+    UI -> Controller: getUsers()
+    Controller -> UsersRepository: getAllUsers()
+    UsersRepository --> Controller: Users
+    Controller --> UI: Users
+    UI -> UI: showAllUsers()
+    loop user select option 0(exit)
+        UI --> Actor: Select participants
+        Actor --> UI: Participants
+    end
+
+
+    loop validateScheduleService = false
+        UI --> Actor: Schedule of meeting
+        Actor --> UI: Schedule
+        UI --> Actor: Choose Duration (minuts)
+        Actor -> UI: Duration
+        UI -> Controller: validateScheduleForAllParticipants(schedule, participants,duration)
+        Controller -> Service: validateScheduleForAllParticipants(schedule, participants,duration)
+        Service --> Controller: Answer (true or false)
+        Controller --> UI: Answer (true or false)
+    end
+    UI -> Controller: ScheduleMeeting(participants,schedule, duration)
+    note right of Builder: On schedule a meeting The timestamp is always empty and\n status is schedule.
+    Controller -> Builder:ScheduleMeeting(participants,schedule, duration)
+    Builder -> Domain: ScheduleMeeting(participants,schedule, duration)
+    loop number of participants
+        Domain -> ParticipantOfMeeting: create (meeting, participant)
+    end
+    Domain --> Builder: meeting
+    Builder --> Controller: meeting
+    Controller -> MeetingRepository: save(meeting)
+    Controller --> UI: meeting
+    UI --> UI: show meeting
+
+
+
+
+@enduml
