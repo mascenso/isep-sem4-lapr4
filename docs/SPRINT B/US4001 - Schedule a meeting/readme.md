@@ -1,4 +1,4 @@
-# US 1001
+# US4001 As User, I want to schedule a meeting.
 
 *This is an example template*
 
@@ -10,15 +10,7 @@
 
 *In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies).*
 
-*Example*
 
-**US G002** As {Ator} I Want...
-
-- G002.1. Blá Blá Blá ...
-
-- G002.2. Blá Blá Blá ...
-
-*Regarding this requirement we understand that it relates to...*
 
 ## 3. Analysis
 
@@ -38,7 +30,13 @@
 
 ### 4.4. Tests
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+**Test 1:** *Verifies that it is not possible to create a meeting if the time is not compatible with that of the participants*
+
+**Test 2:** *Verifies that it is not possible to create a meeting without a time.*
+
+**Test 3:** *Verifies that it is not possible to create a meeting without duration.*
+
+**Test 4:** *Verifies that the meeting always starts with the marked status.*
 
 ```
 @Test(expected = IllegalArgumentException.class)

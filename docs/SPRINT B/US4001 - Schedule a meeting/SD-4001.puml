@@ -27,14 +27,13 @@ activate UI
     loop validateScheduleService = false
         UI --> Actor: Schedule of meeting
         Actor --> UI: Schedule
-        UI -> Controller: validateSchedule(schedule, participants)
-        Controller -> Service: validateSchedule(schedule, participants)
+        UI --> Actor: Choose Duration (minuts)
+        Actor -> UI: Duration
+        UI -> Controller: validateScheduleForAllParticipants(schedule, participants,duration)
+        Controller -> Service: validateScheduleForAllParticipants(schedule, participants,duration)
         Service --> Controller: Answer (true or false)
         Controller --> UI: Answer (true or false)
     end
-
-    UI --> Actor: Choose Duration (minuts)
-    Actor -> UI: Duration
     UI -> Controller: ScheduleMeeting(participants,schedule, duration)
     note right of Builder: On schedule a meeting The timestamp is always empty and\n status is schedule.
     Controller -> Builder:ScheduleMeeting(participants,schedule, duration)
