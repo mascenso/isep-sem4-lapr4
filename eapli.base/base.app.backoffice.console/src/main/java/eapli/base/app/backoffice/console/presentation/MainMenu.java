@@ -24,9 +24,7 @@
 package eapli.base.app.backoffice.console.presentation;
 
 import eapli.base.app.backoffice.console.presentation.RecurringLessons.CreateRecurringLessonsUI;
-import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
-import eapli.base.app.backoffice.console.presentation.courses.ListCoursesUI;
-import eapli.base.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
+import eapli.base.app.backoffice.console.presentation.courses.*;
 import eapli.base.app.backoffice.console.presentation.exam.CreateUpdateExamUI;
 import eapli.base.app.backoffice.console.presentation.courses.ListCoursesUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
@@ -85,6 +83,8 @@ public class MainMenu extends AbstractUI {
     private static final int LIST_ALL_COURSES =1;
     private static final int ADD_NEW_COURSE =2;
     private static final int UPDATE_COURSE_STATE =3;
+
+    private static final int ENROLL_IN_COURSE_OPTION = 1;
 
 
     private static final String SEPARATOR_LABEL = "--------------";
@@ -177,6 +177,14 @@ public class MainMenu extends AbstractUI {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.STUDENT, BaseRoles.STUDENT)){
+            final Menu requestCourseEnrollmentMenu = buildRequestCourseEnrollment();
+            mainMenu.addSubMenu(ENROLL_IN_COURSE_OPTION, requestCourseEnrollmentMenu);
+        }
+        if (!Application.settings().isMenuLayoutHorizontal()) {
+            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
+        }
+
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;
@@ -235,6 +243,15 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Recurring Lesson >");
 
         menu.addItem(CREATE_RECURRING_LESSON_OPTION, "Create Recurring Lesson", new CreateRecurringLessonsUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildRequestCourseEnrollment() {
+        final Menu menu = new Menu("Request Course Enrollment >");
+
+        menu.addItem(ENROLL_IN_COURSE_OPTION, "Request Course Enrollment", new CourseEnrollmentRequestUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
