@@ -18,8 +18,8 @@
     <class>eapli.base.domain.Question</class>
     <class>eapli.base.domain.SequenceSection</class>
     <class>eapli.base.domain.SectionQuestion</class>
-
-
+    <class>eapli.base.domain.Meeting</class>
+    <class>eapli.base.domain.ParticipantsOfMeeting</class>
 
 
     <properties>
