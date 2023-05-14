@@ -182,7 +182,7 @@ public class MainMenu extends AbstractUI {
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER, BaseRoles.TEACHER)){
-            final Menu recurringLessonMenu = buildRecurringLessonBoardMenu();
+            final Menu recurringLessonMenu = buildRecurringLessonMenu();
             mainMenu.addSubMenu(RECURRING_LESSON_OPTION, recurringLessonMenu);
         }
         if (!Application.settings().isMenuLayoutHorizontal()) {
