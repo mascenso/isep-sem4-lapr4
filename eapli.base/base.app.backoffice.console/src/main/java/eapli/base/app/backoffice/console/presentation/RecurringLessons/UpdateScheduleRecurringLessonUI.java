@@ -5,7 +5,9 @@ import eapli.base.lesson.domain.model.RecurringLesson;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class UpdateScheduleRecurringLessonUI extends AbstractUI {
@@ -22,18 +24,18 @@ public class UpdateScheduleRecurringLessonUI extends AbstractUI {
 
         int position = 0;
         for (RecurringLesson lesson: listOfLessons) {
-            System.out.printf("(%d) %s %s %s",position, lesson.title(), lesson.startDate(), lesson.duration());
+            System.out.printf("(%d) %s %s %s %s",position, lesson.title(), lesson.startDate().getTime(), lesson.endDate().getTime(), lesson.duration().toString());
             lessonList.add(lesson);
             position ++;
         }
 
         int chooseLesson = Console.readInteger("Lesson");
 
-        System.out.println("(1) Start date");
-        System.out.println("(2) End date");
-        System.out.println("(3) Duration");
+        Calendar startDate = Console.readCalendar("A data antiga é " + lessonList.get(chooseLesson).startDate().getTime() + " que valor deseja colocar?","dd/mm/yyyy hh:mm");
+        Calendar endDate = Console.readCalendar("A data antiga é " + lessonList.get(chooseLesson).endDate().getTime() + " que valor deseja colocar?","dd/mm/yyyy");
+        Duration duration = Duration.ofMinutes(Console.readInteger("A data antiga é " + lessonList.get(chooseLesson).startDate().toString() + " que valor deseja colocar?"));
 
-        int chooseChange = Console.readInteger("Which one do you want to update?");
+        RecurringLesson updatedLesson = theController.updateScheduleOfRecurringLesson(lessonList.get(chooseLesson),startDate,endDate,duration);
 
         return false;
     }
