@@ -181,6 +181,7 @@ public class MainMenu extends AbstractUI {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
+
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER, BaseRoles.TEACHER)){
             final Menu recurringLessonMenu = buildRecurringLessonBoardMenu();
             mainMenu.addSubMenu(RECURRING_LESSON_OPTION, recurringLessonMenu);
