@@ -5,28 +5,52 @@ autonumber
 
 actor User
 
+
 User -> CreateSharedBoardUI: Select the option to create Shared Board
 activate CreateSharedBoardUI
 CreateSharedBoardUI --> User: Requests data
-User -> CreateSharedBoardUI: Answer the resquest data
+User -> CreateSharedBoardUI: Insert title, numberOfColumns, numberOfRows
+    loop option < 11
+        CreateSharedBoardUI --> User: Requests the name of the columns
+        User -> CreateSharedBoardUI: Types names of the columns
+    end
+     loop option < 21
+            CreateSharedBoardUI --> User: Requests the name of the rows
+            User -> CreateSharedBoardUI: Types names of the rows
+        end
 
 control CreateSharedBoardController
 CreateSharedBoardUI -> CreateSharedBoardController: create()
 activate CreateSharedBoardController
-CreateSharedBoardUI -> CreateSharedBoardController: createSharedBoard()
+CreateSharedBoardUI -> CreateSharedBoardController: addSharedBoard(title, numberOfColumns,\n numberOfRows, columnsList, rowsList)
 
+CreateSharedBoardController -> CreateSharedBoardBuilder: createSharedBoardBuilder
+activate CreateSharedBoardBuilder
+CreateSharedBoardController -> CreateSharedBoardBuilder: createSharedBoard
+CreateSharedBoardBuilder -> SharedBoard: createSharedBoard(\ntitle, numberOfColumns, numberOfColumns, \n owner, archive, columnsNames, rowsNames)
+SharedBoard --> CreateSharedBoardBuilder: SharedBoard
+CreateSharedBoardBuilder --> CreateSharedBoardController: SharedBoard
+deactivate CreateSharedBoardBuilder
 CreateSharedBoardController -> PersistenceContext: repositories()
+activate PersistenceContext
 database RepositoryFactory
+note right of PersistenceContext: pode criar repositório em memória ou JPA
 PersistenceContext -> RepositoryFactory: create()
 database SharedBoardRepository
 RepositoryFactory -> SharedBoardRepository: create()
-CreateSharedBoardController -> SharedBoard: newSharedBoard = create()
-CreateSharedBoardController -> SharedBoardRepository: save(newSharedBoard)
-CreateSharedBoardController --> CreateSharedBoardUI:
+PersistenceContext --> CreateSharedBoardController : factory
+deactivate PersistenceContext
+CreateSharedBoardController -> RepositoryFactory: SharedBoard()
+activate RepositoryFactory
+RepositoryFactory -> SharedBoardRepository : create
+RepositoryFactory --> CreateSharedBoardController: SharedBoardRepository
+deactivate RepositoryFactory
+CreateSharedBoardController -> SharedBoardRepository: save(SharedBoard)
 deactivate CreateSharedBoardController
-CreateSharedBoardUI --> User: Request confirm
-User -> CreateSharedBoardUI: Confirms
-CreateSharedBoardUI --> User: Shows info Shared Board created
+CreateSharedBoardController --> CreateSharedBoardUI: SharedBoard
+
+CreateSharedBoardUI --> User: Displays SharedBoard Info
+
 deactivate CreateSharedBoardController
 
 

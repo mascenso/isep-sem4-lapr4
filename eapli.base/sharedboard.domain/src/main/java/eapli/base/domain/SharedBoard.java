@@ -13,26 +13,21 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @EmbeddedId
     private SharedBoardTitle title;
 
-    @Embedded
-    private SharedBoardColumnAndRow position;
+    @Column
+    private int numberRows;
+    @Column
+    private int numberColumns;
 
-   /* @Embeddable
-    public class SharedBoardPosition {
-
-        @Column(name = "numberColumns")
-        private int column;
-
-        @Column(name = "numberRows")
-        private int row;
-    }*/
+    /*@Embedded
+    private SharedBoardColumnAndRow position;*/
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "SHARED_BOARD_TITLE")
-    private List<Linhas> linhas;
+    private List<Linha> linhas;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "SHARED_BOARD_TITLE")
-    private List<Colunas> colunas;
+    private List<Coluna> colunas;
 
     @ManyToOne
     @JoinColumn()
@@ -42,47 +37,65 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     private boolean archive;
 
 
-    public SharedBoard(final SharedBoardTitle title, boolean archive, final SystemUser owner, final SharedBoardColumnAndRow position, List<Colunas> columns, List<Linhas> rows) {
-        if (title == null || owner == null || position == null) {
+    public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner,  List<Coluna> columns, List<Linha> rows) {
+        if (title == null) {
             throw new IllegalArgumentException();
         }
+        if ( (numberColumns < 1) || (numberColumns > 10) ) {
+            throw new IllegalArgumentException("Column value must be between 1 and 10");
+        }
+        if ( (numberRows < 1) || (numberRows > 20) ){
+            throw new IllegalArgumentException("Row value must be between 1 and 20");
+        }
         this.title = title;
+        this.numberColumns = numberColumns;
+        this.numberRows = numberRows;
         this.owner = owner;
         this.archive = archive;
-        this.position = position;
         this.colunas = columns;
         this.linhas = rows;
+    }
+
+    public SharedBoard(int numberRows, int numberColumns) {
+        if ( (numberColumns < 1) || (numberColumns > 10) ) {
+            throw new IllegalArgumentException("Column value must be between 1 and 10");
+        }
+        if ( (numberRows < 1) || (numberRows > 20) ){
+            throw new IllegalArgumentException("Row value must be between 1 and 20");
+        }
+        this.numberRows = numberRows;
+        this.numberColumns = numberColumns;
     }
 
     protected SharedBoard() {
 
     }
 
-    public SharedBoardTitle getTitle(){
+    public SharedBoardTitle title(){
         return title;
     }
 
-    public SystemUser getOwner(){
+    public SystemUser owner(){
         return this.owner;
     }
 
-    public boolean getArchive(){
+    public boolean archive(){
         return archive;
     }
 
-    public List<Colunas> getColunas() {
+    public List<Coluna> colunas() {
         return colunas;
     }
 
-    public void setColunas(List<Colunas> colunas) {
+    public void setColunas(List<Coluna> colunas) {
         this.colunas = colunas;
     }
 
-    public List<Linhas> getLinhas() {
+    public List<Linha> linhas() {
         return linhas;
     }
 
-    public void setLinhas(List<Linhas> linhas) {
+    public void setLinhas(List<Linha> linhas) {
         this.linhas = linhas;
     }
 
@@ -118,28 +131,20 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return true;
     }
 
-    public SharedBoardColumnAndRow getPosition() {
+    public int numberOfColumns() {
+        return numberColumns;
+    }
+
+    public int numberOfRows(){
+        return numberRows;
+    }
+
+    /*public SharedBoardColumnAndRow getPosition() {
         return position;
     }
 
     public void setPosition(SharedBoardColumnAndRow position) {
         this.position = position;
-    }
-    
-    /*public String valueAtPosition( int column, int row){
-        if (column >= position.getNumberColumns() && column < position.getNumberColumns() + column && row >= position.getNumberRows() && row < position.getNumberRows() + column){
-            String[][] data = new String[column][row];
-            return data[column - position.getNumberColumns()][row - position.getNumberRows()];
-        } else {
-            throw new IllegalArgumentException("Position is out of bounds");
-        }
-    }
-    
-    public void showSharedBoard(){
-        for (int column = 1; column <= position.getNumberColumns(); column++){
-            for (int row = 1; row <= position.getNumberRows(); row++){
-                System.out.println();
-            }
-        }
     }*/
+
 }

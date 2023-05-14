@@ -3,6 +3,7 @@ package eapli.base.domain;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
+import javax.persistence.Column;
 import java.util.List;
 
 public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
@@ -10,14 +11,16 @@ public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
 
     private SharedBoardTitle title;
 
-    private SharedBoardColumnAndRow position;
+    private int numberColumns;
+
+    private int numberRows;
 
     private boolean archive;
 
     private SystemUser owner;
 
-    private List<Colunas> columns;
-    private List<Linhas> rows;
+    private List<Coluna> columns;
+    private List<Linha> rows;
 
 
     public CreateSharedBoardBuilder withTile(final String title) {
@@ -25,8 +28,13 @@ public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
         return this;
     }
 
-    public CreateSharedBoardBuilder withPosition(final SharedBoardColumnAndRow position){
-        this.position = position;
+    public CreateSharedBoardBuilder withNumberOfColumns(final int numberOfColumns){
+        this.numberColumns = numberOfColumns;
+        return this;
+    }
+
+    public CreateSharedBoardBuilder withNumberOfRows(final int numberOfRows){
+        this.numberRows = numberOfRows;
         return this;
     }
 
@@ -41,19 +49,23 @@ public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
         return this;
     }
 
-    public CreateSharedBoardBuilder withColumns(List<Colunas> columns) {
+    public CreateSharedBoardBuilder withColumns(List<Coluna> columns) {
         this.columns = columns;
         return this;
     }
 
-    public CreateSharedBoardBuilder withRows(List<Linhas> rows) {
+    public CreateSharedBoardBuilder withRows(List<Linha> rows) {
         this.rows = rows;
         return this;
     }
 
     public SharedBoard build() {
-        return new SharedBoard(title, archive, owner, position, columns, rows);
+        return new SharedBoard(title, numberColumns, numberRows, archive, owner,  columns, rows);
     }
 
 
+    public CreateSharedBoardBuilder withTitle(SharedBoardTitle title) {
+       this.title = title;
+       return this;
+    }
 }

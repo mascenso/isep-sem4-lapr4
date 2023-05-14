@@ -10,8 +10,8 @@
     <class>eapli.base.clientusermanagement.domain.ClientUser</class>
     <class>eapli.base.clientusermanagement.domain.SignupRequest</class>
     <class>eapli.base.domain.SharedBoard</class>
-    <class>eapli.base.domain.Colunas</class>
-    <class>eapli.base.domain.Linhas</class>
+    <class>eapli.base.domain.Coluna</class>
+    <class>eapli.base.domain.Linha</class>
     <class>eapli.base.domain.Course</class>
     <class>eapli.base.lesson.domain.model.RecurringLesson</class>
 

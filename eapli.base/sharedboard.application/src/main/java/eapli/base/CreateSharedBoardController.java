@@ -23,12 +23,13 @@ public class CreateSharedBoardController {
     private final TransactionalContext tx = repositoryFactory.newTransactionalContext();
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public static void addSharedBoard(String title, SharedBoardColumnAndRow position, List<Colunas> columnNames, List<Linhas> rowNames) throws IntegrityViolationException, ConcurrencyException {
+    public static void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<Coluna> columnNames, List<Linha> rowNames) throws IntegrityViolationException, ConcurrencyException {
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
         CreateSharedBoardBuilder createSharedBoardBuilder = new CreateSharedBoardBuilder();
         SharedBoard createSharedBoard = createSharedBoardBuilder
                 .withTile(title)
-                .withPosition(position)
+                .withNumberOfColumns(numberOfColumns)
+                .withNumberOfRows(numberOfrows)
                 .withArchive(false)
                 .withOwner(user.get())
                 .withColumns(columnNames)
