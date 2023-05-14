@@ -10,11 +10,9 @@
         <version>0.1.0</version>
     </parent>
 
-    <groupId>isep.sem4.pi</groupId>
     <artifactId>meeting.domain</artifactId>
     <version>${project.parent.version}</version>
-    <packaging>jar</packaging>
-    <name>meeting.domain</name>
+
 
     <properties>
     </properties>

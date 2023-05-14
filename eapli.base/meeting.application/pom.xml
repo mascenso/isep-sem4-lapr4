@@ -10,11 +10,9 @@
         <version>0.1.0</version>
     </parent>
 
-    <groupId>isep.sem4.pi</groupId>
     <artifactId>meeting.application</artifactId>
     <version>${project.parent.version}</version>
-    <packaging>jar</packaging>
-    <name>meeting.application</name>
+
 
     <properties>
     </properties>
@@ -22,13 +20,13 @@
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>base.core</artifactId>
-            <version>0.1.0</version>
+            <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>meeting.domain</artifactId>
-            <version>0.1.0</version>
+            <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
