@@ -1,57 +1,28 @@
-package eapli.base.exam.application;
+package eapli.base.question.application;
 
-import eapli.base.course.application.ListCoursesService;
-import eapli.base.domain.*;
+import eapli.base.domain.Question;
+import eapli.base.domain.QuestionBuilder;
+import eapli.base.domain.QuestionType;
+import eapli.base.domain.Solution;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.repositories.CourseRepository;
-import eapli.base.repositories.ExamRepository;
 import eapli.base.repositories.QuestionRepository;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.general.domain.model.Description;
-import eapli.framework.general.domain.model.Designation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @UseCaseController
 @Component
-public class CreateUpdateExamController {
-    @Autowired
-    private ListCoursesService courseService = new ListCoursesService();
-
-    @Autowired
-    private CourseRepository repo;
-    @Autowired
-    private ExamRepository examRepository;
-
-    @Autowired
-    private CourseRepository courseRepository;
+public class AddUpdateExamQuestionsController {
 
     @Autowired
     private QuestionRepository questionRepository;
 
-    @Transactional
-    public SequenceSection createSections(final Integer sectionNumber, final String decription, final List<Question> questions) {
-        final SequenceSection newSQ = SequenceSection.valueOf(sectionNumber, decription, questions);
-        return newSQ;
-    }
-
-    @Transactional
-    public Header createHeader(final String decription, final Integer feedbackType, final Integer gradeType) {
-        final Header newHeader = Header.valueOf(decription, feedbackType, gradeType);
-        return newHeader;
-    }
-
-    @Transactional
-    public Exam createExam(final Course course, final String title, Date openDate, Date endDate, final Designation designation, final Header header, final List<SequenceSection> sequenceSections) {
-
-        final Exam newExam = new ExamBuilder().theCourse(course).theExamTitle(ExamTitle.valueOf(title)).theOpenDate(openDate)
-                .theCloseDate(endDate).theDescription(designation).theHeader(header).theSequenceSection(sequenceSections).build();
-
-        return newExam;
-    }
 
     @Transactional
     public Question createMatchingQuestion(final String question, final String[] solution, final String[] matchingOptions, final String[] matchingAnswers, final int option) {
@@ -63,7 +34,7 @@ public class CreateUpdateExamController {
         for (int i = 0; i < matchingAnswers.length; i++) {
             answers.add(matchingAnswers[i]);
         }
-        final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theSolution(Solution.valueOf(solution))
+        final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theListOfSolutions(Solution.valueOf(solution))
                 .definedQuestion(question).definedMultiOrMatchingSolutions(solution).definedMultipleOrMatchingOptions(options)
                 .definedMatchingAnswers(answers).ofType(new QuestionBuilder().getQuestionType(option)).build();
 
@@ -86,9 +57,13 @@ public class CreateUpdateExamController {
 
 
     @Transactional
-    public Question createShortAnswerQuestion(final String question, final String solution, final boolean isCaseSensitive, final int option) {
-
-        final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theSolution(Solution.valueOf(solution))
+    public Question createShortAnswerQuestion(final String question, final String solution, final String caseSensitive, final int option) {
+        boolean isCaseSensitive = false;
+        if (caseSensitive.equalsIgnoreCase("yes")) {
+            isCaseSensitive = true;
+        }
+        Solution sol=Solution.valueOf(solution);
+        final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theSolution(sol)
                 .isCaseSensitive(isCaseSensitive).definedQuestion(question).ofType(new QuestionBuilder().getQuestionType(option)).build();
 
         return PersistenceContext.repositories().questions().save(newQuestion);
@@ -101,7 +76,7 @@ public class CreateUpdateExamController {
             options.add(multipleChoice[i]);
         }
 
-        final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theSolution(Solution.valueOf(solution)).definedQuestion(question)
+        final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theListOfSolutions(Solution.valueOf(solution)).definedQuestion(question)
                 .definedMultipleOrMatchingOptions(options).definedAcceptanceError(acceptanceError).ofType(new QuestionBuilder().getQuestionType(option)).build();
 
         return PersistenceContext.repositories().questions().save(newQuestion);
@@ -114,7 +89,7 @@ public class CreateUpdateExamController {
             missingWords.add(words[i]);
         }
 
-        final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theSolution(Solution.valueOf(solutions)).definedQuestion(question)
+        final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theListOfSolutions(Solution.valueOf(solutions)).definedQuestion(question)
                 .definedMultiOrMatchingSolutions(solutions).definedMultipleOrMatchingOptions(missingWords).ofType(new QuestionBuilder().getQuestionType(option)).build();
 
         return PersistenceContext.repositories().questions().save(newQuestion);
@@ -128,19 +103,13 @@ public class CreateUpdateExamController {
         return PersistenceContext.repositories().questions().save(newQuestion);
     }
 
-    public List<Course> getOpenCourses() {
-        List<Course> openCourses = new ArrayList<>();
-        for (Course course : courseService.allCourses()) {
-            if (course.getCourseState().equals("Open")) {
-                openCourses.add(course);
-            }
-        }
-        return openCourses;
+    public Map<Integer, QuestionType> getAllQuestionTypes() {
+        return QuestionType.getListOfQuestionTypes();
     }
 
-    public Course findCourse(final Designation designation) {
-        return courseRepository.findByDesignation(designation).orElseThrow(() ->
-                new IllegalArgumentException("Course not found with designation: " + designation));
+    public QuestionType getQuestionType(int option) {
+        return QuestionType.getQuestionType(option);
     }
+
 
 }

@@ -7,17 +7,13 @@ import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
 public class Question implements AggregateRoot<Designation> {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
     private String question;
     @Embedded
@@ -29,17 +25,17 @@ public class Question implements AggregateRoot<Designation> {
     @ElementCollection
     private List<String>  matchingAnswers;
 
-    @Column(nullable = false)
+
     private Boolean caseSensitive;
 
-    @Column(nullable = false)
+
     private String answer;
-    @Column(nullable = false)
+
     private Double acceptanceError;
+
 
     @XmlElement
     @JsonProperty
-    @EmbeddedId
     private Designation designation;
 
     @Column(nullable = false)

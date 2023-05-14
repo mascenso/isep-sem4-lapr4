@@ -11,6 +11,7 @@ public class QuestionBuilder implements DomainFactory<Question> {
 
     private Question theQuestion;
     private Solution theSolution;
+    private List<String> theListOfSolutions;
     private List<String> multipleOrMatchingOptions;
     private String[] multiOrMatchingSolutions;
 
@@ -54,7 +55,12 @@ public class QuestionBuilder implements DomainFactory<Question> {
     }
 
     public QuestionBuilder definedSolution(final String solution) {
-        this.solution = solution;
+        this.theSolution = new Solution(solution);
+        return this;
+    }
+
+    public QuestionBuilder theListOfSolutions(final List<String> listOfSolutions) {
+        this.theListOfSolutions = listOfSolutions;
         return this;
     }
 
@@ -117,7 +123,7 @@ public class QuestionBuilder implements DomainFactory<Question> {
         if (theQuestion != null) {
             return theQuestion;
         }
-        if (question != null && solution != null) {
+        if (question != null) {
             switch (questionType) {
                 case MATCHING:
                     theSolution=new Solution(multiOrMatchingSolutions);
@@ -128,7 +134,7 @@ public class QuestionBuilder implements DomainFactory<Question> {
                     theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, questionType);
                     break;
                 case SHORT_ANSWER:
-                    theSolution=new Solution(solution);
+                    //theSolution=new Solution(solution);
                     theQuestion = new Question(question, theSolution, caseSensitive, questionType);
                     break;
                 case NUMERICAL:

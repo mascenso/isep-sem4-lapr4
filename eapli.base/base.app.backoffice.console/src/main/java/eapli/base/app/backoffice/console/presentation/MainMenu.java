@@ -26,8 +26,9 @@ package eapli.base.app.backoffice.console.presentation;
 import eapli.base.app.backoffice.console.presentation.RecurringLessons.CreateRecurringLessonsUI;
 import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eapli.base.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
-import eapli.base.app.backoffice.console.presentation.exam.CreateUpdateExamUI;
+import eapli.base.app.backoffice.console.presentation.exam.CreateExamUI;
 import eapli.base.app.backoffice.console.presentation.courses.ListCoursesUI;
+import eapli.base.app.backoffice.console.presentation.exam.UpdateExamUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
@@ -80,12 +81,10 @@ public class MainMenu extends AbstractUI {
 
     //COURSE
 
-    private static final int ADD_NEW_COURSE =1;
-    private static final int UPDATE_COURSE_STATE =2;
-    private static final int LIST_COURSES =3;
-
-
     private static final int LIST_ALL_COURSES =1;
+    private static final int ADD_NEW_COURSE =2;
+    private static final int UPDATE_COURSE_STATE =3;
+
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -105,7 +104,8 @@ public class MainMenu extends AbstractUI {
     private static final int CREATE_RECURRING_LESSON_OPTION = 1;
 
     private static final int OPEN_BOARD_OPTION = 2;
-    private static final int ARCHIVE_BOARDS_OPTION = 4;
+   // private static final int ARCHIVE_BOARDS_OPTION = 4;
+
 
     @Override
     public boolean show() {
@@ -170,7 +170,7 @@ public class MainMenu extends AbstractUI {
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
-
+/*
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER, BaseRoles.TEACHER)){
             final Menu recurringLessonMenu = buildRecurringLessonMenu();
             mainMenu.addSubMenu(RECURRING_LESSON_OPTION, recurringLessonMenu);
@@ -178,6 +178,8 @@ public class MainMenu extends AbstractUI {
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
+
+ */
 
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
@@ -212,13 +214,14 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_ALL_COURSES,"List all Courses", new ListCoursesUI()::show);
         menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
         menu.addItem(UPDATE_COURSE_STATE, "Update Course State", new UpdateCourseStateUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 
     private Menu buildExamMenu(){
         final Menu menu = new Menu("Exam >");
-        menu.addItem(ADD_NEW_EXAM, "Create Exam", new CreateUpdateExamUI()::show);
-        menu.addItem(UPDATE_EXAM, "Update Exam", new CreateUpdateExamUI()::show);
+        menu.addItem(ADD_NEW_EXAM, "Create Exam", new CreateExamUI()::show);
+        menu.addItem(UPDATE_EXAM, "Update Exam", new UpdateExamUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
@@ -233,7 +236,7 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
-    private Menu buildRecurringLessonMenu() {
+    private Menu buildRecurringLessonBoardMenu() {
         final Menu menu = new Menu("Recurring Lesson >");
 
         menu.addItem(CREATE_RECURRING_LESSON_OPTION, "Create Recurring Lesson", new CreateRecurringLessonsUI()::show);

@@ -14,6 +14,11 @@
     <class>eapli.base.domain.Linhas</class>
     <class>eapli.base.domain.Course</class>
     <class>eapli.base.lesson.domain.model.RecurringLesson</class>
+    <class>eapli.base.domain.Exam</class>
+    <class>eapli.base.domain.Question</class>
+    <class>eapli.base.domain.SequenceSection</class>
+    <class>eapli.base.domain.SectionQuestion</class>
+
 
 
 
@@ -22,7 +27,7 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:~\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>
 
       <property name="javax.persistence.jdbc.user" value="sa"/>
-      <property name="javax.persistence.jdbc.password" value="eapli"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
       <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
       <!-- <property name = "hibernate.show_sql" value = "true" /> -->

@@ -10,16 +10,13 @@ public class ExamBuilder implements DomainFactory<Exam> {
     private Exam theExam;
     private Course theCourse;
 
-    private ExamTitle title;
-
-    private Designation theDescription;
+    private ExamTitle examTitle;
 
     private Header theHeader;
 
     private Date openDate;
     private Date closeDate;
 
-    private String examTitle;
 
     private List<SequenceSection> theSequenceSection;
 
@@ -29,12 +26,7 @@ public class ExamBuilder implements DomainFactory<Exam> {
     }
 
     public ExamBuilder theExamTitle(final ExamTitle title) {
-        this.title = title;
-        return this;
-    }
-
-    public ExamBuilder theDescription(final Designation description) {
-        this.theDescription = description;
+        this.examTitle = title;
         return this;
     }
 
@@ -66,9 +58,9 @@ public class ExamBuilder implements DomainFactory<Exam> {
             return theExam;
         }
 
-        if (theCourse != null && openDate != null && closeDate != null && examTitle != null && theDescription != null && theHeader != null && theSequenceSection != null) {
-            ExamTitle title = new ExamTitle(examTitle);
-            theExam = new Exam(theCourse, title, openDate, closeDate, theDescription, theHeader, theSequenceSection);
+        if (theCourse != null && openDate != null && closeDate != null && theHeader != null && theSequenceSection != null) {
+           // ExamTitle title = new ExamTitle(examTitle);
+            theExam = new Exam(theCourse, examTitle, openDate, closeDate, theHeader, theSequenceSection);
             return theExam;
         }
         throw new IllegalStateException();
