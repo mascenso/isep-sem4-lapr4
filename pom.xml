@@ -39,6 +39,9 @@
 		<module>eapli.base/sharedboard.application</module>
 		<module>eapli.base/exam.domain</module>
 		<module>eapli.base/exam.application</module>
+		<module>eapli.base/question.domain</module>
+		<module>eapli.base/question.application</module>
+
         <module>eapli.base/meeting.application</module>
         <module>eapli.base/meeting.domain</module>
 

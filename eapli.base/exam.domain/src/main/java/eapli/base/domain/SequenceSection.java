@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Entity
+@Table(name = "section_question")
 public class SequenceSection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,23 +17,22 @@ public class SequenceSection {
     @Column(nullable = false)
     private int sectionNumber;
 
-    @Column(nullable = false)
     private String description;
-
-    @Embedded
+    @ManyToOne
+    private Exam exam;
+    @ManyToOne
     private Question question;
-
-    private List<Question> questionsList = new ArrayList<>();
-
+    @OneToMany(mappedBy = "sequenceSection", cascade = CascadeType.ALL)
+    private List<SectionQuestion> sectionQuestions = new ArrayList<>();
 
     protected SequenceSection(final int sectionNumber, final String description, final List<Question> questionsList) {
-        Preconditions.noneNull(sectionNumber, questionsList);
+        Preconditions.noneNull(sectionNumber, sectionQuestions);
         this.sectionNumber = sectionNumber;
         this.description = description;
-        this.questionsList=questionsList;
-
+        for (Question question : questionsList) {
+            this.sectionQuestions.add(new SectionQuestion(this, question));
+        }
     }
-
 
     protected SequenceSection() {
         //for ORM only
@@ -38,9 +40,6 @@ public class SequenceSection {
 
     public static SequenceSection valueOf(final int sectionNumber, final String description, final List<Question> questionsList) {
         Preconditions.nonEmpty(String.valueOf(sectionNumber), "Section Number cannot be empty");
-        Preconditions.nonEmpty(description, "Description cannot be empty");
         return new SequenceSection(sectionNumber, description, questionsList);
     }
-
-
 }

@@ -28,8 +28,9 @@ import eapli.base.app.backoffice.console.presentation.RecurringLessons.UpdateSch
 import eapli.base.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eapli.base.app.backoffice.console.presentation.courses.ListCoursesUI;
 import eapli.base.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
-import eapli.base.app.backoffice.console.presentation.exam.CreateUpdateExamUI;
+import eapli.base.app.backoffice.console.presentation.exam.CreateExamUI;
 import eapli.base.app.backoffice.console.presentation.courses.ListCoursesUI;
+import eapli.base.app.backoffice.console.presentation.exam.UpdateExamUI;
 import eapli.base.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
 import eapli.base.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
@@ -80,8 +81,8 @@ public class MainMenu extends AbstractUI {
     private static final int COURSE_OPTION = 4;
     private static final int SHAREDBOARD_OPTION = 5;
     private static final int MEETING_OPTION =6 ;
-    private static final int RECURRING_LESSON_OPTION = 3;
-    private static final int EXAM_OPTION = 2;
+    private static final int RECURRING_LESSON_OPTION = 7;
+    private static final int EXAM_OPTION = 8;
 
     //COURSE
 
@@ -101,7 +102,7 @@ public class MainMenu extends AbstractUI {
 
     //SHAREDBOARD
     private static final int CREATE_BOARD_OPTION = 1;
-    private static final int LIST_BOARDS_OPTION = 2;
+    private static final int LIST_BOARDS_OPTION = 3;
 
     //RECURRING LESSON
 
@@ -223,14 +224,14 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_ALL_COURSES,"List all Courses", new ListCoursesUI()::show);
         menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
         menu.addItem(UPDATE_COURSE_STATE, "Update Course State", new UpdateCourseStateUI()::show);
-
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 
     private Menu buildExamMenu(){
         final Menu menu = new Menu("Exam >");
-        menu.addItem(ADD_NEW_EXAM, "Create Exam", new CreateUpdateExamUI()::show);
-        menu.addItem(UPDATE_EXAM, "Update Exam", new CreateUpdateExamUI()::show);
+        menu.addItem(ADD_NEW_EXAM, "Create Exam", new CreateExamUI()::show);
+        menu.addItem(UPDATE_EXAM, "Update Exam", new UpdateExamUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }

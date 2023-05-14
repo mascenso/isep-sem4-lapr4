@@ -35,13 +35,4 @@ public class JpaExamRepository extends JpaAutoTxRepository<Exam, ExamTitle, Exam
         this.repo.deleteById(id);
     }
 
-    @Override
-    public Optional<Exam> ofIdentity(Designation id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public void deleteOfIdentity(Designation entityId) {
-
-    }
 }

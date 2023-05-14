@@ -1,45 +1,49 @@
 package eapli.base.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.AggregateRoot;
-import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Exam implements AggregateRoot<Designation> {
+public class Exam implements AggregateRoot<ExamTitle> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     private Course course;
-    @XmlElement
-    @JsonProperty
-    @EmbeddedId
-    private Designation designation;
+
     @Column(unique = true)
     private ExamTitle title;
 
     @Embedded
+    @Column(nullable = false)
     private Header header;
+
+    public Long getExamId() {
+        return id;
+    }
+
+    public ExamTitle getExamTitle() {
+        return title;
+    }
 
     @Column(nullable = false)
     private Date openDate;
 
     @Column(nullable = false)
     private Date closeDate;
-    @Embedded
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SequenceSection> sequenceSections = new ArrayList<>();
 
-    protected Exam(final Course course, final ExamTitle title, Date openDate, Date endDate, final Designation designation, final Header header, final List<SequenceSection> sequenceSections) {
-        Preconditions.noneNull(title, course, header, sequenceSections, openDate, endDate, designation);
+    protected Exam(final Course course, final ExamTitle title, Date openDate, Date endDate,  final Header header, final List<SequenceSection> sequenceSections) {
+        Preconditions.noneNull(title, course, header, sequenceSections, openDate, endDate);
         this.course = course;
-        this.designation = designation;
+
         this.openDate=openDate;
         this.closeDate=endDate;
         this.title = title;
@@ -64,8 +68,7 @@ public class Exam implements AggregateRoot<Designation> {
 
         final Exam otherExam = (Exam) other;
 
-        return designation.equals(otherExam.designation)
-                && course.equals(otherExam.course)
+        return course.equals(otherExam.course)
                 && title.equals(otherExam.title)
                 && header.equals(otherExam.header)
                 && sequenceSections.equals(otherExam.sequenceSections)
@@ -74,7 +77,7 @@ public class Exam implements AggregateRoot<Designation> {
     }
 
     @Override
-    public Designation identity() {
-        return designation;
+    public ExamTitle identity() {
+        return title;
     }
 }

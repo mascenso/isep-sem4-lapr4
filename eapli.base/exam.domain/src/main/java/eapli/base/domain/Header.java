@@ -4,19 +4,12 @@ import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
 
-
+@Embeddable
 public class Header {
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private FeedbackType feedbackType;
 
-    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
@@ -24,20 +17,18 @@ public class Header {
     private GradeType gradeType;
 
     protected Header(final String description, final Integer feedbackType, final Integer gradeType) {
-        Preconditions.noneNull(description, feedbackType, gradeType);
+        Preconditions.noneNull( feedbackType, gradeType);
         this.description = description;
         this.feedbackType = typesOfFeedback(feedbackType);
         this.gradeType = typesOfGrades(gradeType);
 
     }
 
-
     protected Header() {
         //for ORM only
     }
 
     public static Header valueOf(final String description, final Integer feedbackType, final Integer gradeType) {
-        Preconditions.nonEmpty(description, "Description cannot be empty");
         Preconditions.nonEmpty(String.valueOf(feedbackType), "Feedback type cannot be empty");
         Preconditions.nonEmpty(String.valueOf(gradeType), "Grade type cannot be empty");
         return new Header(description, feedbackType, gradeType);

@@ -1,29 +1,35 @@
 package eapli.base.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eapli.framework.domain.model.ValueObject;
+import eapli.framework.strings.util.StringPredicates;
 import eapli.framework.validations.Preconditions;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.xml.bind.annotation.XmlAttribute;
+import java.io.Serializable;
 
-@Embeddable
-public class ExamTitle {
 
+public class ExamTitle implements Serializable,ValueObject, Comparable<ExamTitle> {
+    private static final long serialVersionUID = 1L;
     @Column(
             name = "Title"
     )
     @XmlAttribute
     @JsonProperty("Title")
-    private final String title;
-
-
-    protected ExamTitle() {
-        this.title = "";
-    }
+    private String title;
 
     protected ExamTitle(final String title) {
         this.title = title;
+    }
+
+    public String getExamTitle() {
+        return title;
+    }
+
+    protected ExamTitle(){
+        // for ORM
     }
 
 
@@ -34,6 +40,35 @@ public class ExamTitle {
 
     @Override
     public String toString() {
-        return title;
+        return "ExamTitle{" +
+                "title='" + title + '\'' +
+                '}';
     }
+
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ExamTitle)) {
+            return false;
+        }
+
+        final ExamTitle that = (ExamTitle) o;
+        return this.title.equals(that.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.title.hashCode();
+    }
+
+
+    @Override
+    public int compareTo(ExamTitle otherTitle) {
+        return title.compareTo(otherTitle.title);
+    }
+
 }
+
