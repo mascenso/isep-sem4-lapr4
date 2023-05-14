@@ -40,35 +40,6 @@
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>isep.sem4.pi</groupId>
-            <artifactId>exam.domain</artifactId>
-            <version>0.1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>isep.sem4.pi</groupId>
-            <artifactId>Lesson.domain</artifactId>
-            <version>0.1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>isep.sem4.pi</groupId>
-            <artifactId>question.domain</artifactId>
-            <version>0.1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>isep.sem4.pi</groupId>
-            <artifactId>meeting.domain</artifactId>
-            <version>0.1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.microjpa</groupId>
-            <artifactId>microjpa</artifactId>
-            <version>1.2.4</version>
-        </dependency>
 
     </dependencies>
 </project>

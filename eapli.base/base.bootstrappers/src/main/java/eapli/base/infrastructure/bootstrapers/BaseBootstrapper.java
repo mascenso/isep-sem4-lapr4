@@ -24,7 +24,6 @@
 package eapli.base.infrastructure.bootstrapers;
 
 import eapli.base.infrastructure.bootstrapers.demo.BackofficeUsersBootstrapper;
-import eapli.base.infrastructure.bootstrapers.demo.CourseBootstrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,8 +63,7 @@ public class BaseBootstrapper implements Action {
 	public boolean execute() {
 		// declare bootstrap actions
 		final Action[] actions = { new MasterUsersBootstrapper(),
-									new BackofficeUsersBootstrapper(),
-									new CourseBootstrapper()};
+									new BackofficeUsersBootstrapper()};
 
 		registerPowerUser();
 		authenticateForBootstrapping();

@@ -20,10 +20,10 @@
  */
 package eapli.base.infrastructure.persistence;
 
-import eapli.base.lesson.domain.repositories.RecurringLessonRepository;
-import eapli.base.repositories.*;
+import eapli.base.repositories.SharedBoardRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
+import eapli.base.repositories.CourseRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
@@ -88,13 +88,5 @@ public interface RepositoryFactory {
     SharedBoardRepository sharedBoards();
 
     CourseRepository courses();
-
-    ExamRepository exams();
-    QuestionRepository questions();
-
-    RecurringLessonRepository recurringLessons();
-
-    MeetingsRepository meetings();
-
 
 }

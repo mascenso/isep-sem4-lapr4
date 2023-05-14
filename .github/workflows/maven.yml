@@ -13,7 +13,8 @@ on:
     - cron: '10 4 * * *'
   push:
     branches:
-      - master
+      - master    
+      - dev
   workflow_dispatch:
 
 jobs:

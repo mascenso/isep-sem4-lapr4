@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 
 @Component
@@ -35,16 +34,4 @@ public class CreateCourseController {
                 .edition(CourseEdition.valueOf(edition)).state(CourseStates.valueOf(state)).build();
         return PersistenceContext.repositories().courses().save(newCourse);
     }
-
-    /*public void changeCourseState(Long idCourse, String newState) {
-        Optional<Course> optionalCourse = Optional.ofNullable(courseRepository.findById(idCourse));
-        if (optionalCourse.isPresent()) {
-            Course course = optionalCourse.get();
-            course.changeState(CourseStates.valueOf(newState));
-            courseRepository.save(course);
-            System.out.println("Course state changed to " + newState);
-        } else {
-            System.out.println("Course not found");
-        }
-    }*/
 }

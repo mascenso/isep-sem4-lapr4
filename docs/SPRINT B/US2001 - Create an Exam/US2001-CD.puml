@@ -54,19 +54,11 @@ class SequenceSection {
     +addQuestionsToSection()
 }
 class Question {
-    -questionID
     -question
-    -questionType
     -solution
+    -questionType
     +createQuestion()
 }
-
-class Solution {
-    -solution
-    -questionID
-    +createSolution()
-}
-
 class Exam {
     -id
     -course
@@ -109,6 +101,5 @@ FeedbackType-->Header
 GradeType-->Header
 Header-->Exam
 QuestionType-->Question
-Question-->Solution
 
 @enduml

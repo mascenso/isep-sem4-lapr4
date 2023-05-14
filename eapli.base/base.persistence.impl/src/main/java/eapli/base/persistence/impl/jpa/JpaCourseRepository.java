@@ -8,8 +8,6 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 public class JpaCourseRepository  extends JpaAutoTxRepository<Course, CourseEdition,CourseEdition>
@@ -27,13 +25,6 @@ implements CourseRepository {
     @Override
     public Iterable<Course> findAllCourses() {
         return null;
-    }
-
-    @Override
-    public Optional<Course> findByDesignation(final Designation name) {
-        final Map<String, Object> params = new HashMap<>();
-        params.put("name", name);
-        return matchOne("e.name=:name", params);
     }
 
     @Override

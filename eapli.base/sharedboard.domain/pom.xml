@@ -20,12 +20,5 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.microjpa</groupId>
-            <artifactId>microjpa</artifactId>
-            <version>1.2.4</version>
-        </dependency>
-    </dependencies>
 
 </project>

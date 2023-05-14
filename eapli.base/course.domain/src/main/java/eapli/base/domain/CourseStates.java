@@ -31,12 +31,7 @@ public final class CourseStates {
         return new String[]{OPEN,CLOSE,ENROLL,PROGRESS};
     }
 
-    protected CourseStates(final String state){
-        this.actualState = state;}
-
-    public String getActualState() {
-        return this.actualState;
-    }
+    protected CourseStates(final String state){this.actualState = state;}
 
     public static CourseStates valueOf(final String state){
         Preconditions.nonEmpty(state, "Edition cannot be empty");

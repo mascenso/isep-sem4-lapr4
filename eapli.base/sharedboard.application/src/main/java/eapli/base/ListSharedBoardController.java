@@ -14,16 +14,8 @@ import java.util.Optional;
 
 public class ListSharedBoardController {
 
-    private ListSharedBoardService sharedBoardService = new ListSharedBoardService();
-
-    public Iterable<SharedBoard> listBoardsByUser(){
-        return sharedBoardService.listBoardsByUser();
-    }
-
-    /*SharedBoardRepository sharedBoardRepository;
+    SharedBoardRepository sharedBoardRepository;
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
-
-    private
 
     public Iterable<SharedBoard> listBoardsByUser() {
         authz.session().map(s -> s.authenticatedUser().identity());
@@ -31,7 +23,12 @@ public class ListSharedBoardController {
         Iterable<SharedBoard> boardIterable = PersistenceContext.repositories().sharedBoards().findByUsername(user.get().identity());
         List<SharedBoard> boardListByUser = IteratorUtils.toList(boardIterable.iterator());
 
+        /*for (Board board : boardListByUser) {
+            System.out.println(board.getTitle());
+            System.out.println(board.getOwner().username());
+        }*/
+
         return boardListByUser;
-    }*/
+    }
 }
 
