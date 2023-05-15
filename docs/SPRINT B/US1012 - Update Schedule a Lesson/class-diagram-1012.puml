@@ -1,13 +1,29 @@
 @startuml
 
-class A {
-
+class UpdateScheduleRecurringLessonUI {
+doShow()
 }
 
-class B {
-
+class UpdateScheduleRecurringLessonController {
+updateSchedule()
+allRecurringLessons()
+save()
 }
 
-A -> B
+class RecurringLessonRepository {
+}
+
+class RecurringLesson {
+updateScheduleOfLesson(Calendar, Calendar, Duration)
+}
+
+class ListRecurringLessonsService {
+allRecurringLessons()
+}
+
+UpdateScheduleRecurringLessonUI --> UpdateScheduleRecurringLessonController
+UpdateScheduleRecurringLessonController --> RecurringLesson
+UpdateScheduleRecurringLessonController --> RecurringLessonRepository
+UpdateScheduleRecurringLessonController --> ListRecurringLessonsService
 
 @enduml
