@@ -62,6 +62,7 @@ public class AddUpdateExamQuestionsController {
         if (caseSensitive.equalsIgnoreCase("yes")) {
             isCaseSensitive = true;
         }
+
         Solution sol=Solution.valueOf(solution);
         final Question newQuestion = new QuestionBuilder().descriptioned(Description.valueOf(question)).theSolution(sol)
                 .isCaseSensitive(isCaseSensitive).definedQuestion(question).ofType(new QuestionBuilder().getQuestionType(option)).build();
