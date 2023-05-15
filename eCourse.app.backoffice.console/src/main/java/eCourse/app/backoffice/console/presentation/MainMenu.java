@@ -24,6 +24,7 @@
 package eCourse.app.backoffice.console.presentation;
 
 import eCourse.app.backoffice.console.presentation.RecurringLessons.CreateRecurringLessonsUI;
+import eCourse.app.backoffice.console.presentation.RecurringLessons.UpdateScheduleRecurringLessonUI;
 import eCourse.app.backoffice.console.presentation.authz.AddUserUI;
 import eCourse.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import eCourse.app.backoffice.console.presentation.authz.ListUsersAction;
@@ -105,6 +106,7 @@ public class MainMenu extends AbstractUI {
     //RECURRING LESSON
 
     private static final int CREATE_RECURRING_LESSON_OPTION = 1;
+    private static final int UPDATE_SCHEDULE_RECURRING_LESSON_OPTION = 2;
 
 
     //MEETING
@@ -253,6 +255,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Recurring Lesson >");
 
         menu.addItem(CREATE_RECURRING_LESSON_OPTION, "Create Recurring Lesson", new CreateRecurringLessonsUI()::show);
+        menu.addItem(UPDATE_SCHEDULE_RECURRING_LESSON_OPTION, "Update Recurring Lesson", new UpdateScheduleRecurringLessonUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

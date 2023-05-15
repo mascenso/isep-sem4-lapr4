@@ -19,8 +19,8 @@ public class CreateRecurringLessonsUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         final Designation title = Designation.valueOf(Console.readNonEmptyLine("Recurring Lesson Title", "the title of the Recurring Class should not be empty."));
-        final Calendar startDate = Console.readCalendar("Start date");
-        final Calendar endDate = Console.readCalendar("End Date");
+        final Calendar startDate = Console.readCalendar("Start date (dd-MM-yyyy)");
+        final Calendar endDate = Console.readCalendar("End Date (dd-MM-yyyy)");
         final Duration duration = Duration.ofMinutes(Console.readInteger("duration of lesson in minutes"));
 
         try {

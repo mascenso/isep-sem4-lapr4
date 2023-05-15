@@ -83,4 +83,11 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     public Calendar endDate() { return this.endDate;}
 
     public Duration duration() { return this.duration;}
+
+    public RecurringLesson updateScheduleOfLesson(Calendar startDate, Calendar endDate, Duration duration){
+        this.duration = duration;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        return this;
+    }
 }
