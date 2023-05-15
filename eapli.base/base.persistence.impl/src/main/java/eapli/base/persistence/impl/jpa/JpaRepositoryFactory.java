@@ -96,6 +96,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 		return new JpaMeetingRepository(Application.settings().getPersistenceUnitName());
 	}
 
+	@Override
+	public CourseEnrollmentRequestRepository courseEnrollmentRequests() {
+		return new JpaCourseEnrollmentRequestRepository(Application.settings().getPersistenceUnitName());
+	}
+
 
 
 	@Override
