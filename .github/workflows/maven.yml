@@ -80,7 +80,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-code-coverage-report
-          path: eapli.base/eCourse.util.ci/target/site/jacoco-aggregate/
+          path: eCourse.util.ci/target/site/jacoco-aggregate/
 
   #    - uses: jwgmeligmeyling/checkstyle-github-action@master
   #      with:
