@@ -6,15 +6,19 @@
 
     <parent>
         <groupId>isep.sem4.pi</groupId>
-        <artifactId>ecourse</artifactId>
-        <relativePath>../</relativePath>
+        <artifactId>eCourse</artifactId>
+        <relativePath>../pom.xml</relativePath>
         <version>0.1.0</version>
     </parent>
 
     <artifactId>meeting.application</artifactId>
+    <packaging>jar</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>isep.sem4.pi</groupId>
