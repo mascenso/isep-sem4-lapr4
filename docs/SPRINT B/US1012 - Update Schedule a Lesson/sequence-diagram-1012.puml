@@ -1,11 +1,11 @@
 @startuml
 actor Teacher as Actor
-participant UpdateScheduleLessonUI as UI <<presentation>>
-participant UpdateScheduleLessonController as Controller <<aplication>>
-participant Lesson as Domain <<domain>>
+participant UpdateScheduleRecurringLessonUI as UI <<presentation>>
+participant UpdateScheduleRecurringLessonController as Controller <<aplication>>
+participant RecurringLesson as Domain <<domain>>
 participant PersistenceContext as Persistence <<persistence>>
 participant RepositoryFactory as Factory <<factory>>
-database LessonRepository as Repository <<repository>>
+database RecurringLessonRepository as Repository <<repository>>
 
 Actor -> UI: Show()
 UI -> Controller:listLessons()

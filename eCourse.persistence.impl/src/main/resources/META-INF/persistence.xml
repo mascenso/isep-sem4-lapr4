@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence">
+  <persistence-unit name="eCourse">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <class>eapli.framework.infrastructure.authz.domain.model.SystemUser</class>
+    <class>eapli.framework.infrastructure.authz.domain.model.Role</class>
+    <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
+    <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
+
+    <class>eCourse.clientusermanagement.domain.ClientUser</class>
+    <class>eCourse.clientusermanagement.domain.SignupRequest</class>
+    <class>eCourse.domain.SharedBoard</class>
+    <class>eCourse.domain.Colunas</class>
+    <class>eCourse.domain.Linhas</class>
+    <class>eCourse.domain.Course</class>
+    <class>eCourse.lesson.domain.model.RecurringLesson</class>
+    <class>eCourse.domain.Exam</class>
+    <class>eCourse.domain.Question</class>
+    <class>eCourse.domain.SequenceSection</class>
+    <class>eCourse.domain.SectionQuestion</class>
+    <class>eCourse.domain.Meeting</class>
+    <class>eCourse.domain.ParticipantsOfMeeting</class>
+    <class>eCourse.domain.CourseEnrollmentRequest</class>
+
+
+    <properties>
+      <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->
+      <property name="javax.persistence.jdbc.url" value="jdbc:h2:~\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>
+
+      <property name="javax.persistence.jdbc.user" value="sa"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+      <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
+      <!-- <property name = "hibernate.show_sql" value = "true" /> -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+    </properties>
+  </persistence-unit>
+</persistence>
