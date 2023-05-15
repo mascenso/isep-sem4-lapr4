@@ -106,6 +106,8 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 		return null;
 	}
 
+	public CourseEnrollmentRequestRepository courseEnrollmentRequests() { return null;}
+
 
 
 }
