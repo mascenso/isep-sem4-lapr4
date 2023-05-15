@@ -96,5 +96,7 @@ public interface RepositoryFactory {
 
     MeetingsRepository meetings();
 
+    CourseEnrollmentRequestRepository courseEnrollmentRequests();
+
 
 }
