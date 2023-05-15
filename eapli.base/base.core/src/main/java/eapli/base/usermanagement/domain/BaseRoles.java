@@ -61,7 +61,7 @@ public final class BaseRoles {
      * @return
      */
     public static Role[] nonUserValues() {
-        return new Role[] { ADMIN, PROJECT_MANAGER, MANAGER, TEACHER };
+        return new Role[] { ADMIN, PROJECT_MANAGER, MANAGER, TEACHER, STUDENT };
     }
 
     public boolean isCollaborator(final Role role) {
