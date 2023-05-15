@@ -31,11 +31,11 @@ public class UpdateScheduleRecurringLessonUI extends AbstractUI {
 
         int chooseLesson = Console.readInteger("Lesson");
 
-        Calendar startDate = Console.readCalendar("A data antiga é " + lessonList.get(chooseLesson).startDate().getTime() + " que valor deseja colocar?","dd/mm/yyyy hh:mm");
-        Calendar endDate = Console.readCalendar("A data antiga é " + lessonList.get(chooseLesson).endDate().getTime() + " que valor deseja colocar?","dd/mm/yyyy");
-        Duration duration = Duration.ofMinutes(Console.readInteger("A data antiga é " + lessonList.get(chooseLesson).startDate().toString() + " que valor deseja colocar?"));
+        Calendar startDate = Console.readCalendar("The old start date is " + lessonList.get(chooseLesson).startDate().getTime() + " what value you want to enter?","dd/mm/yyyy hh:mm");
+        Calendar endDate = Console.readCalendar("The old end date is " + lessonList.get(chooseLesson).endDate().getTime() + " what value you want to enter?","dd/mm/yyyy");
+        Duration duration = Duration.ofMinutes(Console.readInteger("The old duration is " + lessonList.get(chooseLesson).startDate().toString() + " what value you want to enter?"));
 
-        RecurringLesson updatedLesson = theController.updateScheduleOfRecurringLesson(lessonList.get(chooseLesson),startDate,endDate,duration);
+        theController.updateScheduleOfRecurringLesson(lessonList.get(chooseLesson),startDate,endDate,duration);
 
         return false;
     }
