@@ -27,7 +27,7 @@ import eCourse.clientusermanagement.domain.ClientUser;
 import eCourse.clientusermanagement.domain.MecanographicNumber;
 import eCourse.clientusermanagement.repositories.ClientUserRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Username;
@@ -46,16 +46,16 @@ public class ClientUserService {
 
     public Optional<ClientUser> findClientUserByMecNumber(
             final String mecNumber) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER,
-                BaseRoles.ADMIN,
-                BaseRoles.TEACHER);
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
+                ECourseRoles.ADMIN,
+                ECourseRoles.TEACHER);
         return repo.ofIdentity(MecanographicNumber.valueOf(mecNumber));
     }
 
     public Optional<ClientUser> findClientUserByUsername(
             final Username user) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER,
-                BaseRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
+                ECourseRoles.ADMIN);
         return repo.findByUsername(user);
     }
 }

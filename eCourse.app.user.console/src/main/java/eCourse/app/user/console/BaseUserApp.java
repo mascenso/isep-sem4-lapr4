@@ -23,7 +23,7 @@ package eCourse.app.user.console;
 import eCourse.app.common.console.BaseApplication;
 import eCourse.app.user.console.presentation.FrontMenu;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.BasePasswordPolicy;
+import eCourse.usermanagement.domain.ECoursePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
@@ -42,7 +42,7 @@ public final class BaseUserApp extends BaseApplication {
 
 	public static void main(final String[] args) {
 
-		AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
+		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
 				new PlainTextEncoder());
 
 		new BaseUserApp().run(args);

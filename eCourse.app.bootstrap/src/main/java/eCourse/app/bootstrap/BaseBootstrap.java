@@ -29,7 +29,7 @@ import eCourse.infrastructure.bootstrapers.demo.BaseDemoBootstrapper;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.smoketests.BaseDemoSmokeTester;
 import eCourse.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
-import eCourse.usermanagement.domain.BasePasswordPolicy;
+import eCourse.usermanagement.domain.ECoursePasswordPolicy;
 import eapli.framework.collections.util.ArrayPredicates;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
@@ -53,7 +53,7 @@ public final class BaseBootstrap extends BaseApplication {
 
 	public static void main(final String[] args) {
 
-		AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
+		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
 				new PlainTextEncoder());
 
 		new BaseBootstrap().run(args);

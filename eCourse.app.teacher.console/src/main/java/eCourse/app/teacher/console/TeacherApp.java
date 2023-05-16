@@ -24,8 +24,8 @@ import eCourse.app.common.console.BaseApplication;
 import eCourse.app.common.console.presentation.authz.LoginAction;
 import eCourse.app.teacher.console.presentation.MainMenu;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.BasePasswordPolicy;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECoursePasswordPolicy;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
@@ -50,7 +50,7 @@ public class TeacherApp extends BaseApplication {
 	public static void main(final String[] args) {
 		System.out.println();
 
-		AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
+		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
 				new PlainTextEncoder());
 
 		new TeacherApp().run(args);
@@ -59,7 +59,7 @@ public class TeacherApp extends BaseApplication {
 	@Override
 	protected void doMain(String[] args) {
 		// login and go to main menu
-		if (new LoginAction(BaseRoles.TEACHER).execute()) {
+		if (new LoginAction(ECourseRoles.TEACHER).execute()) {
 			final MainMenu menu = new MainMenu();
 			menu.mainLoop();
 		}
