@@ -11,8 +11,8 @@
     <class>eCourse.clientusermanagement.domain.ClientUser</class>
     <class>eCourse.clientusermanagement.domain.SignupRequest</class>
     <class>eCourse.domain.SharedBoard</class>
-    <class>eCourse.domain.Colunas</class>
-    <class>eCourse.domain.Linhas</class>
+    <class>eCourse.domain.Coluna</class>
+    <class>eCourse.domain.Linha</class>
     <class>eCourse.domain.Course</class>
     <class>eCourse.lesson.domain.model.RecurringLesson</class>
     <class>eCourse.domain.Exam</class>
@@ -28,7 +28,7 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:~\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>
 
       <property name="javax.persistence.jdbc.user" value="sa"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.password" value="eapli"/>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
       <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
       <!-- <property name = "hibernate.show_sql" value = "true" /> -->

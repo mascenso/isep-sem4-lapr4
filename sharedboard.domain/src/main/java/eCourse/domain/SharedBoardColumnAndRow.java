@@ -5,7 +5,7 @@ import eapli.framework.domain.model.ValueObject;
 import javax.persistence.Column;
 
 public class SharedBoardColumnAndRow implements ValueObject {
-
+/*
     private int numberRows;
     private int numberColumns;
 
@@ -39,4 +39,6 @@ public class SharedBoardColumnAndRow implements ValueObject {
     public void setNumberColumns(int numberColumns) {
         this.numberColumns = numberColumns;
     }
+
+ */
 }
