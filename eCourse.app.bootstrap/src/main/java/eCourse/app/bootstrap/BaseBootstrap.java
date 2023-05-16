@@ -30,10 +30,11 @@ import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.smoketests.BaseDemoSmokeTester;
 import eCourse.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
 import eCourse.usermanagement.domain.BasePasswordPolicy;
+import eapli.framework.collections.util.ArrayPredicates;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
-import eapli.framework.util.ArrayPredicates;
+
 
 /**
  * Base Bootstrapping data app
