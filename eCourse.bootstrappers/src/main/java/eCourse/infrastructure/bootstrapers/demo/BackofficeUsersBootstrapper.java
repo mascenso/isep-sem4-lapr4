@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import eCourse.infrastructure.bootstrapers.UsersBootstrapperBase;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
@@ -48,7 +48,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     private void registerTeacher(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.TEACHER);
+        roles.add(ECourseRoles.TEACHER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
@@ -56,7 +56,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     private void registerProjectManager(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.PROJECT_MANAGER);
+        roles.add(ECourseRoles.PROJECT_MANAGER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
@@ -64,7 +64,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     private void registerManager(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.MANAGER);
+        roles.add(ECourseRoles.MANAGER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
@@ -72,7 +72,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     private void registerStudent(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.STUDENT);
+        roles.add(ECourseRoles.STUDENT);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }

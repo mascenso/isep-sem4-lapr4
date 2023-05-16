@@ -25,7 +25,7 @@ package eCourse.app.teacher.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -96,14 +96,14 @@ public class MainMenu extends AbstractUI {
     private Menu buildMainMenu() {
         final Menu mainMenu = new Menu();
 
-        final Menu myUserMenu = new MyUserMenu(BaseRoles.TEACHER);
+        final Menu myUserMenu = new MyUserMenu(ECourseRoles.TEACHER);
         mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER)) {
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.TEACHER)) {
             final Menu teacherMenu = buildTeacherMenu();
             mainMenu.addSubMenu(SALES_OPTION, teacherMenu);
         }

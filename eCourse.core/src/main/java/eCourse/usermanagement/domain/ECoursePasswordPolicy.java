@@ -38,7 +38,7 @@ import eapli.framework.strings.util.StringPredicates;
  * @author Paulo Gandra de Sousa 24/05/2019
  *
  */
-public class BasePasswordPolicy implements PasswordPolicy {
+public class ECoursePasswordPolicy implements PasswordPolicy {
 
     /*
      * (non-Javadoc)
