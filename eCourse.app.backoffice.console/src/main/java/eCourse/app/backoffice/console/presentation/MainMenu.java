@@ -39,7 +39,7 @@ import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI
 import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -152,28 +152,28 @@ public class MainMenu extends AbstractUI {
 
 
 
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)) {
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)) {
             final Menu usersMenu = buildUsersMenu();
             mainMenu.addSubMenu(USERS_OPTION, usersMenu);
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)) {
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)) {
             final Menu courseMenu = buildCourseMenu();
             mainMenu.addSubMenu(COURSE_OPTION, courseMenu);
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.TEACHER)) {
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
             final Menu examMenu = buildExamMenu();
             mainMenu.addSubMenu(EXAM_OPTION, examMenu);
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)){
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)){
             final Menu sharedBoardMenu = buildSharedBoardMenu();
             mainMenu.addSubMenu(SHAREDBOARD_OPTION, sharedBoardMenu);
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN)){
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)){
             final Menu meetingMenu = buildMeetingMenu();
             mainMenu.addSubMenu(MEETING_OPTION, meetingMenu);
         }
@@ -182,7 +182,7 @@ public class MainMenu extends AbstractUI {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER, BaseRoles.TEACHER)){
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.TEACHER, ECourseRoles.TEACHER)){
             final Menu recurringLessonMenu = buildRecurringLessonMenu();
             mainMenu.addSubMenu(RECURRING_LESSON_OPTION, recurringLessonMenu);
         }

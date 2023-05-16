@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eCourse.usermanagement.domain.UserBuilderHelper;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -86,7 +86,7 @@ public class BaseBootstrapper implements Action {
 	private boolean registerPowerUser() {
 		final SystemUserBuilder userBuilder = UserBuilderHelper.builder();
 		userBuilder.withUsername(POWERUSER).withPassword(POWERUSER_A1).withName("joe", "power")
-				.withEmail("joe@email.org").withRoles(BaseRoles.POWER_USER);
+				.withEmail("joe@email.org").withRoles(ECourseRoles.POWER_USER);
 		final SystemUser newUser = userBuilder.build();
 
 		SystemUser poweruser;

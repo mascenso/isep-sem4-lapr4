@@ -25,7 +25,7 @@ import java.util.Optional;
 import eCourse.clientusermanagement.domain.ClientUser;
 import eCourse.clientusermanagement.repositories.ClientUserRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
@@ -49,7 +49,7 @@ public class MyClientUserService {
     }
 
     public ClientUser myUser() {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.STUDENT);
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.STUDENT);
         final UserSession s = authz.session().orElseThrow(IllegalStateException::new);
         final SystemUser me = s.authenticatedUser();
         return repo.findByUsername(me.identity()).orElseThrow(IllegalStateException::new);

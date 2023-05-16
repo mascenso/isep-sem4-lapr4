@@ -29,7 +29,7 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
  * @author Paulo Gandra Sousa
  *
  */
-public final class BaseRoles {
+public final class ECourseRoles {
     /**
      * poweruser
      */

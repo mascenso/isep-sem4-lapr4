@@ -31,7 +31,7 @@ import eCourse.clientusermanagement.domain.events.NewUserRegisteredFromSignupEve
 import eCourse.clientusermanagement.domain.events.SignupAcceptedEvent;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
-import eCourse.usermanagement.domain.BasePasswordPolicy;
+import eCourse.usermanagement.domain.ECoursePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
@@ -42,12 +42,12 @@ import eapli.framework.infrastructure.pubsub.EventDispatcher;
  * @author Paulo Gandra Sousa
  */
 @SuppressWarnings("squid:S106")
-public final class BaseBackoffice extends BaseApplication {
+public final class ECourseBackoffice extends BaseApplication {
 
 	/**
 	 * avoid instantiation of this class.
 	 */
-	private BaseBackoffice() {
+	private ECourseBackoffice() {
 	}
 
 	/**
@@ -55,10 +55,10 @@ public final class BaseBackoffice extends BaseApplication {
 	 */
 	public static void main(final String[] args) {
 
-		AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
+		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
 				new PlainTextEncoder());
 
-		new BaseBackoffice().run(args);
+		new ECourseBackoffice().run(args);
 	}
 
 	@Override
@@ -73,12 +73,12 @@ public final class BaseBackoffice extends BaseApplication {
 
 	@Override
 	protected String appTitle() {
-		return "Base Back Office";
+		return "eCourse Back Office";
 	}
 
 	@Override
 	protected String appGoodbye() {
-		return "Base Back Office";
+		return "eCourse Back Office";
 	}
 
 	@SuppressWarnings("unchecked")
