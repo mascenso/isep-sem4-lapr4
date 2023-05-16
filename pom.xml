@@ -23,7 +23,7 @@
 	<modules>
 		<module>eCourse.app.backoffice.console</module>
 		<module>eCourse.app.user.console</module>
-		<module>eCourse.app.other.console</module>
+		<module>eCourse.app.teacher.console</module>
 		<module>eCourse.app.common.console</module>
 		<module>eCourse.app.bootstrap</module>
 		<module>eCourse.bootstrappers</module>

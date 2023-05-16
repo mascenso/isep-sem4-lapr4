@@ -10,7 +10,7 @@
         <version>0.1.0</version>
     </parent>
     
-    <artifactId>app.other.console</artifactId>
+    <artifactId>app.teacher.console</artifactId>
     <packaging>jar</packaging>
 
     <properties>
@@ -30,11 +30,6 @@
             <artifactId>impl</artifactId>
             <version>${project.parent.version}</version>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.microjpa</groupId>
-            <artifactId>microjpa</artifactId>
-            <version>1.2.4</version>
         </dependency>
     </dependencies>
 </project>
