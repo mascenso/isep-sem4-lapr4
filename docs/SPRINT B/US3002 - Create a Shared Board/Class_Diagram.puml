@@ -1,23 +1,31 @@
  @startuml
 
 class CreateSharedBoardUI  {
-
 }
 
 class CreateSharedBoardController {
+}
 
+class CreateSharedBoardBuilder {
 }
 
 class SharedBoardRepository {
-
 }
 
 class SharedBoard {
-
 }
 
+class RepositoryFactory {
+}
+
+CreateSharedBoardUI : doShow()
 CreateSharedBoardUI -down-> CreateSharedBoardController: uses the controller
-CreateSharedBoardController --> SharedBoardRepository: uses the repository
+
+CreateSharedBoardController : addSharedBoard()
+CreateSharedBoardController --> CreateSharedBoardBuilder : uses to build
 CreateSharedBoardController --> SharedBoard: create
 
+SharedBoard --> SharedBoardRepository: uses the repository to persiste in DB
+
+SharedBoardRepository --> RepositoryFactory : uses to create the repository
 @enduml
