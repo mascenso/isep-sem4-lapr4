@@ -29,13 +29,17 @@ import eCourse.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  *
  * @author Paulo Gandra Sousa
  */
 @SuppressWarnings("squid:S106")
-public final class TeacherApp extends BaseApplication {
+@SpringBootApplication
+@ComponentScan({"eCourse"})
+public class TeacherApp extends BaseApplication {
 
 	/**
 	 * Empty constructor is private to avoid instantiation of this class.
