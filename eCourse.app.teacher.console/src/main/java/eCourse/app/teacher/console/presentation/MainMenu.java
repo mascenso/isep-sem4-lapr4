@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.app.other.console.presentation;
+package eCourse.app.teacher.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
