@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>isep.sem4.pi</groupId>
+        <artifactId>eCourse</artifactId>
+        <relativePath>../</relativePath>
+        <version>0.1.0</version>
+    </parent>
+
+    <artifactId>app.common.console</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <slf4jVersion>1.7.20</slf4jVersion>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>sharedboard.domain</artifactId>
+            <version>${project.parent.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.microjpa</groupId>
+            <artifactId>microjpa</artifactId>
+            <version>1.2.4</version>
+        </dependency>
+    </dependencies>
+</project>
