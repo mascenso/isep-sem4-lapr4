@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence">
-  <persistence-unit name="eapli.base">
+  <persistence-unit name="eCourse">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
     <class>eapli.framework.infrastructure.authz.domain.model.SystemUser</class>
@@ -28,7 +28,7 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:h2:~\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>
 
       <property name="javax.persistence.jdbc.user" value="sa"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.password" value="eapli"/>
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
       <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
       <!-- <property name = "hibernate.show_sql" value = "true" /> -->
