@@ -18,11 +18,11 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.teacher.console;
+package eCourse.app.student.console;
 
 import eCourse.app.common.console.BaseApplication;
 import eCourse.app.common.console.presentation.authz.LoginAction;
-import eCourse.app.teacher.console.presentation.MainMenu;
+import eCourse.app.student.console.presentation.MainMenu;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECoursePasswordPolicy;
 import eCourse.usermanagement.domain.ECourseRoles;
@@ -39,12 +39,12 @@ import org.springframework.context.annotation.ComponentScan;
 @SuppressWarnings("squid:S106")
 @SpringBootApplication
 @ComponentScan({"eCourse"})
-public class TeacherApp extends BaseApplication {
+public class StudentApp extends BaseApplication {
 
 	/**
 	 * Empty constructor is private to avoid instantiation of this class.
 	 */
-	private TeacherApp() {
+	private StudentApp() {
 	}
 
 	public static void main(final String[] args) {
@@ -53,13 +53,13 @@ public class TeacherApp extends BaseApplication {
 		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
 				new PlainTextEncoder());
 
-		new TeacherApp().run(args);
+		new StudentApp().run(args);
 	}
 
 	@Override
 	protected void doMain(String[] args) {
 		// login and go to main menu
-		if (new LoginAction(ECourseRoles.TEACHER).execute()) {
+		if (new LoginAction(ECourseRoles.STUDENT).execute()) {
 			final MainMenu menu = new MainMenu();
 			menu.mainLoop();
 		}
@@ -67,7 +67,7 @@ public class TeacherApp extends BaseApplication {
 
 	@Override
 	protected String appTitle() {
-		return "Base POS";
+		return "eCourse [Student]";
 	}
 
 	@Override
