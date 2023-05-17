@@ -1,4 +1,4 @@
-package eCourse.app.backoffice.console.presentation.exam;
+package eCourse.app.teacher.console.presentation.exam;
 
 import eapli.framework.presentation.console.AbstractUI;
 

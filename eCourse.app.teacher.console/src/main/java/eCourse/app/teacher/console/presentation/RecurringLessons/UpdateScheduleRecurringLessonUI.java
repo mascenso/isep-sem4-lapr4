@@ -1,4 +1,4 @@
-package eCourse.app.backoffice.console.presentation.RecurringLessons;
+package eCourse.app.teacher.console.presentation.RecurringLessons;
 
 import eCourse.lesson.application.UpdateScheduleRecurringLessonsController;
 import eCourse.lesson.domain.model.RecurringLesson;

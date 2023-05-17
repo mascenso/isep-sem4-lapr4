@@ -1,4 +1,4 @@
-package eCourse.app.backoffice.console.presentation.RecurringLessons;
+package eCourse.app.teacher.console.presentation.RecurringLessons;
 
 import eCourse.lesson.application.CreateRecurringLessonController;
 import eapli.framework.domain.repositories.ConcurrencyException;
