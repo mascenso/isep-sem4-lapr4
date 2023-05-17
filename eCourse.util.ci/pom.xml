@@ -24,10 +24,10 @@
     </properties>
 
     <dependencies>
-        <!--
+<!--
         <dependency>
             <version>0.1.0</version>
-            <groupId>lapr4</groupId>
+            <groupId>eapli.co</groupId>
             <artifactId>eCourse.app1</artifactId>
         </dependency>
         <dependency>
@@ -35,12 +35,11 @@
             <groupId>lapr4</groupId>
             <artifactId>eCourse.app2</artifactId>
         </dependency>
-        -->
+-->
     </dependencies>
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
@@ -50,13 +49,23 @@
                     <aggregate>true</aggregate>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
 
 
 
             <plugin>
+
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>3.0.0</version>
                 <configuration>
                     <argLine>${argLine} -Xms256m -Xmx2048m</argLine>
                     <forkCount>1</forkCount>
