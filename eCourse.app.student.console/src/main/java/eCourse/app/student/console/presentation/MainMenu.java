@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.app.teacher.console.presentation;
+package eCourse.app.student.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
@@ -96,14 +96,14 @@ public class MainMenu extends AbstractUI {
     private Menu buildMainMenu() {
         final Menu mainMenu = new Menu();
 
-        final Menu myUserMenu = new MyUserMenu(ECourseRoles.TEACHER);
+        final Menu myUserMenu = new MyUserMenu(ECourseRoles.STUDENT);
         mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.TEACHER)) {
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.STUDENT)) {
             final Menu teacherMenu = buildTeacherMenu();
             mainMenu.addSubMenu(SALES_OPTION, teacherMenu);
         }
