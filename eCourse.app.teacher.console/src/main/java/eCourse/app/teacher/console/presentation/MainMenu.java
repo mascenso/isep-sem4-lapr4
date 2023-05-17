@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.app.student.console.presentation;
+package eCourse.app.teacher.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
@@ -51,7 +51,8 @@ public class MainMenu extends AbstractUI {
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
-    private static final int SALES_OPTION = 7;
+    private static final int EXAMS_OPTION = 2;
+    private static final int CLASSES_OPTION = 3;
 
     private static final int RECHARGE_USER_CARD_OPTION = 1;
 
@@ -104,8 +105,10 @@ public class MainMenu extends AbstractUI {
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.TEACHER)) {
-            final Menu teacherMenu = buildTeacherMenu();
-            mainMenu.addSubMenu(SALES_OPTION, teacherMenu);
+            final Menu examsMenu = buildExamsMenu();
+            final Menu classesMenu = buildClassesMenu();
+            mainMenu.addSubMenu(EXAMS_OPTION, examsMenu);
+            mainMenu.addSubMenu(CLASSES_OPTION, classesMenu);
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -117,8 +120,16 @@ public class MainMenu extends AbstractUI {
         return mainMenu;
     }
 
-    private Menu buildTeacherMenu() {
-        final Menu teacherMenu = new Menu("Sales  >");
+    private Menu buildExamsMenu() {
+        final Menu teacherMenu = new Menu("Exams  >");
+
+        teacherMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return teacherMenu;
+    }
+
+    private Menu buildClassesMenu() {
+        final Menu teacherMenu = new Menu("Classes  >");
 
         teacherMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
