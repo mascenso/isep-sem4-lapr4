@@ -18,11 +18,11 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.student.console;
+package eCourse.app.teacher.console;
 
 import eCourse.app.common.console.BaseApplication;
 import eCourse.app.common.console.presentation.authz.LoginAction;
-import eCourse.app.student.console.presentation.MainMenu;
+import eCourse.app.teacher.console.presentation.MainMenu;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECoursePasswordPolicy;
 import eCourse.usermanagement.domain.ECourseRoles;
