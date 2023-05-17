@@ -51,9 +51,8 @@ public class MainMenu extends AbstractUI {
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
-    private static final int SALES_OPTION = 7;
-
-    private static final int RECHARGE_USER_CARD_OPTION = 1;
+    private static final int STUDENT_COURSES_OPTION = 2;
+    private static final int STUDENT_EXAMS_OPTION= 3;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -97,6 +96,7 @@ public class MainMenu extends AbstractUI {
         final Menu mainMenu = new Menu();
 
         final Menu myUserMenu = new MyUserMenu(ECourseRoles.STUDENT);
+
         mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -104,8 +104,11 @@ public class MainMenu extends AbstractUI {
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.STUDENT)) {
-            final Menu teacherMenu = buildTeacherMenu();
-            mainMenu.addSubMenu(SALES_OPTION, teacherMenu);
+            final Menu coursesMenu = buildCoursesMenu();
+            final Menu examsMenu = buildExamsMenu();
+
+            mainMenu.addSubMenu(STUDENT_COURSES_OPTION, coursesMenu);
+            mainMenu.addSubMenu(STUDENT_EXAMS_OPTION, examsMenu);
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -117,11 +120,20 @@ public class MainMenu extends AbstractUI {
         return mainMenu;
     }
 
-    private Menu buildTeacherMenu() {
-        final Menu teacherMenu = new Menu("Sales  >");
+    private Menu buildCoursesMenu() {
+        final Menu studentMenu = new Menu("Courses  >");
 
-        teacherMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+        studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
-        return teacherMenu;
+        return studentMenu;
     }
+
+    private Menu buildExamsMenu() {
+        final Menu studentMenu = new Menu("Exams  >");
+
+        studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return studentMenu;
+    }
+
 }
