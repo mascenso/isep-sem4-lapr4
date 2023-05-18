@@ -33,7 +33,6 @@ public class CreateExamController {
         ExamTitle examTitle=ExamTitle.valueOf(title);
         final Exam newExam = new ExamBuilder().theCourse(course).theExamTitle(examTitle).theOpenDate(openDate)
                 .theCloseDate(endDate).theFile(file).build();
-//validaçao da estrutura do exam antes de gravar
         return PersistenceContext.repositories().exams().save(newExam);
     }
 

@@ -37,13 +37,6 @@ public class UpdateExamController {
         return examService.getExamByTitle(title);
     }
 
-    /*
-    public Exam getExamByTitle(String title) {
-        return examService.getExamByTitle(title);
-    }
-
-     */
-
     public Date getExamOpenDate(Exam exam) {
         return exam.getExamOpenDate();
     }
