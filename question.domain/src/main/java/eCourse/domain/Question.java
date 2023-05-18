@@ -20,11 +20,13 @@ public class Question implements AggregateRoot<Designation> {
     private Solution solution;
 
     @ElementCollection
-    private List<String>  multiOptions;
+    private List<String> multiOptions;
 
     @ElementCollection
-    private List<String>  matchingAnswers;
+    private List<String> matchingAnswers;
 
+    @ManyToOne
+    private Course course;
 
     private Boolean caseSensitive;
 
@@ -44,42 +46,46 @@ public class Question implements AggregateRoot<Designation> {
 
 
     //MATCHING
-    protected Question(final String question, final Solution solution, final List<String>  matchingOptions, final List<String>  matchingAnswers, final QuestionType questionType) {
-        Preconditions.noneNull(question, solution, matchingOptions, matchingAnswers, questionType);
+    protected Question(final String question, final Solution solution, final List<String> matchingOptions, final List<String> matchingAnswers, final QuestionType questionType, final Course course) {
+        Preconditions.noneNull(question, solution, matchingOptions, matchingAnswers, questionType, course);
         this.question = question;
         this.solution = solution;
         this.multiOptions = matchingOptions;
         this.matchingAnswers = matchingAnswers;
         this.questionType = questionType;
+        this.course = course;
     }
 
     //MULTIPLE_CHOICE && SELECT_MISSING_WORDS
-    protected Question(final String question, final Solution solution, final List<String>  multiOptions, final QuestionType questionType) {
-        Preconditions.noneNull(question, solution, multiOptions, questionType);
+    protected Question(final String question, final Solution solution, final List<String> multiOptions, final QuestionType questionType, final Course course) {
+        Preconditions.noneNull(question, solution, multiOptions, questionType, course);
         this.question = question;
         this.solution = solution;
         this.multiOptions = multiOptions;
         this.questionType = questionType;
+        this.course = course;
     }
 
     //SHORT_ANSWER
-    protected Question(final String question, final Solution solution, final boolean caseSensitive, final QuestionType questionType) {
-        Preconditions.noneNull(question, solution, questionType);
+    protected Question(final String question, final Solution solution, final boolean caseSensitive, final QuestionType questionType, final Course course) {
+        Preconditions.noneNull(question, solution, questionType, course);
         this.question = question;
         this.solution = solution;
         this.caseSensitive = caseSensitive;
         this.questionType = questionType;
+        this.course = course;
     }
 
     //NUMERICAL
     protected Question(final String question, final Solution solution, final List<String> multiOptions,
-                       final double acceptanceError, final QuestionType questionType) {
-        Preconditions.noneNull(question, solution, multiOptions, acceptanceError, questionType);
+                       final double acceptanceError, final QuestionType questionType, final Course course) {
+        Preconditions.noneNull(question, solution, multiOptions, acceptanceError, questionType, course);
         this.question = question;
         this.solution = solution;
         this.acceptanceError = acceptanceError;
         this.multiOptions = multiOptions;
         this.questionType = questionType;
+        this.course = course;
     }
 
     /*
@@ -94,11 +100,12 @@ public class Question implements AggregateRoot<Designation> {
 
        */
     //TRUE_FALSE
-    protected Question(final String question, final Solution solution, final QuestionType questionType) {
-        Preconditions.noneNull(question, solution, questionType);
+    protected Question(final String question, final Solution solution, final QuestionType questionType, final Course course) {
+        Preconditions.noneNull(question, solution, questionType, course);
         this.question = question;
         this.solution = solution;
         this.questionType = questionType;
+        this.course = course;
     }
 
 
@@ -107,42 +114,46 @@ public class Question implements AggregateRoot<Designation> {
     }
 
     //MATCHING
-    public static Question valueOf(final String question, final Solution solution, final List<String> matchingOptions, final List<String>  matchingAnswers, final QuestionType questionType) {
+    public static Question valueOf(final String question, final Solution solution, final List<String> matchingOptions, final List<String> matchingAnswers, final QuestionType questionType, final Course course) {
         Preconditions.nonEmpty(question, "Question cannot be empty");
         Preconditions.noneNull(solution, "Solutions cannot be empty");
         Preconditions.noneNull(matchingOptions, "Matching Options cannot be empty");
         Preconditions.noneNull(matchingAnswers, "Matching Answers cannot be empty");
         Preconditions.noneNull(questionType, "Question type cannot be empty");
-        return new Question(question, solution, matchingOptions, matchingAnswers, questionType);
+        Preconditions.noneNull(course, "Lesson type cannot be empty");
+        return new Question(question, solution, matchingOptions, matchingAnswers, questionType, course);
     }
 
     //MULTIPLE_CHOICE
-    public static Question valueOf(final String question, final Solution solution, final List<String>  multiOptions, final QuestionType questionType) {
+    public static Question valueOf(final String question, final Solution solution, final List<String> multiOptions, final QuestionType questionType, final Course course) {
         Preconditions.nonEmpty(question, "Question cannot be empty");
         Preconditions.noneNull(solution, "Solution cannot be empty");
         Preconditions.noneNull(multiOptions, "Multiple Options cannot be empty");
         Preconditions.noneNull(questionType, "Question type cannot be empty");
-        return new Question(question, solution, multiOptions, questionType);
+        Preconditions.noneNull(course, "Lesson type cannot be empty");
+        return new Question(question, solution, multiOptions, questionType, course);
     }
 
     //SHORT_ANSWER
-    public static Question valueOf(final String question, final Solution solution, final boolean caseSensitive, final QuestionType questionType) {
+    public static Question valueOf(final String question, final Solution solution, final boolean caseSensitive, final QuestionType questionType, final Course course) {
         Preconditions.nonEmpty(question, "Question cannot be empty");
         Preconditions.noneNull(solution, "Solution cannot be empty");
         Preconditions.noneNull(caseSensitive, "Must define if is case sensitive");
         Preconditions.noneNull(questionType, "Question type cannot be empty");
-        return new Question(question, solution, caseSensitive, questionType);
+        Preconditions.noneNull(course, "Lesson type cannot be empty");
+        return new Question(question, solution, caseSensitive, questionType, course);
     }
 
     //NUMERICAL
-    public static Question valueOf(final String question, final Solution solution, final List<String>  multiOptions,
-                                   final double acceptanceError, final QuestionType questionType) {
+    public static Question valueOf(final String question, final Solution solution, final List<String> multiOptions,
+                                   final double acceptanceError, final QuestionType questionType, final Course course) {
         Preconditions.nonEmpty(question, "Question cannot be empty");
         Preconditions.noneNull(solution, "Solution cannot be empty");
         Preconditions.noneNull(multiOptions, "Multiple Options cannot be empty");
         Preconditions.noneNull(acceptanceError, "Acceptance Error must be defined");
         Preconditions.noneNull(questionType, "Question type cannot be empty");
-        return new Question(question, solution, multiOptions, acceptanceError, questionType);
+        Preconditions.noneNull(course, "Lesson type cannot be empty");
+        return new Question(question, solution, multiOptions, acceptanceError, questionType, course);
     }
 
     /*
@@ -157,11 +168,12 @@ public class Question implements AggregateRoot<Designation> {
 
  */
     //TRUE_FALSE:
-    public static Question valueOf(final String question, final Solution solution, final QuestionType questionType) {
+    public static Question valueOf(final String question, final Solution solution, final QuestionType questionType, final Course course) {
         Preconditions.nonEmpty(question, "Question cannot be empty");
         Preconditions.noneNull(solution, "Solution cannot be empty");
         Preconditions.noneNull(questionType, "Question type cannot be empty");
-        return new Question(question, solution, questionType);
+        Preconditions.noneNull(course, "Lesson type cannot be empty");
+        return new Question(question, solution, questionType, course);
     }
 
 

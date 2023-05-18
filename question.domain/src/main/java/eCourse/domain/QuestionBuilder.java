@@ -20,7 +20,7 @@ public class QuestionBuilder implements DomainFactory<Question> {
     private String question;
     private Boolean caseSensitive;
 
-
+    private Course course;
 
     private List<String>  matchingAnswers;
 
@@ -69,6 +69,10 @@ public class QuestionBuilder implements DomainFactory<Question> {
         return this;
     }
 
+    public QuestionBuilder theCourse(final Course course) {
+        this.course = course;
+        return this;
+    }
 
     public QuestionBuilder theSolution(final Solution solution) {
         this.theSolution = solution;
@@ -127,27 +131,26 @@ public class QuestionBuilder implements DomainFactory<Question> {
             switch (questionType) {
                 case MATCHING:
                     theSolution=new Solution(multiOrMatchingSolutions);
-                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, matchingAnswers, questionType);
+                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, matchingAnswers, questionType,course);
                     break;
                 case MULTIPLE_CHOICE:
                     theSolution=new Solution(solution);
-                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, questionType);
+                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, questionType,course);
                     break;
                 case SHORT_ANSWER:
-                    //theSolution=new Solution(solution);
-                    theQuestion = new Question(question, theSolution, caseSensitive, questionType);
+                    theQuestion = new Question(question, theSolution, caseSensitive, questionType,course);
                     break;
                 case NUMERICAL:
                     theSolution=new Solution(multiOrMatchingSolutions);
-                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, acceptanceError, questionType);
+                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, acceptanceError, questionType,course);
                     break;
                 case SELECT_MISSING_WORDS:
                     theSolution=new Solution(multiOrMatchingSolutions);
-                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, questionType);
+                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, questionType,course);
                     break;
                 case TRUE_FALSE:
                     theSolution=new Solution(solution);
-                    theQuestion = new Question(question, theSolution, questionType);
+                    theQuestion = new Question(question, theSolution, questionType,course);
                     break;
             }
             return theQuestion;
