@@ -4,7 +4,7 @@ import eCourse.domain.Course;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
 import eCourse.usermanagement.domain.BaseCourseStates;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -19,7 +19,7 @@ public class UpdateCourseStateService {
 
     public void open(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(BaseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -41,7 +41,7 @@ public class UpdateCourseStateService {
 
     public void close(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(BaseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty

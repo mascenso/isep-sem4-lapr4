@@ -10,8 +10,6 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CreateExamUI extends AbstractUI {
@@ -29,21 +27,15 @@ public class CreateExamUI extends AbstractUI {
         int selectedOption = showCourses(listOfCourses, hashmap);
         final Course selectedCourse = listOfCourses.get(selectedOption - 1);
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date openDate, closeDate;
-
         try {
-            String openDateString = Console.readNonEmptyLine("Insert the open date (yyyy-MM-dd)", "The date cannot be empty!");
-            String closeDateString = Console.readNonEmptyLine("Insert the close date (yyyy-MM-dd)", "The date cannot be empty!");
-            openDate = format.parse(openDateString);
-            closeDate = format.parse(closeDateString);
+
+            Date openDate = Console.readDate("Insert the open date (dd/MM/yy)", "dd/MM/yyyy");
+            Date closeDate = Console.readDate("Insert the close date (dd/MM/yy)", "dd/MM/yyyy");
 
             final String path = Console.readNonEmptyLine("Insert the path to the file:", "The path cannot be empty!");
             File examFile = new File(path);
 
             theController.createExam(selectedCourse, title, openDate, closeDate, examFile);
-        } catch (ParseException e) {
-            System.out.println("Invalid date format, please try again.");
         } catch (final IntegrityViolationException e) {
             System.out.println("You tried to enter an exam which already exists in the database.");
         } catch (final ConcurrencyException e) {

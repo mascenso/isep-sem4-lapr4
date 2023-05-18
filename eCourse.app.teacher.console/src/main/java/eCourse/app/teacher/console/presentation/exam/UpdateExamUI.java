@@ -4,13 +4,12 @@ import eCourse.domain.Course;
 import eCourse.domain.Exam;
 import eCourse.domain.ExamTitle;
 import eCourse.exam.application.UpdateExamController;
+import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class UpdateExamUI extends AbstractUI {
@@ -38,27 +37,20 @@ public class UpdateExamUI extends AbstractUI {
 
         Exam selexam = theController.getExamByTitle(ExamTitle.valueOf(title));
 
-        //Exam selecteExam = theController.getExamByTitle(title);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date newOpenDate, newCloseDate;
-
         Date currentOpenDate = theController.getExamOpenDate(selexam);
         Date currentCloseDate = theController.getExamCloseDate(selexam);
         System.out.printf("Current open date: " + currentOpenDate + "\nCurrent close date: " + currentCloseDate + "\n");
 
-        String openDateString = Console.readNonEmptyLine("Insert the new open date (yyyy-MM-dd)", "The date cannot be empty!");
-        String closeDateString = Console.readNonEmptyLine("Insert the new close date (yyyy-MM-dd)", "The date cannot be empty!");
-
         try {
-            newOpenDate = format.parse(openDateString);
-            newCloseDate = format.parse(closeDateString);
+
+            Date newOpenDate = Console.readDate("Insert the open date (dd/MM/yyyy)", "dd/MM/yyyy");
+            Date newCloseDate = Console.readDate("Insert the close date (dd/MM/yyyy)", "dd/MM/yyyy");
             final String path = Console.readNonEmptyLine("Insert the path to the file:", "The path cannot be empty!");
             File examFile = new File(path);
 
             theController.updateExam(selexam,newOpenDate, newCloseDate, examFile);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        } catch (final ConcurrencyException e) {
+            System.out.println("Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
         }
 
         return false;
