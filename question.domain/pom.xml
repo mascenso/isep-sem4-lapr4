@@ -13,7 +13,7 @@
     </parent>
 
     <artifactId>question.domain</artifactId>
-    <version>${project.parent.version}</version>
+    <version>0.1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

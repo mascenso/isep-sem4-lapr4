@@ -27,49 +27,31 @@
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>impl</artifactId>
-            <version>${project.parent.version}</version>
+            <version>0.1.0</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>sharedboard.application</artifactId>
-            <version>${project.parent.version}</version>
+            <version>0.1.0</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>sharedboard.application</artifactId>
-            <version>${project.parent.version}</version>
+            <version>0.1.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>course.application</artifactId>
-            <version>${project.parent.version}</version>
+            <version>0.1.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>sharedboard.domain</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>isep.sem4.pi</groupId>
-            <artifactId>exam.application</artifactId>
-            <version>0.1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>isep.sem4.pi</groupId>
-            <artifactId>Lesson.application</artifactId>
-            <version>0.1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>isep.sem4.pi</groupId>
-            <artifactId>question.application</artifactId>
             <version>0.1.0</version>
             <scope>compile</scope>
         </dependency>
@@ -84,6 +66,7 @@
             <artifactId>microjpa</artifactId>
             <version>1.2.4</version>
         </dependency>
+
 
     </dependencies>
 </project>

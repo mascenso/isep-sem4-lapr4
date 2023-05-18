@@ -13,6 +13,9 @@ import eapli.framework.validations.Preconditions;
 import java.util.Optional;
 
 public class UpdateCourseStateController {
+
+    private UpdateCourseStateService updateCourseStateService = new UpdateCourseStateService();
+
     private final CourseRepository courseRepository;
     private Course course;
 
@@ -30,8 +33,8 @@ public class UpdateCourseStateController {
     public void updateCourseState(String designationName, String newState) throws IntegrityViolationException, ConcurrencyException {
         Optional<Course> optionalCourse = findCourseByDesignation(designationName);
         //CourseBuilder courseBuilder = new CourseBuilder();
-        //Course updateState = courseBuilder.state(CourseStates.valueOf(newState)).build();
-        optionalCourse.get().updateState(CourseStates.valueOf(newState));
+        //Course updateState = courseBuilder.state(CourseState.valueOf(newState)).build();
+        optionalCourse.get().updateState(CourseState.valueOf(newState));
         PersistenceContext.repositories().courses().save(optionalCourse.get());
         //PersistenceContext.repositories().courses().save(updateState);
 
