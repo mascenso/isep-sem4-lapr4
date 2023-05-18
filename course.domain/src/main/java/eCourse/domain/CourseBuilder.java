@@ -14,7 +14,7 @@ public class CourseBuilder implements DomainFactory<Course> {
 
     private CourseEdition edition;
 
-    private CourseStates state;
+    private CourseState state;
 
     public CourseBuilder named(final Designation name){
         this.name = name;
@@ -31,7 +31,7 @@ public class CourseBuilder implements DomainFactory<Course> {
         return this;
     }
 
-    public CourseBuilder state(final CourseStates state){
+    public CourseBuilder state(final CourseState state){
         this.state = state;
         return this;
     }

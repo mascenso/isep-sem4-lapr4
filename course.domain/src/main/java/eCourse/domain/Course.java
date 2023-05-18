@@ -24,9 +24,9 @@ public class Course implements AggregateRoot<Designation> {
     private CourseEdition edition;
 
     @Embedded
-    private CourseStates state;
+    private CourseState state;
 
-    protected Course (final Designation name, final Description description, final CourseEdition edition, CourseStates state){
+    protected Course (final Designation name, final Description description, final CourseEdition edition, CourseState state){
         Preconditions.noneNull(name,description,edition,state);
 
         this.name = name;
@@ -43,11 +43,11 @@ public class Course implements AggregateRoot<Designation> {
 
     public Description description (){return description;}
 
-    public CourseStates state (){return state;}
+    public CourseState state (){return state;}
 
     public CourseEdition edition (){return edition;}
 
-    public CourseStates updateState(CourseStates newState) {
+    public CourseState updateState(CourseState newState) {
         if (!this.state.equals(newState)) {
             this.state = newState;
         }
@@ -77,7 +77,7 @@ public class Course implements AggregateRoot<Designation> {
         return name;
     }
 
-    public CourseStates getCourseState() {
+    public CourseState getCourseState() {
         return state;
     }
 

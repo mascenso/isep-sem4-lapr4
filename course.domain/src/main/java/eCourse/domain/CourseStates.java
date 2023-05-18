@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 import javax.xml.bind.annotation.XmlAttribute;
 
 @Embeddable
-public final class CourseStates {
+public final class CourseStates {/*
 
     private static final String OPEN = "Open";
     private static final String CLOSE = "Close";
@@ -46,5 +46,5 @@ public final class CourseStates {
     @Override
     public String toString() {
         return actualState;
-    }
+    }*/
 }
