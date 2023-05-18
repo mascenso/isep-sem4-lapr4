@@ -1,6 +1,7 @@
 package eCourse.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
@@ -80,7 +81,10 @@ public class Course implements AggregateRoot<Designation> {
     public CourseStates getCourseState() {
         return state;
     }
-
+    @Override
+    public boolean equals(final Object o) {
+        return DomainEntities.areEqual(this, o);
+    }
 
 
 }
