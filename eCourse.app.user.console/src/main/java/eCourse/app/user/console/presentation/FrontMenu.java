@@ -25,7 +25,7 @@ package eCourse.app.user.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.LoginUI;
 import eCourse.app.user.console.presentation.myuser.SignupRequestAction;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.ChainedAction;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.presentation.console.AbstractUI;
@@ -57,7 +57,7 @@ public class FrontMenu extends AbstractUI {
     public boolean doShow() {
         final Menu menu = new Menu();
         menu.addItem(LOGIN_OPTION, "Login", new ChainedAction(new LoginUI(
-                BaseRoles.STUDENT)::show, () -> {
+                ECourseRoles.STUDENT)::show, () -> {
             new MainMenu().mainLoop();
             return true;
         }));

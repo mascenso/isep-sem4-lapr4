@@ -29,7 +29,7 @@ import eCourse.clientusermanagement.domain.SignupRequest;
 import eCourse.clientusermanagement.domain.events.SignupAcceptedEvent;
 import eCourse.clientusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -60,7 +60,7 @@ public class AcceptRefuseSignupRequestControllerEventfullImpl implements AcceptR
 	@Override
 	@SuppressWarnings("squid:S1226")
 	public SignupRequest acceptSignupRequest(SignupRequest theSignupRequest) {
-		authorizationService.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+		authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
 		Preconditions.nonNull(theSignupRequest);
 
@@ -92,7 +92,7 @@ public class AcceptRefuseSignupRequestControllerEventfullImpl implements AcceptR
 	@Override
 	@Transactional
 	public SignupRequest refuseSignupRequest(final SignupRequest theSignupRequest) {
-		authorizationService.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+		authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
 		Preconditions.nonNull(theSignupRequest);
 

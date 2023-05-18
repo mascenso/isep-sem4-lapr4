@@ -23,7 +23,7 @@ package eCourse.infrastructure.bootstrapers;
 import java.util.HashSet;
 import java.util.Set;
 
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
@@ -45,7 +45,7 @@ public class MasterUsersBootstrapper extends UsersBootstrapperBase implements Ac
     private void registerAdmin(final String username, final String password, final String firstName,
             final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.ADMIN);
+        roles.add(ECourseRoles.ADMIN);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }
