@@ -17,7 +17,7 @@ public class ListExamsService {
         return PersistenceContext.repositories().exams().findAll();
     }
 
-    public List<Exam> getOpenCourses() {
+    public List<Exam> getOpenExams() {
         List<Exam> openExams = new ArrayList<>();
         for (Exam exam : allExams()) {
             // falta aqui a validação que o aluno tem que estar inscrito no curso

@@ -15,4 +15,9 @@ public class ListExamsController {
 
         return service.allExams();
     }
+
+    public Iterable<Exam> getOpenExams() {
+
+        return service.getOpenExams();
+    }
 }
