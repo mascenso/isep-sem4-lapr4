@@ -14,6 +14,7 @@ on:
   push:
     branches:
       - master
+      - dev
   workflow_dispatch:
 
 jobs:
@@ -61,7 +62,7 @@ jobs:
         id: jacoco_reporter
         uses: PavanMudigonda/jacoco-reporter@v4.8
         with:
-          coverage_results_path: eCourse/eCourse.util.ci/target/site/jacoco-aggregate/jacoco.xml
+          coverage_results_path: eCourse.util.ci/target/site/jacoco-aggregate/jacoco.xml
           coverage_report_name: Coverage
           coverage_report_title: JaCoCo
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -79,7 +80,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-code-coverage-report
-          path: eCourse/eCourse.util.ci/target/site/jacoco-aggregate/
+          path: eCourse.util.ci/target/site/jacoco-aggregate/
 
   #    - uses: jwgmeligmeyling/checkstyle-github-action@master
   #      with:

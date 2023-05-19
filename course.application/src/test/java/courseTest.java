@@ -1,7 +1,4 @@
-import eCourse.domain.Course;
-import eCourse.domain.CourseBuilder;
-import eCourse.domain.CourseEdition;
-import eCourse.domain.CourseStates;
+import eCourse.domain.*;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 import org.junit.Test;
@@ -20,11 +17,11 @@ public class courseTest {
     private String state2 = "Close";
 
     private Course course1 = new CourseBuilder().descriptioned(Description.valueOf(description1)).named(Designation.valueOf(name1))
-            .edition(CourseEdition.valueOf(edition1)).state(CourseStates.valueOf(state1)).build();
+            .edition(CourseEdition.valueOf(edition1)).state(CourseState.valueOf(state1)).build();
     private Course course2 = new CourseBuilder().descriptioned(Description.valueOf(description2)).named(Designation.valueOf(name2))
-            .edition(CourseEdition.valueOf(edition2)).state(CourseStates.valueOf(state2)).build();
+            .edition(CourseEdition.valueOf(edition2)).state(CourseState.valueOf(state2)).build();
     private Course course3 = new CourseBuilder().descriptioned(Description.valueOf(description2)).named(Designation.valueOf(name2))
-            .edition(CourseEdition.valueOf(edition2)).state(CourseStates.valueOf(state2)).build();
+            .edition(CourseEdition.valueOf(edition2)).state(CourseState.valueOf(state2)).build();
 
 
     @Test

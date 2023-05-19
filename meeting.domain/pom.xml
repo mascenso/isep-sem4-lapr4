@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>isep.sem4.pi</groupId>
-        <artifactId>ecourse</artifactId>
+        <artifactId>eCourse</artifactId>
         <relativePath>../</relativePath>
         <version>0.1.0</version>
     </parent>
 
     <artifactId>meeting.domain</artifactId>
-    <version>${project.parent.version}</version>
+    <version>0.1.0</version>
 
 
     <properties>

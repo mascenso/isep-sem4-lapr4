@@ -4,7 +4,9 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.security.core.userdetails.User;
 
-public class CourseEnrollmentRequest implements AggregateRoot<Course> {
+public class CourseEnrollmentRequest /*implements AggregateRoot<Course> */ {
+
+    /*
     @Override
     public boolean sameAs(Object other) {
         return false;
@@ -14,4 +16,6 @@ public class CourseEnrollmentRequest implements AggregateRoot<Course> {
     public SystemUser identity() {
         return null;
     }
+
+     */
 }

@@ -17,8 +17,8 @@ public class CourseEnrollmentRequestController {
 
     //private UserRepository userRepository;
 
-    public String [] getCourseStates(){
-        return CourseStates.stateValues();
+    public String getCourseStates(CourseState courseState){
+        return courseState.getActualState();
     }
 
     private final CourseEnrollmentRequestRepository courseEnrollmentRequestRepository = PersistenceContext.repositories().courseEnrollmentRequests();

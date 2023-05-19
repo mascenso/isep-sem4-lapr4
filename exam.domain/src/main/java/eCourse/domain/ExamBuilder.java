@@ -2,8 +2,8 @@ package eCourse.domain;
 
 import eapli.framework.domain.model.DomainFactory;
 
+import java.io.File;
 import java.util.Date;
-import java.util.List;
 
 public class ExamBuilder implements DomainFactory<Exam> {
     private Exam theExam;
@@ -11,13 +11,10 @@ public class ExamBuilder implements DomainFactory<Exam> {
 
     private ExamTitle examTitle;
 
-    private Header theHeader;
-
     private Date openDate;
     private Date closeDate;
 
-
-    private List<SequenceSection> theSequenceSection;
+    private File file;
 
     public ExamBuilder theCourse(final Course course) {
         this.theCourse = course;
@@ -26,11 +23,6 @@ public class ExamBuilder implements DomainFactory<Exam> {
 
     public ExamBuilder theExamTitle(final ExamTitle title) {
         this.examTitle = title;
-        return this;
-    }
-
-    public ExamBuilder theHeader(final Header header) {
-        this.theHeader = header;
         return this;
     }
 
@@ -44,8 +36,8 @@ public class ExamBuilder implements DomainFactory<Exam> {
         return this;
     }
 
-    public ExamBuilder theSequenceSection(final List<SequenceSection> seqSection) {
-        this.theSequenceSection = seqSection;
+    public ExamBuilder theFile(final File file) {
+        this.file = file;
         return this;
     }
 
@@ -57,9 +49,8 @@ public class ExamBuilder implements DomainFactory<Exam> {
             return theExam;
         }
 
-        if (theCourse != null && openDate != null && closeDate != null && theHeader != null && theSequenceSection != null) {
-           // ExamTitle title = new ExamTitle(examTitle);
-            theExam = new Exam(theCourse, examTitle, openDate, closeDate, theHeader, theSequenceSection);
+        if (examTitle != null && theCourse != null && openDate != null && closeDate != null && file != null) {
+            theExam = new Exam(examTitle, theCourse, openDate, closeDate, file);
             return theExam;
         }
         throw new IllegalStateException();

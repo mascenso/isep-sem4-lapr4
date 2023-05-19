@@ -76,7 +76,7 @@ public class CourseEnrollmentRequestBuilder implements DomainFactory<CourseEnrol
         if (theCourseEnrollmentRequest != null) {
             return theCourseEnrollmentRequest;
         }
-        if (username != null && name != null && email != null && approvalStatus != null && courseName != null && edition != null && courseState.equals(CourseState.ENROLL)) {
+        if (username != null && name != null && email != null && approvalStatus != null && courseName != null && edition != null ) {
             createdOn = CurrentTimeCalendars.now();
             theCourseEnrollmentRequest = new CourseEnrollmentRequest(username, name, email, approvalStatus, createdOn, courseName, edition, courseState);
             return theCourseEnrollmentRequest;

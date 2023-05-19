@@ -1,9 +1,9 @@
 package eCourse;
 
 import eCourse.domain.*;
-import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.persistence.RepositoryFactory;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -24,21 +24,20 @@ public class CreateSharedBoardController {
     private final TransactionalContext tx = repositoryFactory.newTransactionalContext();
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public static void addSharedBoard(String title, SharedBoardColumnAndRow position, List<Colunas> columnNames, List<Linhas> rowNames) throws IntegrityViolationException, ConcurrencyException {
+    public static void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<Coluna> columnNames, List<Linha> rowNames) throws IntegrityViolationException, ConcurrencyException {
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER, ECourseRoles.PROJECT_MANAGER, ECourseRoles.TEACHER, ECourseRoles.STUDENT);
+
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
-        CreateSharedBoardBuilder createSharedBoardBuilder = new CreateSharedBoardBuilder();
-        SharedBoard createSharedBoard = createSharedBoardBuilder
+        SharedBoard createdSharedBoard = new CreateSharedBoardBuilder()
                 .withTile(title)
-                .withPosition(position)
+                .withNumberOfColumns(numberOfColumns)
+                .withNumberOfRows(numberOfrows)
                 .withArchive(false)
                 .withOwner(user.get())
                 .withColumns(columnNames)
                 .withRows(rowNames)
                 .build();
-        PersistenceContext.repositories().sharedBoards().save(createSharedBoard);
+        PersistenceContext.repositories().sharedBoards().save(createdSharedBoard);
     }
-   /* public Iterable<Board> allBoards(){
-        return listBoardsService.allBoards();
-    }
-*/
+
 }

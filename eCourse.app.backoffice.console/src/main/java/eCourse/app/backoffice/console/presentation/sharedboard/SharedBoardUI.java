@@ -1,9 +1,10 @@
 package eCourse.app.backoffice.console.presentation.sharedboard;
 
 
-import eCourse.domain.Colunas;
+import eCourse.domain.Coluna;
 import eCourse.CreateSharedBoardController;
-import eCourse.domain.Linhas;
+import eCourse.domain.Linha;
+import eCourse.domain.SharedBoard;
 import eCourse.domain.SharedBoardColumnAndRow;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -24,7 +25,7 @@ public class SharedBoardUI extends AbstractUI {
         final int numberOfRows = Integer.parseInt(Console.readLine("Number of Rows"));
         final String[] rowNames = new String[numberOfRows];
 
-        final SharedBoardColumnAndRow sharedBoardColumnAndRow = new SharedBoardColumnAndRow(numberOfRows, numberOfColumns);
+        final SharedBoard sharedBoardColumnAndRow = new SharedBoard(numberOfRows, numberOfColumns);
         for (int i = 0; i < numberOfColumns; i++) {
             columnNames[i] = Console.readLine("Column name " + (i+1) + " : ");
         }
@@ -34,18 +35,18 @@ public class SharedBoardUI extends AbstractUI {
             rowNames[i] = Console.readLine("Row name " + (i+1) + ": " );
         }
 
-        List<Colunas> columns = new ArrayList<>();
+        List<Coluna> columns = new ArrayList<>();
         for (String columnName : columnNames){
-            columns.add(new Colunas(columnName));
+            columns.add(new Coluna(columnName));
         }
 
-        List<Linhas> rows = new ArrayList<>();
+        List<Linha> rows = new ArrayList<>();
         for (String rowName : rowNames){
-            rows.add(new Linhas(rowName));
+            rows.add(new Linha(rowName));
         }
 
         try {
-            CreateSharedBoardController.addSharedBoard(title, sharedBoardColumnAndRow, columns, rows);
+            CreateSharedBoardController.addSharedBoard(title, numberOfColumns, numberOfRows, columns, rows);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("This title is already in use");
         }

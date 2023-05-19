@@ -26,7 +26,7 @@ package eCourse.clientusermanagement.application;
 import eCourse.clientusermanagement.domain.ClientUser;
 import eCourse.clientusermanagement.repositories.ClientUserRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
@@ -40,7 +40,7 @@ public class ListClientUsersController {
     private final ClientUserRepository repo = PersistenceContext.repositories().clientUsers();
 
     public Iterable<ClientUser> activeClientUsers() {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
         return this.repo.findAllActive();
     }
