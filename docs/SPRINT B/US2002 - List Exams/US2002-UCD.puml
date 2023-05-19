@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+actor Student
+    Student -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option to View Exams)
+    (Select the option to View Exams) --> (The Exams for the courses he is enrolled are shown)
+
+
+@enduml
