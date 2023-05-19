@@ -31,7 +31,7 @@ import eCourse.clientusermanagement.domain.SignupRequest;
 import eCourse.clientusermanagement.repositories.ClientUserRepository;
 import eCourse.clientusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -77,7 +77,7 @@ public class AcceptRefuseSignupRequestControllerTxImpl
      */
     @Override
     public SignupRequest acceptSignupRequest(SignupRequest theSignupRequest) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
         if (theSignupRequest == null) {
             throw new IllegalArgumentException();
@@ -114,7 +114,7 @@ public class AcceptRefuseSignupRequestControllerTxImpl
     //
     private SystemUser createSystemUserForClientUser(final SignupRequest theSignupRequest) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(BaseRoles.STUDENT);
+        roles.add(ECourseRoles.STUDENT);
         return userService.registerUser(theSignupRequest.username(), theSignupRequest.password(),
                 theSignupRequest.name(), theSignupRequest.email(), roles);
     }
@@ -128,7 +128,7 @@ public class AcceptRefuseSignupRequestControllerTxImpl
      */
     @Override
     public SignupRequest refuseSignupRequest(SignupRequest theSignupRequest) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
         if (theSignupRequest == null) {
             throw new IllegalArgumentException();

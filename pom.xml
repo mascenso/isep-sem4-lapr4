@@ -9,9 +9,13 @@
 	<version>0.1.0</version>
 
 	<properties>
-		<eapli.framework.core.version>v21.2.0-RELEASE</eapli.framework.core.version>
-		<eapli.framework.authz.version>v21.2.0-RELEASE</eapli.framework.authz.version>
-		<eapli.framework.pubsub.version>v21.2.0-RELEASE</eapli.framework.pubsub.version>
+		<eapli.framework.core.version>v22.2.0_RELEASE</eapli.framework.core.version>
+		<eapli.framework.authz.version>v22.2.0_RELEASE</eapli.framework.authz.version>
+		<eapli.framework.pubsub.version>v22.2.0_RELEASE</eapli.framework.pubsub.version>
+
+		<eapli.framework.core.version-snapshot>22.0.0</eapli.framework.core.version-snapshot>
+		<eapli.framework.authz.version-snapshot>19.2.0</eapli.framework.authz.version-snapshot>
+		<eapli.framework.pubsub.version-snapshot>20.1.6</eapli.framework.pubsub.version-snapshot>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -24,6 +28,7 @@
 		<module>eCourse.app.backoffice.console</module>
 		<module>eCourse.app.user.console</module>
 		<module>eCourse.app.teacher.console</module>
+		<module>eCourse.app.student.console</module>
 		<module>eCourse.app.common.console</module>
 		<module>eCourse.app.bootstrap</module>
 		<module>eCourse.bootstrappers</module>
@@ -48,6 +53,9 @@
     </modules>
 
 	<dependencies>
+		<!-- EAPLI framework -->
+		<!-- FRAMEWORK dependencies from Jitpack nexus repository -->
+		<!-- -->
 		<dependency>
 			<groupId>org.bitbucket.pag_isep.eapliframework</groupId>
 			<artifactId>eapli.framework.core</artifactId>
@@ -63,6 +71,7 @@
 			<artifactId>eapli.framework.infrastructure.pubsub</artifactId>
 			<version>${eapli.framework.pubsub.version}</version>
 		</dependency>
+		<!-- -->
 
 		<!-- tag::junit[] -->
 		<dependency>
@@ -104,11 +113,6 @@
 			<groupId>org.threeten</groupId>
 			<artifactId>threetenbp</artifactId>
 			<version>1.6.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.microjpa</groupId>
-			<artifactId>microjpa</artifactId>
-			<version>1.2.4</version>
 		</dependency>
 
 	</dependencies>

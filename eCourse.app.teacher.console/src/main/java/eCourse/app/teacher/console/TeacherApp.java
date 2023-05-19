@@ -21,21 +21,23 @@
 package eCourse.app.teacher.console;
 
 import eCourse.app.common.console.BaseApplication;
-import eCourse.app.common.console.presentation.authz.LoginAction;
-import eCourse.app.teacher.console.presentation.MainMenu;
+import eCourse.app.teacher.console.presentation.FrontMenu;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.BasePasswordPolicy;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECoursePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  *
  * @author Paulo Gandra Sousa
  */
 @SuppressWarnings("squid:S106")
-public final class TeacherApp extends BaseApplication {
+@SpringBootApplication
+@ComponentScan({"eCourse"})
+public class TeacherApp extends BaseApplication {
 
 	/**
 	 * Empty constructor is private to avoid instantiation of this class.
@@ -46,7 +48,7 @@ public final class TeacherApp extends BaseApplication {
 	public static void main(final String[] args) {
 		System.out.println();
 
-		AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(),
+		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
 				new PlainTextEncoder());
 
 		new TeacherApp().run(args);
@@ -54,11 +56,8 @@ public final class TeacherApp extends BaseApplication {
 
 	@Override
 	protected void doMain(String[] args) {
-		// login and go to main menu
-		if (new LoginAction(BaseRoles.TEACHER).execute()) {
-			final MainMenu menu = new MainMenu();
-			menu.mainLoop();
-		}
+		new FrontMenu().show();
+
 	}
 
 	@Override

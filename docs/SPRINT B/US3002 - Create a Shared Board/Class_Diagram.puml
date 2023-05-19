@@ -9,7 +9,7 @@ class CreateSharedBoardController {
 class CreateSharedBoardBuilder {
 }
 
-class SharedBoardRepository {
+class   SharedBoardRepository {
 }
 
 class SharedBoard {
@@ -23,7 +23,7 @@ CreateSharedBoardUI -down-> CreateSharedBoardController: uses the controller
 
 CreateSharedBoardController : addSharedBoard()
 CreateSharedBoardController --> CreateSharedBoardBuilder : uses to build
-CreateSharedBoardController --> SharedBoard: create
+CreateSharedBoardBuilder --> SharedBoard: create
 
 SharedBoard --> SharedBoardRepository: uses the repository to persiste in DB
 

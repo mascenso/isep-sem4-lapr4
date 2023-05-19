@@ -25,7 +25,11 @@ package eCourse.app.teacher.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.app.teacher.console.presentation.RecurringLessons.CreateRecurringLessonsUI;
+import eCourse.app.teacher.console.presentation.RecurringLessons.UpdateScheduleRecurringLessonUI;
+import eCourse.app.teacher.console.presentation.exam.CreateExamUI;
+import eCourse.app.teacher.console.presentation.exam.UpdateExamUI;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -46,14 +50,27 @@ import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 public class MainMenu extends AbstractUI {
 
     private static final String SEPARATOR_LABEL = "--------------";
+    private static final String RETURN_LABEL = "Return ";
+
 
     private static final int EXIT_OPTION = 0;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
-    private static final int SALES_OPTION = 7;
+    private static final int EXAMS_OPTION = 2;
+    private static final int CLASSES_OPTION = 3;
+    private static final int RECURRING_LESSON_OPTION = 4;
 
-    private static final int RECHARGE_USER_CARD_OPTION = 1;
+
+    // EXAMS
+
+    private static final int ADD_NEW_EXAM_OPTION = 1;
+    private static final int UPDATE_EXAM_OPTION = 2;
+
+    //RECURRING LESSONS
+
+    private static final int CREATE_RECURRING_LESSON_OPTION = 1;
+    private static final int UPDATE_SCHEDULE_RECURRING_LESSON_OPTION = 2;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -96,16 +113,36 @@ public class MainMenu extends AbstractUI {
     private Menu buildMainMenu() {
         final Menu mainMenu = new Menu();
 
-        final Menu myUserMenu = new MyUserMenu(BaseRoles.TEACHER);
+        final Menu myUserMenu = new MyUserMenu(ECourseRoles.TEACHER);
         mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.TEACHER)) {
-            final Menu teacherMenu = buildTeacherMenu();
-            mainMenu.addSubMenu(SALES_OPTION, teacherMenu);
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
+            final Menu examsMenu = buildExamsMenu();
+            mainMenu.addSubMenu(EXAMS_OPTION, examsMenu);
+        }
+
+        if (!Application.settings().isMenuLayoutHorizontal()) {
+            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
+        }
+
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
+            final Menu classesMenu = buildClassesMenu();
+            mainMenu.addSubMenu(CLASSES_OPTION, classesMenu);
+
+        }
+
+        if (!Application.settings().isMenuLayoutHorizontal()) {
+            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
+        }
+
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
+
+            final Menu recurringLessonMenu = buildRecurringLessonMenu();
+            mainMenu.addSubMenu(RECURRING_LESSON_OPTION, recurringLessonMenu);
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -117,11 +154,33 @@ public class MainMenu extends AbstractUI {
         return mainMenu;
     }
 
-    private Menu buildTeacherMenu() {
-        final Menu teacherMenu = new Menu("Sales  >");
+    private Menu buildExamsMenu() {
+        final Menu menu = new Menu("Exam >");
+
+        menu.addItem(ADD_NEW_EXAM_OPTION, "Create Exam", new CreateExamUI()::show);
+        menu.addItem(UPDATE_EXAM_OPTION, "Update Exam", new UpdateExamUI()::show);
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+        return menu;
+    }
+
+    private Menu buildClassesMenu() {
+        final Menu teacherMenu = new Menu("Classes  >");
 
         teacherMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return teacherMenu;
     }
+
+    private Menu buildRecurringLessonMenu() {
+        final Menu menu = new Menu("Recurring Lesson >");
+
+        menu.addItem(CREATE_RECURRING_LESSON_OPTION, "Create Recurring Lesson", new CreateRecurringLessonsUI()::show);
+        menu.addItem(UPDATE_SCHEDULE_RECURRING_LESSON_OPTION, "Update Recurring Lesson", new UpdateScheduleRecurringLessonUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+
 }
