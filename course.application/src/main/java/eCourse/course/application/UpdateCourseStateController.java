@@ -5,6 +5,8 @@ import eCourse.domain.CourseStates;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
+import eCourse.usermanagement.domain.BaseCourseStates;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.general.domain.model.Designation;
@@ -14,6 +16,31 @@ import java.util.Optional;
 
 public class UpdateCourseStateController {
 
+    private UpdateCourseStateService courseStateService = new UpdateCourseStateService();
+
+    public UpdateCourseStateController(){
+
+    }
+
+    public Optional<Course> findCourseByDesignation(final String designationName){
+        return this.courseStateService.findCourseByDesignation(designationName);
+    }
+
+    public void updateCourseState(String designationName, String newState) throws IntegrityViolationException, ConcurrencyException{
+        if (CourseState.valueOf(newState).equals(BaseCourseStates.OPEN)){
+            this.courseStateService.open(designationName);
+            return;
+
+        }
+
+        if (CourseState.valueOf(newState).equals(BaseCourseStates.CLOSE)){
+            this.courseStateService.close(designationName);
+            return;
+
+        }
+    }
+
+    /*
     private UpdateCourseStateService updateCourseStateService = new UpdateCourseStateService();
 
     private final CourseRepository courseRepository;
@@ -39,6 +66,8 @@ public class UpdateCourseStateController {
         //PersistenceContext.repositories().courses().save(updateState);
 
     }
+
+     */
 
 }
 
