@@ -10,8 +10,8 @@ public class CourseBootstrapper implements Action {
 
     @Override
     public boolean execute() {
-        RegisterCourse("Course for developers", "Infomatica","2022/2023","OPEN");
-        RegisterCourse("Course for big brains", "Inteligencia Artificial","2022/2023","OPEN");
+        RegisterCourse("Course for developers", "Infomatica","2022/2023","Open");
+        RegisterCourse("Course for big brains", "Inteligencia Artificial","2022/2023","Open");
         return true;
     }
 
