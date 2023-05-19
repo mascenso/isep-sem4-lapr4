@@ -68,6 +68,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.7.11</version>
         </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>app.user.console</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

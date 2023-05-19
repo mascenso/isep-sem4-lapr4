@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.app.user.console.presentation;
+package eCourse.app.student.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.LoginUI;
 import eCourse.app.user.console.presentation.myuser.SignupRequestAction;
@@ -57,7 +57,7 @@ public class FrontMenu extends AbstractUI {
     public boolean doShow() {
         final Menu menu = new Menu();
         menu.addItem(LOGIN_OPTION, "Login", new ChainedAction(new LoginUI(
-                ECourseRoles.TEACHER)::show, () -> {
+                ECourseRoles.STUDENT)::show, () -> {
             new MainMenu().mainLoop();
             return true;
         }));
