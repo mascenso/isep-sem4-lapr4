@@ -44,8 +44,10 @@
 
         <module>meeting.application</module>
         <module>meeting.domain</module>
+		<module>Enrollment.domain</module>
+		<module>Enrollment.application</module>
 
-    </modules>
+	</modules>
 
 	<dependencies>
 		<dependency>

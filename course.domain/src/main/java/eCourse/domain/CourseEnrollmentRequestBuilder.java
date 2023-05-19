@@ -68,6 +68,7 @@ public class CourseEnrollmentRequestBuilder implements DomainFactory<CourseEnrol
         return this;
     }
 
+
     private CourseEnrollmentRequest buildOrThrow() {
         // we will create the actual instance inside the builder during the building
         // process, but that is hidden from the client code. conceptually, the client
@@ -86,6 +87,10 @@ public class CourseEnrollmentRequestBuilder implements DomainFactory<CourseEnrol
 
     @Override
     public CourseEnrollmentRequest build() {
-        return null;
+        final var ret = buildOrThrow();
+        // make sure we will create a new instance if someone reuses this builder and do
+        // not change the previously built course.
+        theCourseEnrollmentRequest = null;
+        return ret;
     }
 }
