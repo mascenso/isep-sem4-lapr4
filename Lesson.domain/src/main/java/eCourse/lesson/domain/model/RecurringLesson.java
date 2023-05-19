@@ -52,7 +52,8 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     }
 
     @Override
-    public int hashCode() {return DomainEntities.hashCode(this);
+    public int hashCode() {
+        return DomainEntities.hashCode(this);
     }
 
     @Override
