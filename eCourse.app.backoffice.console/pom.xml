@@ -6,7 +6,7 @@
     <parent>
         <groupId>isep.sem4.pi</groupId>
         <artifactId>eCourse</artifactId>
-        <relativePath>../</relativePath>
+        <relativePath>../pom.xml</relativePath>
         <version>0.1.0</version>
     </parent>
         
@@ -61,10 +61,18 @@
             <version>0.1.0</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.microjpa</groupId>
-            <artifactId>microjpa</artifactId>
-            <version>1.2.4</version>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>question.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>exam.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
         </dependency>
 
 
