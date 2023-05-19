@@ -22,9 +22,9 @@
 ## 3. Analysis
 In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),
 
-- At anytime, the application user (authorized) may want to update the of the course.
+- At anytime, the manager may want to update the of the course.
 
-- There is no dependency to other US.
+- There have a dependency to US1002.
 
 **Input Data:**
 
@@ -49,7 +49,7 @@ Below is the use case diagram to show the interactions between the manager and t
 
 **Domain Model Excerpt**
 
-![US2001-DM](DomainModel_Excerpt.png "US1004 - Domain Model Excerpt")
+![](DomainModel_Excerpt.png "US1004 - Domain Model Excerpt")
 
 ## 4. Design
 

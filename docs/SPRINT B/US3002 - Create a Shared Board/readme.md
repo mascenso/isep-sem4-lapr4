@@ -13,13 +13,46 @@
 **US 3002** As User I want to create a board
 1. The User authenticates in the system.
 2. The User selects the option to create a new shared board.
-3. The system presents a necessary information to create a shared board for the user to fill and can add members to the shared board.
-4. The user fills information requested and submit.
+3. The system presents a necessary information to create a shared board (number of the Columns and Rows, names of the columns and rows).
+4. The user types the requested data and submit.
 5. The system creates the shared board.
-6. The system displays a status create confirmation message.
+6. The system confirms the operation.
 
 
 ## 3. Analysis
+
+In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),
+
+- At anytime, the application user (authorized) may want to create a sharedboard.
+
+- There is no dependency to other US.
+
+**Input Data:**
+
+* Typed data:
+    * Title of the board,
+    * Number of the Columns,
+    * Number of the Rows,
+    * Name of the Columns,
+    * Name of the Rows
+
+
+* Selected data:
+    * No selected data
+
+**Output Data:**
+
+* An SharedBoard.
+
+Below is the use case diagram to show the interactions between the manager and the system when open and close courses*
+
+![Use Case Diagram](Use_Case_Diagram.svg)
+
+
+**Domain Model Excerpt**
+
+![](DomainModel_Excerpt.png "US3002 - Domain Model Excerpt")
+
 
 * User Interface - This class is named CreateSharedBoardUI where it will include a form to create a shared board. The form will include fields for the board name and users to add to the board.
 * Controller     - This class is named CreateSharedBoardController where will be responsible for managing UI requests and performing the necessary actions to create the shared board.
@@ -35,6 +68,16 @@
 
 ### 4.1. Realization
 
+
+| Interaction ID | Question: Which class is responsible for... | Answer                      | Justification (with patterns)                                                                                                |
+|:---------------|:--------------------------------------------|:----------------------------|:-----------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?             | UpdateCourseStateUI         | UI pattern: UpdateCourseState is responsible for interacting with the actor to update the state of courses.                  |
+|                | ... coordinating the US?                    | UpdateCourseStateController | Controller pattern: UpdateCourseStateController is responsible for coordinating the use case and invoking necessary classes. |
+| Step 2         | ... Validate User                           | AppSettings                 | Settings pattern: AppSettings is responsible for validating if the user is valid based on application settings.              |
+| Step 3         | .. return list of courses                   | CourseRepository            | Repository pattern: CourseRepository is responsible for retrieving the list of courses from the database.                    |
+| Step 4         | .. show the course to the user              | ListCourseUI                | UI pattern: ListCourseUI is responsible for presenting the courses to the user.                                              |
+
+
 ### 4.2. Class Diagram
 
 ![class diagram](Class_Diagram.svg "A Class Diagram")
@@ -43,8 +86,11 @@
 ![](Sequence_Diagram.svg)
 
 
-
 ### 4.4. Applied Patterns
+  - Controller
+  - Builder
+  - Persistence Context
+  - Repository
 
 ### 4.5. Tests
 
