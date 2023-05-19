@@ -25,6 +25,7 @@ package eCourse.app.student.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
+import eCourse.app.student.console.presentation.Exams.ListExamsUI;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -53,6 +54,8 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int STUDENT_COURSES_OPTION = 2;
     private static final int STUDENT_EXAMS_OPTION= 3;
+
+    private static final int VIEW_STUDENT_EXAMS_LIST_OPTION = 2;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -131,6 +134,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildExamsMenu() {
         final Menu studentMenu = new Menu("Exams  >");
 
+        studentMenu.addItem(VIEW_STUDENT_EXAMS_LIST_OPTION, "View my Exams", new ListExamsUI()::show);
         studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return studentMenu;
