@@ -27,11 +27,9 @@ public class QuestionTest {
         questionType1 = QuestionType.MULTIPLE_CHOICE;
         questionType2 = QuestionType.SHORT_ANSWER;
         course1 = new CourseBuilder().descriptioned(Description.valueOf("Course for developers"))
-                .named(Designation.valueOf("LPROG")).edition(CourseEdition.valueOf("2022/2023"))
-                .state(CourseState.valueOf("Open")).build();
+                .named(Designation.valueOf("LPROG")).edition(CourseEdition.valueOf("2022/2023")).build();
         course2 = new CourseBuilder().descriptioned(Description.valueOf("Course for developers"))
-                .named(Designation.valueOf("EAPLI")).edition(CourseEdition.valueOf("2022/2023"))
-                .state(CourseState.valueOf("Open")).build();
+                .named(Designation.valueOf("EAPLI")).edition(CourseEdition.valueOf("2022/2023")).build();
         file1 = new File("question1.pdf");
         file2 = new File("question2.pdf");
         description1 = "testing1";
