@@ -65,8 +65,11 @@ public class Exam implements AggregateRoot<ExamTitle> {
         return closeDate;
     }
 
+    public File getExamFile() {
+        return file;
+    }
 
-    public Exam updateExam( Date open, Date close, File file){
+    public Exam updateExam(Date open, Date close, File file){
         this.closeDate=close;
         this.openDate=open;
         this.file=file;
@@ -87,7 +90,7 @@ public class Exam implements AggregateRoot<ExamTitle> {
 
         return course.equals(otherExam.course)
                 && title.equals(otherExam.title)
-                && id.equals(otherExam.id)
+                && file.equals(otherExam.file)
                 && openDate.equals(otherExam.openDate)
                 && closeDate.equals(otherExam.closeDate);
     }
