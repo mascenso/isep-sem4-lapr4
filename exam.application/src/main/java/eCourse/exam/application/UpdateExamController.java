@@ -3,7 +3,6 @@ package eCourse.exam.application;
 import eCourse.course.application.ListCoursesService;
 import eCourse.domain.Course;
 import eCourse.domain.Exam;
-import eCourse.domain.ExamBuilder;
 import eCourse.domain.ExamTitle;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.UseCaseController;
@@ -48,7 +47,7 @@ public class UpdateExamController {
     @Transactional
     public Exam updateExam( Exam exam, Date newOpenDate, Date newCloseDate, File examFile) {
 
-            exam.updateExam(exam,newOpenDate,newCloseDate,examFile);
+            exam.updateExam(newOpenDate,newCloseDate,examFile);
 
         return PersistenceContext.repositories().exams().save(exam);
     }
