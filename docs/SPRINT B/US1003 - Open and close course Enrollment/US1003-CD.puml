@@ -1,0 +1,41 @@
+@startuml
+
+class UpdateCourseStateUI {
+    +doShow()
+}
+
+class UpdateCourseStateController {
+    +updateCourseState()
+}
+
+class CourseRepository {
+    +findByDesignation()
+}
+
+class PersistenceContext {
+    -courseRepository: CourseRepository
+    +repositories()
+}
+
+
+class UpdateCourseStateService {
+    +enroll()
+    +closeEnroll()
+}
+
+class RepositoryFactory {
+    +create()
+}
+
+class Course {
+}
+
+UpdateCourseStateUI --> UpdateCourseStateController
+UpdateCourseStateController --> UpdateCourseStateService
+UpdateCourseStateController --> PersistenceContext
+PersistenceContext --> RepositoryFactory
+RepositoryFactory --> CourseRepository
+UpdateCourseStateService --> CourseRepository
+UpdateCourseStateController --> Course
+
+@enduml
