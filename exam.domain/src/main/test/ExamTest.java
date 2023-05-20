@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ExamTest {
@@ -53,6 +54,65 @@ public class ExamTest {
                 .theCloseDate(closeDate1).theFile(examFile1).build();
 
 
+    }
+
+
+    @Test
+    public void testIfExamTitleIsRequired() {
+        assertThrows(IllegalStateException.class, () -> {
+            ExamTitle nullTitle = null;
+            new ExamBuilder().theCourse(course1).theExamTitle(nullTitle).theOpenDate(openDate1)
+                    .theCloseDate(closeDate1).theFile(examFile1).build();
+        });
+    }
+
+    @Test
+    public void testIfExamCourseIsRequired() {
+        assertThrows(IllegalStateException.class, () -> {
+            Course nullCourse = null;
+            new ExamBuilder().theCourse(nullCourse).theExamTitle(examTitle1).theOpenDate(openDate1)
+                    .theCloseDate(closeDate1).theFile(examFile1).build();
+        });
+    }
+
+    @Test
+    public void testIfExamOpenDateIsRequired() {
+        assertThrows(IllegalStateException.class, () -> {
+            Date nullOpenDate = null;
+            new ExamBuilder().theCourse(course1).theExamTitle(examTitle1).theOpenDate(nullOpenDate)
+                    .theCloseDate(closeDate1).theFile(examFile1).build();
+        });
+    }
+
+    @Test
+    public void testIfExamCloseDateIsRequired() {
+        assertThrows(IllegalStateException.class, () -> {
+            Date nullCloseDate = null;
+            new ExamBuilder().theCourse(course1).theExamTitle(examTitle1).theOpenDate(openDate1)
+                    .theCloseDate(nullCloseDate).theFile(examFile1).build();
+        });
+    }
+
+    @Test
+    public void testIfExamFileIsRequired() {
+        assertThrows(IllegalStateException.class, () -> {
+            File nullFile = null;
+            new ExamBuilder().theCourse(course1).theExamTitle(examTitle1).theOpenDate(openDate1)
+                    .theCloseDate(closeDate1).theFile(nullFile).build();
+        });
+    }
+    @Test
+    public void testIfAllParametersAreFilled() {
+        assertDoesNotThrow(() -> {
+            Exam exam = new ExamBuilder().theCourse(course1).theExamTitle(examTitle1).theOpenDate(openDate1)
+                    .theCloseDate(closeDate1).theFile(examFile1).build();
+
+            assertEquals(course1, exam.getExamCourse());
+            assertEquals(examTitle1, exam.getExamTitle());
+            assertEquals(openDate1, exam.getExamOpenDate());
+            assertEquals(closeDate1, exam.getExamCloseDate());
+            assertEquals(examFile1, exam.getExamFile());
+        });
     }
 
 

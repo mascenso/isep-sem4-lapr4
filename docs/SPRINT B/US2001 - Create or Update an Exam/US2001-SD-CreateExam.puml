@@ -1,0 +1,40 @@
+@startuml
+
+autoactivate on
+
+actor Teacher as T
+participant "CreateExamUI" as UI
+participant "CreateExamController" as EC
+participant "ListCoursesService" as S
+participant "Exam" as E
+participant "ExamTitle" as ET
+database "ExamRepository" as ER
+database "CourseRepository" as CR
+
+
+activate UI
+T -> UI: create exam
+UI -> EC: create
+UI --> T: Asks for title
+UI->EC:getOpenCourses()
+deactivate UI
+EC->S:getOpenCourses()
+S->CR:getAll()
+S-->EC:listOfOpenCourses
+
+EC-->UI:listOfOpenCourses
+activate UI
+UI-->T: Shows list of open courses
+T->UI: Choose course
+UI-->T: Asks exam dates and file
+T->UI: Inserts dates and file
+
+UI->EC: createExam(course, title, openDate, closeDate, examFile);
+EC->ET: create title
+ET-->EC: examTitle
+EC->E: createExam(course, examTitle, openDate, closeDate, examFile);
+E-->EC: exam
+EC->ER:save(exam)
+
+
+@enduml
