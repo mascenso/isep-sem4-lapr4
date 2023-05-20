@@ -85,22 +85,23 @@ jobs:
   #      with:
   #        path: 'target/checkstyle-result.xml'
 
-      - name: Run the gitinspector HTML process with Docker
-        run: docker run --rm -v ${{ github.workspace }}:/repo felix/gitinspector:0.4.4 --format=html --grading > gitinspector.html
-
-      # uploads the gitinspector HTML report artifact  # Optional
-      - name: Upload Git Inspector Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: gitinspector-report
-          path: gitinspector.html
-
-      - name: Run the gitinspector TXT process with Docker
-        run: docker run --rm -v ${{ github.workspace }}:/repo felix/gitinspector:0.4.4 --format=text --grading > gitinspector.txt
-
-      - name: Adding markdown
-        run: cat gitinspector.txt >> $GITHUB_STEP_SUMMARY
-
+## Commented due to gitinspector bug on our repository - https://github.com/ejwa/gitinspector/issues/118#issuecomment-258506482
+#      - name: Run the gitinspector HTML process with Docker
+#        run: docker run --rm -v ${{ github.workspace }}:/repo felix/gitinspector:0.4.4 --format=html --grading > gitinspector.html
+#
+#     # uploads the gitinspector HTML report artifact  # Optional
+#      - name: Upload Git Inspector Artifacts
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: gitinspector-report
+#          path: gitinspector.html
+#
+#      - name: Run the gitinspector TXT process with Docker
+#        run: docker run --rm -v ${{ github.workspace }}:/repo felix/gitinspector:0.4.4 --format=text --grading > gitinspector.txt
+#
+#      - name: Adding markdown
+#        run: cat gitinspector.txt >> $GITHUB_STEP_SUMMARY
+#
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
         uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
