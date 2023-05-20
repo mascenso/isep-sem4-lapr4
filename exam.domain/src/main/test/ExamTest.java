@@ -34,11 +34,9 @@ public class ExamTest {
         examTitle1 = ExamTitle.valueOf("LPROG Exam");
         examTitle2 = ExamTitle.valueOf("EAPLI Exam");
         course1 = new CourseBuilder().descriptioned(Description.valueOf("Course for developers"))
-                .named(Designation.valueOf("LPROG")).edition(CourseEdition.valueOf("2022/2023"))
-                .state(CourseState.valueOf("Open")).build();
+                .named(Designation.valueOf("LPROG")).edition(CourseEdition.valueOf("2022/2023")).build();
         course2 = new CourseBuilder().descriptioned(Description.valueOf("Course for developers"))
-                .named(Designation.valueOf("EAPLI")).edition(CourseEdition.valueOf("2022/2023"))
-                .state(CourseState.valueOf("Open")).build();
+                .named(Designation.valueOf("EAPLI")).edition(CourseEdition.valueOf("2022/2023")).build();
         openDate1 = new SimpleDateFormat("dd/MM/yyyy").parse("05/06/2023");
         closeDate1 = new SimpleDateFormat("dd/MM/yyyy").parse("10/06/2023");
         openDate2 = new SimpleDateFormat("dd/MM/yyyy").parse("20/07/2023");
