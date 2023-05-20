@@ -2,13 +2,10 @@ package eCourse.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
-import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
 import java.io.File;
-
-import static eCourse.domain.QuestionType.getQuestionTypeById;
 
 @Entity
 public class Question implements AggregateRoot<Long> {
