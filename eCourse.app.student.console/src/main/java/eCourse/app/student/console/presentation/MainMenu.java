@@ -27,6 +27,7 @@ import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
 import eCourse.app.student.console.presentation.Courses.ListCoursesStudentUI;
 import eCourse.app.student.console.presentation.Exams.ListExamsUI;
+import eCourse.app.student.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -55,6 +56,7 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int STUDENT_COURSES_OPTION = 2;
     private static final int STUDENT_EXAMS_OPTION= 3;
+    private static final int STUDENT_MEETING_OPTION= 4;
 
     private static final int VIEW_STUDENT_EXAMS_LIST_OPTION = 2;
 
@@ -66,6 +68,8 @@ public class MainMenu extends AbstractUI {
     // Courses Menu
     private static final int COURSE_OPEN = 1;
 
+    // Meeting Menu
+    private static final int SCHEEDULE_MEETING = 1;
     public MainMenu() {
         menu = buildMainMenu();
         renderer = getRenderer(menu);
@@ -113,10 +117,13 @@ public class MainMenu extends AbstractUI {
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.STUDENT)) {
             final Menu coursesMenu = buildCoursesMenu();
             final Menu examsMenu = buildExamsMenu();
+            final Menu MeetingsMenu = buildMeetingMenu();
 
             mainMenu.addSubMenu(STUDENT_COURSES_OPTION, coursesMenu);
             mainMenu.addSubMenu(STUDENT_EXAMS_OPTION, examsMenu);
+            mainMenu.addSubMenu(STUDENT_MEETING_OPTION, MeetingsMenu);
         }
+
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -125,6 +132,14 @@ public class MainMenu extends AbstractUI {
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;
+    }
+
+    private Menu buildMeetingMenu() {
+        final Menu studentMenu = new Menu("Meeting  >");
+        studentMenu.addItem(SCHEEDULE_MEETING, "Schedule a meeting", new ScheduleMeetingsUI()::show);
+        studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return studentMenu;
     }
 
     private Menu buildCoursesMenu() {

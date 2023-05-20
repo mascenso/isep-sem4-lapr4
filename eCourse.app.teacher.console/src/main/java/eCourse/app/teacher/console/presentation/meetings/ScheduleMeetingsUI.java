@@ -1,4 +1,4 @@
-package eCourse.app.backoffice.console.presentation.meetings;
+package eCourse.app.teacher.console.presentation.meetings;
 
 import eCourse.application.ScheduleMeetingController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
