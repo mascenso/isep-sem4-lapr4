@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 @UseCaseController
-public class ListCoursesController {
+public class ListCoursesTeacherController {
 
     @Autowired
     private ListCoursesService service = new ListCoursesService();
 
-    public Iterable<Course> allCourses() {
+    public Iterable<Course> allCoursesOpen() {
 
-        return service.allCourses();
+        return service.getOpenCourses();
     }
 
 }
