@@ -13,15 +13,14 @@ public class courseTest {
     private String description2 = "Description 2";
     private String edition1 = "2022-2023";
     private String edition2 = "2021-2022";
-    private String state1 = "Open";
-    private String state2 = "Close";
+    private String state1 = "Close";
 
     private Course course1 = new CourseBuilder().descriptioned(Description.valueOf(description1)).named(Designation.valueOf(name1))
-            .edition(CourseEdition.valueOf(edition1)).state(CourseState.valueOf(state1)).build();
+            .edition(CourseEdition.valueOf(edition1)).build();
     private Course course2 = new CourseBuilder().descriptioned(Description.valueOf(description2)).named(Designation.valueOf(name2))
-            .edition(CourseEdition.valueOf(edition2)).state(CourseState.valueOf(state2)).build();
+            .edition(CourseEdition.valueOf(edition2)).build();
     private Course course3 = new CourseBuilder().descriptioned(Description.valueOf(description2)).named(Designation.valueOf(name2))
-            .edition(CourseEdition.valueOf(edition2)).state(CourseState.valueOf(state2)).build();
+            .edition(CourseEdition.valueOf(edition2)).build();
 
 
     @Test
@@ -45,7 +44,7 @@ public class courseTest {
     @Test
     public void testIfStateIsCorrect() {
         assertEquals(state1, course1.state().toString());
-        assertEquals(state2, course3.state().toString());
+        assertEquals(state1, course3.state().toString());
     }
 
     @Test

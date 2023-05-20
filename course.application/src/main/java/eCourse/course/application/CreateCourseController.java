@@ -30,10 +30,10 @@ public class CreateCourseController {
     }
 
     @Transactional
-    public Course createCourse (final String name, final String edition, final String description, final String state){
+    public Course createCourse (final String name, final String edition, final String description){
 
         final Course newCourse = new CourseBuilder().descriptioned(Description.valueOf(description)).named(Designation.valueOf(name))
-                .edition(CourseEdition.valueOf(edition)).state(CourseState.valueOf(state)).build();
+                .edition(CourseEdition.valueOf(edition)).build();
         return PersistenceContext.repositories().courses().save(newCourse);
     }
 
