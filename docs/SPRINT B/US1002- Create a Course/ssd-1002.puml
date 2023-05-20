@@ -1,0 +1,23 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Manager
+activate Manager
+
+
+Manager -> System: Asks to create an Course
+System --> Manager: Ask for name of course
+Manager -> System: Insert name
+System --> Manager: Asks edition of coure
+Manager -> System: Insert edition of course
+System --> Manager: Asks description
+Manager -> System: Insert description
+
+System --> Manager: Saves course
+
+
+deactivate Manager
+
+@enduml

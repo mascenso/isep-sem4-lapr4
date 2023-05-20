@@ -17,7 +17,7 @@ public class CourseBootstrapper implements Action {
 
     private boolean RegisterCourse(final String description, final String name, final String edition, final String state){
         final Course newCourse = new CourseBuilder().descriptioned(Description.valueOf(description)).named(Designation.valueOf(name))
-                .edition(CourseEdition.valueOf(edition)).state(CourseState.valueOf(state)).build();
+                .edition(CourseEdition.valueOf(edition)).build();
         PersistenceContext.repositories().courses().save(newCourse);
         return true;
     }

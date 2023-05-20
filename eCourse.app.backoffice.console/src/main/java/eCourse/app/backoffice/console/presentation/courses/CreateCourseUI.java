@@ -13,11 +13,8 @@ public class CreateCourseUI extends AbstractUI {
         final String edition = Console.readNonEmptyLine("Edition","The edition should not be empty");
         final String description = Console.readNonEmptyLine("Description","The description should not be empty");
 
-        // this is a default state for when create a course
-        String state = "Open";
 
-
-        theController.createCourse(name,edition,description,state);
+        theController.createCourse(name,edition,description);
         return false;
     }
 
