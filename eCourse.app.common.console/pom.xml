@@ -5,7 +5,7 @@
     <parent>
         <groupId>isep.sem4.pi</groupId>
         <artifactId>eCourse</artifactId>
-        <relativePath>../</relativePath>
+        <relativePath>../pom.xml</relativePath>
         <version>0.1.0</version>
     </parent>
 
@@ -22,19 +22,15 @@
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>core</artifactId>
-            <version>${project.parent.version}</version>
+            <version>0.1.0</version>
         </dependency>
 
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>sharedboard.domain</artifactId>
-            <version>${project.parent.version}</version>
+            <version>0.1.0</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>org.microjpa</groupId>
-            <artifactId>microjpa</artifactId>
-            <version>1.2.4</version>
-        </dependency>
+
     </dependencies>
 </project>

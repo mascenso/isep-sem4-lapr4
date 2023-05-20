@@ -23,7 +23,7 @@ package eCourse.usermanagement.application;
 import java.util.Calendar;
 import java.util.Set;
 
-import eCourse.usermanagement.domain.BaseRoles;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -48,12 +48,12 @@ public class AddUserController {
 	 * @return a list of RoleTypes
 	 */
 	public Role[] getRoleTypes() {
-		return BaseRoles.nonUserValues();
+		return ECourseRoles.nonUserValues();
 	}
 
 	public SystemUser addUser(final String username, final String password, final String firstName,
 			final String lastName, final String email, final Set<Role> roles, final Calendar createdOn) {
-		authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+		authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
 		return userSvc.registerNewUser(username, password, firstName, lastName, email, roles, createdOn);
 	}

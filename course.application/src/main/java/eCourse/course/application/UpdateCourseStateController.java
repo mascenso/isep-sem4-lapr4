@@ -9,10 +9,17 @@ import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
 public class UpdateCourseStateController {
+
+    private UpdateCourseStateService updateCourseStateService = new UpdateCourseStateService();
+
+    @Autowired
+    private ListCoursesService service = new ListCoursesService();
+
     private final CourseRepository courseRepository;
     private Course course;
 
@@ -30,11 +37,16 @@ public class UpdateCourseStateController {
     public void updateCourseState(String designationName, String newState) throws IntegrityViolationException, ConcurrencyException {
         Optional<Course> optionalCourse = findCourseByDesignation(designationName);
         //CourseBuilder courseBuilder = new CourseBuilder();
-        //Course updateState = courseBuilder.state(CourseStates.valueOf(newState)).build();
-        optionalCourse.get().updateState(CourseStates.valueOf(newState));
+        //Course updateState = courseBuilder.state(CourseState.valueOf(newState)).build();
+        optionalCourse.get().updateState(CourseState.valueOf(newState));
         PersistenceContext.repositories().courses().save(optionalCourse.get());
         //PersistenceContext.repositories().courses().save(updateState);
 
+    }
+
+    public Iterable<Course> allCourses() {
+
+        return service.allCourses();
     }
 
 }

@@ -1,21 +1,21 @@
 package eCourse.app.backoffice.console.presentation.sharedboard;
 
-import eCourse.domain.Colunas;
-import eCourse.domain.Linhas;
+import eCourse.domain.Coluna;
+import eCourse.domain.Linha;
 import eCourse.domain.SharedBoard;
 
 
 public class SharedBoardPrinter {
 
     public void print(SharedBoard sharedBoard) {
-        System.out.printf("SharedBoard \"%s\" owned by %s\n", sharedBoard.getTitle(), sharedBoard.getOwner());
+        System.out.printf("SharedBoard \"%s\" owned by %s\n", sharedBoard.title(), sharedBoard.owner());
 
-        final int numberOfRows = sharedBoard.getLinhas().size();
-        final int numberOfColumns = sharedBoard.getColunas().size();
+        final int numberOfRows = sharedBoard.linhas().size();
+        final int numberOfColumns = sharedBoard.colunas().size();
 
         // Imprime números de colunas
         System.out.print("  |");
-        for (Colunas column : sharedBoard.getColunas()) {
+        for (Coluna column : sharedBoard.colunas()) {
             System.out.printf(" %s |", column.getName());
         }
         System.out.println();
@@ -29,7 +29,7 @@ public class SharedBoardPrinter {
 
         // Imprime números de linhas e células
         for (int i = 1; i <= numberOfRows; i++) {
-            Linhas row = sharedBoard.getLinhas().get(i - 1);
+            Linha row = sharedBoard.linhas().get(i - 1);
             System.out.printf("%2d|", i);
 
             System.out.println();

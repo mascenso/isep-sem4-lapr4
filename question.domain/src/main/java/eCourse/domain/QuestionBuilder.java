@@ -3,117 +3,39 @@ package eCourse.domain;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.general.domain.model.Description;
 
+import java.io.File;
 import java.util.List;
 
 public class QuestionBuilder implements DomainFactory<Question> {
 
-    private Description description;
 
-    private Question theQuestion;
-    private Solution theSolution;
-    private List<String> theListOfSolutions;
-    private List<String> multipleOrMatchingOptions;
-    private String[] multiOrMatchingSolutions;
+    private Course course;
 
-    private Double acceptanceError;
-
-    private String question;
-    private Boolean caseSensitive;
-
-
-
-    private List<String>  matchingAnswers;
-
-    private String solution;
+    private File file;
 
     private QuestionType questionType;
 
+    private Question theQuestion;
 
+    private String description;
 
-    public QuestionBuilder definedMultipleOrMatchingOptions(final List<String> multipleOrMatchingOptions) {
-        this.multipleOrMatchingOptions = multipleOrMatchingOptions;
+    public QuestionBuilder theFile(final File file) {
+        this.file = file;
         return this;
     }
 
-    public QuestionBuilder definedMultiOrMatchingSolutions(final String[] MultiOrMatchingSolutions) {
-        this.multiOrMatchingSolutions = MultiOrMatchingSolutions;
-        return this;
-    }
-
-    public QuestionBuilder definedMatchingAnswers(final List<String>  matchingAnswers) {
-        this.matchingAnswers = matchingAnswers;
-        return this;
-    }
-    public QuestionBuilder definedAcceptanceError(final Double acceptanceError) {
-        this.acceptanceError = acceptanceError;
-        return this;
-    }
-
-    public QuestionBuilder definedQuestion(final String question) {
-        this.question = question;
-        return this;
-    }
-
-    public QuestionBuilder definedSolution(final String solution) {
-        this.theSolution = new Solution(solution);
-        return this;
-    }
-
-    public QuestionBuilder theListOfSolutions(final List<String> listOfSolutions) {
-        this.theListOfSolutions = listOfSolutions;
-        return this;
-    }
-
-    public QuestionBuilder isCaseSensitive(final Boolean caseSensitive) {
-        this.caseSensitive = caseSensitive;
-        return this;
-    }
-
-
-    public QuestionBuilder theSolution(final Solution solution) {
-        this.theSolution = solution;
-        return this;
-    }
-    public QuestionBuilder ofType(final QuestionType questionType) {
+    public QuestionBuilder theQuestionType(final QuestionType questionType) {
         this.questionType = questionType;
         return this;
     }
 
-
-    public QuestionBuilder descriptioned(final Description question) {
-        this.description = question;
+    public QuestionBuilder theCourse(final Course course) {
+        this.course = course;
         return this;
     }
-
-    public QuestionType getQuestionType(final int option){
-        return questionTypeAssignement(option);
-    }
-
-    private QuestionType questionTypeAssignement(final int option) {
-
-        switch (option) {
-            case 1:
-                questionType = QuestionType.MATCHING;
-                break;
-            case 2:
-                questionType = QuestionType.MULTIPLE_CHOICE;
-                break;
-            case 3:
-                questionType = QuestionType.SHORT_ANSWER;
-                break;
-            case 4:
-                questionType = QuestionType.NUMERICAL;
-                break;
-            case 5:
-                questionType = QuestionType.SELECT_MISSING_WORDS;
-                break;
-            case 6:
-                questionType = QuestionType.TRUE_FALSE;
-                break;
-            case 0:
-                break;
-        }
-        return this.questionType;
+    public QuestionBuilder theDescription(final String description) {
+        this.description = description;
+        return this;
     }
 
     private Question buildOrThrow() {
@@ -123,33 +45,8 @@ public class QuestionBuilder implements DomainFactory<Question> {
         if (theQuestion != null) {
             return theQuestion;
         }
-        if (question != null) {
-            switch (questionType) {
-                case MATCHING:
-                    theSolution=new Solution(multiOrMatchingSolutions);
-                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, matchingAnswers, questionType);
-                    break;
-                case MULTIPLE_CHOICE:
-                    theSolution=new Solution(solution);
-                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, questionType);
-                    break;
-                case SHORT_ANSWER:
-                    //theSolution=new Solution(solution);
-                    theQuestion = new Question(question, theSolution, caseSensitive, questionType);
-                    break;
-                case NUMERICAL:
-                    theSolution=new Solution(multiOrMatchingSolutions);
-                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, acceptanceError, questionType);
-                    break;
-                case SELECT_MISSING_WORDS:
-                    theSolution=new Solution(multiOrMatchingSolutions);
-                    theQuestion = new Question(question, theSolution, multipleOrMatchingOptions, questionType);
-                    break;
-                case TRUE_FALSE:
-                    theSolution=new Solution(solution);
-                    theQuestion = new Question(question, theSolution, questionType);
-                    break;
-            }
+        if (course != null && questionType != null && file != null) {
+            theQuestion = new Question(questionType, course, file,description);
             return theQuestion;
         }
         throw new IllegalStateException();
