@@ -11,7 +11,7 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class JpaQuestionRepository extends JpaAutoTxRepository<Question, Designation, Designation> implements QuestionRepository {
+public class JpaQuestionRepository extends JpaAutoTxRepository<Question, Long, Long> implements QuestionRepository {
     public JpaQuestionRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
                 "Question");
@@ -26,12 +26,12 @@ public class JpaQuestionRepository extends JpaAutoTxRepository<Question, Designa
     }
 
     @Override
-    public Optional<Question> ofIdentity(Designation id) {
+    public Optional<Question> ofIdentity(Long id) {
         return Optional.empty();
     }
 
     @Override
-    public void deleteOfIdentity(Designation entityId) {
+    public void deleteOfIdentity(Long entityId) {
 
     }
 }

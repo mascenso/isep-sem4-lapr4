@@ -35,10 +35,10 @@ public class UpdateExamUI extends AbstractUI {
 
         String title = examMap.get((long) selectedExam).toString();
 
-        Exam selexam = theController.getExamByTitle(ExamTitle.valueOf(title));
+        Exam exam = theController.getExamByTitle(ExamTitle.valueOf(title));
 
-        Date currentOpenDate = theController.getExamOpenDate(selexam);
-        Date currentCloseDate = theController.getExamCloseDate(selexam);
+        Date currentOpenDate = theController.getExamOpenDate(exam);
+        Date currentCloseDate = theController.getExamCloseDate(exam);
         System.out.printf("Current open date: " + currentOpenDate + "\nCurrent close date: " + currentCloseDate + "\n");
 
         try {
@@ -48,7 +48,7 @@ public class UpdateExamUI extends AbstractUI {
             final String path = Console.readNonEmptyLine("Insert the path to the file:", "The path cannot be empty!");
             File examFile = new File(path);
 
-            theController.updateExam(selexam,newOpenDate, newCloseDate, examFile);
+            theController.updateExam(exam,newOpenDate, newCloseDate, examFile);
         } catch (final ConcurrencyException e) {
             System.out.println("Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
         }

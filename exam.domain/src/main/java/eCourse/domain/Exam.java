@@ -66,19 +66,7 @@ public class Exam implements AggregateRoot<ExamTitle> {
     }
 
 
-    private void newFile(File file) {
-        this.file = file;
-    }
-
-    private void newOpenDate(Date openDate) {
-        this.openDate = openDate;
-    }
-
-    private void newCloseDate(Date closeDate) {
-        this.closeDate = closeDate;
-    }
-
-    public Exam updateExam(Exam exm, Date open, Date close, File file){
+    public Exam updateExam( Date open, Date close, File file){
         this.closeDate=close;
         this.openDate=open;
         this.file=file;
