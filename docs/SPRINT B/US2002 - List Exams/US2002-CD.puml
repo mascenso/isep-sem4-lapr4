@@ -1,0 +1,26 @@
+@startuml
+
+class ListExamsUI {
+    doShow()
+}
+
+class ListExamsController {
+    getOpenExams()
+}
+
+class ListExamsService {
+    getOpenCourses()
+}
+
+class ExamRepository {
+}
+
+class Exam {
+}
+
+ListExamsUI --> ListExamsController: uses
+ListExamsController --> ListExamsService: uses
+ListExamsService --> ExamRepository: uses the repository
+ExamRepository --> Exam: gets student exams
+
+@enduml

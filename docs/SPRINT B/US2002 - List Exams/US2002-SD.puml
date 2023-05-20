@@ -1,0 +1,33 @@
+@startuml
+actor Student as Actor
+participant ListExamsUI as UI <<presentation>>
+participant ListExamsController as Controller <<aplication>>
+participant ListExamsService as Service <<service>>
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database ExamsRepository as Repository <<repository>>
+
+Actor -> UI: show()
+activate UI
+    UI -> Controller: getOpenExams()
+        activate Controller
+        Controller -> Service: getOpenExams()
+        activate Service
+        Service -> Persistence: Repositories()
+        activate Persistence
+        Persistence -> Factory: Exams()
+                    activate Factory
+            Factory -> Repository: create
+
+            deactivate Factory
+        Service -> Repository: getOpenExams()
+                activate Repository
+        Repository --> Service
+        deactivate Repository
+        Service--> Controller
+        deactivate Service
+        Controller --> UI: List
+    deactivate Controller
+    UI -> UI:Show
+deactivate UI
+@enduml
