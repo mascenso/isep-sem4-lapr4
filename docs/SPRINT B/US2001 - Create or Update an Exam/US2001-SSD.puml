@@ -1,0 +1,31 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Teacher
+activate Teacher
+
+
+Teacher -> System: Asks to create/update an exam
+alt create exam
+System --> Teacher: Asks exam title
+Teacher -> System: Insert title
+end
+System --> Teacher: Asks to choose course
+Teacher -> System: Choose course
+alt update exam
+System --> Teacher: Asks to choose an exam
+Teacher -> System: Choose an exam
+end
+System --> Teacher: Asks for open and close dates
+Teacher -> System: Inserts dates
+
+System --> Teacher: Asks for exam file
+Teacher -> System: Inserts exam file
+
+System --> Teacher: Saves exam
+
+deactivate Teacher
+
+@enduml

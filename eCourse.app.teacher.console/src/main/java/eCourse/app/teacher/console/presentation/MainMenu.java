@@ -25,10 +25,13 @@ package eCourse.app.teacher.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
+import eCourse.app.teacher.console.presentation.Courses.ListCoursesTeacherUI;
 import eCourse.app.teacher.console.presentation.RecurringLessons.CreateRecurringLessonsUI;
 import eCourse.app.teacher.console.presentation.RecurringLessons.UpdateScheduleRecurringLessonUI;
 import eCourse.app.teacher.console.presentation.exam.CreateExamUI;
 import eCourse.app.teacher.console.presentation.exam.UpdateExamUI;
+import eCourse.app.teacher.console.presentation.question.AddExamQuestionsUI;
+import eCourse.app.teacher.console.presentation.question.UpdateExamQuestionsUI;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -60,7 +63,12 @@ public class MainMenu extends AbstractUI {
     private static final int EXAMS_OPTION = 2;
     private static final int CLASSES_OPTION = 3;
     private static final int RECURRING_LESSON_OPTION = 4;
+    private static final int QUESTIONS_OPTION = 5;
+    private static final int COURSES_OPTION = 6;
 
+    //COURSE
+
+    private static final int LIST_COURSES_OPTION = 1;
 
     // EXAMS
 
@@ -71,6 +79,9 @@ public class MainMenu extends AbstractUI {
 
     private static final int CREATE_RECURRING_LESSON_OPTION = 1;
     private static final int UPDATE_SCHEDULE_RECURRING_LESSON_OPTION = 2;
+
+    private static final int ADD_QUESTIONS_OPTION = 1;
+    private static final int UPDATE_QUESTIONS_OPTION = 2;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -132,7 +143,6 @@ public class MainMenu extends AbstractUI {
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
             final Menu classesMenu = buildClassesMenu();
             mainMenu.addSubMenu(CLASSES_OPTION, classesMenu);
-
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -149,9 +159,29 @@ public class MainMenu extends AbstractUI {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
+
+            final Menu questionsMenu = buildQuestionsMenu();
+            mainMenu.addSubMenu(QUESTIONS_OPTION, questionsMenu);
+        }
+
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
+            final Menu classesMenu = buildCoursesMenu();
+            mainMenu.addSubMenu(COURSES_OPTION, classesMenu);
+        }
+
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;
+    }
+
+    private Menu buildCoursesMenu() {
+        final Menu menu = new Menu("Course >");
+
+        menu.addItem(LIST_COURSES_OPTION, "List courses Open.", new ListCoursesTeacherUI()::show);
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+        return menu;
     }
 
     private Menu buildExamsMenu() {
@@ -159,6 +189,16 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(ADD_NEW_EXAM_OPTION, "Create Exam", new CreateExamUI()::show);
         menu.addItem(UPDATE_EXAM_OPTION, "Update Exam", new UpdateExamUI()::show);
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+        return menu;
+    }
+
+    private Menu buildQuestionsMenu() {
+        final Menu menu = new Menu("Question >");
+
+        menu.addItem(ADD_QUESTIONS_OPTION, "Add Question", new AddExamQuestionsUI()::show);
+        menu.addItem(UPDATE_QUESTIONS_OPTION, "Update Question", new UpdateExamQuestionsUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;

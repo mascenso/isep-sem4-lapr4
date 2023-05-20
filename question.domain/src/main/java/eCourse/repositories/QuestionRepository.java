@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface QuestionRepository extends DomainRepository<Designation, Question> {
+public interface QuestionRepository extends DomainRepository<Long, Question> {
 
     List<Question> findByQuestionType(QuestionType questionType);
 }

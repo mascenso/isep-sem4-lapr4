@@ -47,18 +47,5 @@ public class UpdateExamService {
         return foundExam;
     }
 
-/*
-    public Exam getExamByTitle(String title){
-        Exam foundExam = null;
-
-        for (Exam exm : allExams()) {
-            if (exm.getExamTitle().toString().equals(title)){
-                foundExam=exm;
-            }
-        }
-        return foundExam;
-    }
-
- */
 
 }
