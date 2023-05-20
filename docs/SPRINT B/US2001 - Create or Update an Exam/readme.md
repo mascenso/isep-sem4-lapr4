@@ -170,12 +170,12 @@ layer between the domain code and the data storage.
 
 *It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
 
-| Commit id                                | Question: Which class is responsible for...               |
-|------------------------------------------|-----------------------------------------------------------|
-| aea250a91ad9267ca8a0de2271a0d65567726747 | Commit with the documentantion                            |
-| 4fff6e5c0e37229d8818ffe91617346f296f7212 | Commit with the implemented functionality                 |
-| bb6c9d195985251d00b78a60697fa479112d9976 | Commit with the implemented tests                         |
-|  | Commit with the documentantion improvement and more tests |
+| Commit id                                 | Question: Which class is responsible for...               |
+|-------------------------------------------|-----------------------------------------------------------|
+| aea250a91ad9267ca8a0de2271a0d65567726747  | Commit with the documentantion                            |
+| 4fff6e5c0e37229d8818ffe91617346f296f7212  | Commit with the implemented functionality                 |
+| bb6c9d195985251d00b78a60697fa479112d9976  | Commit with the implemented tests                         |
+| 5076f174be20bfa3f53d9081aaac793b86c1a8f3  | Commit with the documentantion improvement and more tests |
 
 ## 6. Integration/Demonstration
 
