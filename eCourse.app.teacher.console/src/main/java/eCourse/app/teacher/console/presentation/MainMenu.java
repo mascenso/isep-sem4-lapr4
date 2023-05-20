@@ -25,6 +25,7 @@ package eCourse.app.teacher.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
+import eCourse.app.teacher.console.presentation.Courses.ListCoursesTeacherUI;
 import eCourse.app.teacher.console.presentation.RecurringLessons.CreateRecurringLessonsUI;
 import eCourse.app.teacher.console.presentation.RecurringLessons.UpdateScheduleRecurringLessonUI;
 import eCourse.app.teacher.console.presentation.exam.CreateExamUI;
@@ -63,7 +64,11 @@ public class MainMenu extends AbstractUI {
     private static final int CLASSES_OPTION = 3;
     private static final int RECURRING_LESSON_OPTION = 4;
     private static final int QUESTIONS_OPTION = 5;
+    private static final int COURSES_OPTION = 6;
 
+    //COURSE
+
+    private static final int LIST_COURSES_OPTION = 1;
 
     // EXAMS
 
@@ -138,7 +143,6 @@ public class MainMenu extends AbstractUI {
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
             final Menu classesMenu = buildClassesMenu();
             mainMenu.addSubMenu(CLASSES_OPTION, classesMenu);
-
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -161,9 +165,23 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(QUESTIONS_OPTION, questionsMenu);
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
+            final Menu classesMenu = buildCoursesMenu();
+            mainMenu.addSubMenu(COURSES_OPTION, classesMenu);
+        }
+
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;
+    }
+
+    private Menu buildCoursesMenu() {
+        final Menu menu = new Menu("Course >");
+
+        menu.addItem(LIST_COURSES_OPTION, "List courses Open.", new ListCoursesTeacherUI()::show);
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+        return menu;
     }
 
     private Menu buildExamsMenu() {
