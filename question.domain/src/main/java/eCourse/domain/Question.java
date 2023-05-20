@@ -25,14 +25,6 @@ public class Question implements AggregateRoot<Long> {
     @ManyToOne
     private Course course;
 
-    public Course getQuestionCourse() {
-        return course;
-    }
-
-    public QuestionType getQuestionType() {
-        return questionType;
-    }
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
@@ -48,7 +40,7 @@ public class Question implements AggregateRoot<Long> {
 
     @Override
     public String toString() {
-        return String.valueOf(id);
+        return description;
     }
 
     protected Question() {
@@ -63,9 +55,6 @@ public class Question implements AggregateRoot<Long> {
         return new Question(questionType, course, file,description);
     }
 
-    public QuestionType getQuestionType(final int option) {
-        return getQuestionTypeById(option);
-    }
 
     @Override
     public boolean sameAs(Object other) {
@@ -84,10 +73,13 @@ public class Question implements AggregateRoot<Long> {
                 && file.equals(otherQuestion.file);
     }
 
-    public Long getQuestionId() {
-        return id;
+    public Course getQuestionCourse() {
+        return course;
     }
 
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
     public String getQuestionDescription() {
         return description;
     }
@@ -107,5 +99,10 @@ public class Question implements AggregateRoot<Long> {
         this.questionType=questionType;
         this.course=course;
         return this;
+    }
+
+
+    public File getFile() {
+        return file;
     }
 }
