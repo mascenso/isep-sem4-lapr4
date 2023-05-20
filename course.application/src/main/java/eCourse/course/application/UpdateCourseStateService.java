@@ -19,7 +19,7 @@ public class UpdateCourseStateService {
 
     public void open(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -29,9 +29,9 @@ public class UpdateCourseStateService {
                 .orElseThrow(() -> new NoSuchElementException("The course " + designationName + " does not exist in the database"));
 
         //the course can only transition to OPEN if it comes from the CLOSE state
-        if (!course.state().equals(BaseCourseStates.CLOSE)){
+        if (!String.valueOf(course.state()).equals(String.valueOf(BaseCourseStates.CLOSE))){
             throw new IllegalArgumentException("The course " + designationName + " has the state " + course.state()
-                    + "which cannot transition to " + BaseCourseStates.OPEN);
+                    + " which cannot transition to " + BaseCourseStates.OPEN);
         }
 
         //3 - update the course with the state OPEN
@@ -41,7 +41,7 @@ public class UpdateCourseStateService {
 
     public void enroll(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -50,20 +50,20 @@ public class UpdateCourseStateService {
         Course course = courseRepository.findByDesignation(Designation.valueOf(designationName))
                 .orElseThrow(() -> new NoSuchElementException("The course " + designationName + " does not exist in the database"));
 
-        //the course can only transition to OPEN if it comes from the CLOSE state
-        if (!course.state().equals(BaseCourseStates.OPEN)){
+        //the course can only transition to ENROLL if it comes from the OPEN state
+        if (!String.valueOf(course.state()).equals(String.valueOf(BaseCourseStates.OPEN))){
             throw new IllegalArgumentException("The course " + designationName + " has the state " + course.state()
-                    + "which cannot transition to " + BaseCourseStates.ENROLL);
+                    + " which cannot transition to " + BaseCourseStates.ENROLL);
         }
 
-        //3 - update the course with the state OPEN
+        //3 - update the course with the state ENROLL
         course.updateState(BaseCourseStates.ENROLL);
         courseRepository.save(course);
     }
 
     public void closeEnroll(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -72,10 +72,10 @@ public class UpdateCourseStateService {
         Course course = courseRepository.findByDesignation(Designation.valueOf(designationName))
                 .orElseThrow(() -> new NoSuchElementException("The course " + designationName + " does not exist in the database"));
 
-        //the course can only transition to OPEN if it comes from the CLOSE state
-        if (!course.state().equals(BaseCourseStates.ENROLL)){
+        //the course can only transition to PROGRESS if it comes from the ENROLL state
+        if (!String.valueOf(course.state()).equals(String.valueOf(BaseCourseStates.ENROLL))){
             throw new IllegalArgumentException("The course " + designationName + " has the state " + course.state()
-                    + "which cannot transition to " + BaseCourseStates.PROGRESS);
+                    + " which cannot transition to " + BaseCourseStates.PROGRESS);
         }
 
         //3 - update the course with the state OPEN
@@ -85,7 +85,7 @@ public class UpdateCourseStateService {
 
     public void close(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -95,9 +95,9 @@ public class UpdateCourseStateService {
                 .orElseThrow(() -> new NoSuchElementException("The course " + designationName + " does not exist in the database"));
 
         //the course can only transition to CLOSE if it comes from the PROGRESS state
-        if (!course.state().equals(BaseCourseStates.PROGRESS)){
+        if (!String.valueOf(course.state()).equals(String.valueOf(BaseCourseStates.PROGRESS).toUpperCase())){
             throw new IllegalArgumentException("The course " + designationName + " has the state " + course.state()
-                    + "which cannot transition to " + BaseCourseStates.CLOSE);
+                    + " which cannot transition to " + BaseCourseStates.CLOSE);
         }
 
         //3 - update the course with the state CLOSE
