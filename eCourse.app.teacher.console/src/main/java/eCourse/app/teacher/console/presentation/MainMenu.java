@@ -30,6 +30,7 @@ import eCourse.app.teacher.console.presentation.RecurringLessons.CreateRecurring
 import eCourse.app.teacher.console.presentation.RecurringLessons.UpdateScheduleRecurringLessonUI;
 import eCourse.app.teacher.console.presentation.exam.CreateExamUI;
 import eCourse.app.teacher.console.presentation.exam.UpdateExamUI;
+import eCourse.app.teacher.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.teacher.console.presentation.question.AddExamQuestionsUI;
 import eCourse.app.teacher.console.presentation.question.UpdateExamQuestionsUI;
 import eCourse.usermanagement.domain.ECourseRoles;
@@ -65,7 +66,10 @@ public class MainMenu extends AbstractUI {
     private static final int RECURRING_LESSON_OPTION = 4;
     private static final int QUESTIONS_OPTION = 5;
     private static final int COURSES_OPTION = 6;
+    private static final int MEETING_OPTION = 7;
 
+    //MEETING
+    private static final int SCHEDULE_MEETING_OPTION = 1;
     //COURSE
 
     private static final int LIST_COURSES_OPTION = 1;
@@ -170,9 +174,23 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(COURSES_OPTION, classesMenu);
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
+            final Menu classesMenu = buildMeetingsMenu();
+            mainMenu.addSubMenu(MEETING_OPTION, classesMenu);
+        }
+
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;
+    }
+
+    private Menu buildMeetingsMenu() {
+        final Menu menu = new Menu("Meeting >");
+
+        menu.addItem(SCHEDULE_MEETING_OPTION, "Schedule a Meeting.", new ScheduleMeetingsUI()::show);
+
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+        return menu;
     }
 
     private Menu buildCoursesMenu() {
