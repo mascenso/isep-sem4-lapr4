@@ -86,9 +86,14 @@ public class AcceptRefuseSignupRequestControllerTxImpl
         // explicitly begin a transaction
         txCtx.beginTransaction();
 
+
+        /** Creates a new SystemUser for the new StudentUser. */
         final SystemUser newUser = createSystemUserForStudentUser(theSignupRequest);
+
+        /** Saves the new StudentUser to the repository. */
         createStudentUser(newUser);
 
+        /** Saves the new SignupRequest to the repository. */
         theSignupRequest = acceptTheSignupRequest(theSignupRequest);
 
         // explicitly commit the transaction
@@ -97,6 +102,11 @@ public class AcceptRefuseSignupRequestControllerTxImpl
         return theSignupRequest;
     }
 
+    /**
+     * Saves the given SignupRequest to the repository.
+     * @param theSignupRequest
+     * @return
+     */
     private SignupRequest acceptTheSignupRequest(final SignupRequest theSignupRequest) {
         theSignupRequest.accept();
         return this.signupRequestsRepository.save(theSignupRequest);

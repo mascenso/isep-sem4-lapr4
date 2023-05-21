@@ -1,0 +1,24 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor User
+activate User
+
+
+User -> System: Asks to Schedule a meeting
+System --> User: Ask for name of meeting
+User -> System: Insert name
+System --> User: shows All users and asks to selecte\n participants of meeting
+User -> System: Select participants
+System --> User: Asks data and hour
+User -> System: Insert data and hour
+System --> User: Asks for duration
+User -> System: Insert duration
+note right : Before saving the date and time are validated to \nverify that all participants are available
+System --> User: Saves Meeting
+
+deactivate User
+
+@enduml

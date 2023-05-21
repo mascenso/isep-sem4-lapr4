@@ -36,7 +36,6 @@ public class UpdateCourseStateService {
                     + " which cannot transition to " + BaseCourseStates.OPEN);
         }
 
-
         //3 - update the course with the state OPEN
         course.updateState(BaseCourseStates.OPEN);
         courseRepository.save(course);

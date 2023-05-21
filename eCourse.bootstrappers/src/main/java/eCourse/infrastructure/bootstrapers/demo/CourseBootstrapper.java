@@ -1,5 +1,6 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
+import eCourse.course.application.UpdateCourseStateController;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.actions.Action;
@@ -8,12 +9,18 @@ import eapli.framework.general.domain.model.Designation;
 
 public class CourseBootstrapper implements Action {
 
+    UpdateCourseStateController updateCourseStateController = new UpdateCourseStateController();
+
     @Override
     public boolean execute() {
-        RegisterCourse("Course for developers", "Infomatica","2022/2023","Open");
+        RegisterCourse("Course for developers", "Informatica","2022/2023","Open");
         RegisterCourse("Course for big brains", "Inteligencia Artificial","2022/2023","Open");
         RegisterCourse("Course for grammar", "LPROG","2022/2023","Open");
         RegisterCourse("Course for all", "EAPLI","2022/2023","Open");
+
+
+        updateCourseStateController.updateCourseState("Informatica", "Open");
+        updateCourseStateController.updateCourseState("Inteligencia Artificial", "Open");
         return true;
     }
 
@@ -23,4 +30,6 @@ public class CourseBootstrapper implements Action {
         PersistenceContext.repositories().courses().save(newCourse);
         return true;
     }
+
+
 }
