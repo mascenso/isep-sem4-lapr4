@@ -29,6 +29,8 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
+import java.util.Calendar;
+
 /**
  * A Client User.
  *
@@ -58,6 +60,13 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
     // Business ID
     @Column(unique = true, nullable = false)
     private MecanographicNumber mecanographicNumber;
+
+    @Temporal(TemporalType.DATE)
+    Calendar dateOfBirth;
+
+    // Business ID
+    //@Column(unique = true, nullable = false)
+    //private TaxPayNumber taxPayNumber;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
