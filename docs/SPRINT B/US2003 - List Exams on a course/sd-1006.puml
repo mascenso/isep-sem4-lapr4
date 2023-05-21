@@ -1,0 +1,55 @@
+@startuml
+actor User as Actor
+participant ListExamsUI as UI <<presentation>>
+
+participant ListCourseController as Controller <<aplication>>
+participant ListCoursesService as Service <<service>>
+
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database CourseRepository as Repository <<repository>>
+database ExamRepository as ERepository <<repository>>
+
+
+Actor -> UI: show()
+activate UI
+    UI -> Controller: allCourses()
+        activate Controller
+        Controller -> Service: allCourses()
+        activate Service
+        Service -> Persistence: Repositories()
+        activate Persistence
+        Persistence -> Factory: Courses()
+                    deactivate Persistence
+                    activate Factory
+            Factory -> Repository: findAll()
+            deactivate Factory
+            activate Repository
+        Service <- Repository: List<Courses>
+        deactivate Repository
+        Service--> Controller: List<Courses>
+        deactivate Service
+        Controller --> UI: List<Courses>
+    deactivate Controller
+
+    Actor -> UI : selectCourse()
+
+    UI -> Controller: allExams(course, user)
+        activate Controller
+        Controller -> Service: allExams(course, user)
+        activate Service
+        Service -> Persistence: Repositories(course, user)
+        activate Persistence
+        Persistence -> Factory: Exams(course, user)
+                    activate Factory
+            Factory -> ERepository: findByCourse(course)
+            deactivate Factory
+            activate ERepository
+        Service <- ERepository: List<Exams>
+                deactivate ERepository
+        deactivate ERepository
+        Service--> Controller: List<Exams>
+        deactivate Service
+        Controller --> UI: List<Exams>
+deactivate UI
+@enduml
