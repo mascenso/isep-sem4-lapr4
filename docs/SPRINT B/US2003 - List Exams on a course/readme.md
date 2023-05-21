@@ -6,11 +6,12 @@ This task is to develop a new functionality to the system.
 It is not related to a bug fix or an incomplete task from a previous sprint. 
 The team has been assigned this task for the first time.
 Is an important task to be able to list Exams in the system
+
 ## 2. Requirements
 
 **US 1006** As {Ator} I want to list all the Exams that are available to me
 
-    FRC05 - List Exams All users are able to execute this functionality.
+FRC05 - List Exams All users are able to execute this functionality.
 
 É necessário o utilizador estar logado na aplicação e no menu inicial consegue listar todos os cursos existentes.
 Esta US depende da *US1002- Create Exam*, só depois de os cursos serem criados é que é possivel listar.
