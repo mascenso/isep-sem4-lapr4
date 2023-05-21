@@ -26,6 +26,7 @@ import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eCourse.infrastructure.persistence.RepositoryFactory;
+import eCourse.teacherusermanagement.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryUserRepository;
@@ -108,6 +109,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public StudentUserRepository studentUsers() {
+		return null;
+	}
+
+	@Override
+	public TeacherUserRepository teacherUsers() {
 		return null;
 	}
 

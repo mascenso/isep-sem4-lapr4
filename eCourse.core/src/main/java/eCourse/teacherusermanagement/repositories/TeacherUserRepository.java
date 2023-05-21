@@ -52,5 +52,7 @@ public interface TeacherUserRepository
         return ofIdentity(acronym);
     }
 
+    Optional<TeacherUser> findByAcronym(String acronym);
+
     public Iterable<TeacherUser> findAllActive();
 }

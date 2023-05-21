@@ -47,7 +47,11 @@ public class StudentUserBootstrapper implements Action {
 		// some users that signup and are approved
 		signupAndApprove(TestDataConstants.USER_TEST1, "Password1", "John", "Smith", "john@smith.com",
 				TestDataConstants.USER_TEST1);
-		signupAndApprove("isep959", "Password1", "Mary", "Smith", "mary@smith.com", "202300000");
+		signupAndApprove("student1", "Password1", "Mary", "Rock", "mary@isep.ipp.pt", "202300001");
+		signupAndApprove("student2", "Password1", "Michael", "Rock", "michael@isep.ipp.pt", "202300002");
+		signupAndApprove("student3", "Password1", "Patty", "Tex", "patty@isep.ipp.pt", "202300003");
+		signupAndApprove("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt", "202300004");
+		signupAndApprove("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt", "202300005");
 
 		// some users that signup but the approval is pending. use the backoffice
 		// application to approve these
