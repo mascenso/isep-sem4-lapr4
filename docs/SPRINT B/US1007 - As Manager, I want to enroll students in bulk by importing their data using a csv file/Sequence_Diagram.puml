@@ -3,10 +3,32 @@
 
 autonumber
 actor Manager
-Manager -> UI
-activate UI
+Manager -> EnrollStudentsUI: Choose the option to enroll students from csv
+activate EnrollStudentsUI
 
-UI -> Controller
-
+EnrollStudentsUI --> Manager: Shows the list of the courses
+Manager -> EnrollStudentsUI: Select the course
+EnrollStudentsUI --> Manager: Request CsvFile
+Manager -> EnrollStudentsUI: Types the FilePath of CsvFile
+EnrollStudentsUI -> EnrollStudentsController: BulkCsvValidate(csvContent)
+activate EnrollStudentsController
+EnrollStudentsController -> BulkCsvValidateResult: create
+EnrollStudentsController -> StudentRepository: findByMechanographicNumber
+EnrollStudentsController -> BulkCsvValidateResult: addValidStudent()
+activate BulkCsvValidateResult
+BulkCsvValidateResult --> EnrollStudentsController: validStudentsList
+EnrollStudentsController -> BulkCsvValidateResult: addInvalidStudent
+BulkCsvValidateResult --> EnrollStudentsController: invalidStudentsList
+deactivate BulkCsvValidateResult
+EnrollStudentsController --> EnrollStudentsUI: validStudents
+EnrollStudentsUI -> EnrollStudentsController: enrollStudent(designationName, validStudents)
+EnrollStudentsController -> CoursesRepository: findBydesignation
+EnrollStudentsController -> Course: addAllStudent
+activate Course
+Course --> EnrollStudentsController: StudentsList
+deactivate Course
+EnrollStudentsController -> CoursesRepository: save()
+deactivate EnrollStudentsController
+EnrollStudentsUI --> Manager: Confirms the operation
 @enduml
 
