@@ -1,0 +1,49 @@
+@startuml
+'http://plantuml.com/skinparam.html
+skinparam handwritten true
+'skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+left to right direction
+class RegisterCourseUI{
+    doShow()
+}
+
+class RegisterCourseController{
+    registerCourse(..., Set<Teachers>)  
+}
+
+class ListTeachersService{
+    allTeachers()
+}
+
+class Teachers <<Aggregate Root>>{
+}
+class TeachersInCourse <<Value Object>>{
+    Teachers allergean
+    [double percent]
+}
+class Course <<Aggregate Root>>{
+    ...
+    Set<TeachersInCourse>   
+}
+
+class TeachersRepository{
+    findAll()
+}
+
+class CourseRepository{
+}
+
+Course -down-> TeachersInCourse
+TeachersInCourse -up-> Teachers
+RegisterCourseUI -up-> RegisterCourseController
+RegisterCourseController -up->ListTeachersService
+ListTeachersService -up->TeachersRepository
+RegisterCourseController -> Course 
+RegisterCourseController -> TeachersInCourse 
+ 
+TeachersRepository->Teachers
+RegisterCourseController -up-> CourseRepository
+@enduml

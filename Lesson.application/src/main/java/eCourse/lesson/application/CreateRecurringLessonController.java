@@ -33,7 +33,7 @@ public class CreateRecurringLessonController {
 
      */
     @Transactional
-    public RecurringLesson createRecurringLesson(final Designation title, final Calendar startDate, final Calendar endDate, final Duration duration) {
+    public RecurringLesson createRecurringLesson(final Designation title, final Calendar startDate, final Calendar endDate, final int duration) {
 
         final var newRecurringLesson = new RecurringLessonBuilder().titled(title)
                 .starting(startDate).ending(endDate)

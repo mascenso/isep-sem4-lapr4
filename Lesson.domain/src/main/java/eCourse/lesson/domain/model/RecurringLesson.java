@@ -34,9 +34,9 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     private Calendar endDate;
 
     @Column(nullable = false)
-    private Duration duration;
+    private int duration;
 
-    protected RecurringLesson(Designation title, Calendar startDate, Calendar endDate, Duration duration) {
+    protected RecurringLesson(Designation title, Calendar startDate, Calendar endDate, int duration) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -66,7 +66,7 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
         if (this == that) {
             return true;
         }
-        return identity().equals(that.identity()) && startDate.equals(that.startDate) && endDate.equals(that.endDate) && duration.equals(that.duration);
+        return identity().equals(that.identity()) && startDate.equals(that.startDate) && endDate.equals(that.endDate) && duration == that.duration;
     }
 
     @Override
@@ -83,9 +83,9 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
 
     public Calendar endDate() { return this.endDate;}
 
-    public Duration duration() { return this.duration;}
+    public int duration() { return this.duration;}
 
-    public RecurringLesson updateScheduleOfLesson(Calendar startDate, Calendar endDate, Duration duration){
+    public RecurringLesson updateScheduleOfLesson(Calendar startDate, Calendar endDate, int duration){
         this.duration = duration;
         this.startDate = startDate;
         this.endDate = endDate;

@@ -50,11 +50,11 @@ public class UpdateCourseStateUI extends AbstractUI {
             System.out.println("Course: " + courseSelected.designation().toString());
             System.out.println("Current State: " + courseSelected.state().toString());
 
-            // String atualState = String.valueOf(course.state());
+            String atualState = String.valueOf(courseSelected.state());
             String newState = null;
 
             do {
-                newState = showStates();
+                newState = showStates(atualState);
             } while(newState == null);
 
             updateCourseStateController.updateCourseState(courseSelected.designation().toString(), newState);
@@ -95,35 +95,39 @@ public class UpdateCourseStateUI extends AbstractUI {
         return null;
     }
 
-    private String showStates(/*CourseStates currentState*/){
+    private String showStates(String atualState){
 
-        final String [] courseStates = Arrays.stream(BaseCourseStates.allCourseStates()).map(CourseState::toString).toArray(String[]::new);
-        for (int i = 0; i < courseStates.length; i++) {
-            System.out.println("("+i+") " + courseStates[i]);
-        }
-        int choose = Console.readInteger("New State");
-        return choose < courseStates.length ? courseStates[choose] : null;
-        /*String[] courseStates = null;
-        switch (currentState.toString()) {
-            case "Open":
-                courseStates = new String[] { "Enroll", "Close" };
-                break;
-            case "Enroll":
-                courseStates = new String[] { "Progress", "Close" };
-                break;
-            case "Progress":
-                courseStates = new String[] { "Close" };
-                break;
-            case "Close":
-                courseStates = new String[] { "Open" };
-                break;
-        }
-        //final String [] courseStates = CourseStates.stateValues();
+        /*final String [] courseStates = Arrays.stream(BaseCourseStates.allCourseStates()).map(CourseState::toString).toArray(String[]::new);
         for (int i = 0; i < courseStates.length; i++) {
             System.out.println("("+i+") " + courseStates[i]);
         }
         int choose = Console.readInteger("New State");
         return choose < courseStates.length ? courseStates[choose] : null; */
+
+        String[] courseStates = null;
+        switch (atualState) {
+            case "Close":
+                courseStates = new String[] { "Open" };
+                break;
+            case "Open":
+                courseStates = new String[] { "Enroll" };
+                break;
+            case "Enroll":
+                courseStates = new String[] { "Progress" };
+                break;
+            case "Progress":
+                courseStates = new String[] { "Close" };
+                break;
+
+
+
+        }
+        //final String [] courseStates = CourseState.valueOf();
+        for (int i = 0; i < courseStates.length; i++) {
+            System.out.println("("+i+") " + courseStates[i]);
+        }
+        int choose = Console.readInteger("New State");
+        return choose < courseStates.length ? courseStates[choose] : null;
     }
 
     @Override

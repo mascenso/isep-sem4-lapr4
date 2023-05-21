@@ -36,15 +36,15 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-class JpaClientUserRepository
+class JpaStudentUserRepository
         extends JpaAutoTxRepository<StudentUser, MecanographicNumber, MecanographicNumber>
         implements StudentUserRepository {
 
-    public JpaClientUserRepository(final TransactionalContext autoTx) {
+    public JpaStudentUserRepository(final TransactionalContext autoTx) {
         super(autoTx, "mecanographicNumber");
     }
 
-    public JpaClientUserRepository(final String puname) {
+    public JpaStudentUserRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
                 "mecanographicNumber");
     }
