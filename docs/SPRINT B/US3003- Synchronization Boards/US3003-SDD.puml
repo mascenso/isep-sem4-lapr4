@@ -1,0 +1,23 @@
+@startuml
+autonumber
+
+
+
+actor User
+activate User
+activate System
+
+User -> System: Asks access to SharedBoard
+
+System --> User: Creates SharedBoard
+System --> User: Creates Semaphores
+User -> System: Wait for Semaphore
+User -> System: Write to Post-it
+User -> System: Write to Post-it
+System --> User: Release Semaphore
+System --> User: Print Post-it content
+
+deactivate User
+deactivate System
+
+@enduml
