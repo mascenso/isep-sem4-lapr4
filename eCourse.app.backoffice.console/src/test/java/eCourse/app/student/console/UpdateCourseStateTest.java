@@ -73,16 +73,17 @@ public class UpdateCourseStateTest {
         Boolean actualHasExceptions = false;
         try {
             paramUpdateController.updateCourseState(paramDesignationName, paramNewState);
-            actualCourseOptional = paramUpdateController.findCourseByDesignation(paramDesignationName);
-            actualCourse = actualCourseOptional.get();
+
         } catch (Exception e) {
             actualHasExceptions = true;
         }
 
+        actualCourseOptional = paramUpdateController.findCourseByDesignation(paramDesignationName);
+        actualCourse = actualCourseOptional.get();
         //asset the expected with the actual
         assertEquals("Assert if there is no exceptions", expectedHasExceptions, actualHasExceptions);
         assertNotNull(actualCourse);
-        assertEquals("Assert if new state is closed", expectedNewState, actualCourse.getCourseState());
+        assertEquals("Assert if new state is open", expectedNewState, actualCourse.getCourseState());
     }
 
     @Test
