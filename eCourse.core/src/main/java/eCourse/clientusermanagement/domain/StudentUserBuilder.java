@@ -18,40 +18,34 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.clientusermanagement.repositories;
+package eCourse.clientusermanagement.domain;
 
-import java.util.Optional;
-
-import eCourse.clientusermanagement.domain.ClientUser;
-import eCourse.clientusermanagement.domain.MecanographicNumber;
-import eapli.framework.domain.repositories.DomainRepository;
-import eapli.framework.infrastructure.authz.domain.model.Username;
+import eapli.framework.domain.model.DomainFactory;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 /**
+ * A factory for User entities.
+ *
+ * This class demonstrates the use of the factory (DDD) pattern using a fluent
+ * interface. it acts as a Builder (GoF).
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public interface ClientUserRepository
-        extends DomainRepository<MecanographicNumber, ClientUser> {
+public class StudentUserBuilder implements DomainFactory<StudentUser> {
 
-    /**
-     * returns the client user (utente) whose username is given
-     *
-     * @param name
-     *            the username to search for
-     * @return
-     */
-    Optional<ClientUser> findByUsername(Username name);
+    private SystemUser systemUser;
+    private MecanographicNumber mecanographicNumber;
 
-    /**
-     * returns the client user (utente) with the given mecanographic number
-     *
-     * @param number
-     * @return
-     */
-    default Optional<ClientUser> findByMecanographicNumber(final MecanographicNumber number) {
-        return ofIdentity(number);
+    public StudentUserBuilder withSystemUser(final SystemUser systemUser) {
+        this.systemUser = systemUser;
+        this.mecanographicNumber = new MecanographicNumber(MecanographicNumberDomainService.generate());
+        return this;
     }
 
-    public Iterable<ClientUser> findAllActive();
+    @Override
+    public StudentUser build() {
+        // since the factory knows that all the parts are needed it could throw
+        // an exception. however, we will leave that to the constructor
+        return new StudentUser(this.systemUser, this.mecanographicNumber);
+    }
 }

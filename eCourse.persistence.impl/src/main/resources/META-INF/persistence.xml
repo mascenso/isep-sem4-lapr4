@@ -8,7 +8,7 @@
     <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
     <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
 
-    <class>eCourse.clientusermanagement.domain.ClientUser</class>
+    <class>eCourse.clientusermanagement.domain.StudentUser</class>
     <class>eCourse.clientusermanagement.domain.SignupRequest</class>
     <class>eCourse.domain.SharedBoard</class>
     <class>eCourse.domain.Coluna</class>

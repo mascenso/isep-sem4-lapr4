@@ -23,14 +23,12 @@
  */
 package eCourse.clientusermanagement.domain;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * A Client User.
@@ -47,12 +45,19 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
  *
  */
 @Entity
-public class ClientUser implements AggregateRoot<MecanographicNumber> {
+public class StudentUser implements AggregateRoot<MecanographicNumber> {
+    private static final long serialVersionUID = 1L;
+
+    // ORM primary key
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Version
     private Long version;
 
-    @EmbeddedId
+    // Business ID
+    @Column(unique = true, nullable = false)
     private MecanographicNumber mecanographicNumber;
 
     /**
@@ -61,7 +66,7 @@ public class ClientUser implements AggregateRoot<MecanographicNumber> {
     @OneToOne()
     private SystemUser systemUser;
 
-    public ClientUser(final SystemUser user, final MecanographicNumber mecanographicNumber) {
+    public StudentUser(final SystemUser user, final MecanographicNumber mecanographicNumber) {
         if (mecanographicNumber == null || user == null) {
             throw new IllegalArgumentException();
         }
@@ -69,7 +74,7 @@ public class ClientUser implements AggregateRoot<MecanographicNumber> {
         this.mecanographicNumber = mecanographicNumber;
     }
 
-    protected ClientUser() {
+    protected StudentUser() {
         // for ORM only
     }
 

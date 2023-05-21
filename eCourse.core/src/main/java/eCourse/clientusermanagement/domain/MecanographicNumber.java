@@ -24,6 +24,7 @@ import javax.persistence.Embeddable;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
+import org.threeten.bp.Year;
 
 /**
  *
@@ -32,8 +33,12 @@ import eapli.framework.strings.util.StringPredicates;
 @Embeddable
 public class MecanographicNumber implements ValueObject, Comparable<MecanographicNumber> {
 
-    private static final long serialVersionUID = 1L;
-
+    /**
+     * Since it is a very important composite business identifier,
+     * it should remain inside the domain layer.
+     * However, (TODO) it should create a sequence, assuring consistency
+     * with the database.
+     */
     private String number;
 
     public MecanographicNumber(final String mecanographicNumber) {

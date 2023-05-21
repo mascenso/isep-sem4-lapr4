@@ -40,10 +40,10 @@ public class ClientUserTest {
     @Test
     public void ensureClientUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
 
-        final ClientUser aClientUser = new ClientUserBuilder().withMecanographicNumber("DUMMY")
+        final StudentUser aClientUser = new StudentUserBuilder()
                 .withSystemUser(getNewDummyUser()).build();
 
-        final ClientUser anotherClientUser = new ClientUserBuilder().withMecanographicNumber("DUMMY")
+        final StudentUser anotherClientUser = new StudentUserBuilder()
                 .withSystemUser(getNewDummyUser()).build();
 
         final boolean expected = aClientUser.equals(anotherClientUser);
@@ -56,11 +56,11 @@ public class ClientUserTest {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.ADMIN);
 
-        final ClientUser aClientUser = new ClientUserBuilder().withMecanographicNumber(aMecanographicNumber)
+        final StudentUser aClientUser = new StudentUserBuilder()
                 .withSystemUser(getNewDummyUser()).build();
 
-        final ClientUser anotherClientUser = new ClientUserBuilder()
-                .withMecanographicNumber(anotherMecanographicNumber).withSystemUser(getNewDummyUser()).build();
+        final StudentUser anotherClientUser = new StudentUserBuilder()
+                .withSystemUser(getNewDummyUser()).build();
 
         final boolean expected = aClientUser.equals(anotherClientUser);
 
@@ -69,7 +69,7 @@ public class ClientUserTest {
 
     @Test
     public void ensureClientUserEqualsAreTheSameForTheSameInstance() throws Exception {
-        final ClientUser aClientUser = new ClientUser();
+        final StudentUser aClientUser = new StudentUser();
 
         final boolean expected = aClientUser.equals(aClientUser);
 
@@ -81,7 +81,7 @@ public class ClientUserTest {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.ADMIN);
 
-        final ClientUser aClientUser = new ClientUserBuilder().withMecanographicNumber("DUMMY")
+        final StudentUser aClientUser = new StudentUserBuilder()
                 .withSystemUser(getNewDummyUser()).build();
 
         final boolean expected = aClientUser.equals(getNewDummyUser());
@@ -91,7 +91,7 @@ public class ClientUserTest {
 
     @Test
     public void ensureClientUserIsTheSameAsItsInstance() throws Exception {
-        final ClientUser aClientUser = new ClientUserBuilder().withMecanographicNumber("DUMMY")
+        final StudentUser aClientUser = new StudentUserBuilder()
                 .withSystemUser(getNewDummyUser()).build();
 
         final boolean expected = aClientUser.sameAs(aClientUser);
@@ -103,11 +103,11 @@ public class ClientUserTest {
     public void ensureTwoClientUserWithDifferentMecanographicNumbersAreNotTheSame() throws Exception {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.ADMIN);
-        final ClientUser aClientUser = new ClientUserBuilder().withMecanographicNumber(aMecanographicNumber)
+        final StudentUser aClientUser = new StudentUserBuilder()
                 .withSystemUser(getNewDummyUser()).build();
 
-        final ClientUser anotherClientUser = new ClientUserBuilder()
-                .withMecanographicNumber(anotherMecanographicNumber).withSystemUser(getNewDummyUser()).build();
+        final StudentUser anotherClientUser = new StudentUserBuilder()
+                .withSystemUser(getNewDummyUser()).build();
 
         final boolean expected = aClientUser.sameAs(anotherClientUser);
 

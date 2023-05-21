@@ -18,40 +18,40 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.persistence.impl.inmemory;
+package eCourse.clientusermanagement.repositories;
 
 import java.util.Optional;
 
 import eCourse.clientusermanagement.domain.StudentUser;
 import eCourse.clientusermanagement.domain.MecanographicNumber;
-import eCourse.clientusermanagement.repositories.StudentUserRepository;
+import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
-import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public class InMemoryClientUserRepository
-        extends InMemoryDomainRepository<StudentUser, MecanographicNumber>
-        implements StudentUserRepository {
+public interface StudentUserRepository
+        extends DomainRepository<MecanographicNumber, StudentUser> {
 
-    static {
-        InMemoryInitializer.init();
+    /**
+     * returns the client user (utente) whose username is given
+     *
+     * @param name
+     *            the username to search for
+     * @return
+     */
+    Optional<StudentUser> findByUsername(Username name);
+
+    /**
+     * returns the client user (utente) with the given mecanographic number
+     *
+     * @param number
+     * @return
+     */
+    default Optional<StudentUser> findByMecanographicNumber(final MecanographicNumber number) {
+        return ofIdentity(number);
     }
 
-    @Override
-    public Optional<StudentUser> findByUsername(final Username name) {
-        return matchOne(e -> e.user().username().equals(name));
-    }
-
-    @Override
-    public Optional<StudentUser> findByMecanographicNumber(final MecanographicNumber number) {
-        return Optional.of(data().get(number));
-    }
-
-    @Override
-    public Iterable<StudentUser> findAllActive() {
-        return match(e -> e.user().isActive());
-    }
+    public Iterable<StudentUser> findAllActive();
 }

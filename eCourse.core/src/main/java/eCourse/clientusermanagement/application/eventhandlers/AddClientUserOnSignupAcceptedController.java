@@ -25,10 +25,10 @@ package eCourse.clientusermanagement.application.eventhandlers;
 
 import java.util.Optional;
 
-import eCourse.clientusermanagement.domain.ClientUser;
-import eCourse.clientusermanagement.domain.ClientUserBuilder;
+import eCourse.clientusermanagement.domain.StudentUser;
+import eCourse.clientusermanagement.domain.StudentUserBuilder;
 import eCourse.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import eCourse.clientusermanagement.repositories.ClientUserRepository;
+import eCourse.clientusermanagement.repositories.StudentUserRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.functional.Functions;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -43,15 +43,15 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 /* package */ class AddClientUserOnSignupAcceptedController {
 
     private final UserRepository repo = PersistenceContext.repositories().users();
-    private final ClientUserRepository clientUserRepository = PersistenceContext
+    private final StudentUserRepository clientUserRepository = PersistenceContext
             .repositories().clientUsers();
 
-    public ClientUser addClientUser(final NewUserRegisteredFromSignupEvent event) {
+    public StudentUser addClientUser(final NewUserRegisteredFromSignupEvent event) {
         final Optional<SystemUser> newUser = findUser(event);
 
         return newUser.map(u -> {
-            final ClientUserBuilder clientUserBuilder = new ClientUserBuilder();
-            clientUserBuilder.withMecanographicNumber(event.mecanographicNumber())
+            final StudentUserBuilder clientUserBuilder = new StudentUserBuilder();
+            clientUserBuilder
                     .withSystemUser(u);
             return clientUserRepository.save(clientUserBuilder.build());
         }).orElseThrow(IllegalStateException::new);

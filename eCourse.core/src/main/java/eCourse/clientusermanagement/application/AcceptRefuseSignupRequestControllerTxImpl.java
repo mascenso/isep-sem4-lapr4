@@ -26,9 +26,9 @@ package eCourse.clientusermanagement.application;
 import java.util.HashSet;
 import java.util.Set;
 
-import eCourse.clientusermanagement.domain.ClientUserBuilder;
+import eCourse.clientusermanagement.domain.StudentUserBuilder;
 import eCourse.clientusermanagement.domain.SignupRequest;
-import eCourse.clientusermanagement.repositories.ClientUserRepository;
+import eCourse.clientusermanagement.repositories.StudentUserRepository;
 import eCourse.clientusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECourseRoles;
@@ -63,7 +63,7 @@ public class AcceptRefuseSignupRequestControllerTxImpl
 
     private final TransactionalContext txCtx = PersistenceContext.repositories()
             .newTransactionalContext();
-    private final ClientUserRepository clientUserRepository = PersistenceContext
+    private final StudentUserRepository clientUserRepository = PersistenceContext
             .repositories().clientUsers(txCtx);
     private final SignupRequestRepository signupRequestsRepository = PersistenceContext
             .repositories().signupRequests(txCtx);
@@ -86,8 +86,8 @@ public class AcceptRefuseSignupRequestControllerTxImpl
         // explicitly begin a transaction
         txCtx.beginTransaction();
 
-        final SystemUser newUser = createSystemUserForClientUser(theSignupRequest);
-        createClientUser(theSignupRequest, newUser);
+        final SystemUser newUser = createSystemUserForStudentUser(theSignupRequest);
+        createStudentUser(newUser);
         theSignupRequest = acceptTheSignupRequest(theSignupRequest);
 
         // explicitly commit the transaction
@@ -101,20 +101,22 @@ public class AcceptRefuseSignupRequestControllerTxImpl
         return this.signupRequestsRepository.save(theSignupRequest);
     }
 
-    private void createClientUser(final SignupRequest theSignupRequest,
-                                  final SystemUser newUser) {
-        final ClientUserBuilder clientUserBuilder = new ClientUserBuilder();
-        clientUserBuilder.withMecanographicNumber(theSignupRequest.mecanographicNumber())
+    private void createStudentUser(final SystemUser newUser) {
+        final StudentUserBuilder studentUserBuilder = new StudentUserBuilder();
+
+        studentUserBuilder
                 .withSystemUser(newUser);
-        this.clientUserRepository.save(clientUserBuilder.build());
+
+        this.clientUserRepository.save(studentUserBuilder.build());
     }
 
     //
     // add system user
     //
-    private SystemUser createSystemUserForClientUser(final SignupRequest theSignupRequest) {
+    private SystemUser createSystemUserForStudentUser(final SignupRequest theSignupRequest) {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.STUDENT);
+
         return userService.registerUser(theSignupRequest.username(), theSignupRequest.password(),
                 theSignupRequest.name(), theSignupRequest.email(), roles);
     }
