@@ -7,11 +7,11 @@ l@startuml
 actor Manager
     Manager -down-> (Authenticates to the system)
     (Authenticates to the system) --> (Select the option to update the Courses)
-    (Select the option to update the Courses) --> (Types the name of the Course)
-    (Types the name of the Course) --> (Types the newState)
+    (Select the option to update the Courses) --> (Select the desired course option)
+    (Select the desired course option) --> (Select the desired new state option)
 
-  (Types the newState) --> (Save)
-  (Types the newState) --> (Cancel)
+  (Select the desired new state option) --> (Save)
+  (Select the desired new state option) --> (Cancel)
 
 
 @enduml

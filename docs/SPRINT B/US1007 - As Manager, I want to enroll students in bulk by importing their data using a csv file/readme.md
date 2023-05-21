@@ -1,18 +1,18 @@
-# US 3002 - As user, I want to create a board
+# US1007 - As Manager, I want to enroll students in bulk by importing their data using a csv file
 
 *This is an example template*
 
 ## 1. Context
 
-*The context for this task is the development of a new feature requested by the costumer. The purpose of this user story is to allow users to create a shared board, where they can add or remove other users and give the appropriate permissions.*
+*The context for this task is the development of a new feature requested by the costumer. The purpose of this user story is to allow users to create a shared board.*
 
 ## 2. Requirements
 
-*The requirement is to develop the functionality for creating a shared board for users. This user story is a new feature that has not been implemented before and has no dependencies on other requirements*
+*The requirement is to develop the functionality to enroll students from a csv file for managers. This user story is a new feature that has not been implemented and depends on the implementation of US1001 - As Manager, I want to be able to register, disable/enable, and list users of the system (Teachers and Students, as well as Managers)*
 
-**US 3002** As User I want to create a board
-1. The User authenticates in the system.
-2. The User selects the option to create a new shared board.
+**US1007** As Manager, I want to enroll students in bulk by importing their data using a csv file
+1. The Manager authenticates in the system.
+2. The Manager selects the option to enroll students from a csv .
 3. The system presents a necessary information to create a shared board (number of the Columns and Rows, names of the columns and rows).
 4. The user types the requested data and submit.
 5. The system creates the shared board.

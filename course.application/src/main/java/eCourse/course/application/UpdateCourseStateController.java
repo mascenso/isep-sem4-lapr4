@@ -18,7 +18,7 @@ public class UpdateCourseStateController {
 
     private UpdateCourseStateService updateCourseStateService = new UpdateCourseStateService();
 
-    @Autowired
+    //@Autowired
     private ListCoursesService service = new ListCoursesService();
 
     private final CourseRepository courseRepository;

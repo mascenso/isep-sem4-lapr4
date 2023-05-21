@@ -24,6 +24,7 @@ UpdateCourseStateUI -down-> UpdateCourseStateController: uses the controller
 UpdateCourseStateController --> UpdateCourseStateService: uses the service
 UpdateCourseStateService --> CoursesRepository: uses the repository to persiste in DB
 UpdateCourseStateService --> Course: update CourseState
+UpdateCourseStateController --> ListCoursesService: request list of the All Courses
 
 
 @enduml

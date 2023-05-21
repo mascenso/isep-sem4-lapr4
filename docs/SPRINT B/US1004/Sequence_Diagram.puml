@@ -6,8 +6,11 @@ autonumber
 actor Manager
 
 Manager -> UpdateCourseStateUI: Select the option 3. Update Course State
-UpdateCourseStateUI --> Manager:  Request the name of the Course
-Manager -> UpdateCourseStateUI: Types the name of the Course
+UpdateCourseStateUI -> UpdateCourseStateController: allCourses()
+UpdateCourseStateController --> ListCourseService: allCourses()
+ListCourseService --> UpdateCourseStateUI: ListAllCourses
+UpdateCourseStateUI --> Manager:  Shows the List of Courses
+Manager -> UpdateCourseStateUI: Selects the course
 UpdateCourseStateUI --> Manager: Request the newState
 Manager -> UpdateCourseStateUI: Types the newState
 activate UpdateCourseStateUI
