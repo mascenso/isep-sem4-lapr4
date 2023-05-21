@@ -1,0 +1,52 @@
+@startuml
+
+autoactivate on
+
+actor Teacher as T
+participant "UpdateExamUI" as UI
+participant "UpdateExamController" as EC
+participant "ListCoursesService" as S
+participant "UpdateExamService" as ES
+participant "Exam" as E
+participant "ExamTitle" as ET
+database "ExamRepository" as ER
+database "CourseRepository" as CR
+
+
+activate UI
+T -> UI: update exam
+UI -> EC: create
+deactivate EC
+UI --> T: Asks for title
+UI->EC:getOpenCourses()
+deactivate UI
+EC->S:getOpenCourses()
+S->CR:getAll()
+deactivate CR
+S-->EC:listOfOpenCourses
+
+EC-->UI:listOfOpenCourses
+activate UI
+UI-->T: Shows list of open courses
+T->UI: Choose course
+UI->EC:getExamsByCourse(course)
+EC->ES:getExamByCourse(course)
+ES-->EC:listOfExamsByCourse
+EC-->UI:listOfExamsByCourse
+UI-->T:listOfExamsByCourse
+
+T->UI:Choose exam
+UI->EC:getExamByTitle(exam)
+EC->ES:getExamByTitle(exam)
+ES-->EC:exam
+EC-->UI:exam
+UI-->T: Asks exam dates and file
+T->UI: Inserts dates and file
+
+UI->EC:updateExam(exam,openDate, closeDate, examFile);
+EC->E: updateExam(exam,openDate, closeDate, examFile);
+E-->EC: updatedExam
+EC->ER:save(updatedExam)
+
+
+@enduml

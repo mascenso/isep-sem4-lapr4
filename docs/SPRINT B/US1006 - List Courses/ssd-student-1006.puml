@@ -1,0 +1,15 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Student
+activate Student
+
+
+Student -> System: Asks to List all Courses
+System --> Student: Shows all Courses Open
+
+deactivate Student
+
+@enduml

@@ -4,14 +4,18 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>isep.sem4.pi</groupId>
-	<artifactId>ecourse</artifactId>
+	<artifactId>eCourse</artifactId>
 	<packaging>pom</packaging>
 	<version>0.1.0</version>
 
 	<properties>
-		<eapli.framework.core.version>v21.2.0-RELEASE</eapli.framework.core.version>
-		<eapli.framework.authz.version>v21.2.0-RELEASE</eapli.framework.authz.version>
-		<eapli.framework.pubsub.version>v21.2.0-RELEASE</eapli.framework.pubsub.version>
+		<eapli.framework.core.version>v22.2.0_RELEASE</eapli.framework.core.version>
+		<eapli.framework.authz.version>v22.2.0_RELEASE</eapli.framework.authz.version>
+		<eapli.framework.pubsub.version>v22.2.0_RELEASE</eapli.framework.pubsub.version>
+
+		<eapli.framework.core.version-snapshot>22.0.0</eapli.framework.core.version-snapshot>
+		<eapli.framework.authz.version-snapshot>19.2.0</eapli.framework.authz.version-snapshot>
+		<eapli.framework.pubsub.version-snapshot>20.1.6</eapli.framework.pubsub.version-snapshot>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -21,28 +25,37 @@
 	</properties>
 
 	<modules>
-		<module>eapli.base/base.app.backoffice.console</module>
-		<module>eapli.base/base.app.user.console</module>
-		<module>eapli.base/base.app.other.console</module>
-		<module>eapli.base/base.app.common.console</module>
-		<module>eapli.base/base.app.bootstrap</module>
-		<module>eapli.base/base.bootstrappers</module>
-		<module>eapli.base/base.core</module>
-		<module>eapli.base/base.persistence.impl</module>
-		<module>eapli.base/eCourse.util.ci</module>
+		<module>eCourse.app.backoffice.console</module>
+		<module>eCourse.app.user.console</module>
+		<module>eCourse.app.teacher.console</module>
+		<module>eCourse.app.student.console</module>
+		<module>eCourse.app.common.console</module>
+		<module>eCourse.app.bootstrap</module>
+		<module>eCourse.bootstrappers</module>
+		<module>eCourse.core</module>
+		<module>eCourse.persistence.impl</module>
+		<module>eCourse.util.ci</module>
 
-		<module>eapli.base/course.application</module>
-		<module>eapli.base/course.domain</module>
-		<module>eapli.base/Lesson.application</module>
-		<module>eapli.base/Lesson.domain</module>
-		<module>eapli.base/sharedboard.domain</module>
-		<module>eapli.base/sharedboard.application</module>
-		<module>eapli.base/exam.domain</module>
-		<module>eapli.base/exam.application</module>
+		<module>course.application</module>
+		<module>course.domain</module>
+		<module>Lesson.application</module>
+		<module>Lesson.domain</module>
+		<module>sharedboard.domain</module>
+		<module>sharedboard.application</module>
+		<module>exam.domain</module>
+		<module>exam.application</module>
+		<module>question.domain</module>
+		<module>question.application</module>
+
+        <module>meeting.application</module>
+        <module>meeting.domain</module>
 
     </modules>
 
 	<dependencies>
+		<!-- EAPLI framework -->
+		<!-- FRAMEWORK dependencies from Jitpack nexus repository -->
+		<!-- -->
 		<dependency>
 			<groupId>org.bitbucket.pag_isep.eapliframework</groupId>
 			<artifactId>eapli.framework.core</artifactId>
@@ -58,6 +71,7 @@
 			<artifactId>eapli.framework.infrastructure.pubsub</artifactId>
 			<version>${eapli.framework.pubsub.version}</version>
 		</dependency>
+		<!-- -->
 
 		<!-- tag::junit[] -->
 		<dependency>

@@ -1,0 +1,33 @@
+ @startuml
+
+class CreateCourseUI  {
+}
+
+class CreateCourseController {
+createCourse()
+}
+
+class CreateCourseBuilder {
+}
+
+class   CourseRepository {
+}
+
+class Course {
+}
+
+class RepositoryFactory {
+}
+
+CreateCourseUI : doShow()
+CreateCourseUI -down-> CreateCourseController: uses the controller
+
+CreateCourseController --> CreateCourseBuilder : uses to build
+CreateCourseController --> RepositoryFactory : use to get instance of repo
+CreateCourseController --> CourseRepository : use to save course
+CreateCourseBuilder --> Course: create
+
+Course -> CreateCourseController : return course to save
+
+
+@enduml

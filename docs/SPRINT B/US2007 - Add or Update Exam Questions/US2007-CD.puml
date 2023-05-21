@@ -1,0 +1,83 @@
+@startuml
+
+class Teacher
+class AddExamQuestionUI {
+    +doshow()
+}
+
+class UpdateExamQuestionUI {
+    +doshow()
+}
+class UpdateExamQuestionController {
+    +getOpenCourses()
+    +getAllQuestionTypes()
+    +getQuestionType()
+    +getQuestionByTypeAndCourse()
+    +updateQuestion()
+}
+
+class ListCoursesService {
+    +getOpenCourses()
+    +allCourses()
+}
+
+class UpdateExamQuestionService {
+    +getQuestionByTypeAndCourse()
+    +allQuestions()
+}
+
+
+class AddExamQuestionController {
+    +getOpenCourses()
+    +getAllQuestionTypes()
+    +createQuestion()
+}
+
+class Question{
+    - questionType
+    - course
+    - file
+    - description
+    + getQuestionCourse()
+    + getQuestionType()
+    +getQuestionDescription()
+}
+
+enum QuestionType {
+    MATCHING
+    MULTIPLE_CHOICE
+    SHORT_ANSWER
+    NUMERICAL
+    SELECT_MISSING_WORDS
+    TRUE_FALSE
+}
+
+class QuestionRepository {
+    +save()
+    +findByQuestionType()
+}
+
+class CourseRepository {
+    +save()
+    +findByDesignation()
+    +findAllCourses()
+}
+
+Teacher --> UpdateExamQuestionUI
+UpdateExamQuestionUI-->UpdateExamQuestionController
+UpdateExamQuestionController-->ListCoursesService
+UpdateExamQuestionController-->QuestionType
+UpdateExamQuestionController-->Question
+UpdateExamQuestionController-->UpdateExamQuestionService
+UpdateExamQuestionController-->QuestionRepository
+
+Teacher --> AddExamQuestionUI
+AddExamQuestionUI-->AddExamQuestionController
+AddExamQuestionController-->QuestionType
+AddExamQuestionController-->ListCoursesService
+AddExamQuestionController-->Question
+AddExamQuestionController-->QuestionRepository
+
+
+ListCoursesService-->CourseRepository
+@enduml

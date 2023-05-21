@@ -5,28 +5,59 @@ autonumber
 
 actor User
 
+
 User -> CreateSharedBoardUI: Select the option to create Shared Board
 activate CreateSharedBoardUI
-CreateSharedBoardUI --> User: Requests data
-User -> CreateSharedBoardUI: Answer the resquest data
-
 control CreateSharedBoardController
-CreateSharedBoardUI -> CreateSharedBoardController: create()
-activate CreateSharedBoardController
-CreateSharedBoardUI -> CreateSharedBoardController: createSharedBoard()
 
+CreateSharedBoardUI -> CreateSharedBoardController: create
+activate CreateSharedBoardController
+CreateSharedBoardUI --> User: Requests data
+User -> CreateSharedBoardUI: Insert title, numberOfColumns, numberOfRows
+    loop option < 11
+        CreateSharedBoardUI --> User: Requests the name of the columns
+        User -> CreateSharedBoardUI: Types names of the columns
+    end
+     loop option < 21
+            CreateSharedBoardUI --> User: Requests the name of the rows
+            User -> CreateSharedBoardUI: Types names of the rows
+        end
+
+
+CreateSharedBoardUI -> CreateSharedBoardController: addSharedBoard(title, numberOfColumns,\n numberOfRows, columnsList, rowsList)
+CreateSharedBoardController -> AuthorizationService : getUser()
+AuthorizationService --> CreateSharedBoardController : user
+CreateSharedBoardController -> CreateSharedBoardBuilder: create
+CreateSharedBoardController -> CreateSharedBoardBuilder: withTitle(title)
+note left of CreateSharedBoardBuilder: set the rest of the parameters
+CreateSharedBoardController -> CreateSharedBoardBuilder: build()
+CreateSharedBoardBuilder -> SharedBoard: create(title, owner..........................)
+activate SharedBoard
+activate CreateSharedBoardBuilder
+SharedBoard --> CreateSharedBoardBuilder: SharedBoard
+
+
+CreateSharedBoardBuilder --> CreateSharedBoardController: SharedBoard
+deactivate CreateSharedBoardBuilder
 CreateSharedBoardController -> PersistenceContext: repositories()
-database RepositoryFactory
+activate PersistenceContext
+
+note right of PersistenceContext: pode criar repositório em memória ou JPA
 PersistenceContext -> RepositoryFactory: create()
 database SharedBoardRepository
-RepositoryFactory -> SharedBoardRepository: create()
-CreateSharedBoardController -> SharedBoard: newSharedBoard = create()
-CreateSharedBoardController -> SharedBoardRepository: save(newSharedBoard)
-CreateSharedBoardController --> CreateSharedBoardUI:
+PersistenceContext --> CreateSharedBoardController : factory
+deactivate PersistenceContext
+CreateSharedBoardController -> RepositoryFactory: SharedBoard()
+activate RepositoryFactory
+RepositoryFactory -> SharedBoardRepository : create
+RepositoryFactory --> CreateSharedBoardController: SharedBoardRepository
+deactivate RepositoryFactory
+CreateSharedBoardController -> SharedBoardRepository: save(SharedBoard)
 deactivate CreateSharedBoardController
-CreateSharedBoardUI --> User: Request confirm
-User -> CreateSharedBoardUI: Confirms
-CreateSharedBoardUI --> User: Shows info Shared Board created
+CreateSharedBoardController --> CreateSharedBoardUI: SharedBoard
+
+CreateSharedBoardUI --> User: Displays SharedBoard Info
+
 deactivate CreateSharedBoardController
 
 

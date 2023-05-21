@@ -1,0 +1,16 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Teacher
+activate Teacher
+
+
+Teacher -> System: Asks to List all Courses
+System --> Teacher: Shows all Courses Open
+note right : The association between teacher and course is not \nfully completed, so it is showing all open courses, \nnot the courses the teacher is enrolled in.
+
+deactivate Teacher
+
+@enduml

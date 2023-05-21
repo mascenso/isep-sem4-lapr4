@@ -1,0 +1,34 @@
+ @startuml
+
+class ListCoursesTeacherUI  {
+}
+
+class ListCoursesTeacherController {
+allCoursesOpen()
+}
+
+note right: The association between teacher and course is not \nfully completed, so it is showing all open courses, \nnot the courses the teacher is enrolled in.
+class ListCoursesService {
+allCourses()
+getOpenCourses()
+}
+
+class   CourseRepository {
+courses()
+}
+
+class RepositoryFactory {
+findAll()
+}
+
+ListCoursesTeacherUI : doShow()
+
+ListCoursesTeacherUI -down-> ListCoursesTeacherController: uses the controller
+
+ListCoursesTeacherController --> ListCoursesService : uses to get list of courses Open
+ListCoursesService --> RepositoryFactory : use to get instance of repo
+ListCoursesService --> CourseRepository : use to find all \ncourses
+
+
+
+@enduml
