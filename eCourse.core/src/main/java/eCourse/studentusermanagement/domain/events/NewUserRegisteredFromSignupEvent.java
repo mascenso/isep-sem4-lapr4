@@ -21,27 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.application;
+package eCourse.studentusermanagement.domain.events;
 
-import eCourse.clientusermanagement.domain.StudentUser;
-import eCourse.clientusermanagement.repositories.StudentUserRepository;
-import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.ECourseRoles;
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eCourse.studentusermanagement.domain.MecanographicNumber;
+import eapli.framework.domain.events.DomainEvent;
+import eapli.framework.domain.events.DomainEventBase;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 
 /**
+ * @author Paulo Gandra de Sousa
  *
- * @author losa
  */
-public class ListClientUsersController {
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+public class NewUserRegisteredFromSignupEvent extends DomainEventBase implements DomainEvent {
 
-    private final StudentUserRepository repo = PersistenceContext.repositories().clientUsers();
+    private static final long serialVersionUID = 1L;
 
-    public Iterable<StudentUser> activeClientUsers() {
-        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
+    private final MecanographicNumber mecanographicNumber;
+    private final Username newUser;
 
-        return this.repo.findAllActive();
+    public NewUserRegisteredFromSignupEvent(final MecanographicNumber mecanographicNumber,
+            final Username newUser) {
+        this.mecanographicNumber = mecanographicNumber;
+        this.newUser = newUser;
+    }
+
+    public MecanographicNumber mecanographicNumber() {
+        return mecanographicNumber;
+    }
+
+    public Username username() {
+        return newUser;
+    }
+
+    @Override
+    public String toString() {
+        return "NewUserFromsignup(" + username() + ")";
     }
 }

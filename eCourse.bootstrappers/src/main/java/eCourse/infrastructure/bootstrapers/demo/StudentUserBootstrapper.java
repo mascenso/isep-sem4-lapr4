@@ -24,9 +24,9 @@ import eCourse.infrastructure.bootstrapers.TestDataConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eCourse.clientusermanagement.application.AcceptRefuseSignupFactory;
-import eCourse.clientusermanagement.application.AcceptRefuseSignupRequestController;
-import eCourse.clientusermanagement.domain.SignupRequest;
+import eCourse.studentusermanagement.application.AcceptRefuseSignupFactory;
+import eCourse.studentusermanagement.application.AcceptRefuseSignupRequestController;
+import eCourse.studentusermanagement.domain.SignupRequest;
 import eCourse.myclientuser.application.SignupController;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -36,8 +36,8 @@ import eapli.framework.domain.repositories.IntegrityViolationException;
  *
  * @author Paulo Sousa
  */
-public class ClientUserBootstrapper implements Action {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ClientUserBootstrapper.class);
+public class StudentUserBootstrapper implements Action {
+	private static final Logger LOGGER = LoggerFactory.getLogger(StudentUserBootstrapper.class);
 
 	private final SignupController signupController = new SignupController();
 	private final AcceptRefuseSignupRequestController acceptController = AcceptRefuseSignupFactory.build();
@@ -47,14 +47,14 @@ public class ClientUserBootstrapper implements Action {
 		// some users that signup and are approved
 		signupAndApprove(TestDataConstants.USER_TEST1, "Password1", "John", "Smith", "john@smith.com",
 				TestDataConstants.USER_TEST1);
-		signupAndApprove("isep959", "Password1", "Mary", "Smith", "mary@smith.com", "isep959");
+		signupAndApprove("isep959", "Password1", "Mary", "Smith", "mary@smith.com", "202300000");
 
 		// some users that signup but the approval is pending. use the backoffice
 		// application to approve these
-		signup("isep111", "Password1", "Mary", "Smith One", "mary1@smith.com", "isep111");
-		signup("isep222", "Password1", "Mary", "Smith Two", "mary2@smith.com", "isep222");
-		signup("isep333", "Password1", "Mary", "Smith Three", "mary3@smith.com", "isep333");
-		signup("isep444", "Password1", "Mary", "Smith Four", "mary4@smith.com", "isep444");
+		signup("isep111", "Password1", "Mary", "Smith One", "mary1@smith.com", "202311111");
+		signup("isep222", "Password1", "Mary", "Smith Two", "mary2@smith.com", "202322222");
+		signup("isep333", "Password1", "Mary", "Smith Three", "mary3@smith.com", "202333333");
+		signup("isep444", "Password1", "Mary", "Smith Four", "mary4@smith.com", "202344444");
 
 		return true;
 	}

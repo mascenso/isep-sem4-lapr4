@@ -21,11 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.application;
+package eCourse.studentusermanagement.application;
 
-import eCourse.clientusermanagement.domain.StudentUser;
-import eCourse.clientusermanagement.domain.MecanographicNumber;
-import eCourse.clientusermanagement.repositories.StudentUserRepository;
+import eCourse.studentusermanagement.domain.StudentUser;
+import eCourse.studentusermanagement.domain.MecanographicNumber;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;

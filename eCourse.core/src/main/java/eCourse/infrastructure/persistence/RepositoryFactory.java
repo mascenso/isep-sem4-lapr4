@@ -21,8 +21,8 @@
 package eCourse.infrastructure.persistence;
 
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
-import eCourse.clientusermanagement.repositories.StudentUserRepository;
-import eCourse.clientusermanagement.repositories.SignupRequestRepository;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
+import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.repositories.*;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;

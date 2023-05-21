@@ -18,34 +18,12 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.clientusermanagement.domain;
-
-import eapli.framework.domain.model.DomainFactory;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+package eCourse.studentusermanagement.domain;
 
 /**
- * A factory for User entities.
  *
- * This class demonstrates the use of the factory (DDD) pattern using a fluent
- * interface. it acts as a Builder (GoF).
- *
- * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
+ * @author Jorge Santos ajs@isep.ipp.pt
  */
-public class StudentUserBuilder implements DomainFactory<StudentUser> {
-
-    private SystemUser systemUser;
-    private MecanographicNumber mecanographicNumber;
-
-    public StudentUserBuilder withSystemUser(final SystemUser systemUser) {
-        this.systemUser = systemUser;
-        this.mecanographicNumber = new MecanographicNumber(MecanographicNumberDomainService.generate());
-        return this;
-    }
-
-    @Override
-    public StudentUser build() {
-        // since the factory knows that all the parts are needed it could throw
-        // an exception. however, we will leave that to the constructor
-        return new StudentUser(this.systemUser, this.mecanographicNumber);
-    }
+public enum ApprovalStatus {
+    PENDING, ACCEPTED, REFUSED;
 }

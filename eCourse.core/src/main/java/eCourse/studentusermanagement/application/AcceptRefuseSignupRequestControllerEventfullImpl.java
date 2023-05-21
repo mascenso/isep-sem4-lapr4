@@ -21,13 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.application;
+package eCourse.studentusermanagement.application;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import eCourse.clientusermanagement.domain.SignupRequest;
-import eCourse.clientusermanagement.domain.events.SignupAcceptedEvent;
-import eCourse.clientusermanagement.repositories.SignupRequestRepository;
+import eCourse.studentusermanagement.domain.SignupRequest;
+import eCourse.studentusermanagement.domain.events.SignupAcceptedEvent;
+import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.application.UseCaseController;

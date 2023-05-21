@@ -1,4 +1,4 @@
-package eCourse.clientusermanagement.domain;
+package eCourse.studentusermanagement.domain;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -20,8 +20,8 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
  */
 public class ClientUserTest {
 
-    private final String aMecanographicNumber = "abc";
-    private final String anotherMecanographicNumber = "xyz";
+    private final String aMecanographicNumber = "202200001";
+    private final String anotherMecanographicNumber = "202200002";
 
     public static SystemUser dummyUser(final String username, final Role... roles) {
         // should we load from spring context?
@@ -41,10 +41,10 @@ public class ClientUserTest {
     public void ensureClientUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
 
         final StudentUser aClientUser = new StudentUserBuilder()
-                .withSystemUser(getNewDummyUser()).build();
+                .withSystemUser(getNewDummyUser()).build(dummyUser("dummy", ECourseRoles.STUDENT), aMecanographicNumber);
 
         final StudentUser anotherClientUser = new StudentUserBuilder()
-                .withSystemUser(getNewDummyUser()).build();
+                .withSystemUser(getNewDummyUser()).build(dummyUser("dummy", ECourseRoles.STUDENT), aMecanographicNumber);
 
         final boolean expected = aClientUser.equals(anotherClientUser);
 

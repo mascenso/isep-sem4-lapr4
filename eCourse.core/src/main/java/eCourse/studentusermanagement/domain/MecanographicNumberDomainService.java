@@ -1,4 +1,4 @@
-package eCourse.clientusermanagement.domain;
+package eCourse.studentusermanagement.domain;
 
 import org.threeten.bp.Year;
 
@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class MecanographicNumberDomainService {
 
-    private static final String DATE_FORMAT_DEFAULT = "%tY";
+    private static final String DATE_FORMAT_DEFAULT = "%04d";
     private static final String NUMBER_FORMAT_DEFAULT = "%05d";
 
     private static final String format;
@@ -16,7 +16,7 @@ public class MecanographicNumberDomainService {
     }
 
     public static String generate() {
-        return String.format(format, Year.now(), generateNumber());
+        return String.format(format, Year.now().getValue(), generateNumber());
     }
 
     private static AtomicInteger sequence = new AtomicInteger(0);

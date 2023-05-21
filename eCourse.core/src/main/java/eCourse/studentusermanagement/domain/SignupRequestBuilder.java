@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.domain;
+package eCourse.studentusermanagement.domain;
 
 import java.util.Calendar;
 

@@ -21,24 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.application;
+package eCourse.studentusermanagement.application.eventhandlers;
+
+import eCourse.studentusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import eapli.framework.domain.events.DomainEvent;
+import eapli.framework.infrastructure.pubsub.EventHandler;
 
 /**
- * A simple factory to obtain the desired implementation of the
- * {@link AcceptRefuseSignupController}.
- *
- * @author Paulo Gandra de Sousa 16/05/2019
+ * @author Paulo Gandra de Sousa
  *
  */
-public final class AcceptRefuseSignupFactory {
-    private AcceptRefuseSignupFactory() {
-        // ensure utility
-    }
+public class NewUserRegisteredFromSignupWatchDog implements EventHandler {
 
-    public static AcceptRefuseSignupRequestController build() {
-        // decide and try
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see eapli.framework.domain.events.EventHandler#onEvent(eapli.framework.
+	 * domain. events.DomainEvent)
+	 */
+	@Override
+	public void onEvent(final DomainEvent domainevent) {
+		assert domainevent instanceof NewUserRegisteredFromSignupEvent;
 
-        // return new AcceptRefuseSignupRequestControllerTxImpl();
-        return new AcceptRefuseSignupRequestControllerEventfullImpl();
-    }
+		final NewUserRegisteredFromSignupEvent event = (NewUserRegisteredFromSignupEvent) domainevent;
+
+		final AddClientUserOnSignupAcceptedController controller = new AddClientUserOnSignupAcceptedController();
+		controller.addClientUser(event);
+	}
 }

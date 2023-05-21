@@ -5,4 +5,4 @@
 export BASE_CP=eCourse.app.bootstrap/target/app.bootstrap-0.1.0.jar:eCourse.app.bootstrap/target/dependency/*;
 
 #REM call the java VM, e.g,
-java -cp $BASE_CP eCourse.app.bootstrap.BaseBootstrap
+java -cp $BASE_CP eCourse.app.bootstrap.BaseBootstrap -bootstrap:demo #-smoke:basic

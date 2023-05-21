@@ -21,14 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.application.eventhandlers;
+package eCourse.studentusermanagement.application.eventhandlers;
 
 import java.util.Optional;
 
-import eCourse.clientusermanagement.domain.StudentUser;
-import eCourse.clientusermanagement.domain.StudentUserBuilder;
-import eCourse.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import eCourse.clientusermanagement.repositories.StudentUserRepository;
+import eCourse.studentusermanagement.domain.StudentUser;
+import eCourse.studentusermanagement.domain.StudentUserBuilder;
+import eCourse.studentusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.functional.Functions;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;

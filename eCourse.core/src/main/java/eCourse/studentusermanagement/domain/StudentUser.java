@@ -21,14 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.domain;
+package eCourse.studentusermanagement.domain;
 
 import javax.persistence.*;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  * A Client User.
@@ -105,4 +104,5 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
     public MecanographicNumber identity() {
         return this.mecanographicNumber;
     }
+
 }

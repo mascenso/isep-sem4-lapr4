@@ -21,40 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.domain.events;
-
-import eCourse.clientusermanagement.domain.MecanographicNumber;
-import eapli.framework.domain.events.DomainEvent;
-import eapli.framework.domain.events.DomainEventBase;
-import eapli.framework.infrastructure.authz.domain.model.Username;
+package eCourse.studentusermanagement.application;
 
 /**
- * @author Paulo Gandra de Sousa
+ * A simple factory to obtain the desired implementation of the
+ * {@link AcceptRefuseSignupController}.
+ *
+ * @author Paulo Gandra de Sousa 16/05/2019
  *
  */
-public class NewUserRegisteredFromSignupEvent extends DomainEventBase implements DomainEvent {
-
-    private static final long serialVersionUID = 1L;
-
-    private final MecanographicNumber mecanographicNumber;
-    private final Username newUser;
-
-    public NewUserRegisteredFromSignupEvent(final MecanographicNumber mecanographicNumber,
-            final Username newUser) {
-        this.mecanographicNumber = mecanographicNumber;
-        this.newUser = newUser;
+public final class AcceptRefuseSignupFactory {
+    private AcceptRefuseSignupFactory() {
+        // ensure utility
     }
 
-    public MecanographicNumber mecanographicNumber() {
-        return mecanographicNumber;
-    }
+    public static AcceptRefuseSignupRequestController build() {
+        // decide and try
 
-    public Username username() {
-        return newUser;
-    }
-
-    @Override
-    public String toString() {
-        return "NewUserFromsignup(" + username() + ")";
+        // return new AcceptRefuseSignupRequestControllerTxImpl();
+        return new AcceptRefuseSignupRequestControllerEventfullImpl();
     }
 }

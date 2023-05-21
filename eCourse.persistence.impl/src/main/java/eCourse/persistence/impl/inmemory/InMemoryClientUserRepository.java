@@ -22,9 +22,9 @@ package eCourse.persistence.impl.inmemory;
 
 import java.util.Optional;
 
-import eCourse.clientusermanagement.domain.StudentUser;
-import eCourse.clientusermanagement.domain.MecanographicNumber;
-import eCourse.clientusermanagement.repositories.StudentUserRepository;
+import eCourse.studentusermanagement.domain.StudentUser;
+import eCourse.studentusermanagement.domain.MecanographicNumber;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 

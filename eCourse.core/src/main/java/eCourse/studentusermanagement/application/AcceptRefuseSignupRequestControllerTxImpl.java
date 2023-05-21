@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.application;
+package eCourse.studentusermanagement.application;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import eCourse.clientusermanagement.domain.StudentUserBuilder;
-import eCourse.clientusermanagement.domain.SignupRequest;
-import eCourse.clientusermanagement.repositories.StudentUserRepository;
-import eCourse.clientusermanagement.repositories.SignupRequestRepository;
+import eCourse.studentusermanagement.domain.StudentUserBuilder;
+import eCourse.studentusermanagement.domain.SignupRequest;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
+import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.application.UseCaseController;

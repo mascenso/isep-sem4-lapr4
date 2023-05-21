@@ -18,12 +18,9 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.clientusermanagement.repositories;
+package eCourse.studentusermanagement.repositories;
 
-import java.util.Optional;
-
-import eCourse.clientusermanagement.domain.StudentUser;
-import eCourse.clientusermanagement.domain.MecanographicNumber;
+import eCourse.studentusermanagement.domain.SignupRequest;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
@@ -31,27 +28,7 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public interface StudentUserRepository
-        extends DomainRepository<MecanographicNumber, StudentUser> {
+public interface SignupRequestRepository extends DomainRepository<Username, SignupRequest> {
 
-    /**
-     * returns the client user (utente) whose username is given
-     *
-     * @param name
-     *            the username to search for
-     * @return
-     */
-    Optional<StudentUser> findByUsername(Username name);
-
-    /**
-     * returns the client user (utente) with the given mecanographic number
-     *
-     * @param number
-     * @return
-     */
-    default Optional<StudentUser> findByMecanographicNumber(final MecanographicNumber number) {
-        return ofIdentity(number);
-    }
-
-    public Iterable<StudentUser> findAllActive();
+    Iterable<SignupRequest> pendingSignupRequests();
 }

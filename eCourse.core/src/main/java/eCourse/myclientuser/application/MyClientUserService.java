@@ -22,8 +22,8 @@ package eCourse.myclientuser.application;
 
 import java.util.Optional;
 
-import eCourse.clientusermanagement.domain.StudentUser;
-import eCourse.clientusermanagement.repositories.StudentUserRepository;
+import eCourse.studentusermanagement.domain.StudentUser;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;

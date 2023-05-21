@@ -25,7 +25,7 @@ import eCourse.repositories.MeetingsRepository;
 import eCourse.repositories.QuestionRepository;
 
 import eCourse.Application;
-import eCourse.clientusermanagement.repositories.SignupRequestRepository;
+import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.RepositoryFactory;
 
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;

@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.application;
+package eCourse.studentusermanagement.application;
 
-import eCourse.clientusermanagement.domain.SignupRequest;
+import eCourse.studentusermanagement.domain.SignupRequest;
 
 /**
  * The controller for the use case "Accept or refuse signup request".

@@ -21,31 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.clientusermanagement.application.eventhandlers;
+package eCourse.studentusermanagement.application;
 
-import eCourse.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import eapli.framework.domain.events.DomainEvent;
-import eapli.framework.infrastructure.pubsub.EventHandler;
+import eCourse.studentusermanagement.domain.StudentUser;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
+import eCourse.infrastructure.persistence.PersistenceContext;
+import eCourse.usermanagement.domain.ECourseRoles;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 /**
- * @author Paulo Gandra de Sousa
  *
+ * @author losa
  */
-public class NewUserRegisteredFromSignupWatchDog implements EventHandler {
+public class ListClientUsersController {
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see eapli.framework.domain.events.EventHandler#onEvent(eapli.framework.
-	 * domain. events.DomainEvent)
-	 */
-	@Override
-	public void onEvent(final DomainEvent domainevent) {
-		assert domainevent instanceof NewUserRegisteredFromSignupEvent;
+    private final StudentUserRepository repo = PersistenceContext.repositories().clientUsers();
 
-		final NewUserRegisteredFromSignupEvent event = (NewUserRegisteredFromSignupEvent) domainevent;
+    public Iterable<StudentUser> activeClientUsers() {
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
-		final AddClientUserOnSignupAcceptedController controller = new AddClientUserOnSignupAcceptedController();
-		controller.addClientUser(event);
-	}
+        return this.repo.findAllActive();
+    }
 }
