@@ -1,0 +1,15 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Manager
+activate Manager
+
+
+Manager -> System: Asks to List all Courses
+System --> Manager: Shows all Courses
+
+deactivate Manager
+
+@enduml
