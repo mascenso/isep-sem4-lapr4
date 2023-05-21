@@ -1,0 +1,59 @@
+@startuml
+
+autoactivate on
+
+actor Teacher as T
+participant "UpdateExamQuestionsUI" as UI
+participant "UpdateExamQuestionsController" as QC
+participant "ListCoursesService" as S
+participant "UpdateExamQuestionService" as QS
+participant "Question" as Q
+participant "QuestionType" as QT
+database "QuestionRepository" as QR
+database "CourseRepository" as CR
+
+
+T -> UI: update a question
+UI -> QC: create
+UI->QC:getOpenCourses()
+deactivate UI
+QC->S:getOpenCourses()
+S->CR:getAll()
+deactivate QR
+deactivate CR
+S-->QC:listOfOpenCourses
+deactivate QC
+
+QC-->UI:listOfOpenCourses
+
+activate UI
+UI-->T: Shows list of open courses
+T->UI: Choose course
+activate QC
+UI->QC:getAllQuestionTypes()
+QC->QT:getAllQuestionTypes()
+deactivate QT
+UI-->T:Shows question types
+T->UI: questionType
+
+UI-->QC: getQuestionByTypeAndCourse(questionType, course)
+activate QS
+QC-->QS: getQuestionByTypeAndCourse(questionType, course)
+QS->QR:getAll()
+deactivate QR
+QS-->QC:listOfQuestionsByTypeAndCourse
+deactivate QS
+QC-->UI:listOfQuestionsByTypeAndCourse
+activate UI
+UI-->T:Shows list of questions
+T->UI:Choose question
+UI-->T: Asks for file
+T->UI: Inserts file
+UI->QC: updateQuestion(question, file, questionType, course)
+deactivate UI
+QC->Q: updateQuestion(question, file, questionTypeOption, course)
+Q-->QC: question
+activate QR
+QC->QR:save(question)
+
+@enduml

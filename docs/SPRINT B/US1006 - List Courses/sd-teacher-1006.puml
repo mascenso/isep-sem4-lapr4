@@ -1,5 +1,5 @@
 @startuml
-actor User as Actor
+actor Teacher as Actor
 participant ListCourseUI as UI <<presentation>>
 participant ListCourseController as Controller <<aplication>>
 participant ListCoursesService as Service <<service>>
@@ -9,9 +9,9 @@ database CourseRepository as Repository <<repository>>
 
 Actor -> UI: show()
 activate UI
-    UI -> Controller: allCourses()
+    UI -> Controller: allCoursesOpen()
         activate Controller
-        Controller -> Service: allCourses()
+        Controller -> Service: allCoursesOpen()
         activate Service
         Service -> Persistence: Repositories()
         activate Persistence
@@ -20,11 +20,13 @@ activate UI
             Factory -> Repository: create
 
             deactivate Factory
+
         Service -> Repository: allCourses()
+                    note right : Only shows open courses because the \n association of the teacher to the course is not completed
                 activate Repository
         Repository --> Service
         deactivate Repository
-        Service--> Controller
+        Service--> Controller : allCoursesOpen
         deactivate Service
         Controller --> UI: List
     deactivate Controller
