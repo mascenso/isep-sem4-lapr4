@@ -23,8 +23,8 @@
  */
 package eCourse.usermanagement.application.eventhandlers;
 
-import eCourse.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import eCourse.clientusermanagement.domain.events.SignupAcceptedEvent;
+import eCourse.studentusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import eCourse.studentusermanagement.domain.events.SignupAcceptedEvent;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eCourse.usermanagement.domain.UserBuilderHelper;

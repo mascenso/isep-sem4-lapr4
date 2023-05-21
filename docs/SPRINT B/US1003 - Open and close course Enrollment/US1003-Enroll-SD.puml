@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Manager as Actor
+activate Actor
+participant UpdateCourseStateUI as UI <<Presentation>>
+control UpdateCourseStateController as Controller <<Application>>
+participant UpdateCourseStateService as UpdateService <<Application>>
+participant ListCourseService as ListService <<Application>>
+participant authorizationService as AuthService <<Application>>
+participant PersistenceContext as Persistence <<persistence>>
+database CoursesRepository as Repository <<Repository>>
+participant "theCourse:Course" as Course <<Domain>>
+
+Actor -> UI: Select the option \nto update Course state
+activate UI
+UI -> Controller: allCourses()
+activate Controller
+Controller -> ListService: allCourses()
+activate ListService
+ListService -> Persistence: findAll()
+deactivate ListService
+activate Persistence
+Persistence -> Repository: findall()
+deactivate Persistence
+activate Repository
+UI -> UI: Output The existing courses
+Actor <- UI: Ask user to select a course
+Actor -> UI: Selects the course
+UI -> Course: showStates()
+activate Course
+UI -> Actor: Shows the states \nfor the course selected
+Actor -> UI: Selects a Enroll State for the Open Course
+UI -> Controller: updateCourseState(courseSelected, newState)
+Controller -> UpdateService: enroll(designationName)
+activate UpdateService
+UpdateService -> AuthService: ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN)
+activate AuthService
+deactivate AuthService
+UpdateService -> Repository: findByDesignation(Designation.valueOf(designationName)
+UpdateService -> Course: updateState(BaseCourseStates.ENROLL)
+deactivate Course
+UpdateService -> Repository: save(course)
+deactivate UpdateService
+deactivate Repository
+UI <- Controller: course
+deactivate Controller
+Actor <- UI: Back to menu
+
+
+@enduml

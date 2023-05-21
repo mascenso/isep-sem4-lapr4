@@ -28,6 +28,7 @@ import eCourse.Application;
 import eCourse.app.student.console.presentation.Courses.ListCoursesStudentUI;
 import eCourse.app.student.console.presentation.Exams.ListExamsUI;
 import eCourse.app.student.console.presentation.meetings.ScheduleMeetingsUI;
+import eCourse.app.user.console.presentation.myuser.SignupRequestAction;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -59,11 +60,14 @@ public class MainMenu extends AbstractUI {
     private static final int STUDENT_MEETING_OPTION= 4;
 
     private static final int VIEW_STUDENT_EXAMS_LIST_OPTION = 2;
+    private static final int SIGNUP_FOR_A_CURSE_OPTION = 2;
+
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
     private final Menu menu;
     private final MenuRenderer renderer;
+
 
     // Courses Menu
     private static final int COURSE_OPEN = 1;
@@ -145,6 +149,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildCoursesMenu() {
         final Menu studentMenu = new Menu("Courses  >");
         studentMenu.addItem(COURSE_OPEN, "List All Courses", new ListCoursesStudentUI()::show);
+        studentMenu.addItem(SIGNUP_FOR_A_CURSE_OPTION, "Sign up", new SignupRequestAction());
         studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return studentMenu;

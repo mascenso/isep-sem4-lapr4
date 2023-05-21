@@ -23,7 +23,7 @@
  */
 package eCourse.usermanagement.domain;
 
-import eCourse.clientusermanagement.domain.SignupRequestBuilder;
+import eCourse.studentusermanagement.domain.SignupRequestBuilder;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
 import eapli.framework.util.Utility;
