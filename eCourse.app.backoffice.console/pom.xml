@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>isep.sem4.pi</groupId>
-            <artifactId>sharedboard.application</artifactId>
+            <artifactId>sharedboard.domain</artifactId>
             <version>0.1.0</version>
             <scope>compile</scope>
         </dependency>
@@ -76,6 +76,7 @@
         </dependency>
         <dependency>
             <groupId>isep.sem4.pi</groupId>
+
             <artifactId>question.application</artifactId>
             <version>0.1.0</version>
             <scope>compile</scope>
