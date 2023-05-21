@@ -94,14 +94,16 @@ Below is the use case diagram to show the interactions between the manager and t
 
 ### 4.5. Tests
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+**Test 1:** *Verifies that it is not possible to create an instance of the SharedBoard class with the same title.*
 
 ```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
+ @Test
+    public void testIfSharedBoardIsEqualsToAnotherSharedBoard(){
+        assertTrue(board1.sameAs(board1));
+        assertFalse(board1.sameAs(board2));
+    }
 ````
+
 
 ## 5. Implementation
 
