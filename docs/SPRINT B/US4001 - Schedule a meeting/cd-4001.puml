@@ -1,0 +1,44 @@
+ @startuml
+
+class ScheduleMeetingUI  {
+}
+
+class ScheduleMeetingController {
+scheduleMeeting()
+allUsers()
+validateSchedule()
+}
+
+class MeetingBuilder {
+}
+
+class   UsersRepository {
+findAll()
+}
+
+class   MeetingRepository {
+findAll()
+save()
+}
+
+class Meeting {
+scheduleMeeting()
+}
+
+class RepositoryFactory {
+meeting()
+}
+
+ScheduleMeetingUI : doShow()
+ScheduleMeetingUI -down-> ScheduleMeetingController: uses the controller
+
+ScheduleMeetingController --> MeetingBuilder : uses to build
+ScheduleMeetingController --> RepositoryFactory : use to get instance of repo
+ScheduleMeetingController --> MeetingRepository : use to save Meeting
+ScheduleMeetingController --> UsersRepository : use to get all users
+MeetingBuilder --> Meeting: create
+
+Meeting -> ScheduleMeetingController : return meeting to save
+
+
+@enduml
