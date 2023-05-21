@@ -58,7 +58,9 @@ public class Meeting implements AggregateRoot<Long> {
     public Meeting() {
 
     }
+    public List<ParticipantsOfMeeting> participants(){return this.participants;}
 
+    public Date dateOfMeeting (){return this.schedule;}
     @Override
     public boolean sameAs(Object other) {
         return false;

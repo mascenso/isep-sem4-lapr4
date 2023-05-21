@@ -57,7 +57,7 @@ public class FrontMenu extends AbstractUI {
     public boolean doShow() {
         final Menu menu = new Menu();
         menu.addItem(LOGIN_OPTION, "Login", new ChainedAction(new LoginUI(
-                ECourseRoles.STUDENT)::show, () -> {
+                ECourseRoles.TEACHER)::show, () -> {
             new MainMenu().mainLoop();
             return true;
         }));
@@ -71,6 +71,6 @@ public class FrontMenu extends AbstractUI {
 
     @Override
     public String headline() {
-        return "Base";
+        return "eCourse";
     }
 }
