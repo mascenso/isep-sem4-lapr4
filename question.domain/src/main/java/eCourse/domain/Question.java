@@ -1,189 +1,105 @@
 package eCourse.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.AggregateRoot;
-import eapli.framework.general.domain.model.Designation;
+import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlElement;
-import java.util.List;
+import java.io.File;
 
 @Entity
-public class Question implements AggregateRoot<Designation> {
+public class Question implements AggregateRoot<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
-    private String question;
-    @Embedded
-    private Solution solution;
+    private File file;
 
-    @ElementCollection
-    private List<String> multiOptions;
-
-    @ElementCollection
-    private List<String> matchingAnswers;
+    @Column(nullable = false)
+    private String description;
 
     @ManyToOne
     private Course course;
-
-    private Boolean caseSensitive;
-
-
-    private String answer;
-
-    private Double acceptanceError;
-
-
-    @XmlElement
-    @JsonProperty
-    private Designation designation;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
 
 
-    //MATCHING
-    protected Question(final String question, final Solution solution, final List<String> matchingOptions, final List<String> matchingAnswers, final QuestionType questionType, final Course course) {
-        Preconditions.noneNull(question, solution, matchingOptions, matchingAnswers, questionType, course);
-        this.question = question;
-        this.solution = solution;
-        this.multiOptions = matchingOptions;
-        this.matchingAnswers = matchingAnswers;
+    protected Question(final QuestionType questionType, final Course course, final File file, final String description) {
+        Preconditions.noneNull(questionType, course, file, description);
         this.questionType = questionType;
         this.course = course;
+        this.file = file;
+        this.description = description;
     }
 
-    //MULTIPLE_CHOICE && SELECT_MISSING_WORDS
-    protected Question(final String question, final Solution solution, final List<String> multiOptions, final QuestionType questionType, final Course course) {
-        Preconditions.noneNull(question, solution, multiOptions, questionType, course);
-        this.question = question;
-        this.solution = solution;
-        this.multiOptions = multiOptions;
-        this.questionType = questionType;
-        this.course = course;
+    @Override
+    public String toString() {
+        return description;
     }
-
-    //SHORT_ANSWER
-    protected Question(final String question, final Solution solution, final boolean caseSensitive, final QuestionType questionType, final Course course) {
-        Preconditions.noneNull(question, solution, questionType, course);
-        this.question = question;
-        this.solution = solution;
-        this.caseSensitive = caseSensitive;
-        this.questionType = questionType;
-        this.course = course;
-    }
-
-    //NUMERICAL
-    protected Question(final String question, final Solution solution, final List<String> multiOptions,
-                       final double acceptanceError, final QuestionType questionType, final Course course) {
-        Preconditions.noneNull(question, solution, multiOptions, acceptanceError, questionType, course);
-        this.question = question;
-        this.solution = solution;
-        this.acceptanceError = acceptanceError;
-        this.multiOptions = multiOptions;
-        this.questionType = questionType;
-        this.course = course;
-    }
-
-    /*
-        //SELECT_MISSING_WORDS
-        protected Question(final String question, final Solution solution, final String[] answer, final QuestionType questionType) {
-            Preconditions.noneNull(question, solution, questionType);
-            this.question = question;
-            this.solution = solution;
-            this.multiOptions = answer;
-            this.questionType = questionType;
-        }
-
-       */
-    //TRUE_FALSE
-    protected Question(final String question, final Solution solution, final QuestionType questionType, final Course course) {
-        Preconditions.noneNull(question, solution, questionType, course);
-        this.question = question;
-        this.solution = solution;
-        this.questionType = questionType;
-        this.course = course;
-    }
-
 
     protected Question() {
         //for ORM only
     }
 
-    //MATCHING
-    public static Question valueOf(final String question, final Solution solution, final List<String> matchingOptions, final List<String> matchingAnswers, final QuestionType questionType, final Course course) {
-        Preconditions.nonEmpty(question, "Question cannot be empty");
-        Preconditions.noneNull(solution, "Solutions cannot be empty");
-        Preconditions.noneNull(matchingOptions, "Matching Options cannot be empty");
-        Preconditions.noneNull(matchingAnswers, "Matching Answers cannot be empty");
+    public static Question valueOf(final QuestionType questionType, final Course course, final File file, final String description) {
         Preconditions.noneNull(questionType, "Question type cannot be empty");
-        Preconditions.noneNull(course, "Lesson type cannot be empty");
-        return new Question(question, solution, matchingOptions, matchingAnswers, questionType, course);
-    }
-
-    //MULTIPLE_CHOICE
-    public static Question valueOf(final String question, final Solution solution, final List<String> multiOptions, final QuestionType questionType, final Course course) {
-        Preconditions.nonEmpty(question, "Question cannot be empty");
-        Preconditions.noneNull(solution, "Solution cannot be empty");
-        Preconditions.noneNull(multiOptions, "Multiple Options cannot be empty");
-        Preconditions.noneNull(questionType, "Question type cannot be empty");
-        Preconditions.noneNull(course, "Lesson type cannot be empty");
-        return new Question(question, solution, multiOptions, questionType, course);
-    }
-
-    //SHORT_ANSWER
-    public static Question valueOf(final String question, final Solution solution, final boolean caseSensitive, final QuestionType questionType, final Course course) {
-        Preconditions.nonEmpty(question, "Question cannot be empty");
-        Preconditions.noneNull(solution, "Solution cannot be empty");
-        Preconditions.noneNull(caseSensitive, "Must define if is case sensitive");
-        Preconditions.noneNull(questionType, "Question type cannot be empty");
-        Preconditions.noneNull(course, "Lesson type cannot be empty");
-        return new Question(question, solution, caseSensitive, questionType, course);
-    }
-
-    //NUMERICAL
-    public static Question valueOf(final String question, final Solution solution, final List<String> multiOptions,
-                                   final double acceptanceError, final QuestionType questionType, final Course course) {
-        Preconditions.nonEmpty(question, "Question cannot be empty");
-        Preconditions.noneNull(solution, "Solution cannot be empty");
-        Preconditions.noneNull(multiOptions, "Multiple Options cannot be empty");
-        Preconditions.noneNull(acceptanceError, "Acceptance Error must be defined");
-        Preconditions.noneNull(questionType, "Question type cannot be empty");
-        Preconditions.noneNull(course, "Lesson type cannot be empty");
-        return new Question(question, solution, multiOptions, acceptanceError, questionType, course);
-    }
-
-    /*
-    //SELECT_MISSING_WORDS
-    public static Question valueOf(final String question, final Solution solution, final String[] answer, final QuestionType questionType) {
-        Preconditions.nonEmpty(question, "Question cannot be empty");
-        Preconditions.nonEmpty(List.of(solution), "Solutions cannot be empty");
-        Preconditions.nonEmpty(List.of(answer), "Answers cannot be empty");
-        Preconditions.nonEmpty(Collections.singleton(questionType), "Question type cannot be empty");
-        return new Question(question,solution,answer,questionType);
-    }
-
- */
-    //TRUE_FALSE:
-    public static Question valueOf(final String question, final Solution solution, final QuestionType questionType, final Course course) {
-        Preconditions.nonEmpty(question, "Question cannot be empty");
-        Preconditions.noneNull(solution, "Solution cannot be empty");
-        Preconditions.noneNull(questionType, "Question type cannot be empty");
-        Preconditions.noneNull(course, "Lesson type cannot be empty");
-        return new Question(question, solution, questionType, course);
+        Preconditions.noneNull(course, "Course cannot be empty");
+        Preconditions.noneNull(file, "File cannot be empty");
+        Preconditions.noneNull(description, "Description cannot be empty");
+        return new Question(questionType, course, file,description);
     }
 
 
     @Override
     public boolean sameAs(Object other) {
-        return false;
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof Question)) {
+            return false;
+        }
+
+        final Question otherQuestion = (Question) other;
+
+        return questionType.equals(otherQuestion.questionType)
+                && course.equals(otherQuestion.course)
+                && file.equals(otherQuestion.file);
+    }
+
+    public Course getQuestionCourse() {
+        return course;
+    }
+
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
+    public String getQuestionDescription() {
+        return description;
     }
 
     @Override
-    public Designation identity() {
-        return null;
+    public boolean equals(final Object o) {
+        return DomainEntities.areEqual(this, o);
+    }
+
+    @Override
+    public Long identity() {
+        return id;
+    }
+
+    public Question updateQuestion(File file, QuestionType questionType, Course course) {
+        this.file=file;
+        this.questionType=questionType;
+        this.course=course;
+        return this;
+    }
+
+
+    public File getFile() {
+        return file;
     }
 }

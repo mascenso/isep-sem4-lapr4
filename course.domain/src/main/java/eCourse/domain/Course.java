@@ -27,12 +27,12 @@ public class Course implements AggregateRoot<Designation> {
     @Embedded
     private CourseState state;
 
-    protected Course (final Designation name, final Description description, final CourseEdition edition, CourseState state){
-        Preconditions.noneNull(name,description,edition,state);
+    protected Course (final Designation name, final Description description, final CourseEdition edition){
+        Preconditions.noneNull(name,description,edition);
 
         this.name = name;
         this.edition = edition;
-        this.state= state;
+        this.state= new CourseState("Close");
         this.description = description;
     }
 

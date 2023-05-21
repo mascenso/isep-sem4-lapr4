@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+actor Manager
+    Manager -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option to Create Courses)
+    (Select the option to Create Courses) --> (Put all information required : name, edition, description)
+
+  (Put all information required : name, edition, description) --> (Save)
+
+
+@enduml

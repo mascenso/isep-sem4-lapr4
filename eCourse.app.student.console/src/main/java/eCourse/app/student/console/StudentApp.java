@@ -22,6 +22,7 @@ package eCourse.app.student.console;
 
 import eCourse.app.common.console.BaseApplication;
 import eCourse.app.common.console.presentation.authz.LoginAction;
+import eCourse.app.student.console.presentation.FrontMenu;
 import eCourse.app.student.console.presentation.MainMenu;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECoursePasswordPolicy;
@@ -58,11 +59,7 @@ public class StudentApp extends BaseApplication {
 
 	@Override
 	protected void doMain(String[] args) {
-		// login and go to main menu
-		if (new LoginAction(ECourseRoles.STUDENT).execute()) {
-			final MainMenu menu = new MainMenu();
-			menu.mainLoop();
-		}
+		new FrontMenu().show();
 	}
 
 	@Override

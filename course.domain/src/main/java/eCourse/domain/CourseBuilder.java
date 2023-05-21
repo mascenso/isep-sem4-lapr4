@@ -14,7 +14,6 @@ public class CourseBuilder implements DomainFactory<Course> {
 
     private CourseEdition edition;
 
-    private CourseState state;
 
     public CourseBuilder named(final Designation name){
         this.name = name;
@@ -31,10 +30,6 @@ public class CourseBuilder implements DomainFactory<Course> {
         return this;
     }
 
-    public CourseBuilder state(final CourseState state){
-        this.state = state;
-        return this;
-    }
     private Course buildOrThrow() {
         // we will create the actual instance inside the builder during the building
         // process, but that is hidden from the client code. conceptually, the client
@@ -42,8 +37,8 @@ public class CourseBuilder implements DomainFactory<Course> {
         if (theCourse != null) {
             return theCourse;
         }
-        if (name != null && description != null && edition != null && state != null) {
-            theCourse = new Course(name, description,edition,state);
+        if (name != null && description != null && edition != null) {
+            theCourse = new Course(name, description,edition);
             return theCourse;
         }
         throw new IllegalStateException();

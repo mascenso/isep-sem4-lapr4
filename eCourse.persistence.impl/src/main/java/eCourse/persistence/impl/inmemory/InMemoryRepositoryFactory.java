@@ -22,8 +22,8 @@ package eCourse.persistence.impl.inmemory;
 
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.repositories.*;
-import eCourse.clientusermanagement.repositories.ClientUserRepository;
-import eCourse.clientusermanagement.repositories.SignupRequestRepository;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
+import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eCourse.infrastructure.persistence.RepositoryFactory;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -52,13 +52,13 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public ClientUserRepository clientUsers(final TransactionalContext tx) {
+	public StudentUserRepository clientUsers(final TransactionalContext tx) {
 
 		return new InMemoryClientUserRepository();
 	}
 
 	@Override
-	public ClientUserRepository clientUsers() {
+	public StudentUserRepository clientUsers() {
 		return clientUsers(null);
 	}
 
@@ -106,6 +106,10 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 		return null;
 	}
 
+	@Override
+	public StudentUserRepository studentUsers() {
+		return null;
+	}
 
 
 }

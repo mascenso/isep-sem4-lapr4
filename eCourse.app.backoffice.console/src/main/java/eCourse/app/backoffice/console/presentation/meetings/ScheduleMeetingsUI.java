@@ -29,6 +29,13 @@ public class ScheduleMeetingsUI extends AbstractUI {
             dateOfSchedule = Console.readDate("Date for meeting (dd/MM/yyyy HH:mm)", "dd/MM/yyyy HH:mm");
              duration = Console.readInteger("Insert the duration of meeting (on minuts)");
             validSchedule = theController.validateSchedule(participants, dateOfSchedule, duration);
+
+            if(!validSchedule){
+                System.out.println("==========================================================================");
+                System.out.println("The chosen time matches the time of a meeting of one of the participants.");
+                System.out.println("Please choose another time.");
+                System.out.println("==========================================================================");
+            }
         }while(validSchedule==false);
 
         theController.scheduleMeeting(name,participants,dateOfSchedule,duration);
