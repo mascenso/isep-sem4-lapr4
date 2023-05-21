@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Meeting implements AggregateRoot<Long> {
@@ -39,6 +40,13 @@ public class Meeting implements AggregateRoot<Long> {
     @Column(nullable = false)
     private MeetingTimeStamp meetingTimeStamp;
 
+    /**
+     * This is a constructor to create a new meeting
+     * @param name name of meeting
+     * @param schedule date of meeting
+     * @param listOfParticipants participants of meeting
+     * @param duration duration of meeting
+     */
     public Meeting(Designation name, Date schedule, List<SystemUser> listOfParticipants,int  duration){
         Preconditions.noneNull(name,schedule,duration);
 
@@ -58,14 +66,42 @@ public class Meeting implements AggregateRoot<Long> {
     public Meeting() {
 
     }
+
+    public Designation designation(){
+        return this.title;
+    }
     public List<ParticipantsOfMeeting> participants(){return this.participants;}
 
+    /**
+     * Return the date of meeting
+     * @return
+     */
     public Date dateOfMeeting (){return this.schedule;}
+
+    /**
+     * Usefull method to compare 2 objects meeting
+     * @param other
+     * @return
+     */
     @Override
     public boolean sameAs(Object other) {
-        return false;
+        if (this == other) {
+            return true;
+        }
+
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
+
+        Meeting otherMeeting = (Meeting) other;
+
+        return Objects.equals(title, otherMeeting.title);
     }
 
+    /**
+     * Returns the id of meeting
+     * @return
+     */
     @Override
     public Long identity() {
         return this.idMeeting;

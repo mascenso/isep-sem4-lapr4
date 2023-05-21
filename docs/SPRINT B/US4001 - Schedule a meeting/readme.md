@@ -58,7 +58,35 @@ all participants are available and send invitations to participants.
 *Persistence patterns*
 
 ### 4.4. Tests
+**testIfDesignationIsCorrect:** *Checks if designation is correct.*
 
+```
+    @Test
+    public void testIfDesignationIsCorrect() {
+        assertEquals(name1, Meeting1.designation().toString());
+        assertEquals(name2, Meeting2.designation().toString());
+    }
+````
+**testIfScheduleIsCorrect:** *Checks if schedule is correct.*
+
+```
+    @Test
+    public void testIfScheduleIsCorrect() {
+        assertEquals(new Date(date1), Meeting1.dateOfMeeting());
+        assertEquals(new Date(date2), Meeting2.dateOfMeeting());
+        assertEquals(new Date(date3), Meeting3.dateOfMeeting());
+    }
+````
+**testIFMeetingIsEqualToAnotherMeeting:** *Checks if meeting is equal to another.*
+
+```
+    @Test
+    public void testIFMeetingIsEqualToAnotherMeeting() {
+        assertFalse(Meeting1.sameAs(Meeting2));
+        assertFalse(Meeting2.sameAs(Meeting3));
+        assertTrue(Meeting1.sameAs(Meeting3));
+    }
+````
 
 ## 5. Implementation
 
