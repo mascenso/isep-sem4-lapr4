@@ -77,7 +77,7 @@ public class AcceptRefuseSignupRequestControllerTxImpl
      */
     @Override
     public SignupRequest acceptSignupRequest(SignupRequest theSignupRequest) {
-        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
+        //authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
         if (theSignupRequest == null) {
             throw new IllegalArgumentException();
@@ -88,6 +88,7 @@ public class AcceptRefuseSignupRequestControllerTxImpl
 
         final SystemUser newUser = createSystemUserForStudentUser(theSignupRequest);
         createStudentUser(newUser);
+
         theSignupRequest = acceptTheSignupRequest(theSignupRequest);
 
         // explicitly commit the transaction
@@ -101,9 +102,13 @@ public class AcceptRefuseSignupRequestControllerTxImpl
         return this.signupRequestsRepository.save(theSignupRequest);
     }
 
+    /**
+     * Creates a new StudentUser for the given SystemUser, and saves it to the
+     * repository.
+     * @param newUser
+     */
     private void createStudentUser(final SystemUser newUser) {
         final StudentUserBuilder studentUserBuilder = new StudentUserBuilder();
-
         studentUserBuilder
                 .withSystemUser(newUser);
 

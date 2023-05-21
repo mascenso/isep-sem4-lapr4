@@ -106,6 +106,10 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 		return null;
 	}
 
+	@Override
+	public StudentUserRepository studentUsers() {
+		return null;
+	}
 
 
 }

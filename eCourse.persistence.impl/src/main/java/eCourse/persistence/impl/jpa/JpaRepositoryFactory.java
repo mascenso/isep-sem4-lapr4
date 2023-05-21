@@ -30,6 +30,7 @@ import eCourse.infrastructure.persistence.RepositoryFactory;
 
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.repositories.ExamRepository;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.jpa.JpaAutoTxUserRepository;
@@ -98,6 +99,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public MeetingsRepository meetings()  {
 		return new JpaMeetingRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public StudentUserRepository studentUsers() {
+		return null;
 	}
 
 	@Override
