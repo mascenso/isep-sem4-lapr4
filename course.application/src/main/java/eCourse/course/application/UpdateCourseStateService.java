@@ -19,6 +19,7 @@ public class UpdateCourseStateService {
 
     public void open(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
+        //authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
         authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN , ECourseRoles.POWER_USER);
 
         //2 - validate params
@@ -85,6 +86,7 @@ public class UpdateCourseStateService {
 
     public void close(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
+        //authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
         authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
 
         //2 - validate params
@@ -95,7 +97,7 @@ public class UpdateCourseStateService {
                 .orElseThrow(() -> new NoSuchElementException("The course " + designationName + " does not exist in the database"));
 
         //the course can only transition to CLOSE if it comes from the PROGRESS state
-        if (!String.valueOf(course.state()).equals(String.valueOf(BaseCourseStates.PROGRESS).toUpperCase())){
+        if (!String.valueOf(course.state()).equals(String.valueOf(BaseCourseStates.PROGRESS))){
             throw new IllegalArgumentException("The course " + designationName + " has the state " + course.state()
                     + " which cannot transition to " + BaseCourseStates.CLOSE);
         }

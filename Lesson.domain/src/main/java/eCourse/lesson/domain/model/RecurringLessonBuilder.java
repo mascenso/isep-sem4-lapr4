@@ -16,7 +16,7 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
 
     private Calendar endDate;
 
-    private Duration duration;
+    private int duration;
 
     public RecurringLessonBuilder titled(final Designation title) {
         this.title = title;
@@ -33,7 +33,7 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
         return this;
     }
 
-    public RecurringLessonBuilder lasts(final Duration duration) {
+    public RecurringLessonBuilder lasts(final int duration) {
         this.duration = duration;
         return this;
     }
@@ -42,7 +42,7 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
         if (theRecurringLesson != null) {
             return theRecurringLesson;
         }
-        if (title != null && startDate != null && endDate != null && duration != null) {
+        if (title != null && startDate != null && endDate != null && duration > 0) {
             theRecurringLesson = new RecurringLesson(title, startDate, endDate, duration);
             return theRecurringLesson;
         }
