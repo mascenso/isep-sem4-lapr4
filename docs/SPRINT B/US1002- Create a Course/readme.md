@@ -13,8 +13,6 @@
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
-
 **input Data:**
 * Typed Data:
     * name
@@ -54,11 +52,11 @@
 
 ### 4.3. Applied Patterns
 
-Na implementacao desta US foram utilizados os seguintes padroes DDD:
-- **Factory** : A fabrica "Repository factory" e responsavel por criar instancias do repositorio "CourseRepository"
-- **Builder** : Ao utilizar o "CourseBuilder" garanto que o objecto curso e sempre criado num estado valido.
-- **Repository** : O "CourseRepository" e responsavel por persistir os dados na base de dados.
-- **Entity** : O "Course" e uma entidade que tem atributos propios ("name, state, edition e description).
+In the implementation of this US the following DDD patterns were used:
+- **Factory** : The "Repository factory" is responsible for creating instances of the "CourseRepository" repository.
+- Builder** : Using the "CourseBuilder" ensures that the course object is always created in a valid state.
+- **Repository**: The "CourseRepository" is responsible for persisting the data to the database.
+- Entity**: The "Course" is an entity that has its own attributes (name, state, edition and description).
 ### 4.4. Tests
 
 **testIfDesignationIsCorrect:** *Checks that the course name is correct.*
@@ -111,20 +109,9 @@ Na implementacao desta US foram utilizados os seguintes padroes DDD:
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
-
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
-
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
