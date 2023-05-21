@@ -62,9 +62,11 @@ Below is the use case diagram to show the interactions between the manager and t
 |:---------------|:--------------------------------------------|:----------------------------|:-----------------------------------------------------------------------------------------------------------------------------|
 | Step 1         | ... interacting with the actor?             | UpdateCourseStateUI         | UI pattern: UpdateCourseState is responsible for interacting with the actor to update the state of courses.                  |
 |                | ... coordinating the US?                    | UpdateCourseStateController | Controller pattern: UpdateCourseStateController is responsible for coordinating the use case and invoking necessary classes. |
-| Step 2         | ... Validate User                           | AppSettings                 | Settings pattern: AppSettings is responsible for validating if the user is valid based on application settings.              |
-| Step 3         | .. return list of courses                   | CourseRepository            | Repository pattern: CourseRepository is responsible for retrieving the list of courses from the database.                    |
-| Step 4         | .. show the course to the user              | ListCourseUI                | UI pattern: ListCourseUI is responsible for presenting the courses to the user.                                              |
+| Step 2         | ... return list of courses                  | CourseRepository            | Repository pattern: CourseRepository is responsible for retrieving the list of courses from the database.                    |
+| Step 3         | ... show the course to the user             | UpdateCourseStateUI                | UI pattern: ListCourseUI is responsible for presenting the courses to the user.                                              |
+| Step 4         | ... Validate User                           | AppSettings                 | Settings pattern: AppSettings is responsible for validating if the user is valid based on application settings.              |
+| Step 5         | ... Validate name of the Course             | UpdateCourseStateService    |                                                                                                                              |
+| Step 6         | ... Validate update state of the Course     | UpdateCourseStateService    |                                                                                                                              |
 
 
 ### 4.2. Class Diagram
