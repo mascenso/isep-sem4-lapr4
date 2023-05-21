@@ -22,7 +22,7 @@ import java.util.Calendar;
 @UseCaseController
 public class CreateRecurringLessonController {
 
-    @Autowired
+
     private RecurringLessonRepository recurringLessonRepository;
 
     /*
