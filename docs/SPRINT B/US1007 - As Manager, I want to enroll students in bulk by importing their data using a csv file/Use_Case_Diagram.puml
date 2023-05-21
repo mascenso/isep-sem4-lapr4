@@ -1,0 +1,12 @@
+  @startuml
+'https://plantuml.com/use-case-diagram
+
+actor Manager
+
+Manager -down-> (Authenticates to the system)
+(Authenticates to the system) --> (Selects the option to enroll students from a csv)
+(Selects the option to enroll students from a csv) --> (Selects the course where he wants to enroll students)
+(Selects the course where he wants to enroll students) --> (if the student exists in the student repository)
+(if the student exists in the student repository) --> (Save)
+
+@enduml

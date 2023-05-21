@@ -4,47 +4,49 @@
 
 ## 1. Context
 
-*The context for this task is the development of a new feature requested by the costumer. The purpose of this user story is to allow users to create a shared board.*
+*The context for this task is the development of a new feature requested by the costumer. The purpose of this user story is to allow manager to enroll students in a course from a csv file .*
 
 ## 2. Requirements
 
-*The requirement is to develop the functionality to enroll students from a csv file for managers. This user story is a new feature that has not been implemented and depends on the implementation of US1001 - As Manager, I want to be able to register, disable/enable, and list users of the system (Teachers and Students, as well as Managers)*
-
+- The requirement is to develop the functionality to enroll students from a csv file for managers.* 
+- This user story is a new feature that has not been implemented and depends on the implementation of:
+  - US1001 - As Manager, I want to be able to register, disable/enable, and list users of the system (Teachers and Students, as well as Managers).
+  - US1002 - Create a Course.
+  
 **US1007** As Manager, I want to enroll students in bulk by importing their data using a csv file
 1. The Manager authenticates in the system.
 2. The Manager selects the option to enroll students from a csv .
-3. The system presents a necessary information to create a shared board (number of the Columns and Rows, names of the columns and rows).
-4. The user types the requested data and submit.
-5. The system creates the shared board.
-6. The system confirms the operation.
+3. The manager selects the course where he wants to enroll students.
+4. The system reads the csv file.
+5. The system verify if the student exists in the student repository .
+6. For each student that exists in the repository, executes the student enrollment
+7. The system confirms the operation.
 
 
 ## 3. Analysis
 
 In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),
 
-- At anytime, the application user (authorized) may want to create a sharedboard.
+- At anytime, the application user (authorized) may want to enroll students from a csv.
 
-- There is no dependency to other US.
+- There is a dependency to other US:
+  - US1001 - As Manager, I want to be able to register, disable/enable, and list users of the system (Teachers and Students, as well as Managers)
+  - US1002 - Create a Course
 
 **Input Data:**
 
 * Typed data:
-    * Title of the board,
-    * Number of the Columns,
-    * Number of the Rows,
-    * Name of the Columns,
-    * Name of the Rows
+    * N/A
 
 
 * Selected data:
-    * No selected data
+    * N/A
 
 **Output Data:**
 
-* An SharedBoard.
+* Enrollment of a student in a course.
 
-Below is the use case diagram to show the interactions between the manager and the system when open and close courses*
+Below is the use case diagram to show the interactions between the manager and the system when enroll students from csv in a course.*
 
 ![Use Case Diagram](Use_Case_Diagram.svg)
 
