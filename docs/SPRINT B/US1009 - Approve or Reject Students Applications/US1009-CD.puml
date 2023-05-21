@@ -1,0 +1,58 @@
+@startuml
+
+class Manager
+class ApproveRejectEnrollmentUI {
+    +doshow()
+}
+
+class ApproveRejectEnrollmentController {
+    +getEnrollStateCourses()
+    +getRequestsEnrollment()
+    +updateEnrollments()
+}
+
+
+class ApproveRejectEnrollmentService {
+    +getRequestsEnrollment()
+}
+
+
+class CourseEnrollmentRequest {
+    - userName
+    - name
+    - email
+    - approvalStatus
+    - createdOn
+    - courseName
+    - edition
+    - courseState
+    +updateEnrollments()
+}
+
+class ListCoursesService {
+    +getEnrollStateCourses()
+    +allCourses()
+}
+
+class CourseEnrollmentRequestRepository{
+    +getRequestsEnrollment()
+    +save()
+}
+
+class CourseRepository {
+    +save()
+    +findByDesignation()
+    +findAllCourses()
+}
+
+
+Manager --> ApproveRejectEnrollmentUI
+ApproveRejectEnrollmentUI-->ApproveRejectEnrollmentController
+ApproveRejectEnrollmentController-->ListCoursesService
+ApproveRejectEnrollmentController-->ApproveRejectEnrollmentService
+ApproveRejectEnrollmentService-->CourseEnrollmentRequestRepository
+ApproveRejectEnrollmentController-->CourseEnrollmentRequestRepository
+ApproveRejectEnrollmentController-->CourseEnrollmentRequest
+ListCoursesService-->CourseRepository
+
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Manager
+activate Manager
+
+Manager -> System: Asks to see enrollments requests
+System --> Manager: Asks to choose course
+Manager -> System: course
+System --> Manager: Shows students requests
+Manager -> System: Accepts/Rejects enrollment
+System --> Manager: Saves enrollment
+
+deactivate Manager
+
+@enduml
