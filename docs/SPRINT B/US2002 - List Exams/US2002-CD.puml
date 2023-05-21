@@ -18,9 +18,9 @@ class ExamRepository {
 class Exam {
 }
 
-ListExamsUI --> ListExamsController: uses
-ListExamsController --> ListExamsService: uses
-ListExamsService --> ExamRepository: uses the repository
-ExamRepository --> Exam: gets student exams
+ListExamsUI --> ListExamsController
+ListExamsController --> ListExamsService
+ListExamsService --> ExamRepository
+ListExamsController --> Exam
 
 @enduml

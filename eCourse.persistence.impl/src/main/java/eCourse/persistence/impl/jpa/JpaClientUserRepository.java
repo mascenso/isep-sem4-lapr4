@@ -25,9 +25,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import eCourse.Application;
-import eCourse.clientusermanagement.domain.ClientUser;
-import eCourse.clientusermanagement.domain.MecanographicNumber;
-import eCourse.clientusermanagement.repositories.ClientUserRepository;
+import eCourse.studentusermanagement.domain.StudentUser;
+import eCourse.studentusermanagement.domain.MecanographicNumber;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
@@ -37,8 +37,8 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 class JpaClientUserRepository
-        extends JpaAutoTxRepository<ClientUser, MecanographicNumber, MecanographicNumber>
-        implements ClientUserRepository {
+        extends JpaAutoTxRepository<StudentUser, MecanographicNumber, MecanographicNumber>
+        implements StudentUserRepository {
 
     public JpaClientUserRepository(final TransactionalContext autoTx) {
         super(autoTx, "mecanographicNumber");
@@ -50,21 +50,21 @@ class JpaClientUserRepository
     }
 
     @Override
-    public Optional<ClientUser> findByUsername(final Username name) {
+    public Optional<StudentUser> findByUsername(final Username name) {
         final Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         return matchOne("e.systemUser.username=:name", params);
     }
 
     @Override
-    public Optional<ClientUser> findByMecanographicNumber(final MecanographicNumber number) {
+    public Optional<StudentUser> findByMecanographicNumber(final MecanographicNumber number) {
         final Map<String, Object> params = new HashMap<>();
         params.put("number", number);
         return matchOne("e.mecanographicNumber=:number", params);
     }
 
     @Override
-    public Iterable<ClientUser> findAllActive() {
+    public Iterable<StudentUser> findAllActive() {
         return match("e.systemUser.active = true");
     }
 }

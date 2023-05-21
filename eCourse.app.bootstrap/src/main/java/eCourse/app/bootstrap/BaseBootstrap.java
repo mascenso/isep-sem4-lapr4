@@ -21,9 +21,9 @@
 package eCourse.app.bootstrap;
 
 import eCourse.app.common.console.BaseApplication;
-import eCourse.clientusermanagement.application.eventhandlers.NewUserRegisteredFromSignupWatchDog;
-import eCourse.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import eCourse.clientusermanagement.domain.events.SignupAcceptedEvent;
+import eCourse.studentusermanagement.application.eventhandlers.NewUserRegisteredFromSignupWatchDog;
+import eCourse.studentusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import eCourse.studentusermanagement.domain.events.SignupAcceptedEvent;
 import eCourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eCourse.infrastructure.bootstrapers.demo.BaseDemoBootstrapper;
 import eCourse.infrastructure.persistence.PersistenceContext;

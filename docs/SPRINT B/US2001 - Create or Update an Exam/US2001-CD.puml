@@ -1,0 +1,84 @@
+@startuml
+
+class Teacher
+class CreateExamUI {
+    +doshow()
+}
+
+class UpdateExamUI {
+    +doshow()
+}
+class UpdateExamController {
+    +getOpenCourses()
+    +getExamsByCourse()
+    +getExamByTitle()
+    +getExamOpenDate()
+    +getExamCloseDate()
+    +updateExam()
+}
+
+class ListCoursesService {
+    +getOpenCourses()
+    +allCourses()
+}
+
+class UpdateExamService {
+    +getExamByCourse()
+    +getExamByTitle()
+    +allCourses()
+}
+
+
+class CreateExamController {
+    +createExam()
+    +getOpenCourses()
+    +getExamTitle()
+}
+class ExamTitle {
+    -title
+}
+
+class Exam {
+    -id
+    -course
+    -title
+    -startDate
+    -endDate
+    -file
+    +createExam()
+    +updateExam()
+    +getExamOpenDate()
+    +getExamCloseDate()
+    +getExamFile()
+    +getExamTitle()
+    +getExamCourse()
+    +getExamId()
+}
+class ExamRepository {
+    +save()
+    +findByTitle()
+    +findById()
+}
+
+class CourseRepository {
+    +save()
+    +findByDesignation()
+    +findAllCourses()
+}
+
+Teacher --> UpdateExamUI
+UpdateExamUI-->UpdateExamController
+UpdateExamController-->ListCoursesService
+UpdateExamController-->UpdateExamService
+UpdateExamController-->Exam
+UpdateExamController-->ExamRepository
+
+Teacher --> CreateExamUI
+CreateExamUI-->CreateExamController
+CreateExamController-->ListCoursesService
+CreateExamController-->ExamTitle
+CreateExamController-->Exam
+
+ListCoursesService-->CourseRepository
+
+@enduml

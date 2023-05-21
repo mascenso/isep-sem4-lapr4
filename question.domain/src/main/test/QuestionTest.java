@@ -27,11 +27,9 @@ public class QuestionTest {
         questionType1 = QuestionType.MULTIPLE_CHOICE;
         questionType2 = QuestionType.SHORT_ANSWER;
         course1 = new CourseBuilder().descriptioned(Description.valueOf("Course for developers"))
-                .named(Designation.valueOf("LPROG")).edition(CourseEdition.valueOf("2022/2023"))
-                .state(CourseState.valueOf("Open")).build();
+                .named(Designation.valueOf("LPROG")).edition(CourseEdition.valueOf("2022/2023")).build();
         course2 = new CourseBuilder().descriptioned(Description.valueOf("Course for developers"))
-                .named(Designation.valueOf("EAPLI")).edition(CourseEdition.valueOf("2022/2023"))
-                .state(CourseState.valueOf("Open")).build();
+                .named(Designation.valueOf("EAPLI")).edition(CourseEdition.valueOf("2022/2023")).build();
         file1 = new File("question1.pdf");
         file2 = new File("question2.pdf");
         description1 = "testing1";
@@ -81,6 +79,55 @@ public class QuestionTest {
         assertEquals(course1, question.getQuestionCourse());
         assertEquals(file1, question.getFile());
         assertEquals(description1, question.getQuestionDescription());
+    }
+
+
+    @Test
+    public void testIfQuestionTypeIsRequired() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            QuestionType nullType = null;
+            Question.valueOf(nullType, course1, file1, description1);
+        });
+    }
+
+    @Test
+    public void testIfQuestionCourseIsRequired() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Course nullCourse = null;
+            Question.valueOf(questionType1, nullCourse, file1, description1);
+        });
+    }
+
+    @Test
+    public void testIfQuestionDescriptionIsRequired() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            String nullDescription = null;
+            Question.valueOf(questionType1, course1, file1, nullDescription);
+        });
+    }
+
+    @Test
+    public void testIfQuestionFileIsRequired() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            File nullFile = null;
+            Question.valueOf(questionType1, course1, nullFile, description1);
+        });
+    }
+
+    @Test
+    public void testIfAllParametersAreFilled() {
+        assertDoesNotThrow(() -> {
+            QuestionType type = QuestionType.MULTIPLE_CHOICE;
+            Course course = course1;
+            File file = new File("question_file.txt");
+            String description = "Question description";
+            Question question = Question.valueOf(type, course, file, description);
+
+            assertEquals(type, question.getQuestionType());
+            assertEquals(course, question.getQuestionCourse());
+            assertEquals(file, question.getFile());
+            assertEquals(description, question.getQuestionDescription());
+        });
     }
 
     @Test
