@@ -21,6 +21,7 @@
     <class>eCourse.domain.SectionQuestion</class>
     <class>eCourse.domain.Meeting</class>
     <class>eCourse.domain.ParticipantsOfMeeting</class>
+    <class>eCourse.domain.Student</class>
 
 
     <properties>
