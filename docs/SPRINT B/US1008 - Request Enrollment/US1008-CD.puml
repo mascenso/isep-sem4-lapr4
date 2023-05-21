@@ -1,0 +1,42 @@
+@startuml
+
+class RequestEnrollmentUI {
+}
+
+class RequestEnrollmentController {
+}
+
+class RequestEnrollmentRepository {
+}
+
+class CourseRepository {
+}
+
+class StudentRepository {
+}
+
+class Course {
+}
+
+class Student {
+}
+
+class CourseEnrollment {
+}
+
+class PersistenceContext {
+}
+
+class RepositoryFactory {
+}
+
+RequestEnrollmentUI --> RequestEnrollmentController
+RequestEnrollmentController --> PersistenceContext
+RequestEnrollmentController --> Course
+RequestEnrollmentController --> Student
+RequestEnrollmentController --> CourseEnrollment
+PersistenceContext --> RepositoryFactory
+RepositoryFactory --> RequestEnrollmentRepository
+RepositoryFactory --> CourseRepository
+
+@enduml
