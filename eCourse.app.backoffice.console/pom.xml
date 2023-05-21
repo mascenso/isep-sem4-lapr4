@@ -76,7 +76,8 @@
         </dependency>
         <dependency>
             <groupId>isep.sem4.pi</groupId>
-            <artifactId>sharedboard.application</artifactId>
+
+            <artifactId>question.application</artifactId>
             <version>0.1.0</version>
             <scope>compile</scope>
         </dependency>

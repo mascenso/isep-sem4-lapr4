@@ -1,4 +1,4 @@
-@startuml
+l@startuml
 'https://plantuml.com/use-case-diagram
 
 
@@ -6,11 +6,12 @@
 
 actor Manager
     Manager -down-> (Authenticates to the system)
-    (Authenticates to the system) --> (Select the option to open and close Courses)
-    (Select the option to open and close Courses) --> (The manager chooses if wants to open or close a Course)
+    (Authenticates to the system) --> (Select the option to update the Courses)
+    (Select the option to update the Courses) --> (Types the name of the Course)
+    (Types the name of the Course) --> (Types the newState)
 
-  (The manager chooses if wants to open or close a Course) --> (Save)
-  (The manager chooses if wants to open or close a Course) --> (Cancel)
+  (Types the newState) --> (Save)
+  (Types the newState) --> (Cancel)
 
 
 @enduml
