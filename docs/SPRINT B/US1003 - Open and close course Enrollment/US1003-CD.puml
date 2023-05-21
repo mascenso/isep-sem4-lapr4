@@ -10,6 +10,7 @@ class UpdateCourseStateController {
 
 class CourseRepository {
     +findByDesignation()
+    +findAll()
 }
 
 class PersistenceContext {
@@ -28,14 +29,22 @@ class RepositoryFactory {
 }
 
 class Course {
+    +showStates()
+    +updateState()
+}
+
+class ListCoursesService {
+    +allCourses()
 }
 
 UpdateCourseStateUI --> UpdateCourseStateController
 UpdateCourseStateController --> UpdateCourseStateService
 UpdateCourseStateController --> PersistenceContext
+UpdateCourseStateController --> ListCoursesService
 PersistenceContext --> RepositoryFactory
 RepositoryFactory --> CourseRepository
-UpdateCourseStateService --> CourseRepository
+ListCoursesService --> PersistenceContext
+UpdateCourseStateService --> PersistenceContext
 UpdateCourseStateController --> Course
 
 @enduml

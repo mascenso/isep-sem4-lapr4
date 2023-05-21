@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+actor Teacher
+    Teacher -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option to List Courses)
+    (Select the option to List Courses) --> (show all Courses Open)
+
+
+@enduml
