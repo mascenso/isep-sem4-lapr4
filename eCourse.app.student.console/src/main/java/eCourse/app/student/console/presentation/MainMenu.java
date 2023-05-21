@@ -26,6 +26,7 @@ package eCourse.app.student.console.presentation;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
 import eCourse.app.student.console.presentation.Courses.ListCoursesStudentUI;
+import eCourse.app.student.console.presentation.Courses.RequestEnrollmentCoursesStudentUI;
 import eCourse.app.student.console.presentation.Exams.ListExamsUI;
 import eCourse.app.student.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.user.console.presentation.myuser.SignupRequestAction;
@@ -149,7 +150,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildCoursesMenu() {
         final Menu studentMenu = new Menu("Courses  >");
         studentMenu.addItem(COURSE_OPEN, "List All Courses", new ListCoursesStudentUI()::show);
-        studentMenu.addItem(SIGNUP_FOR_A_CURSE_OPTION, "Sign up", new SignupRequestAction());
+        studentMenu.addItem(SIGNUP_FOR_A_CURSE_OPTION, "Request Enrollment", new RequestEnrollmentCoursesStudentUI());
         studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return studentMenu;

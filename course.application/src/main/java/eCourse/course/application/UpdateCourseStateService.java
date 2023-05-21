@@ -19,7 +19,7 @@ public class UpdateCourseStateService {
 
     public void open(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN , ECourseRoles.POWER_USER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
