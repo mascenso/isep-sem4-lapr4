@@ -22,8 +22,8 @@ package eCourse.myclientuser.application;
 
 import java.util.Optional;
 
-import eCourse.clientusermanagement.domain.ClientUser;
-import eCourse.clientusermanagement.repositories.ClientUserRepository;
+import eCourse.studentusermanagement.domain.StudentUser;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -38,17 +38,17 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 public class MyClientUserService {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final ClientUserRepository repo = PersistenceContext.repositories().clientUsers();
+    private final StudentUserRepository repo = PersistenceContext.repositories().clientUsers();
 
-    public ClientUser me() {
+    public StudentUser me() {
         final UserSession s = authz.session().orElseThrow(IllegalStateException::new);
         final SystemUser myUser = s.authenticatedUser();
         // TODO cache the client user object
-        final Optional<ClientUser> me = repo.findByUsername(myUser.identity());
+        final Optional<StudentUser> me = repo.findByUsername(myUser.identity());
         return me.orElseThrow(IllegalStateException::new);
     }
 
-    public ClientUser myUser() {
+    public StudentUser myUser() {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.STUDENT);
         final UserSession s = authz.session().orElseThrow(IllegalStateException::new);
         final SystemUser me = s.authenticatedUser();

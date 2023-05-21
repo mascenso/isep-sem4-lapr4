@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2022 the original author or authors.
+ * Copyright (c) 2013-2023 the original author or authors.
  *
  * MIT License
  *
@@ -21,29 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.usermanagement.domain;
+package eCourse.studentusermanagement.domain.events;
 
-import eCourse.studentusermanagement.domain.SignupRequestBuilder;
-import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
-import eapli.framework.util.Utility;
+import eCourse.studentusermanagement.domain.MecanographicNumber;
+import eapli.framework.domain.events.DomainEvent;
+import eapli.framework.domain.events.DomainEventBase;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 
 /**
- *
- * @author Paulo Gandra de Sousa 27/05/2019
+ * @author Paulo Gandra de Sousa
  *
  */
-@Utility
-public class UserBuilderHelper {
-    private UserBuilderHelper() {
-        // ensure utility
+public class NewUserRegisteredFromSignupEvent extends DomainEventBase implements DomainEvent {
+
+    private static final long serialVersionUID = 1L;
+
+    private final MecanographicNumber mecanographicNumber;
+    private final Username newUser;
+
+    public NewUserRegisteredFromSignupEvent(final MecanographicNumber mecanographicNumber,
+            final Username newUser) {
+        this.mecanographicNumber = mecanographicNumber;
+        this.newUser = newUser;
     }
 
-    public static SystemUserBuilder builder() {
-        return new SystemUserBuilder(new ECoursePasswordPolicy(), new PlainTextEncoder());
+    public MecanographicNumber mecanographicNumber() {
+        return mecanographicNumber;
     }
 
-    public static SignupRequestBuilder signupBuilder() {
-        return new SignupRequestBuilder(new ECoursePasswordPolicy(), new PlainTextEncoder());
+    public Username username() {
+        return newUser;
+    }
+
+    @Override
+    public String toString() {
+        return "NewUserFromsignup(" + username() + ")";
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2022 the original author or authors.
+ * Copyright (c) 2013-2023 the original author or authors.
  *
  * MIT License
  *
@@ -21,29 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.usermanagement.domain;
+package eCourse.studentusermanagement.application;
 
-import eCourse.studentusermanagement.domain.SignupRequestBuilder;
-import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
-import eapli.framework.util.Utility;
+import eCourse.studentusermanagement.domain.StudentUser;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
+import eCourse.infrastructure.persistence.PersistenceContext;
+import eCourse.usermanagement.domain.ECourseRoles;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 /**
  *
- * @author Paulo Gandra de Sousa 27/05/2019
- *
+ * @author losa
  */
-@Utility
-public class UserBuilderHelper {
-    private UserBuilderHelper() {
-        // ensure utility
-    }
+public class ListClientUsersController {
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public static SystemUserBuilder builder() {
-        return new SystemUserBuilder(new ECoursePasswordPolicy(), new PlainTextEncoder());
-    }
+    private final StudentUserRepository repo = PersistenceContext.repositories().clientUsers();
 
-    public static SignupRequestBuilder signupBuilder() {
-        return new SignupRequestBuilder(new ECoursePasswordPolicy(), new PlainTextEncoder());
+    public Iterable<StudentUser> activeClientUsers() {
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
+
+        return this.repo.findAllActive();
     }
 }

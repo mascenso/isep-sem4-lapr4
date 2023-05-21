@@ -18,26 +18,17 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.persistence.impl.inmemory;
+package eCourse.studentusermanagement.repositories;
 
 import eCourse.studentusermanagement.domain.SignupRequest;
-import eCourse.studentusermanagement.repositories.SignupRequestRepository;
+import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
-import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public class InMemorySignupRequestRepository extends
-        InMemoryDomainRepository<SignupRequest, Username> implements SignupRequestRepository {
+public interface SignupRequestRepository extends DomainRepository<Username, SignupRequest> {
 
-    static {
-        InMemoryInitializer.init();
-    }
-
-    @Override
-    public Iterable<SignupRequest> pendingSignupRequests() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    Iterable<SignupRequest> pendingSignupRequests();
 }

@@ -18,26 +18,52 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.persistence.impl.inmemory;
+package eCourse.studentusermanagement.domain.events;
 
+import eCourse.studentusermanagement.domain.MecanographicNumber;
 import eCourse.studentusermanagement.domain.SignupRequest;
-import eCourse.studentusermanagement.repositories.SignupRequestRepository;
+import eapli.framework.domain.events.DomainEventBase;
+import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.infrastructure.authz.domain.model.Name;
+import eapli.framework.infrastructure.authz.domain.model.Password;
 import eapli.framework.infrastructure.authz.domain.model.Username;
-import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 /**
+ * @author Paulo Gandra de Sousa
  *
- * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public class InMemorySignupRequestRepository extends
-        InMemoryDomainRepository<SignupRequest, Username> implements SignupRequestRepository {
+public class SignupAcceptedEvent extends DomainEventBase {
 
-    static {
-        InMemoryInitializer.init();
+    private static final long serialVersionUID = 1L;
+
+    private final SignupRequest theSignupRequest;
+
+    public SignupAcceptedEvent(final SignupRequest theSignupRequest) {
+        this.theSignupRequest = theSignupRequest;
+    }
+
+    public Username username() {
+        return theSignupRequest.username();
+    }
+
+    public Password password() {
+        return theSignupRequest.password();
+    }
+
+    public Name name() {
+        return theSignupRequest.name();
+    }
+
+    public EmailAddress email() {
+        return theSignupRequest.email();
+    }
+
+    public MecanographicNumber mecanographicNumber() {
+        return theSignupRequest.mecanographicNumber();
     }
 
     @Override
-    public Iterable<SignupRequest> pendingSignupRequests() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String toString() {
+        return "SignupAccepted(" + username() + ")";
     }
 }

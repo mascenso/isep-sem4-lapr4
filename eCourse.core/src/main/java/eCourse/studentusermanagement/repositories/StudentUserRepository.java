@@ -18,26 +18,40 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.persistence.impl.inmemory;
+package eCourse.studentusermanagement.repositories;
 
-import eCourse.studentusermanagement.domain.SignupRequest;
-import eCourse.studentusermanagement.repositories.SignupRequestRepository;
+import java.util.Optional;
+
+import eCourse.studentusermanagement.domain.StudentUser;
+import eCourse.studentusermanagement.domain.MecanographicNumber;
+import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
-import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public class InMemorySignupRequestRepository extends
-        InMemoryDomainRepository<SignupRequest, Username> implements SignupRequestRepository {
+public interface StudentUserRepository
+        extends DomainRepository<MecanographicNumber, StudentUser> {
 
-    static {
-        InMemoryInitializer.init();
+    /**
+     * returns the client user (utente) whose username is given
+     *
+     * @param name
+     *            the username to search for
+     * @return
+     */
+    Optional<StudentUser> findByUsername(Username name);
+
+    /**
+     * returns the client user (utente) with the given mecanographic number
+     *
+     * @param number
+     * @return
+     */
+    default Optional<StudentUser> findByMecanographicNumber(final MecanographicNumber number) {
+        return ofIdentity(number);
     }
 
-    @Override
-    public Iterable<SignupRequest> pendingSignupRequests() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public Iterable<StudentUser> findAllActive();
 }

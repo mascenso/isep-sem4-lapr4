@@ -18,26 +18,38 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.persistence.impl.inmemory;
+package eCourse.studentusermanagement.domain;
 
-import eCourse.studentusermanagement.domain.SignupRequest;
-import eCourse.studentusermanagement.repositories.SignupRequestRepository;
-import eapli.framework.infrastructure.authz.domain.model.Username;
-import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
+import eapli.framework.domain.model.DomainFactory;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 /**
+ * A factory for User entities.
+ *
+ * This class demonstrates the use of the factory (DDD) pattern using a fluent
+ * interface. it acts as a Builder (GoF).
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public class InMemorySignupRequestRepository extends
-        InMemoryDomainRepository<SignupRequest, Username> implements SignupRequestRepository {
+public class StudentUserBuilder implements DomainFactory<StudentUser> {
 
-    static {
-        InMemoryInitializer.init();
+    private SystemUser systemUser;
+    private MecanographicNumber mecanographicNumber;
+
+    public StudentUserBuilder withSystemUser(final SystemUser systemUser) {
+        this.systemUser = systemUser;
+        this.mecanographicNumber = new MecanographicNumber(MecanographicNumberDomainService.generate());
+        return this;
     }
 
     @Override
-    public Iterable<SignupRequest> pendingSignupRequests() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public StudentUser build() {
+        // since the factory knows that all the parts are needed it could throw
+        // an exception. however, we will leave that to the constructor
+        return new StudentUser(this.systemUser, this.mecanographicNumber);
+    }
+
+    public StudentUser build(SystemUser systemUser, String aMecanographicNumber) {
+        return new StudentUser(systemUser, new MecanographicNumber(aMecanographicNumber));
     }
 }
