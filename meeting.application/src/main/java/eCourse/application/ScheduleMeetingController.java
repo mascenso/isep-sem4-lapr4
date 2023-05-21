@@ -23,5 +23,6 @@ public class ScheduleMeetingController {
 
     public boolean validateSchedule (List<SystemUser> participants, Date dateOfSchedule,int duration){
         return new ValidateSchedule().validateScheduleForAllParticipants(participants,dateOfSchedule, duration);
+    //return true;
     }
 }

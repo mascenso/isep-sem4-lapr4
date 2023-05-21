@@ -13,27 +13,67 @@
 **US 3002** As User I want to create a board
 1. The User authenticates in the system.
 2. The User selects the option to create a new shared board.
-3. The system presents a necessary information to create a shared board for the user to fill and can add members to the shared board.
-4. The user fills information requested and submit.
+3. The system presents a necessary information to create a shared board (number of the Columns and Rows, names of the columns and rows).
+4. The user types the requested data and submit.
 5. The system creates the shared board.
-6. The system displays a status create confirmation message.
+6. The system confirms the operation.
 
 
 ## 3. Analysis
+
+In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),
+
+- At anytime, the application user (authorized) may want to create a sharedboard.
+
+- There is no dependency to other US.
+
+**Input Data:**
+
+* Typed data:
+    * Title of the board,
+    * Number of the Columns,
+    * Number of the Rows,
+    * Name of the Columns,
+    * Name of the Rows
+
+
+* Selected data:
+    * No selected data
+
+**Output Data:**
+
+* An SharedBoard.
+
+Below is the use case diagram to show the interactions between the manager and the system when open and close courses*
+
+![Use Case Diagram](Use_Case_Diagram.svg)
+
+
+**Domain Model Excerpt**
+
+![](DM_sharedBoard.png "US3002 - Domain Model Excerpt")
+
 
 * User Interface - This class is named CreateSharedBoardUI where it will include a form to create a shared board. The form will include fields for the board name and users to add to the board.
 * Controller     - This class is named CreateSharedBoardController where will be responsible for managing UI requests and performing the necessary actions to create the shared board.
 * Repository     - This class is named SharedBoardRepository where it will store the data about the shared boards
 
-*Below is the use case diagram to show the interactions between the user and the system when creating a shared board*
-
-![Use Case Diagram](Use_Case_Diagram.svg)
 
 ## 4. Design
 
 *In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
 
 ### 4.1. Realization
+
+
+| Interaction ID | Question: Which class is responsible for...      | Answer                      | Justification (with patterns)                                                                                                |
+|:---------------|:-------------------------------------------------|:----------------------------|:-----------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?                  | CreateSharedBoarUI          | UI pattern: CreateSharedBoardUI is responsible for interacting with the actor to create a shared board.                      |
+|                | ... coordinating the US?                         | CreateSharedBoardController | Controller pattern: CreateSharedBoardController is responsible for coordinating the use case and invoking necessary classes. |
+| Step 2         | ... Create Shared Board                          | SharedBoardBuilder          | Creates a complex object on a valid state                                                                                    |
+| Step 3         | ... Save the Shared Board                        | Persistence Context         |                                                                                                                              |
+| Step 4         | .. show the Shared Board information to the user | CreateSharedBoardUI         |                                                                                                                 |
+
 
 ### 4.2. Class Diagram
 
@@ -43,19 +83,24 @@
 ![](Sequence_Diagram.svg)
 
 
-
 ### 4.4. Applied Patterns
+  - Controller
+  - Builder
+  - Persistence Context
+  - Repository
 
 ### 4.5. Tests
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+**Test 1:** *Verifies that it is not possible to create an instance of the SharedBoard class with the same title.*
 
 ```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
+ @Test
+    public void testIfSharedBoardIsEqualsToAnotherSharedBoard(){
+        assertTrue(board1.sameAs(board1));
+        assertFalse(board1.sameAs(board2));
+    }
 ````
+
 
 ## 5. Implementation
 

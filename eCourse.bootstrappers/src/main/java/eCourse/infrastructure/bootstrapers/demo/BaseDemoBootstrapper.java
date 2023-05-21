@@ -51,7 +51,10 @@ public class BaseDemoBootstrapper implements Action {
 	@Override
 	public boolean execute() {
 		// declare bootstrap actions
-		final Action[] actions = { new BackofficeUsersBootstrapper(), new ClientUserBootstrapper(), };
+		final Action[] actions = {
+				//new BackofficeUsersBootstrapper(),
+				new StudentUserBootstrapper(),
+				};
 
 		authenticateForBootstrapping();
 

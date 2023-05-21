@@ -60,6 +60,12 @@ class ExamRepository {
     +findById()
 }
 
+class CourseRepository {
+    +save()
+    +findByDesignation()
+    +findAllCourses()
+}
+
 Teacher --> UpdateExamUI
 UpdateExamUI-->UpdateExamController
 UpdateExamController-->ListCoursesService
@@ -72,5 +78,7 @@ CreateExamUI-->CreateExamController
 CreateExamController-->ListCoursesService
 CreateExamController-->ExamTitle
 CreateExamController-->Exam
+
+ListCoursesService-->CourseRepository
 
 @enduml

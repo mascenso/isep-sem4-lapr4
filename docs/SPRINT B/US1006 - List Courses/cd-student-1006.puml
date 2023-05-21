@@ -1,0 +1,32 @@
+ @startuml
+
+class ListCoursesStudentUI  {
+}
+
+class ListCoursesStudentController {
+allCoursesOpen()
+}
+
+class ListCoursesService {
+allCourses()
+getOpenCourses()
+}
+
+class   CourseRepository {
+courses()
+}
+
+class RepositoryFactory {
+findAll()
+}
+
+ListCoursesStudentUI : doShow()
+ListCoursesStudentUI -down-> ListCoursesStudentController: uses the controller
+
+ListCoursesStudentController --> ListCoursesService : uses to get list of courses Open
+ListCoursesService --> RepositoryFactory : use to get instance of repo
+ListCoursesService --> CourseRepository : use to find all \ncourses
+
+
+
+@enduml

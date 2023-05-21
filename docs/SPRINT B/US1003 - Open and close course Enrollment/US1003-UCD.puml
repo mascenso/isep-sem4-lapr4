@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+
+
+actor Manager
+    Manager -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option to Enroll and close enrollment in Courses)
+    (Select the option to Enroll and close enrollment in Courses) --> (The manager chooses the course he wants to change state)
+    (The manager chooses the course he wants to change state) --> (The manager chooses if wants to enroll or close enrollment a Course)
+    (The manager chooses if wants to enroll or close enrollment a Course) --> (Save)
+    (The manager chooses if wants to enroll or close enrollment a Course) --> (Cancel)
+
+
+@enduml

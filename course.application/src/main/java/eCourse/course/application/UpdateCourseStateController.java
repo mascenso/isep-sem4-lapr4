@@ -11,13 +11,14 @@ import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class UpdateCourseStateController {
 
     private UpdateCourseStateService updateCourseStateService = new UpdateCourseStateService();
 
-    @Autowired
+    //@Autowired
     private ListCoursesService service = new ListCoursesService();
 
     private final CourseRepository courseRepository;
@@ -36,13 +37,34 @@ public class UpdateCourseStateController {
 
     public void updateCourseState(String designationName, String newState) throws IntegrityViolationException, ConcurrencyException {
         Optional<Course> optionalCourse = findCourseByDesignation(designationName);
-        //CourseBuilder courseBuilder = new CourseBuilder();
-        //Course updateState = courseBuilder.state(CourseState.valueOf(newState)).build();
-        optionalCourse.get().updateState(CourseState.valueOf(newState));
-        PersistenceContext.repositories().courses().save(optionalCourse.get());
-        //PersistenceContext.repositories().courses().save(updateState);
 
+        if (optionalCourse.isPresent()) {
+            Course course = optionalCourse.get();
+            UpdateCourseStateService updateCourseStateService = new UpdateCourseStateService();
+
+            switch (newState) {
+                case "Open":
+                    updateCourseStateService.open(designationName);
+                    break;
+                case "Close":
+                    updateCourseStateService.close(designationName);
+                    break;
+                case "Enroll":
+                    updateCourseStateService.enroll(designationName);
+                    break;
+                case "Progress":
+                    updateCourseStateService.closeEnroll(designationName);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid state: " + newState);
+            }
+
+            //PersistenceContext.repositories().courses().save(course);
+        } else {
+            throw new NoSuchElementException("Course not found: " + designationName);
+        }
     }
+
 
     public Iterable<Course> allCourses() {
 

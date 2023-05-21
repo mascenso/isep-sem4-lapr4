@@ -5,37 +5,56 @@ autonumber
 
 actor Manager
 
-Manager -> OpenAndCloseCoursesUI: Select the option to open or close the courses
+Manager -> UpdateCourseStateUI: Select the option 3. Update Course State
+UpdateCourseStateUI -> UpdateCourseStateController: allCourses()
+UpdateCourseStateController --> ListCourseService: allCourses()
+ListCourseService --> UpdateCourseStateUI: ListAllCourses
+UpdateCourseStateUI --> Manager:  Shows the List of Courses
+Manager -> UpdateCourseStateUI: Selects the course
+UpdateCourseStateUI --> Manager: Request the newState
+Manager -> UpdateCourseStateUI: Types the newState
+activate UpdateCourseStateUI
+control UpdateCourseStateController
+UpdateCourseStateUI -> UpdateCourseStateController: updateCourseState(designationName, newState)
+activate UpdateCourseStateController
 
-activate OpenAndCloseCoursesUI
-control OpenAndCloseCoursesController
-OpenAndCloseCoursesUI -> OpenAndCloseCoursesController: findAll()
-activate OpenAndCloseCoursesController
 
+
+loop newState == Open
+
+UpdateCourseStateController -> UpdateCourseStateService: courseStateService.open(designationName)
+activate UpdateCourseStateService
 database CoursesRepository
-OpenAndCloseCoursesController -> CoursesRepository: findAll()
+ loop newState == Open
+ note left of UpdateCourseStateService: Este método aplica-se também quando\n newState==Close
+
+UpdateCourseStateService -> CoursesRepository: findCourseByDesignation(designationName)
 activate CoursesRepository
-CoursesRepository --> OpenAndCloseCoursesUI: show()
-deactivate CoursesRepository
-OpenAndCloseCoursesUI --> Manager: Show available Courses
-Manager -> OpenAndCloseCoursesUI: Select the course
+CoursesRepository --> UpdateCourseStateService: designationName
+ note left of UpdateCourseStateService: quando newState==Close passamos a ter\n (course.state()==Open)
+UpdateCourseStateService -> Courses: updateState(Open)
+activate Courses
+end loop
 
+Courses --> UpdateCourseStateService: Courses
 
-OpenAndCloseCoursesUI -> OpenAndCloseCoursesController: updateCourse()
-OpenAndCloseCoursesController -> PersistenceContext: repositories()
+deactivate Courses
+UpdateCourseStateService -> PersistenceContext: repositories()
+
 activate PersistenceContext
-database RepositoryFactory
 PersistenceContext -> RepositoryFactory: update()
+PersistenceContext -> UpdateCourseStateService: factory
 deactivate PersistenceContext
+UpdateCourseStateService -> RepositoryFactory: Course()
 activate RepositoryFactory
-RepositoryFactory --> CoursesRepository: update()
+RepositoryFactory -> CoursesRepository: update
 deactivate RepositoryFactory
-OpenAndCloseCoursesController -> Courses: updateCourses() = update()
-OpenAndCloseCoursesController -> CoursesRepository: save(updateCourses)
-OpenAndCloseCoursesController --> OpenAndCloseCoursesUI
-deactivate OpenAndCloseCoursesController
-OpenAndCloseCoursesUI --> Manager: Request confirm
-Manager -> OpenAndCloseCoursesUI: Confirms
-OpenAndCloseCoursesUI --> Manager: Shows info about Course updates
-
+CoursesRepository -> UpdateCourseStateService: CoursesRepository
+UpdateCourseStateService -> CoursesRepository: save(Course)
+deactivate CoursesRepository
+UpdateCourseStateService -> UpdateCourseStateController: Course
+deactivate UpdateCourseStateService
+UpdateCourseStateController -> UpdateCourseStateUI: Course
+deactivate UpdateCourseStateController
+UpdateCourseStateUI -> Manager: Confirms the operation
 @enduml

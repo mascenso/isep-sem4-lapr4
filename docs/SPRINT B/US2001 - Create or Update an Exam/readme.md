@@ -34,7 +34,7 @@ The exam will support questions of different types like:
 *In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
 
 - At anytime, the application user (authorized) may want to create or update an existing exam for a given course.
-For that matter, a repositorie for Exams needs to be created in other to assure the business domain  and an abstraction 
+For that matter, a repository for Exams needs to be created in other to assure the business domain  and an abstraction 
 layer between the domain code and the data storage.
 
 - There is no dependency to other US.
@@ -95,10 +95,13 @@ layer between the domain code and the data storage.
 
 **Sequence Diagram (SD)**
 
+
 ![US2001-SD](US2001-SD-CreateExam.svg "US2001 - Create Exam Sequence Diagram")
 
 
 ![US2001-SD](US2001-SD-UpdateExam.svg "US2001 - Update Exam Sequence Diagram")
+
+*Note* Builders, factories, Persistence Context and other DDD domains weren't represented to lower the SD's complexity.
 
 ### 4.2. Class Diagram
 
@@ -170,12 +173,7 @@ layer between the domain code and the data storage.
 
 *It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
 
-| Commit id                                 | Question: Which class is responsible for...               |
-|-------------------------------------------|-----------------------------------------------------------|
-| aea250a91ad9267ca8a0de2271a0d65567726747  | Commit with the documentantion                            |
-| 4fff6e5c0e37229d8818ffe91617346f296f7212  | Commit with the implemented functionality                 |
-| bb6c9d195985251d00b78a60697fa479112d9976  | Commit with the implemented tests                         |
-| 5076f174be20bfa3f53d9081aaac793b86c1a8f3  | Commit with the documentantion improvement and more tests |
+N/A
 
 ## 6. Integration/Demonstration
 
