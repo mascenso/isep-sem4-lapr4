@@ -20,16 +20,13 @@
  */
 package eCourse.persistence.impl.jpa;
 
-import eCourse.repositories.CourseRepository;
-import eCourse.repositories.MeetingsRepository;
-import eCourse.repositories.QuestionRepository;
+import eCourse.repositories.*;
 
 import eCourse.Application;
 import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.RepositoryFactory;
 
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
-import eCourse.repositories.ExamRepository;
 import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eCourse.teacherusermanagement.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -110,6 +107,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public TeacherUserRepository teacherUsers() {
 		return new JpaTeacherUserRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public StudentRepository students() {
+		return new JpaStudentRepository(Application.settings().getPersistenceUnitName());
 	}
 
 	@Override
