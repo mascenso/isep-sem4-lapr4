@@ -34,6 +34,7 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
  */
 public interface RepositoryFactory {
 
+
     /**
      * factory method to create a transactional context to use in the repositories
      *
@@ -100,4 +101,7 @@ public interface RepositoryFactory {
     StudentUserRepository studentUsers();
 
     TeacherUserRepository teacherUsers();
+
+    StudentRepository students();
+
 }

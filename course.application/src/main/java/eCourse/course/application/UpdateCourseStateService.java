@@ -21,7 +21,7 @@ public class UpdateCourseStateService {
     public void open(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
         //authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER,ECourseRoles.POWER_USER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -43,7 +43,7 @@ public class UpdateCourseStateService {
 
     public void enroll(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER,ECourseRoles.POWER_USER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -65,7 +65,7 @@ public class UpdateCourseStateService {
 
     public void closeEnroll(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER,ECourseRoles.POWER_USER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -88,7 +88,7 @@ public class UpdateCourseStateService {
     public void close(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
         //authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER, ECourseRoles.POWER_USER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
