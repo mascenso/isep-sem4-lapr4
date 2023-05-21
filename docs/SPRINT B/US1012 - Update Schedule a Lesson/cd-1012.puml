@@ -1,0 +1,26 @@
+@startuml
+
+class UpdateScheduleRecurringLessonUI {
+doShow()
+}
+
+class UpdateScheduleRecurringLessonController {
+updateSchedule()
+allRecurringLessons()
+save()
+}
+
+
+class RecurringLesson {
+updateScheduleOfLesson(Calendar, Calendar, Duration)
+}
+
+class ListRecurringLessonsService {
+allRecurringLessons()
+}
+
+UpdateScheduleRecurringLessonUI --> UpdateScheduleRecurringLessonController : uses the controller
+UpdateScheduleRecurringLessonController --> RecurringLesson :  uses to update the object
+UpdateScheduleRecurringLessonController --> ListRecurringLessonsService : uses to get all RecurringLesson
+
+@enduml

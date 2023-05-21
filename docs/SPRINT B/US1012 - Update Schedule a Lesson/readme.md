@@ -1,68 +1,79 @@
-# US 1012
+# US 1012 - As Teacher, I want to update the schedule of a class
 
-*This is an example template*
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+The Teacher wants to be able to edit the time and date of the Recurringlessons, so we will give the option in the Teacher's application to change the start date, end date and duration of the lessons already created.
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies).*
 
 *Example*
 
-**US G002** As {Ator} I Want...
+**US 1012** As Teacher, I want to update the schedule of a class
 
-- G002.1. Blá Blá Blá ...
+- FRC11 - Update Schedule of Class: A teacher changes the time of a specific class (only changes a specific occurrence of a recurring class).
 
-- G002.2. Blá Blá Blá ...
 
-*Regarding this requirement we understand that it relates to...*
+*This US depends directly on * US1010 As Teacher, I want to scheduler a class * and cannot be implemented without first finalizing this US.*
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+**input Data:**
+* Typed Data:
+    * StartDate
+    * EndDate
+    * Duration
+
+**Output Data:**
+* Recuring Lesson is update and save
+
+
 
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
+## Class diagram
+![a class diagram](cd-1012.png "A Class Diagram")
+## Use case diagram
+![use case diagram](uc-1012.png "A Use Case Diagram")
+## Sequence diagram
+![use case diagram](sd-1012.png "A sequence Diagram")
+## System sequence diagram
+![use case diagram](ssd-1012.png "A system sequence Diagram")
+
+*Rational*
+
+| Interaction ID | Question: Which class is responsible for... | Answer                                     | Justification (with patterns)|
+|:---------------|:--------------------------------------------|:-------------------------------------------|:-----------------------------|
+| Step 1         | ... interacting with the actor?             | UpdateScheduleRecurringLessonUI            | |
+|                | ... coordinating the US?                    | UpdateScheduleRecurringLessonController    | |
+| Step 2         | List RecurringLessons                       | UpdateScheduleRecurringLessonUI            | |
+| Step 3         | Return all RecurringLessons                 | ListRecurringLessonsService                | |
+| Step 4         | Asks information for Teacher                | UpdateScheduleRecurringLessonUI            | |
+| Step 5         | save Updated RecurringLessons               | PersistenceContext                         | |
 
 ### 4.1. Realization
 
 ### 4.2. Class Diagram
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
-
 ### 4.3. Applied Patterns
 
+In the implementation of this US the following DDD patterns were used:
+- **Service** : Using the "ListRecurringLessonsService" ensures that the correct RecurringLessons are always returned.
+- **Repository**: The "RecurringLessonsRepository" is responsible for persisting/read the data to the database.
+- **Controller**: The "UpdateScheduleRecurringLessonController" is responsible to controll the flow of aplication.
+- 
 ### 4.4. Tests
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
-````
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
-
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
-
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
-
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+*This can be improved if the service only return the Lessons of this teacher*
+* Is something for improve on next Sprint*
