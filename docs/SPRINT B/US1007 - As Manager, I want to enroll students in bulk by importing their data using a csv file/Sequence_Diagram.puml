@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor Manager
+Manager -> UI
+activate UI
+
+UI -> Controller
+
+@enduml
+
