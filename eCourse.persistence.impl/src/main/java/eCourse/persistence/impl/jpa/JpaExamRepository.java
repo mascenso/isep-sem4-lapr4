@@ -7,6 +7,8 @@ import eCourse.domain.ExamTitle;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import eCourse.repositories.ExamRepository;
+import org.springframework.expression.spel.ast.NullLiteral;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +28,13 @@ public class JpaExamRepository extends JpaAutoTxRepository<Exam, ExamTitle, Exam
     }
 
     @Override
-    public Optional<Exam> findByTitle(String title) {
-        return Optional.empty();
+    public Exam findByTitle(String title) {
+        return findByTitle(title);
+    }
+
+    @Override
+    public Exam findById(Long examId) {
+        return null;
     }
 
 
