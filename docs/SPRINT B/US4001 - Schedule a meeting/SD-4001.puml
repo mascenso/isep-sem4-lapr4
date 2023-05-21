@@ -2,7 +2,7 @@
 actor User as Actor
 participant ScheduleMeetingUI as UI <<presentation>>
 participant ScheduleMeetingController as Controller <<aplication>>
-participant ScheduleMeetingBuilder as Builder <<builder>>
+participant MeetingBuilder as Builder <<builder>>
 participant Meeting as Domain <<domain>>
 participant ValidateSchedule as Service <<service>>
 database UsersRepository as UsersRepository <<repository>>
@@ -29,7 +29,7 @@ activate UI
         Actor --> UI: Schedule
         UI --> Actor: Choose Duration (minuts)
         Actor -> UI: Duration
-        UI -> Controller: validateScheduleForAllParticipants(schedule, participants,duration)
+        UI -> Controller: validateSchedule(schedule, participants,duration)
         Controller -> Service: validateScheduleForAllParticipants(schedule, participants,duration)
         Service --> Controller: Answer (true or false)
         Controller --> UI: Answer (true or false)
@@ -38,15 +38,20 @@ activate UI
     note right of Builder: On schedule a meeting The timestamp is always empty and\n status is schedule.
     Controller -> Builder:ScheduleMeeting(participants,schedule, duration)
     Builder -> Domain: ScheduleMeeting(participants,schedule, duration)
+
     loop number of participants
         Domain -> ParticipantOfMeeting: create (meeting, participant)
+        activate ParticipantOfMeeting
+        ParticipantOfMeeting --> Domain
+        deactivate ParticipantOfMeeting
     end
+
     Domain --> Builder: meeting
     Builder --> Controller: meeting
     Controller -> MeetingRepository: save(meeting)
     Controller --> UI: meeting
     UI --> UI: show meeting
-
+    UI --> Actor
 
 
 

@@ -16,7 +16,7 @@ public class UpdateScheduleRecurringLessonsController {
         return service.allRecurringLessons();
     }
 
-    public RecurringLesson updateScheduleOfRecurringLesson(RecurringLesson recurringLesson, Calendar startDate, Calendar endDate, Duration duration) {
+    public RecurringLesson updateScheduleOfRecurringLesson(RecurringLesson recurringLesson, Calendar startDate, Calendar endDate, int duration) {
 
         recurringLesson.updateScheduleOfLesson(startDate, endDate, duration);
         PersistenceContext.repositories().recurringLessons().save(recurringLesson);

@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class UpdateCourseStateUI  {
+
+}
+
+class UpdateCourseStateController {
+
+}
+
+class UpdateCourseStateService {
+}
+
+class CoursesRepository {
+
+}
+
+class Course {
+
+}
+
+UpdateCourseStateUI -down-> UpdateCourseStateController: uses the controller
+UpdateCourseStateController --> UpdateCourseStateService: uses the service
+UpdateCourseStateService --> CoursesRepository: uses the repository to persiste in DB
+UpdateCourseStateService --> Course: update CourseState
+UpdateCourseStateController --> ListCoursesService: request list of the All Courses
+
+
+@enduml

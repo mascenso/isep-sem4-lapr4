@@ -4,6 +4,7 @@ import eCourse.domain.Course;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
 import eCourse.usermanagement.domain.BaseCourseStates;
+
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -19,7 +20,8 @@ public class UpdateCourseStateService {
 
     public void open(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
+        //authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -41,7 +43,7 @@ public class UpdateCourseStateService {
 
     public void enroll(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -63,7 +65,7 @@ public class UpdateCourseStateService {
 
     public void closeEnroll(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -85,7 +87,8 @@ public class UpdateCourseStateService {
 
     public void close(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
+        //authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -95,7 +98,7 @@ public class UpdateCourseStateService {
                 .orElseThrow(() -> new NoSuchElementException("The course " + designationName + " does not exist in the database"));
 
         //the course can only transition to CLOSE if it comes from the PROGRESS state
-        if (!String.valueOf(course.state()).equals(String.valueOf(BaseCourseStates.PROGRESS).toUpperCase())){
+        if (!String.valueOf(course.state()).equals(String.valueOf(BaseCourseStates.PROGRESS))){
             throw new IllegalArgumentException("The course " + designationName + " has the state " + course.state()
                     + " which cannot transition to " + BaseCourseStates.CLOSE);
         }

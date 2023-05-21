@@ -25,8 +25,7 @@ User -> CreateSharedBoardUI: Insert title, numberOfColumns, numberOfRows
 
 
 CreateSharedBoardUI -> CreateSharedBoardController: addSharedBoard(title, numberOfColumns,\n numberOfRows, columnsList, rowsList)
-CreateSharedBoardController -> AuthorizationService : getUser()
-AuthorizationService --> CreateSharedBoardController : user
+
 CreateSharedBoardController -> CreateSharedBoardBuilder: create
 CreateSharedBoardController -> CreateSharedBoardBuilder: withTitle(title)
 note left of CreateSharedBoardBuilder: set the rest of the parameters
@@ -53,8 +52,8 @@ RepositoryFactory -> SharedBoardRepository : create
 RepositoryFactory --> CreateSharedBoardController: SharedBoardRepository
 deactivate RepositoryFactory
 CreateSharedBoardController -> SharedBoardRepository: save(SharedBoard)
-deactivate CreateSharedBoardController
 CreateSharedBoardController --> CreateSharedBoardUI: SharedBoard
+deactivate CreateSharedBoardController
 
 CreateSharedBoardUI --> User: Displays SharedBoard Info
 

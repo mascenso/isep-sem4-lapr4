@@ -24,6 +24,7 @@ import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.repositories.*;
+import eCourse.teacherusermanagement.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
@@ -98,5 +99,5 @@ public interface RepositoryFactory {
 
     StudentUserRepository studentUsers();
 
-
+    TeacherUserRepository teacherUsers();
 }

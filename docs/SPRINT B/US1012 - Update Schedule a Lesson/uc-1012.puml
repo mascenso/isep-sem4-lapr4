@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+actor Teacher
+    Teacher -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option to Update schedule of lesson)
+    (Select the option to Update schedule of lesson) --> (Select the Recurring lesson to update)
+    (Select the Recurring lesson to update) --> (Update StartData, EndDate and duration)
+    (Update StartData, EndDate and duration) --> (save)
+
+
+@enduml
