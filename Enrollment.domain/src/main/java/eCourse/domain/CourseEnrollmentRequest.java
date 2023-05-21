@@ -26,7 +26,8 @@ public class CourseEnrollmentRequest implements AggregateRoot<Long> {
     @JoinColumn(name = "student_id")
     private SystemUser student;
 
-    @OneToMany(mappedBy = "courseEnrollmentRequest", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name = "courseEnrollmentRequest")
     private List<ListEnrollmentRequests> enrollmentRequestsList;
 
 
