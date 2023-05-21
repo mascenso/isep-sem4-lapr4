@@ -4,7 +4,8 @@ import eCourse.domain.Course;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
 import eCourse.usermanagement.domain.BaseCourseStates;
-import eCourse.usermanagement.domain.BaseRoles;
+
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;

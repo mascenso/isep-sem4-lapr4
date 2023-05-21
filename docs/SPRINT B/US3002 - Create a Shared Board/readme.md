@@ -51,16 +51,13 @@ Below is the use case diagram to show the interactions between the manager and t
 
 **Domain Model Excerpt**
 
-![](DomainModel_Excerpt.png "US3002 - Domain Model Excerpt")
+![](DM_sharedBoard.png "US3002 - Domain Model Excerpt")
 
 
 * User Interface - This class is named CreateSharedBoardUI where it will include a form to create a shared board. The form will include fields for the board name and users to add to the board.
 * Controller     - This class is named CreateSharedBoardController where will be responsible for managing UI requests and performing the necessary actions to create the shared board.
 * Repository     - This class is named SharedBoardRepository where it will store the data about the shared boards
 
-*Below is the use case diagram to show the interactions between the user and the system when creating a shared board*
-
-![Use Case Diagram](Use_Case_Diagram.svg)
 
 ## 4. Design
 
