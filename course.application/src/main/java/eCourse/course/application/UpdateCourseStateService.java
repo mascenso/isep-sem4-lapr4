@@ -12,11 +12,19 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.validations.Preconditions;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class UpdateCourseStateService {
 
     private final AuthorizationService authorizationService = AuthzRegistry.authorizationService();
     private final CourseRepository courseRepository = PersistenceContext.repositories().courses();
+
+    public Optional<Course> findCourseByDesignation(final String designationName) {
+        Preconditions.nonEmpty(designationName);
+
+        final Designation designation = Designation.valueOf(designationName);
+        return courseRepository.findByDesignation(designation);
+    }
 
     public void open(String designationName) {
         //1 - validate if the user is authenticated and has a valid role

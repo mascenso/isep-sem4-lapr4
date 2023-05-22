@@ -21,6 +21,7 @@ public class UpdateCourseStateController {
     //@Autowired
     private ListCoursesService service = new ListCoursesService();
 
+
     private final CourseRepository courseRepository;
     private Course course;
 
@@ -29,10 +30,10 @@ public class UpdateCourseStateController {
     }
 
     public Optional<Course> findCourseByDesignation(final String designationName) {
-        Preconditions.nonEmpty(designationName);
+        //Preconditions.nonEmpty(designationName);
 
-        final Designation designation = Designation.valueOf(designationName);
-        return courseRepository.findByDesignation(designation);
+        //final Designation designation = Designation.valueOf(designationName);
+        return this.updateCourseStateService.findCourseByDesignation(designationName);
     }
 
     public void updateCourseState(String designationName, String newState) throws IntegrityViolationException, ConcurrencyException {
@@ -40,7 +41,6 @@ public class UpdateCourseStateController {
 
         if (optionalCourse.isPresent()) {
             Course course = optionalCourse.get();
-            UpdateCourseStateService updateCourseStateService = new UpdateCourseStateService();
 
             switch (newState) {
                 case "Open":
