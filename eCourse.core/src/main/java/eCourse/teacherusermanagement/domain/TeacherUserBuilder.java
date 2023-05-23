@@ -36,8 +36,12 @@ public class TeacherUserBuilder implements DomainFactory<TeacherUser> {
     private SystemUser systemUser;
     private String acronym;
 
-    public TeacherUserBuilder withSystemUser(final SystemUser systemUser, String acronym) {
+    public TeacherUserBuilder withSystemUser(final SystemUser systemUser) {
         this.systemUser = systemUser;
+        return this;
+    }
+
+    public TeacherUserBuilder withAcronym(String acronym) {
         this.acronym = acronym;
         return this;
     }
