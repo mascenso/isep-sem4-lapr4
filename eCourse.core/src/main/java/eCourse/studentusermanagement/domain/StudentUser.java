@@ -61,8 +61,10 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
     @Column(unique = true, nullable = false)
     private MecanographicNumber mecanographicNumber;
 
-    @Temporal(TemporalType.DATE)
-    Calendar dateOfBirth;
+    // TODO: Criar os value objects, pedir na UI a seguir ao data widget
+
+    //@Temporal(TemporalType.DATE)
+    //Calendar dateOfBirth;
 
     // Business ID
     //@Column(unique = true, nullable = false)
