@@ -23,16 +23,23 @@
  */
 package eCourse.studentusermanagement.application;
 
+import eCourse.studentusermanagement.domain.SignupRequest;
 import eCourse.studentusermanagement.domain.StudentUser;
 import eCourse.studentusermanagement.domain.MecanographicNumber;
+import eCourse.studentusermanagement.domain.StudentUserBuilder;
 import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author mcn
@@ -43,6 +50,9 @@ public class StudentUserService {
             AuthzRegistry.authorizationService();
     private final StudentUserRepository repo =
             PersistenceContext.repositories().clientUsers();
+
+    private final UserManagementService userService = AuthzRegistry.userService();
+
 
     public Optional<StudentUser> findClientUserByMecNumber(
             final String mecNumber) {
@@ -58,4 +68,19 @@ public class StudentUserService {
                 ECourseRoles.ADMIN);
         return repo.findByUsername(user);
     }
+
+    /**
+     * Creates a new StudentUser for the given SystemUser, and saves it to the
+     * repository.
+     * @param newUser
+     */
+    protected void createStudentUser(final SystemUser newUser) {
+        final StudentUserBuilder studentUserBuilder = new StudentUserBuilder();
+        studentUserBuilder
+                .withSystemUser(newUser);
+
+        this.repo.save(studentUserBuilder.build());
+    }
+
+
 }
