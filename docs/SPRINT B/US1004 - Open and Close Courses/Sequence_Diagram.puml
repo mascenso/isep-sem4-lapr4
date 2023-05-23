@@ -22,7 +22,7 @@ activate UpdateCourseStateController
 
 loop newState == Open
 
-UpdateCourseStateController -> UpdateCourseStateService: courseStateService.open(designationName)
+UpdateCourseStateController -> UpdateCourseStateService: updateCourseState(String designationName, String newState)
 activate UpdateCourseStateService
 database CoursesRepository
  loop newState == Open
@@ -32,7 +32,7 @@ UpdateCourseStateService -> CoursesRepository: findCourseByDesignation(designati
 activate CoursesRepository
 CoursesRepository --> UpdateCourseStateService: designationName
  note left of UpdateCourseStateService: quando newState==Close passamos a ter\n (course.state()==Open)
-UpdateCourseStateService -> Courses: updateState(Open)
+UpdateCourseStateService -> Courses: updateCourseState()
 activate Courses
 end loop
 
