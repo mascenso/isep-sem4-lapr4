@@ -2,40 +2,22 @@ package eCourse.app.student.console.presentation.Courses;
 
 import eCourse.course.application.ListCoursesStudentController;
 import eCourse.domain.Course;
-import eapli.framework.actions.Action;
-import eapli.framework.presentation.console.AbstractListUI;
+import eCourse.myclientuser.application.RequestEnrollmentController;
+import eapli.framework.domain.repositories.ConcurrencyException;
+import eapli.framework.domain.repositories.IntegrityViolationException;
+import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
-import eapli.framework.visitor.Visitor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RequestEnrollmentCoursesStudentUI extends AbstractListUI<Course> implements Action {
+public class RequestEnrollmentCoursesStudentUI extends AbstractUI  {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RequestEnrollmentCoursesStudentUI.class);
     private ListCoursesStudentController listController = new ListCoursesStudentController();
+    private RequestEnrollmentController theController = new RequestEnrollmentController();
 
-    protected Iterable<Course> elements() {
-        return listController.allCoursesOpen();
-    }
-
-    @Override
-    protected Visitor<Course> elementPrinter() {
-        return new CoursesPrinter();
-    }
-
-    @Override
-    protected String elementName() {
-        return "Course";
-    }
-
-    @Override
-    public String listHeader() {
-        return String.format("# %-40s%-20s%-40s%-4s", "NAME", "EDITION", "DESCRIPTION", "STATE");
-    }
-
-    @Override
-    protected String emptyMessage() {
-        return "No courses";
-    }
 
 
     @Override
@@ -44,8 +26,7 @@ public class RequestEnrollmentCoursesStudentUI extends AbstractListUI<Course> im
     }
 
     @Override
-    public boolean execute() {
-        new ListCoursesStudentUI().show();
+    public boolean doShow() {
 
         final Iterable<Course> allCoursesOpen = listController.allCoursesOpen();
         if (!allCoursesOpen.iterator().hasNext()) {
@@ -54,10 +35,17 @@ public class RequestEnrollmentCoursesStudentUI extends AbstractListUI<Course> im
         else {
             final SelectWidget<Course> selector = new SelectWidget<>("Select a course", allCoursesOpen, new CoursesPrinter());
             selector.show();
+
+            //todo: Use DTO
             final Course selCourse = selector.selectedElement();
 
-            //try
-            //theController.changeDishState(updtDish);
+            try {
+                this.theController.requestEnrollment(selCourse);
+            } catch (final IntegrityViolationException | ConcurrencyException e) {
+                LOGGER.error("Error performing the operation", e);
+                System.out.println(
+                        "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+            }
             }
 
         return true;
