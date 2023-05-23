@@ -33,6 +33,7 @@ import eCourse.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
 import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
+import eCourse.app.backoffice.console.presentation.students.AddStudentUI;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
 import eCourse.usermanagement.domain.ECourseRoles;
@@ -66,16 +67,21 @@ public class MainMenu extends AbstractUI {
     private static final int DEACTIVATE_USER_OPTION = 3;
     private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
 
+    // STUDENTS
+    private static final int ADD_STUDENT_OPTION = 1;
+
+
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
-    private static final int SETTINGS_OPTION = 3;
-    private static final int COURSE_OPTION = 4;
-    private static final int SHAREDBOARD_OPTION = 5;
-    private static final int MEETING_OPTION =6 ;
+    private static final int STUDENTS_OPTION = 3;
+    private static final int SETTINGS_OPTION = 4;
+    private static final int COURSE_OPTION = 5;
+    private static final int SHAREDBOARD_OPTION = 6;
+    private static final int MEETING_OPTION =7 ;
 
     //COURSE
 
@@ -134,14 +140,18 @@ public class MainMenu extends AbstractUI {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
-
-
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)) {
             final Menu usersMenu = buildUsersMenu();
             mainMenu.addSubMenu(USERS_OPTION, usersMenu);
+
+            final Menu studentsMenu = buildStudentsMenu();
+            mainMenu.addSubMenu(STUDENTS_OPTION, studentsMenu);
+
+
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
+
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)) {
             final Menu courseMenu = buildCourseMenu();
             mainMenu.addSubMenu(COURSE_OPTION, courseMenu);
@@ -185,6 +195,15 @@ public class MainMenu extends AbstractUI {
         menu.addItem(DEACTIVATE_USER_OPTION, "Deactivate User", new DeactivateUserAction());
         menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
                 new AcceptRefuseSignupRequestAction());
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildStudentsMenu() {
+        final Menu menu = new Menu("Students >");
+
+        menu.addItem(ADD_USER_OPTION, "Add Students", new AddStudentUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
