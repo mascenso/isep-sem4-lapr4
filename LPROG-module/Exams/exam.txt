@@ -1,0 +1,14 @@
+Exam "Math Exam" {
+  Header {
+    FeedbackType: AfterClosing
+    GradeType: OnSubmission
+    Description: "This exam covers various math topics."
+  }
+
+  Section "Algebra" {
+    Description: "Answer the following algebra questions."
+
+    ShortAnswer "How much is 2 + 2?" {
+      PossibleAnswer "4"
+    }
+}

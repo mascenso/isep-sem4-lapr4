@@ -25,9 +25,9 @@ package eCourse.myclientuser.application;
 
 import java.util.Calendar;
 
-import eCourse.clientusermanagement.domain.SignupRequest;
-import eCourse.clientusermanagement.domain.SignupRequestBuilder;
-import eCourse.clientusermanagement.repositories.SignupRequestRepository;
+import eCourse.studentusermanagement.domain.SignupRequest;
+import eCourse.studentusermanagement.domain.SignupRequestBuilder;
+import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.UserBuilderHelper;
 import eapli.framework.application.UseCaseController;

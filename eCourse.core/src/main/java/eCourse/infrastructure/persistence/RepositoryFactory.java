@@ -21,9 +21,10 @@
 package eCourse.infrastructure.persistence;
 
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
-import eCourse.clientusermanagement.repositories.ClientUserRepository;
-import eCourse.clientusermanagement.repositories.SignupRequestRepository;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
+import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.repositories.*;
+import eCourse.teacherusermanagement.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
@@ -32,6 +33,7 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
  *
  */
 public interface RepositoryFactory {
+
 
     /**
      * factory method to create a transactional context to use in the repositories
@@ -61,14 +63,14 @@ public interface RepositoryFactory {
      *            the transactional context to enroll
      * @return
      */
-    ClientUserRepository clientUsers(TransactionalContext autoTx);
+    StudentUserRepository clientUsers(TransactionalContext autoTx);
 
     /**
      * repository will be created in auto transaction mode
      *
      * @return
      */
-    ClientUserRepository clientUsers();
+    StudentUserRepository clientUsers();
 
     /**
      *
@@ -98,5 +100,10 @@ public interface RepositoryFactory {
 
     CourseEnrollmentRequestRepository courseEnrollmentRequests();
 
+    StudentUserRepository studentUsers();
+
+    TeacherUserRepository teacherUsers();
+
+    StudentRepository students();
 
 }

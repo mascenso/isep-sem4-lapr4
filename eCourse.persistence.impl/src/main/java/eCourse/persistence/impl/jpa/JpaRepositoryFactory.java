@@ -23,10 +23,12 @@ package eCourse.persistence.impl.jpa;
 import eCourse.repositories.*;
 
 import eCourse.Application;
-import eCourse.clientusermanagement.repositories.SignupRequestRepository;
+import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.RepositoryFactory;
 
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
+import eCourse.studentusermanagement.repositories.StudentUserRepository;
+import eCourse.teacherusermanagement.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.jpa.JpaAutoTxUserRepository;
@@ -50,13 +52,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public JpaClientUserRepository clientUsers(final TransactionalContext autoTx) {
-		return new JpaClientUserRepository(autoTx);
+	public JpaStudentUserRepository clientUsers(final TransactionalContext autoTx) {
+		return new JpaStudentUserRepository(autoTx);
 	}
 
 	@Override
-	public JpaClientUserRepository clientUsers() {
-		return new JpaClientUserRepository(Application.settings().getPersistenceUnitName());
+	public JpaStudentUserRepository clientUsers() {
+		return new JpaStudentUserRepository(Application.settings().getPersistenceUnitName());
 	}
 
 	@Override
@@ -103,6 +105,21 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 
+
+	@Override
+	public StudentUserRepository studentUsers() {
+		return new JpaStudentUserRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public TeacherUserRepository teacherUsers() {
+		return new JpaTeacherUserRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public StudentRepository students() {
+		return new JpaStudentRepository(Application.settings().getPersistenceUnitName());
+	}
 
 	@Override
 	public TransactionalContext newTransactionalContext() {

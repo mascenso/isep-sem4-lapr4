@@ -51,6 +51,8 @@
         <module>meeting.domain</module>
 		<module>Enrollment.domain</module>
 		<module>Enrollment.application</module>
+        <module>eCourse.app.manager.console</module>
+        <module>common.domain</module>
 
 	</modules>
 

@@ -42,6 +42,8 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
         registerProjectManager("pm", PASSWORD1, "Michael", "Jackson", "pmmichael@emai.l.com");
         registerManager("manager", PASSWORD1, "Patty", "Smith", "patty@emai.l.com");
         registerStudent("student", PASSWORD1, "Jay", "Z", "jayz@isep.ipp.pt");
+        registerStudent("isep959", "Password1", "Mary", "Smith", "mary@smith.com");
+
         return true;
     }
 
@@ -74,6 +76,6 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.STUDENT);
 
-        registerUser(username, password, firstName, lastName, email, roles);
+        registerStudent(username, password, firstName, lastName, email, roles);
     }
 }

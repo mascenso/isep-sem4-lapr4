@@ -1,0 +1,30 @@
+ @startuml
+
+class CreateAutomaticExameUI  {
+}
+
+class CreateAutomaticExameController{
+createAutomaticExame()
+}
+
+class   AutomaticExameRepository {
+}
+class   QuestionRepository {
+}
+
+class AutomaticExame {
+}
+
+class RepositoryFactory {
+}
+
+CreateAutomaticExameUI : doShow()
+CreateAutomaticExameUI -down-> CreateAutomaticExameController: uses the controller
+CreateAutomaticExameController --> RepositoryFactory : use to get instance of repo
+CreateAutomaticExameController --> AutomaticExameRepository : use to save AutomaticaExam
+AutomaticExame -> CreateAutomaticExameController : return course to save
+CreateAutomaticExameController --> AutomaticExameBuilder : use to build a exam
+AutomaticExameBuilder --> AutomaticExame : use to create a object
+AutomaticExameBuilder --> QuestionRepository: use to get question of type
+
+@enduml
