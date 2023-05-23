@@ -32,7 +32,7 @@ UpdateCourseStateService -> CoursesRepository: findCourseByDesignation(designati
 activate CoursesRepository
 CoursesRepository --> UpdateCourseStateService: designationName
  note left of UpdateCourseStateService: quando newState==Close passamos a ter\n (course.state()==Open)
-UpdateCourseStateService -> Courses: updateCourseState()
+UpdateCourseStateService -> Courses: updateCourseState(designationName, newState)
 activate Courses
 end loop
 
