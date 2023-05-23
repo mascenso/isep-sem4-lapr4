@@ -24,11 +24,14 @@
 package eCourse.teacherusermanagement.application;
 
 import eCourse.infrastructure.persistence.PersistenceContext;
+import eCourse.studentusermanagement.domain.StudentUserBuilder;
 import eCourse.teacherusermanagement.domain.TeacherUser;
+import eCourse.teacherusermanagement.domain.TeacherUserBuilder;
 import eCourse.teacherusermanagement.repositories.TeacherUserRepository;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
 import java.util.Optional;
@@ -57,4 +60,17 @@ public class TeacherUserService {
                 ECourseRoles.ADMIN);
         return repo.findByUsername(user);
     }
+    /**
+     * Creates a new StudentUser for the given SystemUser, and saves it to the
+     * repository.
+     * @param newUser
+     */
+    protected void createTeacherUser(final SystemUser newUser, String acronym) {
+        final TeacherUserBuilder teacherUserBuilder = new TeacherUserBuilder();
+        teacherUserBuilder
+                .withSystemUser(newUser).withAcronym(acronym);
+
+        this.repo.save(teacherUserBuilder.build());
+    }
+
 }

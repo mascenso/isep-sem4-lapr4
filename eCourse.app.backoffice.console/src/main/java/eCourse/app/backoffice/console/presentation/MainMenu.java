@@ -34,6 +34,7 @@ import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eCourse.app.backoffice.console.presentation.students.AddStudentUI;
+import eCourse.app.backoffice.console.presentation.teachers.AddTeacherUI;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
 import eCourse.usermanagement.domain.ECourseRoles;
@@ -70,6 +71,9 @@ public class MainMenu extends AbstractUI {
     // STUDENTS
     private static final int ADD_STUDENT_OPTION = 1;
 
+    // TEACHERS
+    private static final int ADD_TEACHER_OPTION = 1;
+
 
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
@@ -78,10 +82,11 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int STUDENTS_OPTION = 3;
-    private static final int SETTINGS_OPTION = 4;
-    private static final int COURSE_OPTION = 5;
-    private static final int SHAREDBOARD_OPTION = 6;
-    private static final int MEETING_OPTION =7 ;
+    private static final int TEACHERS_OPTION = 4;
+    private static final int SETTINGS_OPTION = 5;
+    private static final int COURSE_OPTION = 6;
+    private static final int SHAREDBOARD_OPTION = 7;
+    private static final int MEETING_OPTION = 8 ;
 
     //COURSE
 
@@ -147,6 +152,9 @@ public class MainMenu extends AbstractUI {
             final Menu studentsMenu = buildStudentsMenu();
             mainMenu.addSubMenu(STUDENTS_OPTION, studentsMenu);
 
+            final Menu teachersMenu = buildTeachersMenu();
+            mainMenu.addSubMenu(TEACHERS_OPTION, teachersMenu);
+
 
             final Menu settingsMenu = buildAdminSettingsMenu();
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
@@ -203,7 +211,16 @@ public class MainMenu extends AbstractUI {
     private Menu buildStudentsMenu() {
         final Menu menu = new Menu("Students >");
 
-        menu.addItem(ADD_USER_OPTION, "Add Students", new AddStudentUI()::show);
+        menu.addItem(ADD_STUDENT_OPTION, "Add Student", new AddStudentUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildTeachersMenu() {
+        final Menu menu = new Menu("Teachers >");
+
+        menu.addItem(ADD_TEACHER_OPTION, "Add Teacher", new AddTeacherUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

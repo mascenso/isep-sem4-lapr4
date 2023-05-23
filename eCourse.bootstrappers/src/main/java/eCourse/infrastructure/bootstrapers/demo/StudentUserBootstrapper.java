@@ -21,6 +21,10 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
 import eCourse.infrastructure.bootstrapers.TestDataConstants;
+import eCourse.studentusermanagement.application.AddStudentUserController;
+import eCourse.teacherusermanagement.application.AddTeacherUserController;
+import eCourse.usermanagement.domain.ECourseRoles;
+import eapli.framework.infrastructure.authz.domain.model.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +36,9 @@ import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Paulo Sousa
@@ -39,56 +46,29 @@ import eapli.framework.domain.repositories.IntegrityViolationException;
 public class StudentUserBootstrapper implements Action {
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentUserBootstrapper.class);
 
-	private final SignupController signupController = new SignupController();
-	private final AcceptRefuseSignupRequestController acceptController = AcceptRefuseSignupFactory.build();
+	private final AddStudentUserController addStudentUserController = new AddStudentUserController();
+	private final AddTeacherUserController addTeacherUserController = new AddTeacherUserController();
 
 	@Override
 	public boolean execute() {
-		// some users that signup and are approved
-		signupAndApprove(TestDataConstants.USER_TEST1, "Password1", "John", "Smith", "john@smith.com",
-				TestDataConstants.USER_TEST1);
-		signupAndApprove("student1", "Password1", "Mary", "Rock", "mary@isep.ipp.pt", "202300001");
-		signupAndApprove("student2", "Password1", "Michael", "Rock", "michael@isep.ipp.pt", "202300002");
-		signupAndApprove("student3", "Password1", "Patty", "Tex", "patty@isep.ipp.pt", "202300003");
-		signupAndApprove("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt", "202300004");
-		signupAndApprove("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt", "202300005");
 
-		// some users that signup but the approval is pending. use the backoffice
-		// application to approve these
-		signup("isep111", "Password1", "Mary", "Smith One", "mary1@smith.com", "202311111");
-		signup("isep222", "Password1", "Mary", "Smith Two", "mary2@smith.com", "202322222");
-		signup("isep333", "Password1", "Mary", "Smith Three", "mary3@smith.com", "202333333");
-		signup("isep444", "Password1", "Mary", "Smith Four", "mary4@smith.com", "202344444");
+		Set<Role> roleStu= new HashSet<>();
+		roleStu.add(ECourseRoles.STUDENT);
+
+		Set<Role> roleTea= new HashSet<>();
+		roleTea.add(ECourseRoles.TEACHER);
+
+		addStudentUserController.addStudentUser("student1", "Password1", "Mary", "Rock", "mary@isep.ipp.pt", roleStu );
+		addStudentUserController.addStudentUser("student2", "Password1", "Michael", "Rock", "michael@isep.ipp.pt",  roleStu );
+		addStudentUserController.addStudentUser("student3", "Password1", "Patty", "Tex", "patty@isep.ipp.pt",  roleStu );
+		addStudentUserController.addStudentUser("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt",  roleStu );
+		addStudentUserController.addStudentUser("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt",  roleStu );
+
+		addTeacherUserController.addTeacherUser("teacher1", "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTea , "abc");
+		addTeacherUserController.addTeacherUser("teacher2", "Password1", "Jane", "Doe", "teacher2@isep.ipp.pt", roleTea , "def");
+		addTeacherUserController.addTeacherUser("teacher3", "Password1", "John", "Smith", "teacher2@isep.ipp.pt", roleTea , "ghi");
 
 		return true;
 	}
 
-	private SignupRequest signupAndApprove(final String username, final String password, final String firstName,
-			final String lastName, final String email, final String mecanographicNumber) {
-		SignupRequest request = null;
-		try {
-			request = signupController.signup(username, password, firstName, lastName, email, mecanographicNumber);
-			acceptController.acceptSignupRequest(request);
-		} catch (final ConcurrencyException | IntegrityViolationException e) {
-			// ignoring exception. assuming it is just a primary key violation
-			// due to the tentative of inserting a duplicated user
-			LOGGER.warn("Assuming {} already exists (activate trace log for details)", username);
-			LOGGER.trace("Assuming existing record", e);
-		}
-		return request;
-	}
-
-	private SignupRequest signup(final String username, final String password, final String firstName,
-			final String lastName, final String email, final String mecanographicNumber) {
-		SignupRequest request = null;
-		try {
-			request = signupController.signup(username, password, firstName, lastName, email, mecanographicNumber);
-		} catch (final ConcurrencyException | IntegrityViolationException e) {
-			// ignoring exception. assuming it is just a primary key violation
-			// due to the tentative of inserting a duplicated user
-			LOGGER.warn("Assuming {} already exists (activate trace log for details)", username);
-			LOGGER.trace("Assuming existing record", e);
-		}
-		return request;
-	}
 }
