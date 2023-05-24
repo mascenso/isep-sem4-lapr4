@@ -9,6 +9,33 @@ Exam "Math Exam" {
     Description: "Answer the following algebra questions."
 
     ShortAnswer "How much is 2 + 2?" {
-      PossibleAnswer "4"
+      Possible Answer "4"
     }
+
+      MultipleChoice "What is the capital of France?" {
+        Option 1: "Paris"
+        Option 2: "London"
+        Option 3: "Berlin"
+      Answer "Paris"
+    }
+
+    Numerical "What is the value of pi?" {
+      Acceptance Error = 0.01
+      Possible Answer 3.14
+      Possible Answer 3.149
+      Possible Answer 3.141
+    }
+
+    Matching "Match the countries with their capitals." {
+      MatchPair "France" => "Rome"
+      MatchPair "Germany" => "Paris"
+      MatchPair "Italy" => "Berlin"
+      Correct Pair "France" => "Paris"
+      Correct Pair "Germany" => "Berlin"
+      Correct Pair "Italy" => "Rome"
+    }
+
+
+
+
 }
