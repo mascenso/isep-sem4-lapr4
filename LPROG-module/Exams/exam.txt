@@ -8,25 +8,18 @@ Exam "Math Exam" {
   Section "Algebra" {
     Description: "Answer the following algebra questions."
 
-    ShortAnswer "How much is 2 + 2?" {
+    ShortAnswer: "How much is 2 + 2?" {
       Possible Answer "4"
     }
 
-      MultipleChoice "What is the capital of France?" {
-        Option 1: "Paris"
-        Option 2: "London"
-        Option 3: "Berlin"
-      Answer "Paris"
-    }
-
-    Numerical "What is the value of pi?" {
+    Numerical: "What is the value of pi?" {
       Acceptance Error = 0.01
       Possible Answer 3.14
       Possible Answer 3.149
       Possible Answer 3.141
     }
 
-    Matching "Match the countries with their capitals." {
+    Matching: "Match the countries with their capitals." {
       MatchPair "France" => "Rome"
       MatchPair "Germany" => "Paris"
       MatchPair "Italy" => "Berlin"
@@ -35,7 +28,22 @@ Exam "Math Exam" {
       Correct Pair "Italy" => "Rome"
     }
 
+    MultipleChoice: "What is the capital of France?" {
+      Option: "Paris"
+      Option: "London"
+      Option: "Berlin"
+      Answer: "Paris"
+    }
 
+    Select Missing Words: "Complete the sentence: The _______ jumped over the _______."{
+    Missing Word: "Dog"
+    Missing Word: "Fence"
+    Missing Word: "Moon"
+    Missing Word: "Bird"
+    }
 
-
+    TrueFalse: "The Earth is flat." {
+    Answer: False
+    }
+  }
 }
