@@ -28,6 +28,7 @@ import javax.persistence.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Calendar;
 
@@ -41,7 +42,7 @@ import java.util.Calendar;
  * This approach may seem a little more complex than just having String or
  * native type attributes but provides for real semantic of the domain and
  * follows the Single Responsibility Pattern
- *
+ *-
  * @author Jorge Santos ajs@isep.ipp.pt
  *
  */
@@ -49,26 +50,23 @@ import java.util.Calendar;
 public class StudentUser implements AggregateRoot<MecanographicNumber> {
     private static final long serialVersionUID = 1L;
 
-    // ORM primary key
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @EmbeddedId
+    @GenericGenerator(name = "custom_mec_number", strategy = "eCourse.persistence.impl.jpa.MecNumberSequenceGenerator")
+    @GeneratedValue(generator = "custom_mec_number")
+    private MecanographicNumber mecanographicNumber;
+
 
     @Version
     private Long version;
 
-    // Business ID
-    @Column(unique = true, nullable = false)
-    private MecanographicNumber mecanographicNumber;
-
     // TODO: Criar os value objects, pedir na UI a seguir ao data widget
 
-    //@Temporal(TemporalType.DATE)
-    //Calendar dateOfBirth;
+    @Temporal(TemporalType.DATE)
+    Calendar dateOfBirth;
 
     // Business ID
-    //@Column(unique = true, nullable = false)
-    //private TaxPayNumber taxPayNumber;
+    @Column(unique = true, nullable = false)
+    private TaxPayNumber taxPayNumber;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -77,9 +75,7 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
     private SystemUser systemUser;
 
     public StudentUser(final SystemUser user, final MecanographicNumber mecanographicNumber) {
-        if (mecanographicNumber == null || user == null) {
-            throw new IllegalArgumentException();
-        }
+
         this.systemUser = user;
         this.mecanographicNumber = mecanographicNumber;
     }

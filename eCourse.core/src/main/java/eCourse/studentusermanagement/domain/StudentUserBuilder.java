@@ -38,7 +38,16 @@ public class StudentUserBuilder implements DomainFactory<StudentUser> {
 
     public StudentUserBuilder withSystemUser(final SystemUser systemUser) {
         this.systemUser = systemUser;
-        this.mecanographicNumber = new MecanographicNumber(MecanographicNumberDomainService.generate());
+        return this;
+    }
+
+    public StudentUserBuilder withMecanographicNumber(final MecanographicNumber mecanographicNumber) {
+        this.mecanographicNumber = mecanographicNumber;
+        return this;
+    }
+
+    public StudentUserBuilder withMecanographicNumber(final String mecanographicNumber) {
+        this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
         return this;
     }
 
@@ -49,7 +58,4 @@ public class StudentUserBuilder implements DomainFactory<StudentUser> {
         return new StudentUser(this.systemUser, this.mecanographicNumber);
     }
 
-    public StudentUser build(SystemUser systemUser, String aMecanographicNumber) {
-        return new StudentUser(systemUser, new MecanographicNumber(aMecanographicNumber));
-    }
 }

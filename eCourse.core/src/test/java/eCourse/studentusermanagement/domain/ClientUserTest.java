@@ -41,10 +41,12 @@ public class ClientUserTest {
     public void ensureClientUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
 
         final StudentUser aClientUser = new StudentUserBuilder()
-                .withSystemUser(getNewDummyUser()).build(dummyUser("dummy", ECourseRoles.STUDENT), aMecanographicNumber);
+                .withMecanographicNumber(aMecanographicNumber)
+                .withSystemUser(getNewDummyUser()).build();
 
         final StudentUser anotherClientUser = new StudentUserBuilder()
-                .withSystemUser(getNewDummyUser()).build(dummyUser("dummy", ECourseRoles.STUDENT), aMecanographicNumber);
+                .withMecanographicNumber(aMecanographicNumber)
+                .withSystemUser(getNewDummyUser()).build();
 
         final boolean expected = aClientUser.equals(anotherClientUser);
 
