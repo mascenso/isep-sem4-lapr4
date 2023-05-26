@@ -25,6 +25,8 @@ import javax.persistence.Embeddable;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import java.time.Year;
+
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt
@@ -45,6 +47,7 @@ public class MecanographicNumber implements ValueObject, Comparable<Mecanographi
             throw new IllegalArgumentException(
                     "Mecanographic Number should neither be null nor empty");
         }
+
         // TODO validate invariants, i.e., mecanographic number regular
         // expression
         this.number = mecanographicNumber;
@@ -71,6 +74,14 @@ public class MecanographicNumber implements ValueObject, Comparable<Mecanographi
         return this.number.equals(that.number);
     }
 
+    public Year year() {
+        return Year.of(Integer.parseInt(number.substring(0, 4)));
+    }
+
+    public Long numberInYear() {
+        return Long.parseLong(number.substring(5));
+    }
+
     @Override
     public int hashCode() {
         return this.number.hashCode();
@@ -85,4 +96,5 @@ public class MecanographicNumber implements ValueObject, Comparable<Mecanographi
     public int compareTo(final MecanographicNumber arg0) {
         return number.compareTo(arg0.number);
     }
+
 }
