@@ -1,7 +1,6 @@
 package eCourse.studentusermanagement.domain;
 
-import org.threeten.bp.Year;
-
+import java.time.Year;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MecanographicNumberDomainService {
@@ -30,6 +29,20 @@ public class MecanographicNumberDomainService {
 
     private static int generateNumber() {
         return sequence.incrementAndGet();
+    }
+
+    public static MecanographicNumber generateFirst() {
+        return new MecanographicNumber(String.format(format, java.time.Year.now().getValue(), 1));
+    }
+
+    public static MecanographicNumber generateFromLast(MecanographicNumber mecanographicNumber) {
+        java.time.Year year = mecanographicNumber.year();
+
+        if (year.equals(java.time.Year.now())) {
+            return new MecanographicNumber(String.format(format, java.time.Year.now().getValue(), mecanographicNumber.numberInYear() + 1));
+        } else {
+            return generateFirst();
+        }
     }
 
 
