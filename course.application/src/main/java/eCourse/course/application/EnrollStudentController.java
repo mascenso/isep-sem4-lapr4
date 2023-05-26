@@ -20,9 +20,11 @@ import java.util.stream.Stream;
 public class EnrollStudentController {
 
     private final AuthorizationService authorizationService = AuthzRegistry.authorizationService();
-
     private final StudentRepository studentRepository = PersistenceContext.repositories().students();
     private final CourseRepository courseRepository = PersistenceContext.repositories().courses();
+
+    private ListCoursesService service = new ListCoursesService();
+
 
     private static final String CSV_DELIMITER = ",";
     private static final int CSV_STUDENT_IDENTITY_INDEX = 0;
@@ -76,7 +78,6 @@ public class EnrollStudentController {
         Course course = courseRepository.findByDesignation(Designation.valueOf(courseIdentity))
                 .orElseThrow(() -> new NoSuchElementException("The course " + courseIdentity + " does not exist in the database"));
 
-
         course.addAllStudent(students);
 
         for (Student student : students) {
@@ -84,5 +85,10 @@ public class EnrollStudentController {
         }
 
         courseRepository.save(course);
+    }
+
+    public Iterable<Course> allCourses() {
+
+        return service.allCourses();
     }
 }
