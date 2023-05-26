@@ -92,7 +92,6 @@ public class UpdateCourseStateUI extends AbstractUI {
                 System.out.println("Invalid selection. Try again.");
             }
 
-
         return null;
     }
 
@@ -112,9 +111,6 @@ public class UpdateCourseStateUI extends AbstractUI {
             case "Progress":
                 courseStates = new String[] { "Close" };
                 break;
-
-
-
         }
         //final String [] courseStates = CourseState.valueOf();
         for (int i = 0; i < courseStates.length; i++) {

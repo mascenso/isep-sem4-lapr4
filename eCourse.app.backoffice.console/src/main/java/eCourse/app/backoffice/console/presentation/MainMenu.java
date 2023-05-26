@@ -34,6 +34,7 @@ import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eCourse.app.backoffice.console.presentation.students.AddStudentUI;
+import eCourse.app.backoffice.console.presentation.students.EnrollStudentsUI;
 import eCourse.app.backoffice.console.presentation.teachers.AddTeacherUI;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
@@ -87,6 +88,7 @@ public class MainMenu extends AbstractUI {
     private static final int COURSE_OPTION = 6;
     private static final int SHAREDBOARD_OPTION = 7;
     private static final int MEETING_OPTION = 8 ;
+    private static final int ENROLLMENT_OPTION = 9;
 
     //COURSE
 
@@ -106,6 +108,9 @@ public class MainMenu extends AbstractUI {
 
     //MEETING
     private static final int SCHEDULE_MEETING = 1;
+
+    //ENROLLMENT
+    private static final int ENROLLMENT_CSV = 1;
 
     @Override
     public boolean show() {
@@ -173,6 +178,11 @@ public class MainMenu extends AbstractUI {
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)){
             final Menu meetingMenu = buildMeetingMenu();
             mainMenu.addSubMenu(MEETING_OPTION, meetingMenu);
+        }
+
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)){
+            final Menu enrollmentMenu = buildEnrollmentMenu();
+            mainMenu.addSubMenu(ENROLLMENT_OPTION, enrollmentMenu);
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -246,6 +256,15 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
         menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildEnrollmentMenu() {
+        final Menu menu = new Menu("Enrollments >");
+
+        menu.addItem(ENROLLMENT_CSV, "Entrollment from csv file", new EnrollStudentsUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
