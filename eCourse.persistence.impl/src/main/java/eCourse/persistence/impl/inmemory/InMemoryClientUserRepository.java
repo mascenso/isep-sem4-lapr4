@@ -54,4 +54,9 @@ public class InMemoryClientUserRepository
     public Iterable<StudentUser> findAllActive() {
         return match(e -> e.user().isActive());
     }
+
+    @Override
+    public Optional<StudentUser> findMaxMecNumber() {
+            throw new UnsupportedOperationException("To be implemented");
+    }
 }

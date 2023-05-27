@@ -32,6 +32,9 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
@@ -67,4 +70,13 @@ class JpaStudentUserRepository
     public Iterable<StudentUser> findAllActive() {
         return match("e.systemUser.active = true");
     }
+
+    @Override
+    public Optional<StudentUser> findMaxMecNumber() {
+        TypedQuery<StudentUser> stu =
+                createQuery("SELECT e FROM StudentUser e WHERE e.mecanographicNumber = (SELECT MAX(e.mecanographicNumber) FROM StudentUser e)", StudentUser.class);
+
+        return stu.getResultList().stream().findFirst();
+    }
+
 }
