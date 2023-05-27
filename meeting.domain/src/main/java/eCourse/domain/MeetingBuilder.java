@@ -15,6 +15,8 @@ public class MeetingBuilder implements DomainFactory<Meeting> {
     private Designation name;
 
 
+    private SystemUser meetingCreator;
+
     private List<SystemUser> participants;
 
     private int duration;
@@ -40,6 +42,11 @@ public class MeetingBuilder implements DomainFactory<Meeting> {
         return this;
     }
 
+    public MeetingBuilder MeetingCreator(final SystemUser user){
+        this.meetingCreator = user;
+        return this;
+    }
+
     public MeetingBuilder meetingStatus (final MeetingStatus meetingStatus){
         this.meetingStatus = meetingStatus;
         return this;
@@ -61,9 +68,9 @@ public class MeetingBuilder implements DomainFactory<Meeting> {
         if (theMeeting != null) {
             return theMeeting;
         }
-        if (name != null && duration >0 && schedule != null && participants!= null && meetingStatus != null && meetingTimeStamp !=null) {
+        if (name != null && duration >0 && schedule != null && participants!= null && meetingStatus != null && meetingTimeStamp !=null && this.meetingCreator !=null) {
 
-            theMeeting = new Meeting(name,schedule,participants,duration);
+            theMeeting = new Meeting(name,schedule,participants,duration,meetingCreator);
 
             return theMeeting;
         }
