@@ -1,12 +1,13 @@
-package eCourse.domain;
+/*package eCourse.domain;
 
+import eCourse.MechanographicNumber;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
 import javax.persistence.*;
 
-public class ListEnrollmentRequests implements AggregateRoot<Username> {
+public class ListEnrollmentRequests implements AggregateRoot<CourseEnrollmentRequest> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +23,12 @@ public class ListEnrollmentRequests implements AggregateRoot<Username> {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
-    private SystemUser student;
+    private Student student;
 
     @Enumerated(EnumType.STRING)
     private EnrollmentStatus enrollmentStatus;
 
-    public ListEnrollmentRequests(CourseEnrollmentRequest courseEnrollmentRequest, Course course, SystemUser student) {
+    public ListEnrollmentRequests(CourseEnrollmentRequest courseEnrollmentRequest, Course course, Student student) {
         this.courseEnrollmentRequest = courseEnrollmentRequest;
         this.course = course;
         this.student = student;
@@ -44,7 +45,9 @@ public class ListEnrollmentRequests implements AggregateRoot<Username> {
     }
 
     @Override
-    public Username identity() {
-        return this.student.identity();
+    public Long identity() {
+        return this.enrollmentRequestID;
     }
 }
+
+ */

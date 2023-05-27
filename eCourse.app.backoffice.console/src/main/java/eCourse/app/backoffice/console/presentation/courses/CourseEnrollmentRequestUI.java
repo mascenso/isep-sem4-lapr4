@@ -1,9 +1,7 @@
 package eCourse.app.backoffice.console.presentation.courses;
 
-import eCourse.course.application.CourseEnrollmentRequestController;
 import eCourse.domain.ApprovalStatus;
 import eCourse.domain.CourseEdition;
-import eCourse.domain.CourseState;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.general.domain.model.Designation;

@@ -1,6 +1,7 @@
 package eCourse.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
@@ -15,7 +16,7 @@ import java.util.List;
 public class CourseEnrollmentRequest implements AggregateRoot<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long EnrollmentID;
 
     @ManyToOne
@@ -24,12 +25,15 @@ public class CourseEnrollmentRequest implements AggregateRoot<Long> {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
-    private SystemUser student;
+    private Student student;
 
+    /*
     @OneToMany
     @JoinColumn(name = "courseEnrollmentRequest")
     private List<ListEnrollmentRequests> enrollmentRequestsList;
 
+
+     */
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -39,30 +43,51 @@ public class CourseEnrollmentRequest implements AggregateRoot<Long> {
     //date on format dd/mm/yyyy hh:mm
     private Calendar createdOn;
 
-    public CourseEnrollmentRequest(Course course, SystemUser student, List<SystemUser> listOfCourseRequests){
+    public CourseEnrollmentRequest(Course course, Student student) {//List<CourseEnrollmentRequest> listOfCourseRequests){
+        Preconditions.noneNull(course, student);
 
+        this.course = course;
+        this.student = student;
         this.enrollmentStatus = EnrollmentStatus.PENDING;
         this.createdOn = CurrentTimeCalendars.now();
         this.enrollmentStatus = EnrollmentStatus.PENDING;
 
-        this.enrollmentRequestsList = new ArrayList<>();
-        this.enrollmentRequestsList.add(new ListEnrollmentRequests(this, course, student));
+        //this.enrollmentRequestsList = new ArrayList<>();
+        //this.enrollmentRequestsList.add(new ListEnrollmentRequests(this, course, student));
 
     }
 
     public CourseEnrollmentRequest() {
     }
 
-    public List<ListEnrollmentRequests> enrollmentRequests(){return this.enrollmentRequestsList;}
+    //public List<ListEnrollmentRequests> enrollmentRequests(){return this.enrollmentRequestsList;}
 
 
     @Override
     public boolean sameAs(Object other) {
-        return false;
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof CourseEnrollmentRequest)) {
+            return false;
+        }
+
+        final CourseEnrollmentRequest otherCourseEnrollmentRequest = (CourseEnrollmentRequest) other;
+
+        return course.equals(otherCourseEnrollmentRequest.course)
+                && student.equals(otherCourseEnrollmentRequest.student)
+                && enrollmentStatus.equals(otherCourseEnrollmentRequest.enrollmentStatus)
+                && createdOn.equals(otherCourseEnrollmentRequest.createdOn);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        return DomainEntities.areEqual(this, o);
     }
 
     @Override
     public Long identity() {
-        return null;
+        return EnrollmentID;
     }
 }
