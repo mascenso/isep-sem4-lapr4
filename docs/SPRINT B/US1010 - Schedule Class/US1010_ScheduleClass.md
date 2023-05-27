@@ -20,15 +20,54 @@ A teacher schedule a class (always a recurring class, happens every week). Syste
 
 **From the client clarifications:**
 
+> **Question**
+> 
+> Bom dia!
+> Nestas duas US, pretende que seja mostrada a lista de Class/ExtraClass que já estão agendadas para que o professor saiba onde pode agendar?
+
+>  **Answer**
+> 
+> Boa tarde.
+> Em termos de requisitos é importante que o sistema garanta as regras que estão descritas em 5.1.2 relativo a aulas e aulas extra. Em termos de user interface para cada um desses casos de uso não existem requisitos específicos.
+> Nesse aspeto de "user experience" devem seguir boas práticas. Mas isso já faz parte do desenho da solução. "O cliente não percebe muito disso :-)"
+>
+
+> **Question**
+>
+> Good afternoon, I've a question regarding the shedule of a class. A teacher can only schedule classes to a given course that he/her is in?
+ 
+>  **Answer**
+> 
+> Bom dia.
+> Por favor siga o processo que indiquei em https://moodle.isep.ipp.pt/mod/forum/discuss.php?d=22571#p28540 antes de colocar a questão.
+
+> **Question:**
+>
+> Good afternoon, I've a question regarding the shedule of a class and of an extra class.
+> Is it possible (or there should be a warning) to schedule a class and/or an extra class when a student and/or teacher, that will be part of it, have a meeting at the same time that the class will happen? 
+
+> **Answer:**
+>
+> Bom dia.
+> Por favor siga o processo que indiquei em https://moodle.isep.ipp.pt/mod/forum/discuss.php?d=22571#p28540 antes de colocar a questão.
+
 > **Question:** 
 
-> **Answer:** 
+> Dear Client,
+> The teacher that schedules the class is the one that will give it, or can one teacher schedule a class that will be assigned to another teacher?
+> Best regards,
 
+> **Answer:** 
+>
+>Bom dia.
+>Por favor siga o processo que indiquei em https://moodle.isep.ipp.pt/mod/forum/discuss.php?d=22571#p28540 antes de colocar a questão.
 
 ### 1.3. Acceptance Criteria
 
+* **FRC09:** Schedule of Class A teacher schedule a class (always a recurring class, happens every week). System must check if the Teacher is available for the class period
 
-* **FRC02:** Open/Close Enrollments in Course Only managers are able to execute this functionality.
+The user needs to be logged in the application as a teacher.
+
 
 ### 1.4. Found out Dependencies
 
@@ -42,39 +81,34 @@ A teacher schedule a class (always a recurring class, happens every week). Syste
 **Input Data:**
 
 * Typed data:
-	* none
-	
-* Selected data:
-	* none
+	* Title
+    * Start Date
+    * End Date
+    * Start Time
+    * Duration
+    * Frequency
 
 
 **Output Data:**
 
-* Data saved in a file.
-* (In)Success of the operation
+* Recurring Lesson
+
+### Analysis
+
+* User Interface - This class is named CreateRecurringLessonUI where it will allow the teacher to create a recurring lesson.
+* Controller     - This class is named RecurringLessonController where will be responsible for managing UI requests and performing the necessary actions to create the recurring lesson.
+* Repository     - This class is named RecurringLessonRepository where it will store the data about the Recurring Lessons
+* Service        - ScheduleLessonService that propagates the recurring lesson with a certain frequency and validates that the teacher doesnt have a lesson in that date/time
+
+*Below is the use case diagram to show the interactions between the manager and the system when open and close courses*
+
+![Use Case Diagram](US1010-UCD.svg "US1010 Use Case Diagram")
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**Alternative 1**
-
-![US06_SSD](US06-SSD.svg)
-
-
-**Other alternatives might exist.**
+![US06_SSD](US1010-SSD.svg)
 
 ### 1.7 Other Relevant Remarks
-*The application should use object serialization to ensure persistence of the data between two runs of the application.*
-
-
-
-## 2. OO Analysis
-
-### 2.1. Relevant Domain Model Excerpt 
-
-![US06_MD](US06_DM.svg)
-
-### 2.2. Other Remarks
-*The application should use object serialization to ensure persistence of the data between two runs of the application.*
 
 
 ## 3. Design - User Story Realization 
@@ -83,125 +117,121 @@ A teacher schedule a class (always a recurring class, happens every week). Syste
 
 **SSD - Alternative 1 is adopted.**
 
-| Interaction ID | Question: Which class is responsible for...                | Answer                                        | Justification (with patterns)                                                                                            |
-|:---------------|:-----------------------------------------------------------|:----------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
-| Step 1         | ... Setting up the time, creating and scheduling the task? | Company                                       | IE: Knows the time to set the task running and how to get the wanted information.                                        |
-|        	     | ... Executing the task?                                    | DGSDailyRecordTask                            | Creator (Rule 1): The company has a task, all the information to initiate it.                                            |
-| Step 2      	 | ... Coordinating this part of the US?                      | ScheduleVaccinationController                 | Controller.                                                                                                              |
-|        	     | ... Having the information?                                | VaccineScheduleContainer                      |Pure Fabrication and LC/HC: There is no reason to assign this responsibility to any existing class in the Domain Model.   |
-| Step 3	     | ... Coordinating this part of the US?                      | CheckAndExportVaccinationStatisticsController | Controller.                                                                                                              |
-|        	     |                                                            | and RegisterSNSUserVaccinationController      | Controller.                                                                                                              |
-|                | ... Processing the data?                                   | AdministrationProcessContainer                | Pure Fabrication and LC/HC: There is no reason to assign this responsibility to any existing class in the Domain Model.  |
-| Step 4	     | ... Coordinating this part of the US?                      | CheckAndExportVaccinationStatisticsController | Controller.                                                                                                              |
-|  		         | ... Saving the data into a file?                           | AdministrationProcessContainer                | IE: Knows how to use the information.                                                                                    |
-|   		     | ... Informing the task has ended?    	                  | DGSDailyRecordTask                            | Pure Fabrication: There is no reason to assign this responsibility to any existing class in the Domain Model.            |
+
+| Interaction ID | Question: Which class is responsible for... | Answer                    | Justification (with patterns)                                                                                                                        |
+|:---------------|:--------------------------------------------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?             | CreateRecurringLessonUI   | UI pattern: CreateRecurringLessonUI is responsible for interacting with the actor                     |
+|                | ... coordinating the US?                    | RecurringLessonController | Controller pattern: RecurringLessonController is responsible for coordinating the use case and invoking necessary classes.                           |
+| Step 2         | .. return list of courses                   | RecurringLessonRepository | Repository pattern: RecurringLessonRepository is responsible for saving the recurring lesson in the database.                                        |
+| Step 3         | .. propagates the lesson and validates      | ScheduleLessonService     | Service: ScheduleRecurringLesson is responsible propagating the lesson for a certain frequency and validates the teacher availability for the lesson |
 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Company
- * DGSDailyRecordTask
+ * RecurringLesson
 
 Other software classes (i.e. Pure Fabrication) identified: 
- 
- * RegisterSNSUserVaccinationController 
- * CheckAndExportVaccinationStatisticsController
- * AdministrationProcessContainer
- * VaccineScheduleContainer
- * ScheduleVaccinationController
 
+ * CreateRecurringLessonController
+ * ScheduleLessonService
+ * RecurringLessonRepository
 
 ## 3.2. Sequence Diagram (SD)
 
-**Alternative 1**
-
-![US06_SD](US06-SD.svg)
+![US06_SD](US1010-SD.svg)
 
 
 ## 3.3. Class Diagram (CD)
 
-**From alternative 1**
+![US06_CD](US1010-CD.svg)
 
-![US06_CD](US06-CD.svg)
-
-# 4. Tests 
-
-**Test 1:** Check if the matrix has the needed information.
-
-	 @Test
-    void getSNSUserVaccinatedByDay() throws ParseException {
-
-        AdministrationProcessContainer administrationProcessContainer= new AdministrationProcessContainer();
-       
-
-	//STEPS OMITTED ...
-	...//
-
-        String[][] result = administrationProcessContainer.getSNSUserVaccinatedByDay(vsList);
-
-        int expectedLength1 = 2;
-        int expectedLength2 = 3;
-        int resultLength = result.length;
-
-        assertEquals(resultLength, expectedLength1);
-        assertNotEquals(resultLength, expectedLength2);
-    }
+# 4. Tests
 
 # 5. Construction (Implementation)
 
 ## Class Company
 
-	/**
- 	** Sets the task at the defined time in the config.properties
-	*/
-	private void setDGSDailyRecordTask() {
 
-        Calendar today = Calendar.getInstance();
-        Properties props = new Properties();
+    @XmlRootElement
+    @Entity
+    public class RecurringLesson implements AggregateRoot<Designation>, Representationable {
+    /**
+    * The primary key of lesson is the unique title
+    */
+    @XmlElement
+    @JsonProperty
+    @EmbeddedId
+    private Designation title;
 
-    //STEPS OMITTED ...
-	...//
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Calendar startDate;
 
-	today.set(Calendar.HOUR_OF_DAY, Integer.parseInt(props.getProperty("Record.Task.Daily.Hour")));
-	today.set(Calendar.MINUTE, Integer.parseInt(props.getProperty("Record.Task.Daily.Minute")));
-	today.set(Calendar.SECOND, 0);
-	today.set(Calendar.MILLISECOND, 0);
-	DGSDailyRecordTask task = new DGSDailyRecordTask(today);
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Calendar endDate;
 
-## Class DGSDailyRecordTask
+    @Column(nullable = false)
+    private int duration;
 
-	public class DGSDailyRecordTask implements Serializable {
-		public DGSDailyRecordTask(Calendar today) {
-		timer = new Timer();
-		this.timer.schedule(new runTask(), today.getTime(), TimeUnit.HOURS.toMillis(24));
-		}
-		try {
+    protected RecurringLesson(Designation title, Calendar startDate, Calendar endDate, int duration) {
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.duration = duration;
+    }
 
-                System.out.println("Task scheduled initialized!");
-		/**
-		 Returns a list of vaccine schedules
- 		 */
-			List<VaccineSchedule> vsList = scheduleVaccination.getListOfVaccineSchedule();
+    protected RecurringLesson() {
+    }
 
-	/**
-	* Returns a matrix with information about the vaccinated SNSUsers, the date and the Vaccination Center.
-  	*/
-			String[][] vaccinatedList = registerSNSUserVaccinationController.getSNSUserVaccinatedByDay(vsList);
+    @Override
+    public boolean equals(final Object o) {
+        return DomainEntities.areEqual(this, o);
+    }
 
-	/**
-	* Saves into a file the number of today's vaccinated SNSUsers, by Vaccination Center.
-	*/			
-			checkAndExportVaccinationStatisticsController.saveToFileNumberOfSNSUsersVaccinatedByVCToday(vaccinatedList);
-		}
-	//STEPS OMITTED ...
-	...//
-	} finally {
-	timer.cancel();
-	}
-	System.out.println("Task concluded!");
-	}
+    @Override
+    public int hashCode() {
+        return DomainEntities.hashCode(this);
+    }
+
+    @Override
+    public boolean sameAs(final Object other) {
+        if (!(other instanceof RecurringLesson)) {
+            return false;
+        }
+
+        final RecurringLesson that = (RecurringLesson) other;
+        if (this == that) {
+            return true;
+        }
+        return identity().equals(that.identity()) && startDate.equals(that.startDate) && endDate.equals(that.endDate) && duration == that.duration;
+    }
+
+    @Override
+    public <R> R buildRepresentation(final RepresentationBuilder<R> builder) {
+        return null;
+    }
+
+    @Override
+    public Designation identity() { return this.title; }
+
+    public Designation title() { return this.title;}
+
+    public Calendar startDate() { return this.startDate;}
+
+    public Calendar endDate() { return this.endDate;}
+
+    public int duration() { return this.duration;}
+
+    public RecurringLesson updateScheduleOfLesson(Calendar startDate, Calendar endDate, int duration){
+        this.duration = duration;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        return this;
+      }
+    }
 
 # 6. Integration and Demo 
 /-
