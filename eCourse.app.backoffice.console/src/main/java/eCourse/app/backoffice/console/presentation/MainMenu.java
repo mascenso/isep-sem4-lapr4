@@ -30,6 +30,7 @@ import eCourse.app.backoffice.console.presentation.clientuser.AcceptRefuseSignup
 import eCourse.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eCourse.app.backoffice.console.presentation.courses.ListCoursesUI;
 import eCourse.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
+import eCourse.app.backoffice.console.presentation.meetings.CancelMeetingUI;
 import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
@@ -108,6 +109,8 @@ public class MainMenu extends AbstractUI {
 
     //MEETING
     private static final int SCHEDULE_MEETING = 1;
+    private static final int CANCEL_MEETING = 2;
+
 
     //ENROLLMENT
     private static final int ENROLLMENT_CSV = 1;
@@ -248,6 +251,8 @@ public class MainMenu extends AbstractUI {
     private Menu buildMeetingMenu(){
         final Menu menu = new Menu("Meeting >");
         menu.addItem(SCHEDULE_MEETING,"Schedule new meeting", new ScheduleMeetingsUI()::show);
+        menu.addItem(CANCEL_MEETING,"Cancel meeting", new CancelMeetingUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 
