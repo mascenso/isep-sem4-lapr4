@@ -27,7 +27,7 @@ import eapli.framework.io.util.Console;
  *
  * widget for reading user data Jorge Santos ajs@isp.ipp.pt
  */
-class UserDataWidget {
+public class UserDataWidget {
 
     private String username;
     private String password;

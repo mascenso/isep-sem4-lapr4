@@ -4,23 +4,61 @@ import eCourse.domain.Course;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
 import eCourse.usermanagement.domain.BaseCourseStates;
+
 import eCourse.usermanagement.domain.ECourseRoles;
+import eapli.framework.domain.repositories.ConcurrencyException;
+import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.validations.Preconditions;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class UpdateCourseStateService {
-
     private final AuthorizationService authorizationService = AuthzRegistry.authorizationService();
     private final CourseRepository courseRepository = PersistenceContext.repositories().courses();
+
+    public Optional<Course> findCourseByDesignation(final String designationName) {
+        Preconditions.nonEmpty(designationName);
+
+        final Designation designation = Designation.valueOf(designationName);
+        return courseRepository.findByDesignation(designation);
+    }
+
+    public Optional<Course> updateCourseState(String designationName, String newState) throws IntegrityViolationException, ConcurrencyException {
+        Optional<Course> optionalCourse = findCourseByDesignation(designationName);
+
+        if (optionalCourse.isPresent()) {
+            switch (newState) {
+                case "Open":
+                    open(designationName);
+                    break;
+                case "Close":
+                    close(designationName);
+                    break;
+                case "Enroll":
+                    enroll(designationName);
+                    break;
+                case "Progress":
+                    closeEnroll(designationName);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid state: " + newState);
+            }
+
+            //PersistenceContext.repositories().courses().save(course);
+        } else {
+            throw new NoSuchElementException("Course not found: " + designationName);
+        }
+        return optionalCourse;
+    }
 
     public void open(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
         //authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN , ECourseRoles.POWER_USER);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER,ECourseRoles.POWER_USER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -42,7 +80,7 @@ public class UpdateCourseStateService {
 
     public void enroll(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER,ECourseRoles.POWER_USER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -64,7 +102,7 @@ public class UpdateCourseStateService {
 
     public void closeEnroll(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER,ECourseRoles.POWER_USER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty
@@ -87,7 +125,7 @@ public class UpdateCourseStateService {
     public void close(String designationName) {
         //1 - validate if the user is authenticated and has a valid role
         //authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER);
-        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN);
+        authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER, ECourseRoles.POWER_USER);
 
         //2 - validate params
         Preconditions.nonEmpty(designationName); //the name of the course cannot be empty

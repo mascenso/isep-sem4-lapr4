@@ -54,4 +54,6 @@ public interface StudentUserRepository
     }
 
     public Iterable<StudentUser> findAllActive();
+
+    Optional<StudentUser> findMaxMecNumber();
 }

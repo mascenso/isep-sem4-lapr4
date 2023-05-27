@@ -1,0 +1,41 @@
+@startuml
+'http://plantuml.com/skinparam.html
+skinparam handwritten true
+'skinparam monochrome true
+skinparam packageStyle rect
+skinparam defaultFontName FG Virgil
+skinparam shadowing false
+
+actor Chef as Actor
+participant RegisterCourseUI as UI
+control RegisterCourseController as Controller 
+participant ListTeachersService as TeachersService
+database TeachersRepository as RepoAllerg
+participant "Course" as Course 
+participant "TeachersInCourse" as Alg
+database CourseRepository as Repository
+
+Actor -> UI: doShow()
+activate UI
+    UI -> Controller: ...
+    UI -> Controller: allTeacherss()
+    activate Controller
+    Controller ->TeachersService: allTeacherss()
+    TeachersService ->RepoAllerg: findAll()
+    Controller-->UI:allTeacherss
+    deactivate Controller
+    loop 
+    UI->UI: select Teachers
+    Actor ->UI: allergean
+    end
+    UI->Controller:registerCourse(...,allergeans )
+    activate Controller  
+    Controller->Course:create()
+    loop for all allergeans indicated 
+    Controller->Alg:create()
+    Controller->Course:addTeacherssInCourse(allergenInCourse)
+    end
+    Controller->Repository:save(dish)
+    deactivate Controller
+deactivate UI
+@enduml

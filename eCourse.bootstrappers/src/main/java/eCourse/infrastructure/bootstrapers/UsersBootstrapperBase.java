@@ -22,6 +22,8 @@ package eCourse.infrastructure.bootstrapers;
 
 import java.util.Set;
 
+import eCourse.course.application.AddStudentController;
+import eCourse.domain.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +39,9 @@ public class UsersBootstrapperBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(UsersBootstrapperBase.class);
 
     final AddUserController userController = new AddUserController();
+
+    final AddStudentController studentController = new AddStudentController();
+
     final ListUsersController listUserController = new ListUsersController();
 
     public UsersBootstrapperBase() {
@@ -63,5 +68,20 @@ public class UsersBootstrapperBase {
             u = listUserController.find(Username.valueOf(username)).orElseThrow(() -> e);
         }
         return u;
+    }
+
+    protected Student registerStudent(final String username, final String password, final String firstName,
+                                      final String lastName, final String email, final Set<Role> roles) {
+        SystemUser u = null;
+        Student s = null;
+        try {
+            s = studentController.addStudent(username, password, firstName, lastName, email, roles);
+            LOGGER.debug("»»» %s", username);
+        } catch (final IntegrityViolationException | ConcurrencyException e) {
+            // assuming it is just a primary key violation due to the tentative
+            // of inserting a duplicated user. let's just lookup that user
+            u = listUserController.find(Username.valueOf(username)).orElseThrow(() -> e);
+        }
+        return s;
     }
 }

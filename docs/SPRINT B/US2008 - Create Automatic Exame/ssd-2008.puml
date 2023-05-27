@@ -1,0 +1,23 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Teacher
+activate Teacher
+
+
+Teacher -> System: Asks to create an AutomaticExam
+System --> Teacher: Ask for name of AutomaticExam
+Teacher -> System: Insert name
+System --> Teacher: Shows type of questions and ask to choose one
+Teacher -> System: Insert type of question
+System --> Teacher: Asks quantity of questions
+Teacher -> System: Insert quantity
+
+System --> Teacher: Create and Saves Automatic exam
+
+
+deactivate Teacher
+
+@enduml

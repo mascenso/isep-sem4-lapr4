@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class ParticipantsOfMeeting implements AggregateRoot<Username> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idParticipant;
 
     @ManyToOne

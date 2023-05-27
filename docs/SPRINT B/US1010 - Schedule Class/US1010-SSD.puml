@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Actor
+participant ScheduleRecurringLessonUI as UI <<Presentation>>
+participant ScheduleRecurringLessonController as Controller <<Application>>
+database ScheduleRecurringLessonRepository as LessonRepository <<Repository>>
+participant "serviço:RecurringLessonScheduler" as Serviço <<Domain>>
+
+
+Actor -> UI: Cria uma recurring lesson
+activate UI
+UI -> Actor: Solicita informação para criar a recurring lesson
+Actor -> UI: insere frequência, data de início, data de fim, duração, título e hora de início
+
+UI -> Controller: scheduleLesson
+activate Controller
+Controller -> LessonRepository
+
+
+
+@enduml

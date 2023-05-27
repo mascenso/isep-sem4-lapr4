@@ -7,12 +7,15 @@ import eapli.framework.general.domain.model.Designation;
 import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Course implements AggregateRoot<Designation> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCourse;
 
     @Embedded
@@ -26,6 +29,14 @@ public class Course implements AggregateRoot<Designation> {
 
     @Embedded
     private CourseState state;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "Course_Student",
+            joinColumns = {@JoinColumn(name = "IDCOURSE")},
+            inverseJoinColumns = {@JoinColumn(name = "NUMBER")}
+    )
+    Set<Student> students = new HashSet<>();
 
     protected Course (final Designation name, final Description description, final CourseEdition edition){
         Preconditions.noneNull(name,description,edition);
@@ -86,5 +97,12 @@ public class Course implements AggregateRoot<Designation> {
         return DomainEntities.areEqual(this, o);
     }
 
+    public boolean addStudent(Student student) {
+        return this.students.add(student);
+    }
+
+    public boolean addAllStudent(List<Student> students) {
+        return this.students.addAll(students);
+    }
 
 }

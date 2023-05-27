@@ -23,15 +23,20 @@
  */
 package eCourse.studentusermanagement.application;
 
+import eCourse.studentusermanagement.domain.MecanographicNumberDomainService;
 import eCourse.studentusermanagement.domain.StudentUser;
 import eCourse.studentusermanagement.domain.MecanographicNumber;
+import eCourse.studentusermanagement.domain.StudentUserBuilder;
 import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 /**
@@ -44,6 +49,9 @@ public class StudentUserService {
     private final StudentUserRepository repo =
             PersistenceContext.repositories().clientUsers();
 
+    private final UserManagementService userService = AuthzRegistry.userService();
+
+
     public Optional<StudentUser> findClientUserByMecNumber(
             final String mecNumber) {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
@@ -52,10 +60,45 @@ public class StudentUserService {
         return repo.ofIdentity(MecanographicNumber.valueOf(mecNumber));
     }
 
+    public Optional<MecanographicNumber> findMaxMecNumber() {
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
+                ECourseRoles.ADMIN,
+                ECourseRoles.TEACHER);
+        return repo.findMaxMecNumber().map(StudentUser::mecanographicNumber);
+    }
+
+
     public Optional<StudentUser> findClientUserByUsername(
             final Username user) {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
                 ECourseRoles.ADMIN);
         return repo.findByUsername(user);
     }
+
+    /**
+     * Creates a new StudentUser for the given SystemUser, and saves it to the
+     * repository.
+     * @param newUser
+     */
+    @Transactional /* Generates a new mec number and saves it to the repository */
+    public void createStudentUser(final SystemUser newUser) {
+        final StudentUserBuilder studentUserBuilder = new StudentUserBuilder();
+        studentUserBuilder
+                .withSystemUser(newUser);
+
+        final Optional<MecanographicNumber> maxMecNumber = findMaxMecNumber();
+
+        if (maxMecNumber.isPresent()) {
+
+            MecanographicNumberDomainService.generateFromLast(maxMecNumber.get());
+
+        } else {
+            /* First student user */
+            studentUserBuilder.withMecNumber( MecanographicNumberDomainService.generateFirst() );
+        }
+
+        this.repo.save(studentUserBuilder.build());
+    }
+
+
 }

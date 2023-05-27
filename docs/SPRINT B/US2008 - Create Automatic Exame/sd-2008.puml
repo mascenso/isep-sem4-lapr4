@@ -1,0 +1,32 @@
+@startuml
+actor Teacher as Actor
+participant CreateAutomaticExameUI as UI <<presentation>>
+participant CreateAutomaticExameController as Controller <<aplication>>
+participant AutomaticExameBuilder as Builder <<builder>>
+participant AutomaticExam as Domain <<domain>>
+database AutomaticExamRepository as Repository1 <<repository>>
+database QuestionRepository as Repository2 <<repository>>
+
+Actor -> UI:Doshow()
+UI -> Controller: typeQuestion()
+Controller-> Domain: typesQuestions()
+Domain --> Controller
+Controller --> UI
+UI -> UI:ShowListofQuestionTypes
+UI --> Actor:Ask teacher to select type
+Actor -> UI:Type selected
+UI --> Actor: Ask number of Questions
+Actor-> UI: Write number
+UI -> Controller: CreateAutomaticExame(type, question)
+    loop option < quantity
+        Controller -> Repository2: getQuestion(type)
+        Repository2 --> Controller: Question
+    end
+Controller -> Builder: CreateAutomaticExame(type, quantity, questions)
+Builder -> Domain : createAutomaticExam(title, questions, type)
+Domain --> Builder: AutomaticExam
+Builder --> Controller : save(AutomaticExam)
+Controller -> Repository1: save(AutomaticExam)
+Controller --> UI:AutomaticExam
+UI --> Actor: Show AutomaticExam
+@enduml

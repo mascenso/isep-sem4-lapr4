@@ -76,3 +76,9 @@ README.html
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+#Ignore object files
+*.o
+*.out
+.idea/
+/CMakeLists.txt
+.vscode/

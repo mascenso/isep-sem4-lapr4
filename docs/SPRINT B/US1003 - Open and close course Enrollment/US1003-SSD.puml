@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+
+
+actor "<<automatic>>\nTimer/Clock" as Company
+
+activate Company
+
+activate System
+
+Company -> System: The task is initialized at the defined time.
+note right: **"ExportData"** \n Must be saved in a file every day \n at a defined time by the Company
+System --> Company: Gets a list of all vaccine schedules.
+System --> Company: Gets the list of today's vaccinations, by Vaccination Center.
+
+System --> Company: The System records the data into a csv file, indicates the task is concluded and disables the automatic execution.
+
+deactivate System
+
+deactivate Company
+
+@enduml
