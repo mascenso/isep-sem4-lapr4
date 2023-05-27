@@ -2,6 +2,7 @@
 actor Teacher as Actor
 participant CreateAutomaticExameUI as UI <<presentation>>
 participant CreateAutomaticExameController as Controller <<aplication>>
+participant QuestionType as Enum <<Enum>>
 participant AutomaticExameBuilder as Builder <<builder>>
 participant AutomaticExam as Domain <<domain>>
 database AutomaticExamRepository as Repository1 <<repository>>
@@ -9,8 +10,8 @@ database QuestionRepository as Repository2 <<repository>>
 
 Actor -> UI:Doshow()
 UI -> Controller: typeQuestion()
-Controller-> Domain: typesQuestions()
-Domain --> Controller
+Controller-> Enum: typesQuestions()
+Enum --> Controller
 Controller --> UI
 UI -> UI:ShowListofQuestionTypes
 UI --> Actor:Ask teacher to select type
