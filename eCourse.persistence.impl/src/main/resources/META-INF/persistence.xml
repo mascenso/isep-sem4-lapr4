@@ -17,8 +17,6 @@
     <class>eCourse.lesson.domain.model.RecurringLesson</class>
     <class>eCourse.domain.Exam</class>
     <class>eCourse.domain.Question</class>
-    <class>eCourse.domain.SequenceSection</class>
-    <class>eCourse.domain.SectionQuestion</class>
     <class>eCourse.domain.Meeting</class>
     <class>eCourse.domain.ParticipantsOfMeeting</class>
     <class>eCourse.domain.Student</class>

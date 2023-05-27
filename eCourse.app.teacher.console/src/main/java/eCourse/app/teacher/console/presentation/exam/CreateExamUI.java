@@ -23,14 +23,18 @@ public class CreateExamUI extends AbstractUI {
 
         final Map<Integer, Designation> hashmap = new HashMap<>();
 
+
         System.out.println("List of Open Courses:");
         int selectedOption = showCourses(listOfCourses, hashmap);
         final Course selectedCourse = listOfCourses.get(selectedOption - 1);
 
         try {
 
-            Date openDate = Console.readDate("Insert the open date (dd/MM/yy)", "dd/MM/yyyy");
-            Date closeDate = Console.readDate("Insert the close date (dd/MM/yy)", "dd/MM/yyyy");
+            Date openDate = Console.readDate("Insert the open date (dd/MM/yyyy)", "dd/MM/yyyy");
+            Date closeDate;
+            do {
+                closeDate = Console.readDate("Insert the close date (dd/MM/yyyy). It cannot be before the start date!", "dd/MM/yyyy");
+            } while (closeDate.compareTo(openDate) < 0);
 
             final String path = Console.readNonEmptyLine("Insert the path to the file:", "The path cannot be empty!");
             File examFile = new File(path);
