@@ -20,6 +20,7 @@
  */
 package eCourse.studentusermanagement.domain;
 
+import eCourse.studentusermanagement.application.StudentUserService;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
@@ -39,6 +40,18 @@ public class StudentUserBuilder implements DomainFactory<StudentUser> {
     public StudentUserBuilder withSystemUser(final SystemUser systemUser) {
         this.systemUser = systemUser;
         this.mecanographicNumber = new MecanographicNumber(MecanographicNumberDomainService.generate());
+        return this;
+    }
+
+    public StudentUserBuilder withMecNumber(final MecanographicNumber mecNumber) {
+        this.mecanographicNumber = new MecanographicNumber(MecanographicNumberDomainService.generate());
+        return this;
+    }
+
+    /* To use in tests */
+    public StudentUserBuilder withSystemUserAndMecanographicNumber(final SystemUser systemUser, final String mecanographicNumber) {
+        this.systemUser = systemUser;
+        this.mecanographicNumber = new MecanographicNumber(mecanographicNumber);
         return this;
     }
 
