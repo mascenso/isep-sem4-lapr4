@@ -16,7 +16,7 @@ public class ListMeetingsUI extends AbstractListUI<Meeting> {
 
     @Override
     protected Visitor<Meeting> elementPrinter() {
-        return null;
+        return new SystemMeetingsPrinter();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class ListMeetingsUI extends AbstractListUI<Meeting> {
 
     @Override
     protected String listHeader() {
-        return null;
+        return String.format("#  %-30s%-25s%-20s%-20s", "Designation", "Date", "Owner", "Status");
     }
 
     @Override

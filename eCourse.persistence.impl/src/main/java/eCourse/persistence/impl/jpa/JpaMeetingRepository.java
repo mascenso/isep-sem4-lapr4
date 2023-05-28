@@ -47,7 +47,7 @@ public class JpaMeetingRepository extends JpaAutoTxRepository<Meeting, String,St
     public Iterable<Meeting> findByUsername(Username name) {
         final Map<String, Object> params = new HashMap<>();
         params.put("name", name);
-        return match("e.owner.username=:name", params);
+        return match("e.meetingCreator.username=:name", params);
     }
 
 }

@@ -16,7 +16,6 @@ public class ListMeetingsController {
 
 
     public Iterable<Meeting> listMeetingsByUser(){
-        Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
-        return service.getMeetingsByUser(user);
+        return service.getMeetingsByUser();
     }
 }
