@@ -6,9 +6,11 @@ import eCourse.domain.MeetingStatus;
 import eCourse.domain.ParticipantsOfMeeting;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import org.apache.commons.collections4.IteratorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ListMeetingsService {
 
@@ -51,5 +53,12 @@ public class ListMeetingsService {
             }
         }
         return listMeetingUser;
+    }
+
+    public Iterable<Meeting> getMeetingsByUser(Optional<SystemUser> user) {
+        Iterable<Meeting> meetingIterable = PersistenceContext.repositories().meetings().findByUsername(user.get().identity());
+        List<Meeting> meetingListByUser = IteratorUtils.toList(meetingIterable.iterator());
+
+        return  meetingListByUser;
     }
 }
