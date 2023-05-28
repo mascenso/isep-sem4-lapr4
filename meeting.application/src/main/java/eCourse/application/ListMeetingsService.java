@@ -56,6 +56,7 @@ public class ListMeetingsService {
     }
 
     public Iterable<Meeting> getMeetingsByUser(Optional<SystemUser> user) {
+
         Iterable<Meeting> meetingIterable = PersistenceContext.repositories().meetings().findByUsername(user.get().identity());
         List<Meeting> meetingListByUser = IteratorUtils.toList(meetingIterable.iterator());
 
