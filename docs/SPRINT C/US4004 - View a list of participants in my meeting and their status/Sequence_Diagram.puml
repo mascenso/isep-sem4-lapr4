@@ -8,21 +8,37 @@ participant ListMeetingsUI      as UI <<Presentation>>
 control ListMettingsController  as Controller <<Application>>
 participant ListMeetingsService as Service <<Application>>
 participant PersistenceContext  as Persistence <<persistence>>
+participant RepositoryFactory   as RepFactory <<factory>>
 database MettingsRepository     as Repository <<Repository>>
 participant "Mettings"          as Mettings <<Domain>>
 
 activate User
 User -> UI                  : Select the option - 8.Meeting
 activate UI
-UI -> Controller            : allMeetings()
+UI -> Controller            : listMeetingsByUser()
 activate Controller
-Controller -> Service       : allMeetings()
-deactivate Controller
+Controller -> Service       : getMeetingsByUser()
+
 activate Service
-Service --> UI              : ListAllMeetings
+Service -> Persistence      : repositories()
+activate Persistence
+Persistence --> Service     : theFactory
+deactivate Persistence
+Service -> RepFactory       : meetings()
+activate RepFactory
+RepFactory -> Repository    : findByUsername()
+deactivate RepFactory
+activate Repository
+Repository --> Service      : meetingListByUser
+deactivate Repository
+Service --> Controller      : getMeetingsByUser()
 deactivate Service
-UI --> User                 : Shows the ListAllMeetings
-User -> UI                  : Selects the Meeting
+Controller --> UI           : listMeetingsByUser
+deactivate Controller
+
+
+UI --> User                 : Shows the meetingListByUser
+
 
 
 
