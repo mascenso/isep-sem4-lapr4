@@ -84,6 +84,9 @@ public class Meeting implements AggregateRoot<Long> {
      */
     public Date dateOfMeeting (){return this.schedule;}
 
+    public SystemUser meetingCreator(){return this.meetingCreator;}
+
+    public MeetingStatus meetingStatus(){return this.meetingStatus;}
     /**
      * Usefull method to compare 2 objects meeting
      * @param other
@@ -111,5 +114,9 @@ public class Meeting implements AggregateRoot<Long> {
     @Override
     public Long identity() {
         return this.idMeeting;
+    }
+
+    public void cancelMeeting() {
+        this.meetingStatus = MeetingStatus.CANCELLED;
     }
 }
