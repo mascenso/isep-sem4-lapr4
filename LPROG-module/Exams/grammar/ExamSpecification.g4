@@ -22,48 +22,53 @@ section: 'Section' sectionTitle=STRING '{'
 
 question: matchingQuestion | multipleChoiceQuestion | shortAnswerQuestion | numericalQuestion | selectMissingWordsQuestion | trueFalseQuestion;
 
-matchingQuestion: 'Matching' questionText=STRING '{'
+matchingQuestion: 'Matching:' questionText=STRING '{'
                     matchPair+
+                    correctPair+
                   '}';
 
 matchPair: 'MatchPair' questionText=STRING '=>' answerText=STRING;
+correctPair: 'Correct Pair' questionText=STRING '=>' answerText=STRING;
 
-multipleChoiceQuestion: 'MultipleChoice' questionText=STRING '{'
+multipleChoiceQuestion: 'MultipleChoice:' questionText=STRING '{'
+                          options+
                           answer+
                         '}';
 
-answer: 'Answer' answerText=STRING;
+options: 'Option:' answerText=STRING;
 
-shortAnswerQuestion: 'ShortAnswer' questionText=STRING '{'
+answer: 'Answer: ' answerText=STRING;
+
+shortAnswerQuestion: 'ShortAnswer:' questionText=STRING '{'
                        possibleAnswer+
                      '}';
 
-possibleAnswer: 'PossibleAnswer' answerText=STRING;
+possibleAnswer: 'Possible Answer' (answerText=STRING | answerText=DOUBLE);
 
-numericalQuestion: 'Numerical' questionText=STRING '{'
-                     acceptedError=DOUBLE
+numericalQuestion: 'Numerical:' questionText=STRING '{'
+                     acceptedError
                      possibleAnswer+
                    '}';
 
-selectMissingWordsQuestion: 'SelectMissingWords' questionText=STRING '{'
+acceptedError: 'Acceptance Error = ' DOUBLE;
+
+selectMissingWordsQuestion: 'Select Missing Words:' questionText=STRING '{'
                               missingWord+
                             '}';
 
-missingWord: 'MissingWord' word=STRING;
+missingWord: 'Missing Word: ' word=STRING;
 
-trueFalseQuestion: 'TrueFalse' questionText=STRING;
+trueFalseQuestion: 'TrueFalse:' questionText=STRING '{' 'Answer: '('True'|'False') '}';
 
-DOUBLE: '-'? DIGIT+ ('.' DIGIT+)?;
 
+DOUBLE: [0-9]+ '.' [0-9]+;
+INTEGER: [0-9]+;
+ESC: '\\' ["\\"];
 STRING: '"' (ESC | ~["\r\n"])* '"';
-fragment ESC: '\\' ["\\"];
+
 
 NONE: 'None';
 ONSUBMISSION: 'OnSubmission';
 AFTERCLOSING: 'AfterClosing';
-
-ID: [a-zA-Z]+;
-
-fragment DIGIT: [0-9];
 
 WS: [ \t\r\n]+ -> skip;
