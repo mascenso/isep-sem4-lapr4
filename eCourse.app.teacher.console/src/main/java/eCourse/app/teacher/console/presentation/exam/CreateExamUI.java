@@ -10,6 +10,7 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class CreateExamUI extends AbstractUI {
@@ -39,11 +40,17 @@ public class CreateExamUI extends AbstractUI {
             final String path = Console.readNonEmptyLine("Insert the path to the file:", "The path cannot be empty!");
             File examFile = new File(path);
 
+            if (!examFile.exists()) {
+                throw new FileNotFoundException("The file doesn't exist!");
+            }
+
             theController.createExam(selectedCourse, title, openDate, closeDate, examFile);
         } catch (final IntegrityViolationException e) {
             System.out.println("You tried to enter an exam which already exists in the database.");
         } catch (final ConcurrencyException e) {
             System.out.println("Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+        } catch (FileNotFoundException e) {
+            System.out.println("The file doesn't exist! Returning to main menu!");
         }
         return false;
     }

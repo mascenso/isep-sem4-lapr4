@@ -5,12 +5,19 @@ import eCourse.domain.Meeting;
 import eCourse.domain.MeetingStatus;
 import eCourse.domain.ParticipantsOfMeeting;
 import eCourse.infrastructure.persistence.PersistenceContext;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import org.apache.commons.collections4.IteratorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ListMeetingsService {
+
+    private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
     public Iterable<Meeting> allMeetings(){
 
@@ -51,5 +58,14 @@ public class ListMeetingsService {
             }
         }
         return listMeetingUser;
+    }
+
+    public Iterable<Meeting> getMeetingsByUser() {
+        authz.session().map(s -> s.authenticatedUser().identity());
+        Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
+        Iterable<Meeting> meetingIterable = PersistenceContext.repositories().meetings().findByUsername(user.get().identity());
+        List<Meeting> meetingListByUser = IteratorUtils.toList(meetingIterable.iterator());
+
+        return  meetingListByUser;
     }
 }

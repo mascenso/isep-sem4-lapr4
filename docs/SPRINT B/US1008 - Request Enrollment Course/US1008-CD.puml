@@ -1,19 +1,42 @@
 @startuml
 
 class RequestEnrollmentUI {
+    +doShow()
 }
 
 class RequestEnrollmentController {
+    +CreateCourseEnrollmentRequest()
 }
 
 class RequestEnrollmentRepository {
 }
 
-class Course {
+class PersistenceContext {
+    -CourseEnrollmentRequestRepository: CourseEnrollmentRequestRepository
+    +repositories()
 }
 
-RequestEnrollmentUI --> RequestEnrollmentController: uses
-RequestEnrollmentController --> RequestEnrollmentRepository: uses the repository
-RequestEnrollmentController --> Course: Changes status
+class RepositoryFactory {
+    +create()
+}
+
+class CourseEnrollmentService {
+    listEnrollingCourses()
+}
+
+class CourseEnrollmentRequest {
+}
+
+class CourseEnrollmentRequestRepository {
+}
+
+RequestEnrollmentUI --> RequestEnrollmentController
+RequestEnrollmentController --> RequestEnrollmentRepository
+RequestEnrollmentController --> PersistenceContext
+RequestEnrollmentController --> CourseEnrollmentService
+CourseEnrollmentService --> PersistenceContext
+PersistenceContext --> RepositoryFactory
+RepositoryFactory --> CourseEnrollmentRequestRepository
+RequestEnrollmentController --> CourseEnrollmentRequest
 
 @enduml

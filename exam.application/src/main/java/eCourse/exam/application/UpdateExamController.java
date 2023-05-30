@@ -32,6 +32,7 @@ public class UpdateExamController {
     public List<Exam> getExamsByCourse(Course course) {
         return examService.getExamByCourse(course);
     }
+
     public Exam getExamByTitle(ExamTitle title) {
         return examService.getExamByTitle(title);
     }
