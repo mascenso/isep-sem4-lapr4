@@ -1,5 +1,6 @@
 package eCourse.app.backoffice.console.presentation.courses;
 
+import eCourse.application.CourseEnrollmentRequestController;
 import eCourse.domain.ApprovalStatus;
 import eCourse.domain.CourseEdition;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -23,6 +24,7 @@ public class CourseEnrollmentRequestUI extends AbstractUI {
         final ApprovalStatus approvalStatus = ApprovalStatus.PENDING;
         final Designation courseName = Designation.valueOf(Console.readNonEmptyLine("course Name","The course name should not be empty"));
         final CourseEdition courseEdition = CourseEdition.valueOf(Console.readNonEmptyLine("course edition", "The course edition should not be empty"));
+        /*
         try {
             this.theController.courseEnrollment(username, name, email, approvalStatus, null, courseName, courseEdition, null);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
@@ -30,7 +32,10 @@ public class CourseEnrollmentRequestUI extends AbstractUI {
                     "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
         }
 
+*/
         return true;
+
+
     }
 
     @Override

@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>Enrollment.application</artifactId>
-    <packaging>jar</packaging>
+
 
 
     <properties>

@@ -10,6 +10,7 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class CreateExamUI extends AbstractUI {
@@ -23,23 +24,34 @@ public class CreateExamUI extends AbstractUI {
 
         final Map<Integer, Designation> hashmap = new HashMap<>();
 
+
         System.out.println("List of Open Courses:");
         int selectedOption = showCourses(listOfCourses, hashmap);
         final Course selectedCourse = listOfCourses.get(selectedOption - 1);
 
         try {
 
-            Date openDate = Console.readDate("Insert the open date (dd/MM/yy)", "dd/MM/yyyy");
-            Date closeDate = Console.readDate("Insert the close date (dd/MM/yy)", "dd/MM/yyyy");
+            Date openDate = Console.readDate("Insert the open date (dd/MM/yyyy)", "dd/MM/yyyy");
+            Date closeDate;
+
+            do {
+                closeDate = Console.readDate("Insert the close date (dd/MM/yyyy). It cannot be before the start date!", "dd/MM/yyyy");
+            } while (closeDate.compareTo(openDate) < 0);
 
             final String path = Console.readNonEmptyLine("Insert the path to the file:", "The path cannot be empty!");
             File examFile = new File(path);
+
+            if (!examFile.exists()) {
+                throw new FileNotFoundException("The file doesn't exist!");
+            }
 
             theController.createExam(selectedCourse, title, openDate, closeDate, examFile);
         } catch (final IntegrityViolationException e) {
             System.out.println("You tried to enter an exam which already exists in the database.");
         } catch (final ConcurrencyException e) {
             System.out.println("Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+        } catch (FileNotFoundException e) {
+            System.out.println("The file doesn't exist! Returning to main menu!");
         }
         return false;
     }

@@ -46,7 +46,8 @@
 		<module>exam.application</module>
 		<module>question.domain</module>
 		<module>question.application</module>
-
+		<module>Enrollment.application</module>
+		<module>Enrollment.domain</module>
 		<module>meeting.application</module>
 		<module>meeting.domain</module>
 		<module>eCourse.app.manager.console</module>

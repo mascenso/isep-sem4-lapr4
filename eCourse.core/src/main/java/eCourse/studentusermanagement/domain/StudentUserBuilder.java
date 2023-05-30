@@ -20,8 +20,11 @@
  */
 package eCourse.studentusermanagement.domain;
 
+import eCourse.studentusermanagement.application.StudentUserService;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+
+import java.util.Date;
 
 /**
  * A factory for User entities.
@@ -35,10 +38,20 @@ public class StudentUserBuilder implements DomainFactory<StudentUser> {
 
     private SystemUser systemUser;
     private MecanographicNumber mecanographicNumber;
+    private TaxPayNumber taxPayNumber;
 
     public StudentUserBuilder withSystemUser(final SystemUser systemUser) {
         this.systemUser = systemUser;
-        this.mecanographicNumber = new MecanographicNumber(MecanographicNumberDomainService.generate());
+        return this;
+    }
+
+    public StudentUserBuilder withMecNumber(final MecanographicNumber mecNumber) {
+        this.mecanographicNumber = mecNumber;
+        return this;
+    }
+
+    public StudentUserBuilder withTaxPayNumber(final String taxPayNumber) {
+        this.taxPayNumber = new TaxPayNumber(taxPayNumber);
         return this;
     }
 
@@ -46,7 +59,7 @@ public class StudentUserBuilder implements DomainFactory<StudentUser> {
     public StudentUser build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new StudentUser(this.systemUser, this.mecanographicNumber);
+        return new StudentUser(this.systemUser, this.mecanographicNumber, this.taxPayNumber);
     }
 
     public StudentUser build(SystemUser systemUser, String aMecanographicNumber) {

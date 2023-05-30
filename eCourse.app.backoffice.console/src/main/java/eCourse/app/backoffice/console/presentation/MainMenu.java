@@ -31,10 +31,13 @@ import eCourse.app.backoffice.console.presentation.courses.CourseEnrollmentReque
 import eCourse.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eCourse.app.backoffice.console.presentation.courses.ListCoursesUI;
 import eCourse.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
+import eCourse.app.backoffice.console.presentation.meetings.CancelMeetingUI;
+import eCourse.app.backoffice.console.presentation.meetings.ListMeetingsUI;
 import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eCourse.app.backoffice.console.presentation.students.AddStudentUI;
+import eCourse.app.backoffice.console.presentation.students.EnrollStudentsUI;
 import eCourse.app.backoffice.console.presentation.teachers.AddTeacherUI;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
@@ -88,6 +91,7 @@ public class MainMenu extends AbstractUI {
     private static final int COURSE_OPTION = 6;
     private static final int SHAREDBOARD_OPTION = 7;
     private static final int MEETING_OPTION = 8 ;
+    private static final int ENROLLMENT_OPTION = 9;
 
     //COURSE
 
@@ -111,6 +115,12 @@ public class MainMenu extends AbstractUI {
 
     //MEETING
     private static final int SCHEDULE_MEETING = 1;
+    private static final int CANCEL_MEETING = 2;
+    private static final int LIST_MEETING = 3;
+
+
+    //ENROLLMENT
+    private static final int ENROLLMENT_CSV = 1;
 
     @Override
     public boolean show() {
@@ -180,6 +190,11 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(MEETING_OPTION, meetingMenu);
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)){
+            final Menu enrollmentMenu = buildEnrollmentMenu();
+            mainMenu.addSubMenu(ENROLLMENT_OPTION, enrollmentMenu);
+        }
+
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
@@ -243,6 +258,9 @@ public class MainMenu extends AbstractUI {
     private Menu buildMeetingMenu(){
         final Menu menu = new Menu("Meeting >");
         menu.addItem(SCHEDULE_MEETING,"Schedule new meeting", new ScheduleMeetingsUI()::show);
+        menu.addItem(CANCEL_MEETING,"Cancel meeting", new CancelMeetingUI()::show);
+        menu.addItem(LIST_MEETING, "List Meeting", new ListMeetingsUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 
@@ -251,6 +269,15 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
         menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildEnrollmentMenu() {
+        final Menu menu = new Menu("Enrollments >");
+
+        menu.addItem(ENROLLMENT_CSV, "Entrollment from csv file", new EnrollStudentsUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

@@ -1,0 +1,28 @@
+ @startuml
+
+
+class CancelMeetingController {
+ListMeetingOfUser()
+cancelMeeting()
+}
+
+class   MeetingRepository {
+findAll()
+save()
+}
+
+class Meeting {
+cancelMeeting()
+}
+
+
+CancelMeetingUI : doShow()
+CancelMeetingUI -down-> CancelMeetingController: uses the controller
+
+CancelMeetingController --> Meeting : uses to cancel
+CancelMeetingController --> MeetingRepository: use to save meeting
+
+Meeting -> CancelMeetingController : return meeting to save
+
+
+@enduml
