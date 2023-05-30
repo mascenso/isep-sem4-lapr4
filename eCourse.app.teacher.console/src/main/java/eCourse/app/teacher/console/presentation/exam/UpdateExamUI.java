@@ -60,6 +60,7 @@ public class UpdateExamUI extends AbstractUI {
                 if (!examFile.exists()) {
                     throw new FileNotFoundException("The file doesn't exist!");
                 }
+
                 theController.updateExam(exam, newOpenDate, newCloseDate, examFile);
             }
         } catch (final ConcurrencyException e) {

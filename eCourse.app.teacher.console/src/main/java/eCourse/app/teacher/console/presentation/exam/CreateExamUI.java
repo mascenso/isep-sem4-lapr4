@@ -33,6 +33,7 @@ public class CreateExamUI extends AbstractUI {
 
             Date openDate = Console.readDate("Insert the open date (dd/MM/yyyy)", "dd/MM/yyyy");
             Date closeDate;
+
             do {
                 closeDate = Console.readDate("Insert the close date (dd/MM/yyyy). It cannot be before the start date!", "dd/MM/yyyy");
             } while (closeDate.compareTo(openDate) < 0);
