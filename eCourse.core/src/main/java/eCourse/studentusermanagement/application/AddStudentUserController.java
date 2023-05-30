@@ -21,7 +21,7 @@ public class AddStudentUserController {
 
     @Transactional
     public void addStudentUser(final String username, final String password, final String firstName,
-                                      final String lastName, final String email, final Set<Role> roles, final Calendar createdOn) {
+                                      final String lastName, final String email, final Set<Role> roles, final String taxPayerNumber, final Calendar createdOn) {
         authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
 
@@ -29,15 +29,15 @@ public class AddStudentUserController {
         SystemUser user = userManagementService.registerNewUser(username, password, firstName, lastName, email, roles, createdOn);
 
         /* Register the student */
-        studentManagementService.createStudentUser(user);
+        studentManagementService.createStudentUser(user, taxPayerNumber);
 
 
     }
 
     public void addStudentUser(final String username, final String password, final String firstName,
-                              final String lastName, final String email, final Set<Role> roles) {
+                              final String lastName, final String email, final Set<Role> roles, final String taxPayerNumber) {
 
-        addStudentUser(username, password, firstName, lastName, email, roles, CurrentTimeCalendars.now());
+        addStudentUser(username, password, firstName, lastName, email, roles, taxPayerNumber, CurrentTimeCalendars.now());
     }
 
 

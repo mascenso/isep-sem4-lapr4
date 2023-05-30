@@ -4,11 +4,11 @@ import eapli.framework.domain.model.ValueObject;
 
 public class TaxPayNumber implements ValueObject, Comparable<TaxPayNumber>{
 
-    private Long number;
+    private Long taxpaynumber;
 
     public TaxPayNumber(final String taxPayerNumber) {
         checkTaxPayerNumber(taxPayerNumber);
-        this.number = Long.parseLong(taxPayerNumber);
+        this.taxpaynumber = Long.parseLong(taxPayerNumber);
     }
 
     protected TaxPayNumber() {
