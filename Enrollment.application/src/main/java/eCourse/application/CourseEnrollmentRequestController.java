@@ -13,7 +13,7 @@ public class CourseEnrollmentRequestController {
     public CourseEnrollmentRequest courseEnrollment(Course course, Student student) {
 
         final var newCourseEnrollment = new CourseEnrollmentRequestBuilder().theCourse(course).
-                theStudent(student);
+                theStudent(student).build();
 
         return PersistenceContext.repositories().courseEnrollmentRequests().save(newCourseEnrollment);
     }
