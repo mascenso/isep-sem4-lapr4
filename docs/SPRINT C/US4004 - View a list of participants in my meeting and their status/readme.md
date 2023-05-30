@@ -36,7 +36,7 @@ In this section, the team should report the study/analysis/comparison that was d
 
 **Output Data:**
 
-* List and statusthe meeting selected
+* Lists the meeting and status selected
 
 Below is the use case diagram to show the interactions between the user and the system when open and close courses*
 
@@ -54,16 +54,14 @@ Below is the use case diagram to show the interactions between the user and the 
 ### 4.1. Realization
 
 
-| Interaction ID | Question: Which class is responsible for... | Answer                      | Justification (with patterns)                                                                                                |
-|:---------------|:--------------------------------------------|:----------------------------|:-----------------------------------------------------------------------------------------------------------------------------|
-| Step 1         | ... interacting with the actor?             | UpdateCourseStateUI         | UI pattern: UpdateCourseState is responsible for interacting with the actor to update the state of courses.                  |
-|                | ... coordinating the US?                    | UpdateCourseStateController | Controller pattern: UpdateCourseStateController is responsible for coordinating the use case and invoking necessary classes. |
-| Step 2         | ... return list of courses                  | CourseRepository            | Repository pattern: CourseRepository is responsible for retrieving the list of courses from the database.                    |
-| Step 3         | ... show the course to the user             | UpdateCourseStateUI                | UI pattern: ListCourseUI is responsible for presenting the courses to the user.                                              |
-| Step 4         | ... Validate User                           | AppSettings                 | Settings pattern: AppSettings is responsible for validating if the user is valid based on application settings.              |
-| Step 5         | ... Validate name of the Course             | UpdateCourseStateService    |                                                                                                                              |
-| Step 6         | ... Validate update state of the Course     | UpdateCourseStateService    |                                                                                                                              |
-
+| Interaction ID | Question: Which class is responsible for... | Answer                   | Justification (with patterns)                                                                                           |
+|:---------------|:--------------------------------------------|:-------------------------|:------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?             | ListMeetingsUi           | UI pattern: UpdateCourseState is responsible for interacting with the actor to shows the list of the meetings.          |
+|                | ... coordinating the US?                    | ListMeetingsController   | Controller pattern: ListMeetingsController is responsible for coordinating the use case and invoking necessary classes. |
+| Step 2         | ... return list of meetings                 | MeetingsRepository       | Repository pattern: MeetingsRepository is responsible for retrieving the list of meetings from the database.            |
+| Step 3         | ... show the meetings to the user           | UpdateCourseStateUI      | UI pattern: ListMeetingsUI is responsible for presenting the meetings to the user.                                      |
+| Step 4         | ... Validate User                           | AppSettings              | Settings pattern: AppSettings is responsible for validating if the user is valid based on application settings.         |
+| Step 5         | ... get list of the meetings by user        | UpdateCourseStateService |                                                                                                                         |
 
 ### 4.2. Class Diagram
 
@@ -78,19 +76,12 @@ Below is the use case diagram to show the interactions between the user and the 
     - Controller
     - Service
     - Persistence Context
-    - Factory
     - Repository
 
 ### 4.5. Tests
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+This is not a class of domain, dont have tests.
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
-````
 
 ## 5. Implementation
 
