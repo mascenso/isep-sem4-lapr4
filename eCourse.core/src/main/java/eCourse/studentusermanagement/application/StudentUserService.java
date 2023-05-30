@@ -90,7 +90,7 @@ public class StudentUserService {
 
         if (maxMecNumber.isPresent()) {
 
-            MecanographicNumberDomainService.generateFromLast(maxMecNumber.get());
+            studentUserBuilder.withMecNumber( MecanographicNumberDomainService.generateFromLast(maxMecNumber.get()) );
 
         } else {
             /* First student user */

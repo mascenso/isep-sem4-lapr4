@@ -39,12 +39,11 @@ public class StudentUserBuilder implements DomainFactory<StudentUser> {
 
     public StudentUserBuilder withSystemUser(final SystemUser systemUser) {
         this.systemUser = systemUser;
-        this.mecanographicNumber = new MecanographicNumber(MecanographicNumberDomainService.generate());
         return this;
     }
 
     public StudentUserBuilder withMecNumber(final MecanographicNumber mecNumber) {
-        this.mecanographicNumber = new MecanographicNumber(MecanographicNumberDomainService.generate());
+        this.mecanographicNumber = mecNumber;
         return this;
     }
 
