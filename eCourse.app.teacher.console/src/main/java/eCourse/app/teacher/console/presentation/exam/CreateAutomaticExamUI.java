@@ -34,7 +34,7 @@ public class CreateAutomaticExamUI extends AbstractUI {
         final int numberOfQuestions = Console.readInteger("Insert number of questions.");
 
         //create a automatic exame with title, type of question and quantity
-        theController.CreateAutomaticExame(title,questionsType.get(typeOfQuestion),numberOfQuestions);
+        //theController.CreateAutomaticExame(title,questionsType.get(typeOfQuestion),numberOfQuestions);
         return false;
     }
 

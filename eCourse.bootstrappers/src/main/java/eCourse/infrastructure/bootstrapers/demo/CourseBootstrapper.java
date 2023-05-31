@@ -20,8 +20,8 @@ public class CourseBootstrapper implements Action {
 
         updateCourseStateController.updateCourseState("Informatica", "Open");
         updateCourseStateController.updateCourseState("Inteligencia Artificial", "Open");
-        updateCourseStateController.updateCourseState("LPROG", "Open");
-        updateCourseStateController.updateCourseState("RCOMP", "Open");
+        //updateCourseStateController.updateCourseState("LPROG", "Open");
+       // updateCourseStateController.updateCourseState("RCOMP", "Open");
         return true;
     }
 

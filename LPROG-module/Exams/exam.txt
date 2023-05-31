@@ -1,49 +1,67 @@
 Exam "Math Exam" {
-  Header {
-    FeedbackType: AfterClosing
-    GradeType: OnSubmission
-    Description: "This exam covers various math topics."
+
+  Header "This exam covers various math topics." {
+      FeedbackType: AfterClosing
+      GradeType: OnSubmission
   }
 
   Section "Algebra" {
     Description: "Answer the following algebra questions."
 
-    ShortAnswer: "How much is 2 + 2?" {
-      Possible Answer "4"
-    }
+    Questions {
 
-    Numerical: "What is the value of pi?" {
-      Acceptance Error = 0.01
-      Possible Answer 3.14
-      Possible Answer 3.149
-      Possible Answer 3.141
-    }
+        TrueFalse: "The Earth is flat." {
+            Answer: False
+            Grade: 2
+        }
 
-    Matching: "Match the countries with their capitals." {
-      MatchPair "France" => "Rome"
-      MatchPair "Germany" => "Paris"
-      MatchPair "Italy" => "Berlin"
-      Correct Pair "France" => "Paris"
-      Correct Pair "Germany" => "Berlin"
-      Correct Pair "Italy" => "Rome"
-    }
+        ShortAnswer: "How much is 2 + 2?" {
+            Option "4"
+            Option "1"
+            Option "2"
+            Sensitive Case: True
+            Answer: 4 22
+            Grade: 2.5 1
+        }
 
-    MultipleChoice: "What is the capital of France?" {
-      Option: "Paris"
-      Option: "London"
-      Option: "Berlin"
-      Answer: "Paris"
-    }
+        Numerical: "What is the value of pi?" {
+            Acceptance Error = 0.01
+            Option 3.14
+            Option 3.149
+            Option 3.141
+            Answer: 3.14
+            Grade: 3
+        }
 
-    Select Missing Words: "Complete the sentence: The _______ jumped over the _______."{
-    Missing Word: "Dog"
-    Missing Word: "Fence"
-    Missing Word: "Moon"
-    Missing Word: "Bird"
-    }
+        Matching: "Match the countries with their capitals." {
+            List One: "France" "Portugal" "Germany" "Italy"
+            List Two: "Lisbon" "Rome" "Paris" "Berlin" "Madrid"
+            Answer: "Paris" "Lisbon" "Berlin" "Rome"
+            Grade: 0.5 0.5 0.5 0.5
+        }
 
-    TrueFalse: "The Earth is flat." {
-    Answer: False
+        MultipleChoice: "What is the capital of France?" {
+            Option: "Paris"
+            Option: "London"
+            Option: "Berlin"
+            Answer: "Paris"
+            Grade: 1
+        }
+
+        MultipleChoice: "What the colour of FCP?" {
+            Option: "Blue"
+            Option: "White"
+            Option: "Red"
+            Answer: "Blue" "White"
+            Grade: 1 1
+        }
+
+        Select Missing Words: "Complete the sentence: The _______ jumped over the _______."{
+            Missing Word: {"Dog" "Crocodile" "Sneak" "Moon" "Cat"}
+            Answer: "Dog" "Moon"
+            Number of attempts: 2
+            Grade: 1 1
+        }
     }
   }
 }

@@ -5,70 +5,99 @@ exam: 'Exam' examTitle=STRING '{'
         section+
       '}';
 
-header: 'Header' '{'
+header: 'Header' headerTitle=STRING '{'
           feedbackType
           gradeType
           description?
         '}';
 
-feedbackType: 'FeedbackType' ':' (NONE | ONSUBMISSION | AFTERCLOSING);
-gradeType: 'GradeType' ':' (NONE | ONSUBMISSION | AFTERCLOSING);
-description: 'Description' ':' STRING;
+feedbackType: 'FeedbackType:' (NONE | ONSUBMISSION | AFTERCLOSING);
+gradeType: 'GradeType:' (NONE | ONSUBMISSION | AFTERCLOSING);
+description: 'Description:' STRING;
 
-section: 'Section' sectionTitle=STRING '{'
-           description?
-           question+
-         '}';
+section: 'Section' STRING '{'
+          description?
+          'Questions {' question+ '}'
+          '}';
 
-question: matchingQuestion | multipleChoiceQuestion | shortAnswerQuestion | numericalQuestion | selectMissingWordsQuestion | trueFalseQuestion;
+question: matchingQuestion
+        | multipleChoiceQuestion
+        | shortAnswerQuestion
+        | numericalQuestion
+        | selectMissingWordsQuestion
+        | trueFalseQuestion;
 
-matchingQuestion: 'Matching:' questionText=STRING '{'
-                    matchPair+
-                    correctPair+
+matchingQuestion: 'Matching:' questionText '{'
+                  listOne+
+                  listTwo+
+                  'Answer: ' answer+
+                  'Grade:' grade+
                   '}';
 
-matchPair: 'MatchPair' questionText=STRING '=>' answerText=STRING;
-correctPair: 'Correct Pair' questionText=STRING '=>' answerText=STRING;
+listOne: 'List One:' questionText+;
+listTwo: 'List Two:' questionText+;
 
-multipleChoiceQuestion: 'MultipleChoice:' questionText=STRING '{'
-                          options+
-                          answer+
+questionText: STRING;
+
+multipleChoiceQuestion: 'MultipleChoice:' questionText '{'
+                        options+
+                        'Answer: ' answer+
+                        feedback?
+                        'Grade:' grade+
                         '}';
 
-options: 'Option:' answerText=STRING;
-
-answer: 'Answer: ' answerText=STRING;
-
-shortAnswerQuestion: 'ShortAnswer:' questionText=STRING '{'
-                       possibleAnswer+
+shortAnswerQuestion: 'ShortAnswer:' questionText '{'
+                     possibleAnswer+
+                     ('Sensitive Case: ' sensitiveCase=('True'|'False'))?
+                     'Answer: ' answer+
+                     'Grade:' grade+
                      '}';
 
-possibleAnswer: 'Possible Answer' (answerText=STRING | answerText=DOUBLE);
+possibleAnswer: 'Option ' (STRING | NUM);
 
-numericalQuestion: 'Numerical:' questionText=STRING '{'
-                     acceptedError
-                     possibleAnswer+
+numericalQuestion: 'Numerical:' questionText '{'
+                   acceptedError
+                   possibleAnswer+
+                   'Answer: ' answer
+                   'Grade:' grade
                    '}';
 
-acceptedError: 'Acceptance Error = ' DOUBLE;
+acceptedError: 'Acceptance Error = ' NUM;
 
-selectMissingWordsQuestion: 'Select Missing Words:' questionText=STRING '{'
-                              missingWord+
+selectMissingWordsQuestion: 'Select Missing Words:' questionText '{'
+                            missingWord+
+                            'Answer: ' answer+
+                            feedback?
+                            'Number of attempts: ' NUM
+                            penalty?
+                           'Grade:' grade+
                             '}';
 
-missingWord: 'Missing Word: ' word=STRING;
+missingWord: 'Missing Word: ' (word | wordGroup)+;
 
-trueFalseQuestion: 'TrueFalse:' questionText=STRING '{' 'Answer: '('True'|'False') '}';
+wordGroup: '{' (word)+ '}';
+word: STRING;
+
+trueFalseQuestion: 'TrueFalse:' questionText '{'
+        'Answer: '('True'|'False')
+        feedback?
+        'Grade:' grade
+       '}';
+
+feedback: 'Feedback:' STRING;
+options: 'Option:' STRING;
+grade: NUM;
+answer: STRING|NUM;
+penalty: 'Peanlty:' DOUBLE;
 
 
-DOUBLE: [0-9]+ '.' [0-9]+;
-INTEGER: [0-9]+;
+NUM: [0-9]+ ('.' [0-9]+)?;
 ESC: '\\' ["\\"];
 STRING: '"' (ESC | ~["\r\n"])* '"';
-
 
 NONE: 'None';
 ONSUBMISSION: 'OnSubmission';
 AFTERCLOSING: 'AfterClosing';
+
 
 WS: [ \t\r\n]+ -> skip;
