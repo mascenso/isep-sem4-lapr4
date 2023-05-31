@@ -64,7 +64,7 @@ public class ExamVisitor extends ExamSpecificationBaseVisitor<Void> {
 
         return null;
     }
-
+/*
     @Override
     public Void visitMatchingQuestion(ExamSpecificationParser.MatchingQuestionContext ctx) {
         // Process matching question
@@ -108,6 +108,8 @@ public class ExamVisitor extends ExamSpecificationBaseVisitor<Void> {
 
         return null;
     }
+
+ */
 
 
 }

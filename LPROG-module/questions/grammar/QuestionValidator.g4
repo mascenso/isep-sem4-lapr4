@@ -1,46 +1,86 @@
 grammar QuestionValidator;
 
-prog: stat+;
+question: matchingQuestion
+        | multipleChoiceQuestion
+        | shortAnswerQuestion
+        | numericalQuestion
+        | selectMissingWordsQuestion
+        | trueFalseQuestion;
 
-stat: 'Short: ' shortAnswer NEWLINE answer NEWLINE         # shortAnswerQuestion
-    | 'MultiChoice: ' multichoice NEWLINE         # multichoiceQuestion
-    | 'Matching: ' matching NEWLINE            # matchingQuestion
-    | 'T/F: ' trueFalse NEWLINE           # trueFalseQuestion
-    | 'MissingWords: ' selectMissingWords NEWLINE  # selectMissingWordsQuestion
-    | 'Numerical: ' numerical NEWLINE           # numericalQuestion
-    | NEWLINE                     # blank
-;
+matchingQuestion: 'Matching:' questionText '{'
+                  listOne+
+                  listTwo+
+                  'Answer: ' answer+
+                  'Grade:' grade+
+                  '}';
 
-shortAnswer: QUESTION 'Answer: 'ANSWER GRADE;
+listOne: 'List One:' questionText+;
+listTwo: 'List Two:' questionText+;
 
-multichoice: QUESTION choice+;
+questionText: STRING;
 
-matching: QUESTION subQuestion+;
+multipleChoiceQuestion: 'MultipleChoice:' questionText '{'
+                        options+
+                        'Answer: ' answer+
+                        feedback?
+                        'Grade:' grade+
+                        '}';
 
-trueFalse: 'Question: 'QUESTION (TRUE|FALSE) GRADE;
+shortAnswerQuestion: 'ShortAnswer:' questionText '{'
+                     possibleAnswer+
+                     ('Sensitive Case: ' sensitiveCase=('True'|'False'))?
+                     'Answer: ' answer+
+                     'Grade:' grade+
+                     '}';
 
-selectMissingWords: QUESTION (OPTION_TEXT GROUP)*;
+possibleAnswer: 'Option ' (STRING | NUM);
 
-numerical: QUESTION ACCEPTED_ANSWER GRADE;
+numericalQuestion: 'Numerical:' questionText '{'
+                   acceptedError
+                   possibleAnswer+
+                   'Answer: ' answer
+                   'Grade:' grade
+                   '}';
 
-choice: '[' CHOICE_TEXT']' GRADE;
+acceptedError: 'Acceptance Error = ' NUM;
 
-subQuestion: '[' SUBQUESTION '] ->' ANSWER GRADE;
+selectMissingWordsQuestion: 'Select Missing Words:' questionText '{'
+                            missingWord+
+                            'Answer: ' answer+
+                            feedback?
+                            'Number of attempts: ' NUM
+                            penalty?
+                           'Grade:' grade+
+                            '}';
 
-answer: ANSWER;
+missingWord: 'Missing Word: ' (word | wordGroup)+;
 
-NEWLINE: [\r\n]+ ;
-WS: [ \t]+ -> skip;
+wordGroup: '{' (word)+ '}';
+word: STRING;
 
-QUESTION: 'Question: '[^\r\n]+;
-ANSWER: [^\r\n]+;
-GRADE: [0-9]+(.[0-9]+)?;
-TRUE: 'True';
-FALSE: 'False';
-ACCEPTED_ANSWER: [0-9]+(.[0-9]+)?;
-CHOICE_TEXT: [^\r\n]+;
-SUBQUESTION: [^\r\n]+;
-GROUP: [^\r\n]+;
-OPTION_TEXT: [^\r\n]+;
+trueFalseQuestion: 'TrueFalse:' questionText '{'
+        'Answer: '('True'|'False')
+        feedback?
+        'Grade:' grade
+       '}';
+
+feedback: 'Feedback:' STRING;
+options: 'Option:' STRING;
+grade: NUM;
+answer: STRING|NUM;
+penalty: 'Peanlty:' DOUBLE;
+
+
+NUM: [0-9]+ ('.' [0-9]+)?;
+ESC: '\\' ["\\"];
+STRING: '"' (ESC | ~["\r\n"])* '"';
+
+NONE: 'None';
+ONSUBMISSION: 'OnSubmission';
+AFTERCLOSING: 'AfterClosing';
+
+
+WS: [ \t\r\n]+ -> skip;
+
 
 

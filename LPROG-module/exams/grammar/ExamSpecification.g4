@@ -15,7 +15,7 @@ feedbackType: 'FeedbackType:' (NONE | ONSUBMISSION | AFTERCLOSING);
 gradeType: 'GradeType:' (NONE | ONSUBMISSION | AFTERCLOSING);
 description: 'Description:' STRING;
 
-section: 'Section' STRING '{'
+section: 'Section' sectionTitle=STRING '{'
           description?
           'Questions {' question+ '}'
           '}';

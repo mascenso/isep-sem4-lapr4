@@ -1,4 +1,5 @@
-// Generated from /Users/miguelseixas/Desktop/Calc/Calc/grammar/ExamSpecification.g4 by ANTLR 4.12.0
+// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/PI/sem4pi-22-23-49/exam.domain/src/main/java/eCourse/ExamGrammar/grammar/ExamSpecification.g4 by ANTLR 4.12.0
+package eCourse.ExamGrammar.grammar;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -112,13 +113,37 @@ public class ExamSpecificationBaseListener implements ExamSpecificationListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMatchPair(ExamSpecificationParser.MatchPairContext ctx) { }
+	@Override public void enterListOne(ExamSpecificationParser.ListOneContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMatchPair(ExamSpecificationParser.MatchPairContext ctx) { }
+	@Override public void exitListOne(ExamSpecificationParser.ListOneContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterListTwo(ExamSpecificationParser.ListTwoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitListTwo(ExamSpecificationParser.ListTwoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterQuestionText(ExamSpecificationParser.QuestionTextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitQuestionText(ExamSpecificationParser.QuestionTextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -131,18 +156,6 @@ public class ExamSpecificationBaseListener implements ExamSpecificationListener 
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMultipleChoiceQuestion(ExamSpecificationParser.MultipleChoiceQuestionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAnswer(ExamSpecificationParser.AnswerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAnswer(ExamSpecificationParser.AnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -184,6 +197,18 @@ public class ExamSpecificationBaseListener implements ExamSpecificationListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAcceptedError(ExamSpecificationParser.AcceptedErrorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAcceptedError(ExamSpecificationParser.AcceptedErrorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSelectMissingWordsQuestion(ExamSpecificationParser.SelectMissingWordsQuestionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -208,6 +233,30 @@ public class ExamSpecificationBaseListener implements ExamSpecificationListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterWordGroup(ExamSpecificationParser.WordGroupContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWordGroup(ExamSpecificationParser.WordGroupContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWord(ExamSpecificationParser.WordContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWord(ExamSpecificationParser.WordContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTrueFalseQuestion(ExamSpecificationParser.TrueFalseQuestionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -215,6 +264,66 @@ public class ExamSpecificationBaseListener implements ExamSpecificationListener 
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTrueFalseQuestion(ExamSpecificationParser.TrueFalseQuestionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFeedback(ExamSpecificationParser.FeedbackContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFeedback(ExamSpecificationParser.FeedbackContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOptions(ExamSpecificationParser.OptionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOptions(ExamSpecificationParser.OptionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGrade(ExamSpecificationParser.GradeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGrade(ExamSpecificationParser.GradeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAnswer(ExamSpecificationParser.AnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAnswer(ExamSpecificationParser.AnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPenalty(ExamSpecificationParser.PenaltyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPenalty(ExamSpecificationParser.PenaltyContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
