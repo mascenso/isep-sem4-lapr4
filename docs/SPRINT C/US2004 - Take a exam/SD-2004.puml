@@ -2,7 +2,6 @@
 actor Student as Actor
 participant TakeExamUI as UI <<presentation>>
 participant TakeExamController as Controller <<aplication>>
-participant Exam as Domain <<domain>>
 participant listExamsService as Service1 <<service>>
 participant listCourseService as Service2 <<service>>
 participant validadeExamService as Service3 <<service>>
