@@ -29,7 +29,7 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A Client User.
@@ -61,14 +61,13 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
     @Column(unique = true, nullable = false)
     private MecanographicNumber mecanographicNumber;
 
-    // TODO: Criar os value objects, pedir na UI a seguir ao data widget
-
     //@Temporal(TemporalType.DATE)
-    //Calendar dateOfBirth;
+    //Date dateOfBirth;
 
     // Business ID
-    //@Column(unique = true, nullable = false)
-    //private TaxPayNumber taxPayNumber;
+    @Column(unique = true, nullable = false)
+    @Embedded
+    private TaxPayNumber taxPayNumber;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -86,6 +85,15 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
 
     protected StudentUser() {
         // for ORM only
+    }
+
+    public StudentUser(SystemUser user, MecanographicNumber mecanographicNumber, TaxPayNumber taxPayNumber) {
+        if (mecanographicNumber == null || user == null) {
+            throw new IllegalArgumentException();
+        }
+        this.systemUser = user;
+        this.mecanographicNumber = mecanographicNumber;
+        this.taxPayNumber = taxPayNumber;
     }
 
     public SystemUser user() {

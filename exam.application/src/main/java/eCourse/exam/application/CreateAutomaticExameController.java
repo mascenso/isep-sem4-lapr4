@@ -22,9 +22,11 @@ public class CreateAutomaticExameController {
 
 /*
     public void CreateAutomaticExame(String title, QuestionType questionType, int numberOfQuestions) {
-        List<Question> listOfQuestions = PersistenceContext.repositories().questions().findByQuestionType(questionType);
-        List<Question> questionsForAutomaticExam = service.listQuestionsForExam(listOfQuestions,numberOfQuestions);
-        AutomaticExame automaticExam = new AutomaticExame(title,questionsForAutomaticExam);
+        //FIXME
+        throw new UnsupportedOperationException("Not supported yet.");
+        //List<Question> listOfQuestions = PersistenceContext.repositories().questions().findByQuestionType(questionType);
+        //List<Question> questionsForAutomaticExam = service.listQuestionsForExam(listOfQuestions,numberOfQuestions);
+        //AutomaticExame automaticExam = new AutomaticExame(title,questionsForAutomaticExam);
     }
 
  */
