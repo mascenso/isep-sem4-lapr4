@@ -1,25 +1,17 @@
 @startuml
-'https://plantuml.com/sequence-diagram
-
 autonumber
 
+autoactivate on
+
+actor Student
+activate Student
 
 
-actor "<<automatic>>\nTimer/Clock" as Company
+Student -> System: Request to view his course grades
+System --> Student: Shows the Course the student is enrolled
+Student -> System: Selects the course he desires to view the grades
+System --> Student: Shows all the student grades for that course
 
-activate Company
-
-activate System
-
-Company -> System: The task is initialized at the defined time.
-note right: **"ExportData"** \n Must be saved in a file every day \n at a defined time by the Company
-System --> Company: Gets a list of all vaccine schedules.
-System --> Company: Gets the list of today's vaccinations, by Vaccination Center.
-
-System --> Company: The System records the data into a csv file, indicates the task is concluded and disables the automatic execution.
-
-deactivate System
-
-deactivate Company
+deactivate Student
 
 @enduml
