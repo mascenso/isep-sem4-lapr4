@@ -1,50 +1,40 @@
 @startuml
 
-class UpdateCourseStateUI {
+class ListGradesUI {
     +doShow()
 }
 
-class UpdateCourseStateController {
-    +updateCourseState()
+class ListGradesController {
 }
 
-class CourseRepository {
+class GradesRepository {
     +findByDesignation()
     +findAll()
 }
 
 class PersistenceContext {
-    -courseRepository: CourseRepository
+    -GradesRepository: GradesRepository
     +repositories()
 }
 
 
-class UpdateCourseStateService {
-    +enroll()
-    +closeEnroll()
+class ListGradesService {
+    +ListGrades()
 }
 
 class RepositoryFactory {
     +create()
 }
 
-class Course {
-    +showStates()
-    +updateState()
+class Grades {
 }
 
-class ListCoursesService {
-    +allCourses()
-}
-
-UpdateCourseStateUI --> UpdateCourseStateController
-UpdateCourseStateController --> UpdateCourseStateService
-UpdateCourseStateController --> PersistenceContext
-UpdateCourseStateController --> ListCoursesService
+ListGradesUI --> ListGradesController
+ListGradesController --> PersistenceContext
+ListGradesController --> ListGradesService
+ListGradesController --> Grades
 PersistenceContext --> RepositoryFactory
-RepositoryFactory --> CourseRepository
-ListCoursesService --> PersistenceContext
-UpdateCourseStateService --> PersistenceContext
-UpdateCourseStateController --> Course
+RepositoryFactory --> GradesRepository
+ListGradesService --> PersistenceContext
 
 @enduml
