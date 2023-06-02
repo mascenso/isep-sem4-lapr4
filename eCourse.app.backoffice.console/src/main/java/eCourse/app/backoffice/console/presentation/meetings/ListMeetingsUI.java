@@ -16,7 +16,7 @@ public class ListMeetingsUI extends AbstractListUI<Meeting> {
 
     @Override
     protected Visitor<Meeting> elementPrinter() {
-        return new SystemMeetingsPrinter();
+        return new ListMeetingsPrinter();
     }
 
     @Override
