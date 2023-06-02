@@ -75,10 +75,10 @@ public class UpdateCourseStateUI extends AbstractUI {
         }
 
 
-        //Scanner to read option from user
+        //Scanner to read option
         Scanner scanner = new Scanner(System.in);
 
-        //show a list of users and ask to choose participants
+        //show a list of courses
             System.out.println("Select Course or 0 to exit:");
             int index = 1;
             for (Course course : courses) {

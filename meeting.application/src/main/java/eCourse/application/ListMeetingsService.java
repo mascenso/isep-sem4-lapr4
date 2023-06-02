@@ -36,7 +36,7 @@ public class ListMeetingsService {
         return meetingsOfUser;
     }
 
-    private boolean findUserOnMeetings(List<ParticipantsOfMeeting> participants, SystemUser user) {
+    public boolean findUserOnMeetings(List<ParticipantsOfMeeting> participants, SystemUser user) {
         for (int i = 0; i < participants.size(); i++) {
 
             if(participants.get(i).identity().equals(user.identity())){
