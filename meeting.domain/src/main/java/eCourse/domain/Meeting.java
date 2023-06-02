@@ -119,4 +119,6 @@ public class Meeting implements AggregateRoot<Long> {
     public void cancelMeeting() {
         this.meetingStatus = MeetingStatus.CANCELLED;
     }
+
+
 }

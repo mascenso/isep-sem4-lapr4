@@ -1,4 +1,5 @@
-// Generated from /Users/miguelseixas/Desktop/Calc/Calc/grammar/ExamSpecification.g4 by ANTLR 4.12.0
+// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/PI/sem4pi-22-23-49/exam.domain/src/main/java/eCourse/ExamGrammar/grammar/ExamSpecification.g4 by ANTLR 4.12.0
+package eCourse.ExamGrammar.grammar;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -87,15 +88,35 @@ public interface ExamSpecificationListener extends ParseTreeListener {
 	 */
 	void exitMatchingQuestion(ExamSpecificationParser.MatchingQuestionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExamSpecificationParser#matchPair}.
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#listOne}.
 	 * @param ctx the parse tree
 	 */
-	void enterMatchPair(ExamSpecificationParser.MatchPairContext ctx);
+	void enterListOne(ExamSpecificationParser.ListOneContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ExamSpecificationParser#matchPair}.
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#listOne}.
 	 * @param ctx the parse tree
 	 */
-	void exitMatchPair(ExamSpecificationParser.MatchPairContext ctx);
+	void exitListOne(ExamSpecificationParser.ListOneContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#listTwo}.
+	 * @param ctx the parse tree
+	 */
+	void enterListTwo(ExamSpecificationParser.ListTwoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#listTwo}.
+	 * @param ctx the parse tree
+	 */
+	void exitListTwo(ExamSpecificationParser.ListTwoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#questionText}.
+	 * @param ctx the parse tree
+	 */
+	void enterQuestionText(ExamSpecificationParser.QuestionTextContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#questionText}.
+	 * @param ctx the parse tree
+	 */
+	void exitQuestionText(ExamSpecificationParser.QuestionTextContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ExamSpecificationParser#multipleChoiceQuestion}.
 	 * @param ctx the parse tree
@@ -106,16 +127,6 @@ public interface ExamSpecificationListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMultipleChoiceQuestion(ExamSpecificationParser.MultipleChoiceQuestionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ExamSpecificationParser#answer}.
-	 * @param ctx the parse tree
-	 */
-	void enterAnswer(ExamSpecificationParser.AnswerContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ExamSpecificationParser#answer}.
-	 * @param ctx the parse tree
-	 */
-	void exitAnswer(ExamSpecificationParser.AnswerContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ExamSpecificationParser#shortAnswerQuestion}.
 	 * @param ctx the parse tree
@@ -147,6 +158,16 @@ public interface ExamSpecificationListener extends ParseTreeListener {
 	 */
 	void exitNumericalQuestion(ExamSpecificationParser.NumericalQuestionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#acceptedError}.
+	 * @param ctx the parse tree
+	 */
+	void enterAcceptedError(ExamSpecificationParser.AcceptedErrorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#acceptedError}.
+	 * @param ctx the parse tree
+	 */
+	void exitAcceptedError(ExamSpecificationParser.AcceptedErrorContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ExamSpecificationParser#selectMissingWordsQuestion}.
 	 * @param ctx the parse tree
 	 */
@@ -167,6 +188,26 @@ public interface ExamSpecificationListener extends ParseTreeListener {
 	 */
 	void exitMissingWord(ExamSpecificationParser.MissingWordContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#wordGroup}.
+	 * @param ctx the parse tree
+	 */
+	void enterWordGroup(ExamSpecificationParser.WordGroupContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#wordGroup}.
+	 * @param ctx the parse tree
+	 */
+	void exitWordGroup(ExamSpecificationParser.WordGroupContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#word}.
+	 * @param ctx the parse tree
+	 */
+	void enterWord(ExamSpecificationParser.WordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#word}.
+	 * @param ctx the parse tree
+	 */
+	void exitWord(ExamSpecificationParser.WordContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ExamSpecificationParser#trueFalseQuestion}.
 	 * @param ctx the parse tree
 	 */
@@ -176,4 +217,54 @@ public interface ExamSpecificationListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTrueFalseQuestion(ExamSpecificationParser.TrueFalseQuestionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#feedback}.
+	 * @param ctx the parse tree
+	 */
+	void enterFeedback(ExamSpecificationParser.FeedbackContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#feedback}.
+	 * @param ctx the parse tree
+	 */
+	void exitFeedback(ExamSpecificationParser.FeedbackContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#options}.
+	 * @param ctx the parse tree
+	 */
+	void enterOptions(ExamSpecificationParser.OptionsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#options}.
+	 * @param ctx the parse tree
+	 */
+	void exitOptions(ExamSpecificationParser.OptionsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#grade}.
+	 * @param ctx the parse tree
+	 */
+	void enterGrade(ExamSpecificationParser.GradeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#grade}.
+	 * @param ctx the parse tree
+	 */
+	void exitGrade(ExamSpecificationParser.GradeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#answer}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnswer(ExamSpecificationParser.AnswerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#answer}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnswer(ExamSpecificationParser.AnswerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ExamSpecificationParser#penalty}.
+	 * @param ctx the parse tree
+	 */
+	void enterPenalty(ExamSpecificationParser.PenaltyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExamSpecificationParser#penalty}.
+	 * @param ctx the parse tree
+	 */
+	void exitPenalty(ExamSpecificationParser.PenaltyContext ctx);
 }

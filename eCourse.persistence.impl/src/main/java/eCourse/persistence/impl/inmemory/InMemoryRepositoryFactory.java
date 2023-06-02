@@ -20,6 +20,7 @@
  */
 package eCourse.persistence.impl.inmemory;
 
+import eCourse.domain.ParticipantsOfMeeting;
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.repositories.*;
 import eCourse.studentusermanagement.repositories.StudentUserRepository;
@@ -73,6 +74,12 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 		return new InMemorySignupRequestRepository();
 	}
 
+
+	@Override
+	public MeetingRequestRepository meetingResquests() {
+		return null;
+	}
+
 	@Override
 	public TransactionalContext newTransactionalContext() {
 		// in memory does not support transactions...
@@ -121,6 +128,5 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	public StudentRepository students() {
 		return null;
 	}
-
 
 }

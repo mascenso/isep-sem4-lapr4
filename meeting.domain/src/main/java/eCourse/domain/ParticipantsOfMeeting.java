@@ -24,6 +24,7 @@ public class ParticipantsOfMeeting implements AggregateRoot<Username> {
     @Enumerated(EnumType.STRING)
     private ParticipantsStatus participantsStatus;
 
+
     public ParticipantsOfMeeting(Meeting meeting, SystemUser participant) {
         this.meeting = meeting;
         this.participant = participant;
@@ -32,6 +33,25 @@ public class ParticipantsOfMeeting implements AggregateRoot<Username> {
 
     public ParticipantsOfMeeting() {
 
+    }
+
+    public SystemUser participant(){
+        return this.participant;
+    }
+
+    public ParticipantsStatus participantStatus() {
+        return this.participantsStatus;
+    }
+
+    public Meeting meeting() {
+        return this.meeting;
+    }
+    public void accept() {
+        participantsStatus = ParticipantsStatus.ACCEPT;
+    }
+
+    public void reject() {
+        participantsStatus = ParticipantsStatus.REJECTED;
     }
 
 
