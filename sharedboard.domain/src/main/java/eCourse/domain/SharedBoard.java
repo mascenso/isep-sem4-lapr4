@@ -3,9 +3,12 @@ package eCourse.domain;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
@@ -35,6 +38,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
     @Column
     private boolean archive;
+
 
 
     public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner,  List<Coluna> columns, List<Linha> rows) {
@@ -70,6 +74,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     protected SharedBoard() {
 
     }
+
 
     public SharedBoardTitle title(){
         return title;
