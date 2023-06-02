@@ -64,9 +64,9 @@ public class StudentUserBootstrapper implements Action {
 		addStudentUserController.addStudentUser("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt",  roleStu , "444444444");
 		addStudentUserController.addStudentUser("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt",  roleStu , "555555555");
 
-		addTeacherUserController.addTeacherUser("teacher1", "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTea , "abc");
-		addTeacherUserController.addTeacherUser("teacher2", "Password1", "Jane", "Doe", "teacher2@isep.ipp.pt", roleTea , "def");
-		addTeacherUserController.addTeacherUser("teacher3", "Password1", "John", "Smith", "teacher2@isep.ipp.pt", roleTea , "ghi");
+		addTeacherUserController.addTeacherUser("teacher01", "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTea , "abc");
+		addTeacherUserController.addTeacherUser("teacher02", "Password1", "Jane", "Doe", "teacher2@isep.ipp.pt", roleTea , "def");
+		addTeacherUserController.addTeacherUser("teacher03", "Password1", "John", "Smith", "teacher2@isep.ipp.pt", roleTea , "ghi");
 
 		return true;
 	}
