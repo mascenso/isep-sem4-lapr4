@@ -1,4 +1,4 @@
-// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/LPROG/questions/grammar/QuestionValidator.g4 by ANTLR 4.12.0
+// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/PI/sem4pi-22-23-49/LPROG-module/questions/grammar/QuestionValidator.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -10,106 +10,123 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface QuestionValidatorVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link QuestionValidatorParser#prog}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#question}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProg(QuestionValidatorParser.ProgContext ctx);
+	T visitQuestion(QuestionValidatorParser.QuestionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code shortAnswerQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code multichoiceQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMultichoiceQuestion(QuestionValidatorParser.MultichoiceQuestionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code matchingQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#matchingQuestion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMatchingQuestion(QuestionValidatorParser.MatchingQuestionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code trueFalseQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#listOne}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx);
+	T visitListOne(QuestionValidatorParser.ListOneContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code selectMissingWordsQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#listTwo}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx);
+	T visitListTwo(QuestionValidatorParser.ListTwoContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code numericalQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#questionText}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitQuestionText(QuestionValidatorParser.QuestionTextContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#multipleChoiceQuestion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultipleChoiceQuestion(QuestionValidatorParser.MultipleChoiceQuestionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#shortAnswerQuestion}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#possibleAnswer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPossibleAnswer(QuestionValidatorParser.PossibleAnswerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#numericalQuestion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNumericalQuestion(QuestionValidatorParser.NumericalQuestionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code blank}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#acceptedError}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBlank(QuestionValidatorParser.BlankContext ctx);
+	T visitAcceptedError(QuestionValidatorParser.AcceptedErrorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link QuestionValidatorParser#shortAnswer}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#selectMissingWordsQuestion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitShortAnswer(QuestionValidatorParser.ShortAnswerContext ctx);
+	T visitSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link QuestionValidatorParser#multichoice}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#missingWord}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMultichoice(QuestionValidatorParser.MultichoiceContext ctx);
+	T visitMissingWord(QuestionValidatorParser.MissingWordContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link QuestionValidatorParser#matching}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#wordGroup}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMatching(QuestionValidatorParser.MatchingContext ctx);
+	T visitWordGroup(QuestionValidatorParser.WordGroupContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link QuestionValidatorParser#trueFalse}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#word}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTrueFalse(QuestionValidatorParser.TrueFalseContext ctx);
+	T visitWord(QuestionValidatorParser.WordContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link QuestionValidatorParser#selectMissingWords}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#trueFalseQuestion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSelectMissingWords(QuestionValidatorParser.SelectMissingWordsContext ctx);
+	T visitTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link QuestionValidatorParser#numerical}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#feedback}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNumerical(QuestionValidatorParser.NumericalContext ctx);
+	T visitFeedback(QuestionValidatorParser.FeedbackContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link QuestionValidatorParser#choice}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#options}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitChoice(QuestionValidatorParser.ChoiceContext ctx);
+	T visitOptions(QuestionValidatorParser.OptionsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link QuestionValidatorParser#subQuestion}.
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#grade}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSubQuestion(QuestionValidatorParser.SubQuestionContext ctx);
+	T visitGrade(QuestionValidatorParser.GradeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#answer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAnswer(QuestionValidatorParser.AnswerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link QuestionValidatorParser#penalty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPenalty(QuestionValidatorParser.PenaltyContext ctx);
 }

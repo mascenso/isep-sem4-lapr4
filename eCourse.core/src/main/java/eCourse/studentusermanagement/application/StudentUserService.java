@@ -81,16 +81,17 @@ public class StudentUserService {
      * @param newUser
      */
     @Transactional /* Generates a new mec number and saves it to the repository */
-    public void createStudentUser(final SystemUser newUser) {
+    public void createStudentUser(final SystemUser newUser, final String taxPayNumber) {
         final StudentUserBuilder studentUserBuilder = new StudentUserBuilder();
         studentUserBuilder
-                .withSystemUser(newUser);
+                .withSystemUser(newUser)
+                .withTaxPayNumber(taxPayNumber);
 
         final Optional<MecanographicNumber> maxMecNumber = findMaxMecNumber();
 
         if (maxMecNumber.isPresent()) {
 
-            MecanographicNumberDomainService.generateFromLast(maxMecNumber.get());
+            studentUserBuilder.withMecNumber( MecanographicNumberDomainService.generateFromLast(maxMecNumber.get()) );
 
         } else {
             /* First student user */

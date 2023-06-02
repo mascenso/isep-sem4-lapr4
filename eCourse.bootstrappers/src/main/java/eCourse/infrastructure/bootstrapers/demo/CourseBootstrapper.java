@@ -16,11 +16,12 @@ public class CourseBootstrapper implements Action {
         RegisterCourse("Course for developers", "Informatica","2022/2023","Open");
         RegisterCourse("Course for big brains", "Inteligencia Artificial","2022/2023","Open");
         RegisterCourse("Course for grammar", "LPROG","2022/2023","Open");
-        RegisterCourse("Course for all", "EAPLI","2022/2023","Open");
-
+        RegisterCourse("Course for all", "RCOMP","2022/2023","Open");
 
         updateCourseStateController.updateCourseState("Informatica", "Open");
         updateCourseStateController.updateCourseState("Inteligencia Artificial", "Open");
+        //updateCourseStateController.updateCourseState("LPROG", "Open");
+       // updateCourseStateController.updateCourseState("RCOMP", "Open");
         return true;
     }
 

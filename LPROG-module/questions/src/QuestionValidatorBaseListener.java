@@ -1,4 +1,4 @@
-// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/LPROG/questions/grammar/QuestionValidator.g4 by ANTLR 4.12.0
+// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/PI/sem4pi-22-23-49/LPROG-module/questions/grammar/QuestionValidator.g4 by ANTLR 4.12.0
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -16,37 +16,13 @@ public class QuestionValidatorBaseListener implements QuestionValidatorListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProg(QuestionValidatorParser.ProgContext ctx) { }
+	@Override public void enterQuestion(QuestionValidatorParser.QuestionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProg(QuestionValidatorParser.ProgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMultichoiceQuestion(QuestionValidatorParser.MultichoiceQuestionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMultichoiceQuestion(QuestionValidatorParser.MultichoiceQuestionContext ctx) { }
+	@Override public void exitQuestion(QuestionValidatorParser.QuestionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -64,25 +40,73 @@ public class QuestionValidatorBaseListener implements QuestionValidatorListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx) { }
+	@Override public void enterListOne(QuestionValidatorParser.ListOneContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx) { }
+	@Override public void exitListOne(QuestionValidatorParser.ListOneContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx) { }
+	@Override public void enterListTwo(QuestionValidatorParser.ListTwoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx) { }
+	@Override public void exitListTwo(QuestionValidatorParser.ListTwoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterQuestionText(QuestionValidatorParser.QuestionTextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitQuestionText(QuestionValidatorParser.QuestionTextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMultipleChoiceQuestion(QuestionValidatorParser.MultipleChoiceQuestionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMultipleChoiceQuestion(QuestionValidatorParser.MultipleChoiceQuestionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPossibleAnswer(QuestionValidatorParser.PossibleAnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPossibleAnswer(QuestionValidatorParser.PossibleAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -100,109 +124,133 @@ public class QuestionValidatorBaseListener implements QuestionValidatorListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlank(QuestionValidatorParser.BlankContext ctx) { }
+	@Override public void enterAcceptedError(QuestionValidatorParser.AcceptedErrorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlank(QuestionValidatorParser.BlankContext ctx) { }
+	@Override public void exitAcceptedError(QuestionValidatorParser.AcceptedErrorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterShortAnswer(QuestionValidatorParser.ShortAnswerContext ctx) { }
+	@Override public void enterSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitShortAnswer(QuestionValidatorParser.ShortAnswerContext ctx) { }
+	@Override public void exitSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMultichoice(QuestionValidatorParser.MultichoiceContext ctx) { }
+	@Override public void enterMissingWord(QuestionValidatorParser.MissingWordContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMultichoice(QuestionValidatorParser.MultichoiceContext ctx) { }
+	@Override public void exitMissingWord(QuestionValidatorParser.MissingWordContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMatching(QuestionValidatorParser.MatchingContext ctx) { }
+	@Override public void enterWordGroup(QuestionValidatorParser.WordGroupContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMatching(QuestionValidatorParser.MatchingContext ctx) { }
+	@Override public void exitWordGroup(QuestionValidatorParser.WordGroupContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTrueFalse(QuestionValidatorParser.TrueFalseContext ctx) { }
+	@Override public void enterWord(QuestionValidatorParser.WordContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTrueFalse(QuestionValidatorParser.TrueFalseContext ctx) { }
+	@Override public void exitWord(QuestionValidatorParser.WordContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSelectMissingWords(QuestionValidatorParser.SelectMissingWordsContext ctx) { }
+	@Override public void enterTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSelectMissingWords(QuestionValidatorParser.SelectMissingWordsContext ctx) { }
+	@Override public void exitTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumerical(QuestionValidatorParser.NumericalContext ctx) { }
+	@Override public void enterFeedback(QuestionValidatorParser.FeedbackContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumerical(QuestionValidatorParser.NumericalContext ctx) { }
+	@Override public void exitFeedback(QuestionValidatorParser.FeedbackContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterChoice(QuestionValidatorParser.ChoiceContext ctx) { }
+	@Override public void enterOptions(QuestionValidatorParser.OptionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitChoice(QuestionValidatorParser.ChoiceContext ctx) { }
+	@Override public void exitOptions(QuestionValidatorParser.OptionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSubQuestion(QuestionValidatorParser.SubQuestionContext ctx) { }
+	@Override public void enterGrade(QuestionValidatorParser.GradeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSubQuestion(QuestionValidatorParser.SubQuestionContext ctx) { }
+	@Override public void exitGrade(QuestionValidatorParser.GradeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAnswer(QuestionValidatorParser.AnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAnswer(QuestionValidatorParser.AnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPenalty(QuestionValidatorParser.PenaltyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPenalty(QuestionValidatorParser.PenaltyContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

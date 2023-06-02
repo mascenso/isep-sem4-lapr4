@@ -49,7 +49,6 @@
 
         <module>meeting.application</module>
         <module>meeting.domain</module>
-        <module>eCourse.app.manager.console</module>
         <module>common.domain</module>
 
     </modules>

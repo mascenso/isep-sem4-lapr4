@@ -1,0 +1,40 @@
+@startuml
+
+class ListGradesUI {
+    +doShow()
+}
+
+class ListGradesController {
+}
+
+class GradesRepository {
+    +findByDesignation()
+    +findAll()
+}
+
+class PersistenceContext {
+    -GradesRepository: GradesRepository
+    +repositories()
+}
+
+
+class ListGradesService {
+    +ListGrades()
+}
+
+class RepositoryFactory {
+    +create()
+}
+
+class Grades {
+}
+
+ListGradesUI --> ListGradesController
+ListGradesController --> PersistenceContext
+ListGradesController --> ListGradesService
+ListGradesController --> Grades
+PersistenceContext --> RepositoryFactory
+RepositoryFactory --> GradesRepository
+ListGradesService --> PersistenceContext
+
+@enduml
