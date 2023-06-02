@@ -4,6 +4,7 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
@@ -30,6 +31,9 @@ public class Course implements AggregateRoot<Designation> {
     @Embedded
     private CourseState state;
 
+    @ManyToOne
+    private SystemUser teacherCoordinator;
+
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "Course_Student",
@@ -38,13 +42,14 @@ public class Course implements AggregateRoot<Designation> {
     )
     Set<Student> students = new HashSet<>();
 
-    protected Course (final Designation name, final Description description, final CourseEdition edition){
+    protected Course (final Designation name, final Description description, final CourseEdition edition, SystemUser teacherCordinator){
         Preconditions.noneNull(name,description,edition);
 
         this.name = name;
         this.edition = edition;
         this.state= new CourseState("Close");
         this.description = description;
+        this.teacherCoordinator = teacherCordinator;
     }
 
     protected Course(){
@@ -58,6 +63,8 @@ public class Course implements AggregateRoot<Designation> {
     public CourseState state (){return state;}
 
     public CourseEdition edition (){return edition;}
+
+    public String cordinator (){return teacherCoordinator.name().toString();}
 
     public CourseState updateState(CourseState newState) {
         if (!this.state.equals(newState)) {
@@ -88,6 +95,7 @@ public class Course implements AggregateRoot<Designation> {
     public Designation identity() {
         return name;
     }
+
 
     public CourseState getCourseState() {
         return state;
