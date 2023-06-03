@@ -4,26 +4,34 @@ import eCourse.course.application.UpdateCourseStateController;
 import eCourse.domain.*;
 import eCourse.exam.application.CreateExamController;
 import eCourse.infrastructure.persistence.PersistenceContext;
+import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CreateExamBootstrapper implements Action {
 
     CreateExamController createExamController = new CreateExamController();
+    private final UserManagementService userManagementService = AuthzRegistry.userService();
 
     @Override
     public boolean execute() {
         Date openDate;
         Date closeDate;
 
-        Course course1 = RegisterCourse("Course for race conditions", "SCOMP", "2022/2023", "Open");
-        Course course2 = RegisterCourse("Course for network", "RCOMP", "2022/2023", "Open");
+        Course course1 = RegisterCourse("Course for race conditions", "SCOMP", "2022/2023", "Open",10);
+        Course course2 = RegisterCourse("Course for network", "RCOMP", "2022/2023", "Open",11);
 
 
         try {
@@ -36,8 +44,8 @@ public class CreateExamBootstrapper implements Action {
         File examFile1 = new File("scomp_exam.pdf");
         File examFile2 = new File("rcomp_exam.pdf");
 
-        createExamController.createExam(course1, "SCOMP EPOCA NORMAL 2022/2023", openDate, closeDate, examFile1);
-        createExamController.createExam(course2, "RCOMP EPOCA NORMAL 2022/2023", openDate, closeDate, examFile2);
+        //createExamController.createExam(course1, "SCOMP EPOCA NORMAL 2022/2023", openDate, closeDate, examFile1);
+        //createExamController.createExam(course2, "RCOMP EPOCA NORMAL 2022/2023", openDate, closeDate, examFile2);
 
 
         return true;
@@ -53,10 +61,14 @@ public class CreateExamBootstrapper implements Action {
         return true;
     }
 
-    private Course RegisterCourse(final String description, final String name, final String edition, final String state) {
+    private Course RegisterCourse(final String description, final String name, final String edition, final String state, int number){
+        final Set<Role> roleTypes = new HashSet<>();
+        roleTypes.add(ECourseRoles.TEACHER);
+        SystemUser user = userManagementService.registerNewUser("teacher"+number, "Password1", "John", "Doe", "teacher1@isep.ipp.pt",roleTypes);
         final Course newCourse = new CourseBuilder().descriptioned(Description.valueOf(description)).named(Designation.valueOf(name))
-                .edition(CourseEdition.valueOf(edition)).build();
-        return PersistenceContext.repositories().courses().save(newCourse);
+                .edition(CourseEdition.valueOf(edition)).teacherCoordinator(user).build();
+        PersistenceContext.repositories().courses().save(newCourse);
+        return newCourse;
     }
 
 

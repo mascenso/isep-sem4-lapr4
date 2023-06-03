@@ -20,6 +20,7 @@
  */
 package eCourse.infrastructure.persistence;
 
+import eCourse.domain.ParticipantsOfMeeting;
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.studentusermanagement.repositories.StudentUserRepository;
 import eCourse.studentusermanagement.repositories.SignupRequestRepository;
@@ -80,6 +81,7 @@ public interface RepositoryFactory {
      */
     SignupRequestRepository signupRequests(TransactionalContext autoTx);
 
+    MeetingRequestRepository meetingResquests();
     /**
      * repository will be created in auto transaction mode
      *

@@ -1,4 +1,4 @@
-// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/LPROG/questions/grammar/QuestionValidator.g4 by ANTLR 4.12.0
+// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/PI/sem4pi-22-23-49/LPROG-module/questions/grammar/QuestionValidator.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -7,177 +7,203 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface QuestionValidatorListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link QuestionValidatorParser#prog}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#question}.
 	 * @param ctx the parse tree
 	 */
-	void enterProg(QuestionValidatorParser.ProgContext ctx);
+	void enterQuestion(QuestionValidatorParser.QuestionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QuestionValidatorParser#prog}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#question}.
 	 * @param ctx the parse tree
 	 */
-	void exitProg(QuestionValidatorParser.ProgContext ctx);
+	void exitQuestion(QuestionValidatorParser.QuestionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code shortAnswerQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
-	 * @param ctx the parse tree
-	 */
-	void enterShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code shortAnswerQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
-	 * @param ctx the parse tree
-	 */
-	void exitShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code multichoiceQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
-	 * @param ctx the parse tree
-	 */
-	void enterMultichoiceQuestion(QuestionValidatorParser.MultichoiceQuestionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code multichoiceQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
-	 * @param ctx the parse tree
-	 */
-	void exitMultichoiceQuestion(QuestionValidatorParser.MultichoiceQuestionContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code matchingQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#matchingQuestion}.
 	 * @param ctx the parse tree
 	 */
 	void enterMatchingQuestion(QuestionValidatorParser.MatchingQuestionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code matchingQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#matchingQuestion}.
 	 * @param ctx the parse tree
 	 */
 	void exitMatchingQuestion(QuestionValidatorParser.MatchingQuestionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code trueFalseQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#listOne}.
 	 * @param ctx the parse tree
 	 */
-	void enterTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx);
+	void enterListOne(QuestionValidatorParser.ListOneContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code trueFalseQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#listOne}.
 	 * @param ctx the parse tree
 	 */
-	void exitTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx);
+	void exitListOne(QuestionValidatorParser.ListOneContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code selectMissingWordsQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#listTwo}.
 	 * @param ctx the parse tree
 	 */
-	void enterSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx);
+	void enterListTwo(QuestionValidatorParser.ListTwoContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code selectMissingWordsQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#listTwo}.
 	 * @param ctx the parse tree
 	 */
-	void exitSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx);
+	void exitListTwo(QuestionValidatorParser.ListTwoContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code numericalQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#questionText}.
+	 * @param ctx the parse tree
+	 */
+	void enterQuestionText(QuestionValidatorParser.QuestionTextContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#questionText}.
+	 * @param ctx the parse tree
+	 */
+	void exitQuestionText(QuestionValidatorParser.QuestionTextContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#multipleChoiceQuestion}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultipleChoiceQuestion(QuestionValidatorParser.MultipleChoiceQuestionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#multipleChoiceQuestion}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultipleChoiceQuestion(QuestionValidatorParser.MultipleChoiceQuestionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#shortAnswerQuestion}.
+	 * @param ctx the parse tree
+	 */
+	void enterShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#shortAnswerQuestion}.
+	 * @param ctx the parse tree
+	 */
+	void exitShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#possibleAnswer}.
+	 * @param ctx the parse tree
+	 */
+	void enterPossibleAnswer(QuestionValidatorParser.PossibleAnswerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#possibleAnswer}.
+	 * @param ctx the parse tree
+	 */
+	void exitPossibleAnswer(QuestionValidatorParser.PossibleAnswerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#numericalQuestion}.
 	 * @param ctx the parse tree
 	 */
 	void enterNumericalQuestion(QuestionValidatorParser.NumericalQuestionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code numericalQuestion}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#numericalQuestion}.
 	 * @param ctx the parse tree
 	 */
 	void exitNumericalQuestion(QuestionValidatorParser.NumericalQuestionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code blank}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#acceptedError}.
 	 * @param ctx the parse tree
 	 */
-	void enterBlank(QuestionValidatorParser.BlankContext ctx);
+	void enterAcceptedError(QuestionValidatorParser.AcceptedErrorContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code blank}
-	 * labeled alternative in {@link QuestionValidatorParser#stat}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#acceptedError}.
 	 * @param ctx the parse tree
 	 */
-	void exitBlank(QuestionValidatorParser.BlankContext ctx);
+	void exitAcceptedError(QuestionValidatorParser.AcceptedErrorContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link QuestionValidatorParser#shortAnswer}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#selectMissingWordsQuestion}.
 	 * @param ctx the parse tree
 	 */
-	void enterShortAnswer(QuestionValidatorParser.ShortAnswerContext ctx);
+	void enterSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QuestionValidatorParser#shortAnswer}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#selectMissingWordsQuestion}.
 	 * @param ctx the parse tree
 	 */
-	void exitShortAnswer(QuestionValidatorParser.ShortAnswerContext ctx);
+	void exitSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link QuestionValidatorParser#multichoice}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#missingWord}.
 	 * @param ctx the parse tree
 	 */
-	void enterMultichoice(QuestionValidatorParser.MultichoiceContext ctx);
+	void enterMissingWord(QuestionValidatorParser.MissingWordContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QuestionValidatorParser#multichoice}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#missingWord}.
 	 * @param ctx the parse tree
 	 */
-	void exitMultichoice(QuestionValidatorParser.MultichoiceContext ctx);
+	void exitMissingWord(QuestionValidatorParser.MissingWordContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link QuestionValidatorParser#matching}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#wordGroup}.
 	 * @param ctx the parse tree
 	 */
-	void enterMatching(QuestionValidatorParser.MatchingContext ctx);
+	void enterWordGroup(QuestionValidatorParser.WordGroupContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QuestionValidatorParser#matching}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#wordGroup}.
 	 * @param ctx the parse tree
 	 */
-	void exitMatching(QuestionValidatorParser.MatchingContext ctx);
+	void exitWordGroup(QuestionValidatorParser.WordGroupContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link QuestionValidatorParser#trueFalse}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#word}.
 	 * @param ctx the parse tree
 	 */
-	void enterTrueFalse(QuestionValidatorParser.TrueFalseContext ctx);
+	void enterWord(QuestionValidatorParser.WordContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QuestionValidatorParser#trueFalse}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#word}.
 	 * @param ctx the parse tree
 	 */
-	void exitTrueFalse(QuestionValidatorParser.TrueFalseContext ctx);
+	void exitWord(QuestionValidatorParser.WordContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link QuestionValidatorParser#selectMissingWords}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#trueFalseQuestion}.
 	 * @param ctx the parse tree
 	 */
-	void enterSelectMissingWords(QuestionValidatorParser.SelectMissingWordsContext ctx);
+	void enterTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QuestionValidatorParser#selectMissingWords}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#trueFalseQuestion}.
 	 * @param ctx the parse tree
 	 */
-	void exitSelectMissingWords(QuestionValidatorParser.SelectMissingWordsContext ctx);
+	void exitTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link QuestionValidatorParser#numerical}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#feedback}.
 	 * @param ctx the parse tree
 	 */
-	void enterNumerical(QuestionValidatorParser.NumericalContext ctx);
+	void enterFeedback(QuestionValidatorParser.FeedbackContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QuestionValidatorParser#numerical}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#feedback}.
 	 * @param ctx the parse tree
 	 */
-	void exitNumerical(QuestionValidatorParser.NumericalContext ctx);
+	void exitFeedback(QuestionValidatorParser.FeedbackContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link QuestionValidatorParser#choice}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#options}.
 	 * @param ctx the parse tree
 	 */
-	void enterChoice(QuestionValidatorParser.ChoiceContext ctx);
+	void enterOptions(QuestionValidatorParser.OptionsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QuestionValidatorParser#choice}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#options}.
 	 * @param ctx the parse tree
 	 */
-	void exitChoice(QuestionValidatorParser.ChoiceContext ctx);
+	void exitOptions(QuestionValidatorParser.OptionsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link QuestionValidatorParser#subQuestion}.
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#grade}.
 	 * @param ctx the parse tree
 	 */
-	void enterSubQuestion(QuestionValidatorParser.SubQuestionContext ctx);
+	void enterGrade(QuestionValidatorParser.GradeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link QuestionValidatorParser#subQuestion}.
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#grade}.
 	 * @param ctx the parse tree
 	 */
-	void exitSubQuestion(QuestionValidatorParser.SubQuestionContext ctx);
+	void exitGrade(QuestionValidatorParser.GradeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#answer}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnswer(QuestionValidatorParser.AnswerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#answer}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnswer(QuestionValidatorParser.AnswerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link QuestionValidatorParser#penalty}.
+	 * @param ctx the parse tree
+	 */
+	void enterPenalty(QuestionValidatorParser.PenaltyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link QuestionValidatorParser#penalty}.
+	 * @param ctx the parse tree
+	 */
+	void exitPenalty(QuestionValidatorParser.PenaltyContext ctx);
 }

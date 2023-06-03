@@ -9,11 +9,15 @@ public class CourseEnrollmentRequestBuilder implements DomainFactory<CourseEnrol
 
     private CourseEnrollmentRequest theCourseEnrollmentRequest;
 
+    private Long theEnrollmentID;
+
     private Course theCourse;
 
     private Student theStudent;
 
     //private List<CourseEnrollmentRequest> theEnrollmentRequestsList;
+
+
 
     private EnrollmentStatus theEnrollmentStatus;
 

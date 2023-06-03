@@ -20,6 +20,7 @@
  */
 package eCourse.persistence.impl.jpa;
 
+import eCourse.domain.ParticipantsOfMeeting;
 import eCourse.repositories.*;
 
 import eCourse.Application;
@@ -64,6 +65,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public SignupRequestRepository signupRequests(final TransactionalContext autoTx) {
 		return new JpaSignupRequestRepository(autoTx);
+	}
+
+	@Override
+	public MeetingRequestRepository meetingResquests() {
+		return new JpaMeetingRequestRepository(Application.settings().getPersistenceUnitName());
 	}
 
 	@Override

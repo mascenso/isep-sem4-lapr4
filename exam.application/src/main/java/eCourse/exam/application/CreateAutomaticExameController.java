@@ -20,7 +20,7 @@ public class CreateAutomaticExameController {
         return QuestionType.getListOfQuestionTypes();
     }
 
-
+/*
     public void CreateAutomaticExame(String title, QuestionType questionType, int numberOfQuestions) {
         //FIXME
         throw new UnsupportedOperationException("Not supported yet.");
@@ -28,4 +28,6 @@ public class CreateAutomaticExameController {
         //List<Question> questionsForAutomaticExam = service.listQuestionsForExam(listOfQuestions,numberOfQuestions);
         //AutomaticExame automaticExam = new AutomaticExame(title,questionsForAutomaticExam);
     }
+
+ */
 }

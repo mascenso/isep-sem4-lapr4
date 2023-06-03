@@ -1,4 +1,4 @@
-// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/LPROG/questions/grammar/QuestionValidator.g4 by ANTLR 4.12.0
+// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/PI/sem4pi-22-23-49/LPROG-module/questions/grammar/QuestionValidator.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -17,21 +17,7 @@ public class QuestionValidatorBaseVisitor<T> extends AbstractParseTreeVisitor<T>
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitProg(QuestionValidatorParser.ProgContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitMultichoiceQuestion(QuestionValidatorParser.MultichoiceQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitQuestion(QuestionValidatorParser.QuestionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -45,14 +31,42 @@ public class QuestionValidatorBaseVisitor<T> extends AbstractParseTreeVisitor<T>
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitListOne(QuestionValidatorParser.ListOneContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitListTwo(QuestionValidatorParser.ListTwoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitQuestionText(QuestionValidatorParser.QuestionTextContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitMultipleChoiceQuestion(QuestionValidatorParser.MultipleChoiceQuestionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitShortAnswerQuestion(QuestionValidatorParser.ShortAnswerQuestionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitPossibleAnswer(QuestionValidatorParser.PossibleAnswerContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -66,61 +80,75 @@ public class QuestionValidatorBaseVisitor<T> extends AbstractParseTreeVisitor<T>
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBlank(QuestionValidatorParser.BlankContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAcceptedError(QuestionValidatorParser.AcceptedErrorContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitShortAnswer(QuestionValidatorParser.ShortAnswerContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSelectMissingWordsQuestion(QuestionValidatorParser.SelectMissingWordsQuestionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMultichoice(QuestionValidatorParser.MultichoiceContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMissingWord(QuestionValidatorParser.MissingWordContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMatching(QuestionValidatorParser.MatchingContext ctx) { return visitChildren(ctx); }
+	@Override public T visitWordGroup(QuestionValidatorParser.WordGroupContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTrueFalse(QuestionValidatorParser.TrueFalseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitWord(QuestionValidatorParser.WordContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSelectMissingWords(QuestionValidatorParser.SelectMissingWordsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTrueFalseQuestion(QuestionValidatorParser.TrueFalseQuestionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNumerical(QuestionValidatorParser.NumericalContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFeedback(QuestionValidatorParser.FeedbackContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitChoice(QuestionValidatorParser.ChoiceContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOptions(QuestionValidatorParser.OptionsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSubQuestion(QuestionValidatorParser.SubQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitGrade(QuestionValidatorParser.GradeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitAnswer(QuestionValidatorParser.AnswerContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitPenalty(QuestionValidatorParser.PenaltyContext ctx) { return visitChildren(ctx); }
 }

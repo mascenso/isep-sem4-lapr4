@@ -8,7 +8,7 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.util.Optional;
 
-public class JpaCourseEnrollmentRequestRepository extends JpaAutoTxRepository<CourseEnrollmentRequest, String, String>
+public class JpaCourseEnrollmentRequestRepository extends JpaAutoTxRepository<CourseEnrollmentRequest, Long, String>
 implements CourseEnrollmentRequestRepository {
 
     /*

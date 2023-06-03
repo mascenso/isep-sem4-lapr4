@@ -8,11 +8,14 @@ import eapli.framework.time.util.CurrentTimeCalendars;
 import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+
+@Entity
 public class CourseEnrollmentRequest implements AggregateRoot<Long> {
 
     @Id
@@ -45,12 +48,10 @@ public class CourseEnrollmentRequest implements AggregateRoot<Long> {
 
     public CourseEnrollmentRequest(Course course, Student student) {//List<CourseEnrollmentRequest> listOfCourseRequests){
         Preconditions.noneNull(course, student);
-
         this.course = course;
         this.student = student;
         this.enrollmentStatus = EnrollmentStatus.PENDING;
         this.createdOn = CurrentTimeCalendars.now();
-        this.enrollmentStatus = EnrollmentStatus.PENDING;
 
         //this.enrollmentRequestsList = new ArrayList<>();
         //this.enrollmentRequestsList.add(new ListEnrollmentRequests(this, course, student));
