@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 /**
@@ -25,19 +26,12 @@ public class CreateRecurringLessonController {
 
     private RecurringLessonRepository recurringLessonRepository;
 
-    /*
-    public CreateRecurringLessonController(final RecurringLessonRepository recurringLessonRepository) {
-        this.recurringLessonRepository = recurringLessonRepository;
-    }
-
-
-     */
     @Transactional
-    public RecurringLesson createRecurringLesson(final Designation title, final Calendar startDate, final Calendar endDate, final int duration) {
+    public RecurringLesson createRecurringLesson(final Designation title, final Calendar startDate, final Calendar endDate, final LocalTime startTime, final int duration, final int frequency) {
 
         final var newRecurringLesson = new RecurringLessonBuilder().titled(title)
-                .starting(startDate).ending(endDate)
-                .lasts(duration).build();
+                .starting(startDate).ending(endDate).startingAt(startTime)
+                .lasts(duration).ocurringAt(frequency).build();
 
         //return recurringLessonRepository.save(newRecurringLesson);
         return PersistenceContext.repositories().recurringLessons().save(newRecurringLesson);
