@@ -50,7 +50,6 @@
 		<module>Enrollment.domain</module>
 		<module>meeting.application</module>
 		<module>meeting.domain</module>
-		<module>eCourse.app.manager.console/dependency-reduced-pom.xml</module>
         <module>common.domain</module>
 
 	</modules>
