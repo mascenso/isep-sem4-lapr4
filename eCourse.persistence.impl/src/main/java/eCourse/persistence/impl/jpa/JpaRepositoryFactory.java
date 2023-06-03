@@ -106,6 +106,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
+	public CourseEnrollmentRequestRepository courseEnrollmentRequests() {
+		return new JpaCourseEnrollmentRequestRepository(Application.settings().getPersistenceUnitName());
+	}
+
+
+
+	@Override
 	public StudentUserRepository studentUsers() {
 		return new JpaStudentUserRepository(Application.settings().getPersistenceUnitName());
 	}

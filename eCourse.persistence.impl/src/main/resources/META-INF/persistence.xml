@@ -21,6 +21,7 @@
         <class>eCourse.domain.ParticipantsOfMeeting</class>
         <class>eCourse.domain.Student</class>
         <class>eCourse.teacherusermanagement.domain.TeacherUser</class>
+        <class>eCourse.domain.CourseEnrollmentRequest</class>
 
 
         <properties>

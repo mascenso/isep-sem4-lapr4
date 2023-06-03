@@ -32,6 +32,7 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryUserRepository;
 
+
 /**
  *
  * @author nuno on 20/03/16.
@@ -128,5 +129,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	public StudentRepository students() {
 		return null;
 	}
+	public CourseEnrollmentRequestRepository courseEnrollmentRequests() { return null;}
+
 
 }

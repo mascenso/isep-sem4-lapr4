@@ -1,5 +1,6 @@
 package eCourse.app.student.console.presentation.Courses;
 
+import eCourse.application.CourseEnrollmentRequestController;
 import eCourse.course.application.ListCoursesStudentController;
 import eCourse.domain.Course;
 import eapli.framework.actions.Action;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Component;
 public class RequestEnrollmentCoursesStudentUI extends AbstractListUI<Course> implements Action {
 
     private ListCoursesStudentController listController = new ListCoursesStudentController();
+
+    private CourseEnrollmentRequestController courseEnrollmentRequestController = new CourseEnrollmentRequestController();
+
 
     protected Iterable<Course> elements() {
         return listController.allCoursesOpen();
@@ -47,14 +51,15 @@ public class RequestEnrollmentCoursesStudentUI extends AbstractListUI<Course> im
     public boolean execute() {
         new ListCoursesStudentUI().show();
 
-        final Iterable<Course> allCoursesOpen = listController.allCoursesOpen();
-        if (!allCoursesOpen.iterator().hasNext()) {
-            System.out.println("There are no registered Courses");
+        final Iterable<Course> allCoursesEnrollment = listController.allCoursesEnrollment();
+        if (!allCoursesEnrollment.iterator().hasNext()) {
+            System.out.println("There are no Courses open for enrollment.");
         }
         else {
-            final SelectWidget<Course> selector = new SelectWidget<>("Select a course", allCoursesOpen, new CoursesPrinter());
+            final SelectWidget<Course> selector = new SelectWidget<>("Select a course", allCoursesEnrollment, new CoursesPrinter());
             selector.show();
             final Course selCourse = selector.selectedElement();
+            courseEnrollmentRequestController.courseEnrollment(selCourse);
 
             //try
             //theController.changeDishState(updtDish);

@@ -100,6 +100,8 @@ public interface RepositoryFactory {
 
     MeetingsRepository meetings();
 
+    CourseEnrollmentRequestRepository courseEnrollmentRequests();
+
     StudentUserRepository studentUsers();
 
     TeacherUserRepository teacherUsers();

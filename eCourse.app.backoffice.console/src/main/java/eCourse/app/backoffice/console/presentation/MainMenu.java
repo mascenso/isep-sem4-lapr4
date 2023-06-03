@@ -27,6 +27,7 @@ import eCourse.app.backoffice.console.presentation.authz.AddUserUI;
 import eCourse.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import eCourse.app.backoffice.console.presentation.authz.ListUsersAction;
 import eCourse.app.backoffice.console.presentation.clientuser.AcceptRefuseSignupRequestAction;
+import eCourse.app.backoffice.console.presentation.courses.CourseEnrollmentRequestUI;
 import eCourse.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eCourse.app.backoffice.console.presentation.courses.ListCoursesUI;
 import eCourse.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
@@ -98,6 +99,10 @@ public class MainMenu extends AbstractUI {
     private static final int LIST_ALL_COURSES =1;
     private static final int ADD_NEW_COURSE =2;
     private static final int UPDATE_COURSE_STATE =3;
+
+    private static final int COURSE_ENROLLMENT_OPTION = 2;
+
+    private static final int REQUEST_COURSE_ENROLLMENT_OPTION = 1;
 
 
     private static final String SEPARATOR_LABEL = "--------------";
