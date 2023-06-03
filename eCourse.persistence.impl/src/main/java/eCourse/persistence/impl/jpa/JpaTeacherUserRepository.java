@@ -1,8 +1,8 @@
 package eCourse.persistence.impl.jpa;
 
 import eCourse.Application;
-import eCourse.teacherusermanagement.domain.TeacherUser;
-import eCourse.teacherusermanagement.repositories.TeacherUserRepository;
+import eCourse.TeacherUser;
+import eCourse.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;

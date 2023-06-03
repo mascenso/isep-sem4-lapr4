@@ -4,9 +4,6 @@ import eCourse.course.application.BulkCsvValidateResult;
 import eCourse.course.application.EnrollStudentController;
 import eCourse.course.application.UpdateCourseStateController;
 import eCourse.domain.Course;
-import eCourse.domain.CourseState;
-import eCourse.usermanagement.domain.BaseCourseStates;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
@@ -75,10 +72,10 @@ public class UpdateCourseStateUI extends AbstractUI {
         }
 
 
-        //Scanner to read option from user
+        //Scanner to read option
         Scanner scanner = new Scanner(System.in);
 
-        //show a list of users and ask to choose participants
+        //show a list of courses
             System.out.println("Select Course or 0 to exit:");
             int index = 1;
             for (Course course : courses) {

@@ -17,4 +17,9 @@ public class ListCoursesStudentController {
         return service.getOpenCourses();
     }
 
+    public Iterable<Course> allCoursesEnrollment() {
+
+        return service.getEnrollmentCourses();
+    }
+
 }

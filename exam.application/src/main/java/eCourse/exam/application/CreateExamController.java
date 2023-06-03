@@ -6,7 +6,6 @@ import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
 import eCourse.repositories.ExamRepository;
 import eapli.framework.application.UseCaseController;
-import eapli.framework.general.domain.model.Designation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

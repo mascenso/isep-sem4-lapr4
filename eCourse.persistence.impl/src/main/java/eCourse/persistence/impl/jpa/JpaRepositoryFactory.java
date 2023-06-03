@@ -23,12 +23,10 @@ package eCourse.persistence.impl.jpa;
 import eCourse.repositories.*;
 
 import eCourse.Application;
-import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.RepositoryFactory;
 
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
-import eCourse.studentusermanagement.repositories.StudentUserRepository;
-import eCourse.teacherusermanagement.repositories.TeacherUserRepository;
+import eCourse.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.jpa.JpaAutoTxUserRepository;
@@ -67,6 +65,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
+	public MeetingRequestRepository meetingResquests() {
+		return new JpaMeetingRequestRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
 	public SignupRequestRepository signupRequests() {
 		return new JpaSignupRequestRepository(Application.settings().getPersistenceUnitName());
 	}
@@ -98,6 +101,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	public MeetingsRepository meetings()  {
 		return new JpaMeetingRepository(Application.settings().getPersistenceUnitName());
 	}
+
+	@Override
+	public CourseEnrollmentRequestRepository courseEnrollmentRequests() {
+		return new JpaCourseEnrollmentRequestRepository(Application.settings().getPersistenceUnitName());
+	}
+
+
 
 	@Override
 	public StudentUserRepository studentUsers() {

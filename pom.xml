@@ -46,12 +46,19 @@
 		<module>exam.application</module>
 		<module>question.domain</module>
 		<module>question.application</module>
-
-        <module>meeting.application</module>
-        <module>meeting.domain</module>
+		<module>Enrollment.application</module>
+		<module>Enrollment.domain</module>
+		<module>meeting.application</module>
+		<module>meeting.domain</module>
         <module>common.domain</module>
+		<module>infrastructure.persistence</module>
+		<module>student.domain</module>
+		<module>student.application</module>
+		<module>teacher.domain</module>
+		<module>teacher.application</module>
+		<module>systemusers.domain</module>
 
-    </modules>
+	</modules>
 
 	<dependencies>
 		<!-- EAPLI framework -->

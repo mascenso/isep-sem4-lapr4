@@ -76,6 +76,18 @@
         </dependency>
         <dependency>
             <groupId>isep.sem4.pi</groupId>
+            <artifactId>exam.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>question.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
 
             <artifactId>question.application</artifactId>
             <version>0.1.0</version>
@@ -90,6 +102,18 @@
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>app.user.console</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>Enrollment.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>teacher.application</artifactId>
             <version>0.1.0</version>
             <scope>compile</scope>
         </dependency>
