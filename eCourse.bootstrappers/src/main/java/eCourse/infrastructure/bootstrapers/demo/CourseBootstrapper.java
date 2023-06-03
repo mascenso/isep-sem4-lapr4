@@ -1,10 +1,10 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
+import eCourse.AddTeacherUserController;
 import eCourse.course.application.UpdateCourseStateController;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.teacherusermanagement.application.AddTeacherUserController;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
@@ -12,10 +12,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.time.util.CurrentTimeCalendars;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 

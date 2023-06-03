@@ -25,14 +25,13 @@ import java.util.Map;
 import java.util.Optional;
 
 import eCourse.Application;
-import eCourse.studentusermanagement.domain.StudentUser;
-import eCourse.studentusermanagement.domain.MecanographicNumber;
-import eCourse.studentusermanagement.repositories.StudentUserRepository;
+import eCourse.domain.MecanographicNumber;
+import eCourse.domain.StudentUser;
+import eCourse.repositories.StudentUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**

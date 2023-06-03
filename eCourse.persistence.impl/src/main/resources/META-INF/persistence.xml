@@ -8,8 +8,8 @@
         <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
         <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
 
-        <class>eCourse.studentusermanagement.domain.StudentUser</class>
-        <class>eCourse.studentusermanagement.domain.SignupRequest</class>
+        <class>eCourse.domain.StudentUser</class>
+        <class>eCourse.domain.SignupRequest</class>
         <class>eCourse.domain.SharedBoard</class>
         <class>eCourse.domain.Coluna</class>
         <class>eCourse.domain.Linha</class>
@@ -20,7 +20,7 @@
         <class>eCourse.domain.Meeting</class>
         <class>eCourse.domain.ParticipantsOfMeeting</class>
         <class>eCourse.domain.Student</class>
-        <class>eCourse.teacherusermanagement.domain.TeacherUser</class>
+        <class>eCourse.TeacherUser</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
 
 

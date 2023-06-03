@@ -1,11 +1,8 @@
 package eCourse.exam.application;
 
-import eCourse.domain.AutomaticExame;
-import eCourse.domain.Question;
 import eCourse.domain.QuestionType;
 import eCourse.infrastructure.persistence.PersistenceContext;
 
-import java.util.List;
 import java.util.Map;
 
 public class CreateAutomaticExameController {

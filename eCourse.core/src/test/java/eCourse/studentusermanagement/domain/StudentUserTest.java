@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
+import eCourse.usermanagement.application.ECourseRoles;
 import org.junit.Test;
 
-import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.domain.model.NilPasswordPolicy;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.Role;

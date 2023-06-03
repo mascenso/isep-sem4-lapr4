@@ -24,8 +24,7 @@
 package eCourse.app.student.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.LoginUI;
-import eCourse.app.user.console.presentation.myuser.SignupRequestAction;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.ChainedAction;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.presentation.console.AbstractUI;

@@ -20,21 +20,14 @@
  */
 package eCourse.infrastructure.bootstrapers.demo;
 
-import eCourse.infrastructure.bootstrapers.TestDataConstants;
-import eCourse.studentusermanagement.application.AddStudentUserController;
-import eCourse.teacherusermanagement.application.AddTeacherUserController;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.AddStudentUserController;
+import eCourse.AddTeacherUserController;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eCourse.studentusermanagement.application.AcceptRefuseSignupFactory;
-import eCourse.studentusermanagement.application.AcceptRefuseSignupRequestController;
-import eCourse.studentusermanagement.domain.SignupRequest;
-import eCourse.myclientuser.application.SignupController;
 import eapli.framework.actions.Action;
-import eapli.framework.domain.repositories.ConcurrencyException;
-import eapli.framework.domain.repositories.IntegrityViolationException;
 
 import java.util.HashSet;
 import java.util.Set;

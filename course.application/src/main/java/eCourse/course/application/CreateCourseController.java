@@ -1,10 +1,9 @@
 package eCourse.course.application;
 
+import eCourse.TeacherUser;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
-import eCourse.teacherusermanagement.domain.TeacherUser;
-import eCourse.usermanagement.domain.BaseCourseStates;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
