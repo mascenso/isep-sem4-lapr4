@@ -67,17 +67,18 @@ layer between the domain code and the data storage.
 
 **Rationale**
 
-| Interaction ID                            | Question: Which class is responsible for... | Answer                 | Justification (with patterns)                                                                                   |
-|:------------------------------------------|:--------------------------------------------|:-----------------------|:----------------------------------------------------------------------------------------------------------------|
-| Step 1 - Asks to share a board            | ... interacting with the actor?             | shareABoardUI          | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-|                                           | ... coordinating the US?                    | shareABoardController  | Controller.                                                                                                     |
-| Step 2 - Shows list of owned boards       | ... having the requested information?       | SharedBoardRepository  | Abstracts data access by providing an abstraction layer between the domain code and the data storage mechanism. |
-|                                           | ... interacting with the actor?             | shareABoardUI          | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-| Step 4 - Shows list of users              | ... having the requested information?       | UsersRepository        | Abstracts data access by providing an abstraction layer between the domain code and the data storage mechanism. |
-|                                           | ... interacting with the actor?             | shareABoardUI          | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-| Step 6 - Asks for access type             | ... having the requested information?       | sharedBoardUser        | Creator (Rule 1).                                                                                               |
-| Step 8 - Creates a notification to users  | ... interacting with the actor?             | NotificationUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-|                                           | ... coordinating this part of the US?       | NotificationController | Controller.                                                                                                     |
+| Interaction ID                            | Question: Which class is responsible for... | Answer                | Justification (with patterns)                                                                                   |
+|:------------------------------------------|:--------------------------------------------|:----------------------|:----------------------------------------------------------------------------------------------------------------|
+| Step 1 - Asks to share a board            | ... interacting with the actor?             | ShareABoardUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+|                                           | ... coordinating the US?                    | ShareABoardController | Controller.                                                                                                     |
+| Step 2 - Shows list of owned boards       | ... having the requested information?       | SharedBoardRepository | Abstracts data access by providing an abstraction layer between the domain code and the data storage mechanism. |
+|                                           | ... interacting with the actor?             | ShareABoardUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+|                                           | ... managing the information?               | ListBoardsService     | Encapsulate a specific set of functionalities and allows for more manageable and incremental updates.           |
+| Step 4 - Shows list of users              | ... having the requested information?       | UsersRepository       | Abstracts data access by providing an abstraction layer between the domain code and the data storage mechanism. |
+|                                           | ... interacting with the actor?             | ShareABoardUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| Step 6 - Asks for access type             | ... having the requested information?       | SharedBoardUser       | Creator (Rule 1).                                                                                               |
+| Step 8 - Creates a notification to users  | ... interacting with the actor?             | NotificationUI        | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+|                                           | ... creating the notification?              | BoardSharedEvent      | Low coupling.                                                                                                   |
 
 
 **Sequence Diagram (SD)**
@@ -97,6 +98,8 @@ layer between the domain code and the data storage.
     - Persistence Context
     - Repository Factory
     - Repository
+    - Service
+    - Event
     
 ### 4.4. Tests
 
