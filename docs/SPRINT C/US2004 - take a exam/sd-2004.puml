@@ -1,0 +1,40 @@
+@startuml
+actor Student as Actor
+participant TakeExamUI as UI <<presentation>>
+participant TakeExamController as Controller <<aplication>>
+participant listExamsService as Service1 <<service>>
+participant listCourseService as Service2 <<service>>
+participant validadeExamService as Service3 <<service>>
+database ExamRepository as Repository1 <<repository>>
+database CoursesRepository as Repository2 <<repository>>
+database GradesRepository as Repository3 <<repository>>
+
+note right of Controller:Some steps have been skipped in order to facilitate reading \n namely Persistence Context and Repository factor \n for an example with these steps see US1002
+Actor -> UI: Take a exam
+activate UI
+    UI -> Controller: ListOfCoursesEnroll()
+    Controller -> Service2: listOfCoursesenroll()
+    Service2 -> Repository2: Course()
+    Service2 --> Controller: List<Courses>
+    Controller --> UI: List<Courses>
+    UI->UI: Show list courses
+    UI --> Actor: List of Courses that are enroll
+    Actor -> UI: Select Course
+    UI -> Controller: examByCourse(course)
+    Controller -> Service1: examByCourse(course)
+    Service1 -> Repository1: exams()
+    Service1 --> Controller: Exam
+    Controller --> UI: Exam
+    UI --> Actor: Exam
+    Actor -> Actor: Answer a exam
+    Actor -> UI: answered exam
+    UI -> Controller: answeredExam()
+    Controller -> Service3: validateAnsweredExam()
+    Service3 --> Controller: grade
+    note right : The grade as (student, course, exam, grade)
+    Controller --> Repository3: save(grade)
+    Controller --> UI: grade
+    UI -->Actor : show grade/feedback
+
+
+@enduml

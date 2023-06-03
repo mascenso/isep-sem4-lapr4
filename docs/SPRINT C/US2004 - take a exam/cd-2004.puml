@@ -1,0 +1,44 @@
+@startuml
+
+
+class TakeExamController {
+    ListOfCoursesEnroll()
+    ExamByCourse()
+    AnsweredExam()
+}
+
+class ExamRepository {
+    ExamByCourse()
+    save()
+}
+
+class CoursesRepository{
+    findCoursesByUser()
+}
+
+class GradesRepository{
+    save()
+}
+
+class ListExamService {
+    examByCourse()
+}
+
+class ListCourseService{
+    listOfCoursesEnroll()
+}
+
+class validateExamService{
+    validateExam()
+}
+
+TakeExamUI : doShow()
+TakeExamUI -down-> TakeExamController: uses the controller
+
+ListExamService --> ExamRepository: use to get exam
+ListCourseService --> CoursesRepository: use to get Courses of student
+TakeExamController --> validateExamService: use to validate the exam
+TakeExamController --> ListCourseService: use to get all the course\n that student are enroll
+TakeExamController --> ListExamService: use to get all examm of course
+TakeExamController --> GradesRepository: use to persist the grades
+@enduml
