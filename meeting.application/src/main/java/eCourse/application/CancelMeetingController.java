@@ -6,7 +6,6 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CancelMeetingController {
