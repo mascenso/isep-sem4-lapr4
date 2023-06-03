@@ -20,16 +20,13 @@
  */
 package eCourse.persistence.impl.jpa;
 
-import eCourse.domain.ParticipantsOfMeeting;
 import eCourse.repositories.*;
 
 import eCourse.Application;
-import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.persistence.RepositoryFactory;
 
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
-import eCourse.studentusermanagement.repositories.StudentUserRepository;
-import eCourse.teacherusermanagement.repositories.TeacherUserRepository;
+import eCourse.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.jpa.JpaAutoTxUserRepository;

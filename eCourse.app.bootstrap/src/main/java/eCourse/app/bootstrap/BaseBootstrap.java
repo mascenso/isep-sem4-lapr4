@@ -21,15 +21,15 @@
 package eCourse.app.bootstrap;
 
 import eCourse.app.common.console.BaseApplication;
-import eCourse.studentusermanagement.application.eventhandlers.NewUserRegisteredFromSignupWatchDog;
-import eCourse.studentusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import eCourse.studentusermanagement.domain.events.SignupAcceptedEvent;
+import eCourse.domain.ECoursePasswordPolicy;
+import eCourse.domain.events.NewUserRegisteredFromSignupEvent;
+import eCourse.domain.events.SignupAcceptedEvent;
+import eCourse.eventhandlers.NewUserRegisteredFromSignupWatchDog;
 import eCourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eCourse.infrastructure.bootstrapers.demo.BaseDemoBootstrapper;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.smoketests.BaseDemoSmokeTester;
 import eCourse.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
-import eCourse.usermanagement.domain.ECoursePasswordPolicy;
 import eapli.framework.collections.util.ArrayPredicates;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;

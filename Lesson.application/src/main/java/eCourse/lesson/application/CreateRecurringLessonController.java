@@ -7,11 +7,9 @@ import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.general.domain.model.Designation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Duration;
 import java.util.Calendar;
 
 /**

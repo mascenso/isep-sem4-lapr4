@@ -23,10 +23,9 @@
  */
 package eCourse.app.backoffice.console.presentation.teachers;
 
+import eCourse.AddTeacherUserController;
 import eCourse.app.user.console.presentation.myuser.UserDataWidget;
-import eCourse.studentusermanagement.application.AddStudentUserController;
-import eCourse.teacherusermanagement.application.AddTeacherUserController;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.model.Role;

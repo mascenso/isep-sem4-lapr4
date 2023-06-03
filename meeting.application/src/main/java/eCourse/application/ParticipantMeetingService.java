@@ -9,7 +9,6 @@ import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.apache.commons.collections4.IteratorUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

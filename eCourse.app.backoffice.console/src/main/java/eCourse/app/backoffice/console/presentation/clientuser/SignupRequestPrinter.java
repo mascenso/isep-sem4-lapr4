@@ -20,7 +20,7 @@
  */
 package eCourse.app.backoffice.console.presentation.clientuser;
 
-import eCourse.studentusermanagement.domain.SignupRequest;
+import eCourse.domain.SignupRequest;
 import eapli.framework.visitor.Visitor;
 
 /**

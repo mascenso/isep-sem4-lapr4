@@ -20,10 +20,10 @@
  */
 package eCourse.app.user.console.presentation.myuser;
 
+import eCourse.SignupController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eCourse.myclientuser.application.SignupController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;

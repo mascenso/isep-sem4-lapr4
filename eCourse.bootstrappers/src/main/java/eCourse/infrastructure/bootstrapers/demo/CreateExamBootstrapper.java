@@ -1,10 +1,9 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
-import eCourse.course.application.UpdateCourseStateController;
 import eCourse.domain.*;
 import eCourse.exam.application.CreateExamController;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;

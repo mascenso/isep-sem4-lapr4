@@ -1,20 +1,11 @@
-import eCourse.course.application.UpdateCourseStateController;
-import eCourse.course.application.UpdateCourseStateService;
 import eCourse.domain.Course;
 import eCourse.domain.CourseBuilder;
 import eCourse.domain.CourseEdition;
 import eCourse.domain.CourseState;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.repositories.CourseRepository;
-import eCourse.usermanagement.domain.BaseCourseStates;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;

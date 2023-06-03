@@ -20,14 +20,11 @@
  */
 package eCourse.persistence.impl.inmemory;
 
-import eCourse.domain.ParticipantsOfMeeting;
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.repositories.*;
-import eCourse.studentusermanagement.repositories.StudentUserRepository;
-import eCourse.studentusermanagement.repositories.SignupRequestRepository;
 import eCourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eCourse.infrastructure.persistence.RepositoryFactory;
-import eCourse.teacherusermanagement.repositories.TeacherUserRepository;
+import eCourse.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryUserRepository;

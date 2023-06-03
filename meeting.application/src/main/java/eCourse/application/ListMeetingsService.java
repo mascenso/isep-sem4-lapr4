@@ -1,6 +1,5 @@
 package eCourse.application;
 
-import eCourse.domain.Course;
 import eCourse.domain.Meeting;
 import eCourse.domain.MeetingStatus;
 import eCourse.domain.ParticipantsOfMeeting;
