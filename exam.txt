@@ -1,0 +1,23 @@
+Exam "Math Exam" {
+
+  Header "This exam covers various math topics." {
+      FeedbackType: AfterClosing
+      GradeType: OnSubmission
+  }
+
+  Section "Algebra" {
+    Description: "Answer the following algebra questions."
+
+    Questions {
+
+
+
+        Select Missing Words: "Complete the sentence: The _______ jumped over the _______."{
+            Missing Word: {"Dog" "Crocodile" "Sneak" "Moon" "Cat"}
+            Answer: "Dog" "Moon"
+            Number of attempts: 2
+            Grade: 1 1
+        }
+    }
+  }
+}
