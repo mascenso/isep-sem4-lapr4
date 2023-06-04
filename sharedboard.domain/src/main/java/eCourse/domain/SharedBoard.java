@@ -40,6 +40,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @Column
     private boolean archive;
 
+
     public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner, List<Coluna> columns, List<Linha> rows) {
         if (title == null) {
             throw new IllegalArgumentException();
