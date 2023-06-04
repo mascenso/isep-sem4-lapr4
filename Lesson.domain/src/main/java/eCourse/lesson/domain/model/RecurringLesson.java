@@ -2,9 +2,11 @@ package eCourse.lesson.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import eCourse.TeacherUser;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.RepresentationBuilder;
 import eapli.framework.representations.Representationable;
 import eapli.framework.validations.Preconditions;
@@ -27,6 +29,9 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     @EmbeddedId
     private Designation title;
 
+    @ManyToOne
+    private TeacherUser recurringLessonTeacher;
+
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Calendar startDate;
@@ -45,8 +50,9 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     @Column(nullable = false)
     private int frequency;
 
-    protected RecurringLesson(Designation title, Calendar startDate, Calendar endDate, LocalTime startTime, int duration, int frequency) {
+    protected RecurringLesson(TeacherUser recurringLessonTeacher, Designation title, Calendar startDate, Calendar endDate, LocalTime startTime, int duration, int frequency) {
         Preconditions.noneNull(title, startDate, endDate, startTime, duration, frequency);
+        this.recurringLessonTeacher = recurringLessonTeacher;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -78,7 +84,7 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
         if (this == that) {
             return true;
         }
-        return identity().equals(that.identity()) && startDate.equals(that.startDate) && endDate.equals(that.endDate) &&
+        return recurringLessonTeacher.equals(that.recurringLessonTeacher) && identity().equals(that.identity()) && startDate.equals(that.startDate) && endDate.equals(that.endDate) &&
         startTime == that.startTime && duration == that.duration && frequency == that.frequency;
     }
 
@@ -86,6 +92,8 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     public <R> R buildRepresentation(final RepresentationBuilder<R> builder) {
         return null;
     }
+
+    public TeacherUser responsibleTeacher() { return this.recurringLessonTeacher; }
 
     @Override
     public Designation identity() { return this.title; }

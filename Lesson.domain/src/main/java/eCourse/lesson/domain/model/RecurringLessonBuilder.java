@@ -1,15 +1,17 @@
 package eCourse.lesson.domain.model;
 
+import eCourse.TeacherUser;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.general.domain.model.Designation;
 
-import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Calendar;
 
 public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
 
     private RecurringLesson theRecurringLesson;
+
+    private TeacherUser responsibleTeacher;
 
     private Designation title;
 
@@ -22,6 +24,11 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
     private int duration;
 
     private int frequency;
+
+    public RecurringLessonBuilder responsible(final TeacherUser responsibleTeacher) {
+        this.responsibleTeacher = responsibleTeacher;
+        return this;
+    }
 
     public RecurringLessonBuilder titled(final Designation title) {
         this.title = title;
@@ -57,8 +64,8 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
         if (theRecurringLesson != null) {
             return theRecurringLesson;
         }
-        if (title != null && startDate != null && endDate != null && duration > 0) {
-            theRecurringLesson = new RecurringLesson(title, startDate, endDate, startTime, duration, frequency);
+        if (responsibleTeacher != null && title != null && startDate != null && endDate != null && duration > 0) {
+            theRecurringLesson = new RecurringLesson(responsibleTeacher, title, startDate, endDate, startTime, duration, frequency);
             return theRecurringLesson;
         }
         throw new IllegalStateException();
