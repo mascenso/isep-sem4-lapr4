@@ -19,6 +19,8 @@ public class ShareABoardController {
 
     private Notification notification;
 
+    private Object mutex = new Object(); // Mutex object for synchronization
+
     @Autowired
     private ListSharedBoardService listSharedBoardService = new ListSharedBoardService();
 
@@ -35,11 +37,16 @@ public class ShareABoardController {
     }
 
     public void createShareBoardUsers(Map<SystemUser, AccessType> usersWithPermissions, SharedBoardTitle board) {
-        for (Map.Entry<SystemUser, AccessType> user : usersWithPermissions.entrySet()) {
-            SharedBoardUser boardShared = SharedBoard.createShareBoardUsers(user.getKey(), board, user.getValue());
-            Notification notif = notification.getNotification();
-            PersistenceContext.repositories().notifications().save(notif);
-            PersistenceContext.repositories().sharedBoardsUsers().save(boardShared);
-        }
+        Thread shareThread = new Thread(() -> {
+            synchronized (mutex) {
+                for (Map.Entry<SystemUser, AccessType> user : usersWithPermissions.entrySet()) {
+                    SharedBoardUser boardShared = SharedBoard.createShareBoardUsers(user.getKey(), board, user.getValue());
+                    Notification notif = notification.getNotification();
+                    PersistenceContext.repositories().notifications().save(notif);
+                    PersistenceContext.repositories().sharedBoardsUsers().save(boardShared);
+                }
+            }
+        });
+        shareThread.start();
     }
 }

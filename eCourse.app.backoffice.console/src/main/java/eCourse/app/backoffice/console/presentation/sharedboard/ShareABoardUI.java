@@ -2,7 +2,6 @@ package eCourse.app.backoffice.console.presentation.sharedboard;
 
 import eCourse.ShareABoardController;
 import eCourse.domain.*;
-import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
