@@ -31,7 +31,7 @@ public class AddExamQuestionsUI extends AbstractUI {
         showExistingTypes(listOfQuestionTypes, "Select the question type:");
         int option = Console.readOption(1, listOfQuestionTypes.size(), 0);
 
-        String description = Console.readNonEmptyLine("Insert a  description: ", "The description cannot be empty!");
+        String description = Console.readNonEmptyLine("Insert a description: ", "The description cannot be empty!");
 
         final String questionPath = Console.readNonEmptyLine("Insert the Question's path file : ", "The path cannot be empty!");
         File questionFile = new File(questionPath);

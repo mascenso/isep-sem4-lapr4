@@ -26,11 +26,11 @@ C-->UI: myBoardsList
 UI-->U: Select Board
 
 U->UI:Board
-UI -> C: BoardID, getAllUsers(), getAccessType()
+UI -> C: getAllUsers(), getAccessTypes()
 C -> UR: getAllUsers()
 UR --> C: listOfUsers
 
-C->AT: getAccessType()
+C->AT: getAccessTypes()
 AT-->C: accessTypes
 C --> UI: listOfUsers,accessTypes
 
@@ -43,13 +43,13 @@ UI-->U: Select Access Type
 U->UI: Access Type
 end
 
-UI->C:createShareBoardUsers(UsersList, accessType)
-C->SB: createShareBoardUsers(UsersList,accessType, BoardID)
+UI->C:createShareBoardUsers(usersWithPermissions,BoardID)
+C->SB: createShareBoardUsers(usersWithPermissions, BoardID)
 
 loop number of selected Users
-SB-> SBU: createShareBoardUsers(User,accessType,BoardID)
-SBU->E: createNotification(User,accessType,BoardID);
-E->N: createNotification(User,accessType, timestamp,BoardID);
+SB-> SBU: createShareBoardUsers(usersWithPermissions, BoardID)
+SBU->E: createNotification(usersWithPermissions,BoardID);
+E->N: createNotification(usersWithPermissions, timestamp,BoardID);
 N-->E: notifications
 E-->SBU: notifications
 SBU-->SB: shareABoard, notifications
