@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -40,15 +41,14 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     private boolean archive;
 
 
-
-    public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner,  List<Coluna> columns, List<Linha> rows) {
+    public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner, List<Coluna> columns, List<Linha> rows) {
         if (title == null) {
             throw new IllegalArgumentException();
         }
-        if ( (numberColumns < 1) || (numberColumns > 10) ) {
+        if ((numberColumns < 1) || (numberColumns > 10)) {
             throw new IllegalArgumentException("Column value must be between 1 and 10");
         }
-        if ( (numberRows < 1) || (numberRows > 20) ){
+        if ((numberRows < 1) || (numberRows > 20)) {
             throw new IllegalArgumentException("Row value must be between 1 and 20");
         }
         this.title = title;
@@ -61,10 +61,10 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     }
 
     public SharedBoard(int numberRows, int numberColumns) {
-        if ( (numberColumns < 1) || (numberColumns > 10) ) {
+        if ((numberColumns < 1) || (numberColumns > 10)) {
             throw new IllegalArgumentException("Column value must be between 1 and 10");
         }
-        if ( (numberRows < 1) || (numberRows > 20) ){
+        if ((numberRows < 1) || (numberRows > 20)) {
             throw new IllegalArgumentException("Row value must be between 1 and 20");
         }
         this.numberRows = numberRows;
@@ -76,15 +76,15 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     }
 
 
-    public SharedBoardTitle title(){
+    public SharedBoardTitle title() {
         return title;
     }
 
-    public SystemUser owner(){
+    public SystemUser owner() {
         return this.owner;
     }
 
-    public boolean archive(){
+    public boolean archive() {
         return archive;
     }
 
@@ -132,7 +132,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return this.title;
     }
 
-    public boolean isArchive(){
+    public boolean isArchive() {
         return true;
     }
 
@@ -140,8 +140,13 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return numberColumns;
     }
 
-    public int numberOfRows(){
+    public int numberOfRows() {
         return numberRows;
+    }
+
+
+    public static SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
+            return new SharedBoardUser(user, boardID, access);
     }
 
     /*public SharedBoardColumnAndRow getPosition() {

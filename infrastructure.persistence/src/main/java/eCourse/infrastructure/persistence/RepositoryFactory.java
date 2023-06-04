@@ -104,4 +104,7 @@ public interface RepositoryFactory {
 
     StudentRepository students();
 
+    NotificationRepository notifications();
+
+    SharedBoardsUsersRepository sharedBoardsUsers();
 }
