@@ -64,7 +64,7 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
         if (theRecurringLesson != null) {
             return theRecurringLesson;
         }
-        if (responsibleTeacher != null && title != null && startDate != null && endDate != null && duration > 0) {
+        if (responsibleTeacher != null && title != null && startDate != null && endDate != null && duration > 0 && frequency > 0 && frequency < 8) {
             theRecurringLesson = new RecurringLesson(responsibleTeacher, title, startDate, endDate, startTime, duration, frequency);
             return theRecurringLesson;
         }
