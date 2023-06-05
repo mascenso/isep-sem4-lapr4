@@ -1,6 +1,6 @@
 package eCourse.app.backoffice.console.presentation.courses;
 
-import eCourse.Teacher;
+import eCourse.domain.Teacher;
 import eCourse.course.application.CreateCourseController;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;

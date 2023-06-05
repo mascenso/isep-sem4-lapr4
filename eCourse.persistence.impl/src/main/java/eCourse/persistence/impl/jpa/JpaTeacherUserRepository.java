@@ -1,7 +1,7 @@
 package eCourse.persistence.impl.jpa;
 
 import eCourse.Application;
-import eCourse.Teacher;
+import eCourse.domain.Teacher;
 import eCourse.repositories.TeacherUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;

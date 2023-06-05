@@ -1,6 +1,5 @@
 package eCourse.domain;
 
-import eCourse.Teacher;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Description;
@@ -129,4 +128,13 @@ public class Course implements AggregateRoot<Designation> {
         return this.teachers.add(new TeachersInCourse(teacher));
     }
 
+    public Set<TeachersInCourse> teachers() {
+        return teachers;
+    }
+
+    public void addTeachers(Set<Teacher> teachersOfCourse) {
+        for (Teacher teacher : teachersOfCourse) {
+            this.teachers.add(new TeachersInCourse(teacher));
+        }
+    }
 }

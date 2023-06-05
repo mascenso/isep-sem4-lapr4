@@ -1,6 +1,6 @@
 package eCourse.course.application;
 
-import eCourse.Teacher;
+import eCourse.domain.Teacher;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;

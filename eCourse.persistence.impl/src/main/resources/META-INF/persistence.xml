@@ -20,7 +20,7 @@
         <class>eCourse.domain.Meeting</class>
         <class>eCourse.domain.ParticipantsOfMeeting</class>
         <class>eCourse.domain.Student</class>
-        <class>eCourse.Teacher</class>
+        <class>eCourse.domain.Teacher</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
 
 
