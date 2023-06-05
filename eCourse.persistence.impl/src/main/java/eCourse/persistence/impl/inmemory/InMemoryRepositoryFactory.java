@@ -126,7 +126,19 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	public StudentRepository students() {
 		return null;
 	}
+
+	@Override
+	public NotificationRepository notifications() {
+		return null;
+	}
+
+	@Override
 	public CourseEnrollmentRequestRepository courseEnrollmentRequests() { return null;}
+
+	@Override
+	public SharedBoardUserRepository sharedBoardUser() {
+		return null;
+	}
 
 
 }
