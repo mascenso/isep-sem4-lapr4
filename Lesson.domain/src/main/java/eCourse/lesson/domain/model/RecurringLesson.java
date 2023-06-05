@@ -6,7 +6,6 @@ import eCourse.TeacherUser;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.representations.RepresentationBuilder;
 import eapli.framework.representations.Representationable;
 import eapli.framework.validations.Preconditions;
@@ -14,9 +13,9 @@ import eapli.framework.validations.Preconditions;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.List;
 
 @XmlRootElement
 @Entity
@@ -31,6 +30,11 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
 
     @ManyToOne
     private TeacherUser recurringLessonTeacher;
+
+
+    //@OneToMany(mappedBy = "recurringLesson", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recurringLesson", cascade = CascadeType.ALL)
+    private List<ParticipantsOfRecurringLesson> participants;
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
