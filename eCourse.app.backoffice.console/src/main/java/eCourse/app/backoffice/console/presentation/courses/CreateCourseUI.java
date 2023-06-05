@@ -1,7 +1,7 @@
 package eCourse.app.backoffice.console.presentation.courses;
 
+import eCourse.TeacherUser;
 import eCourse.course.application.CreateCourseController;
-import eCourse.teacherusermanagement.domain.TeacherUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 

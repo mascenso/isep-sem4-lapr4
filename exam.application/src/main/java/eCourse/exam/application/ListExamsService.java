@@ -1,6 +1,5 @@
 package eCourse.exam.application;
 
-import eCourse.domain.Course;
 import eCourse.domain.Exam;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.ApplicationService;

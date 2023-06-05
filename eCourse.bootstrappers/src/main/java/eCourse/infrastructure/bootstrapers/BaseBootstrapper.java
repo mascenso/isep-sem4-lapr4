@@ -23,15 +23,15 @@
  */
 package eCourse.infrastructure.bootstrapers;
 
+import eCourse.domain.UserBuilderHelper;
 import eCourse.infrastructure.bootstrapers.demo.BackofficeUsersBootstrapper;
 import eCourse.infrastructure.bootstrapers.demo.CourseBootstrapper;
 import eCourse.infrastructure.bootstrapers.demo.CreateExamBootstrapper;
+import eCourse.usermanagement.application.ECourseRoles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.ECourseRoles;
-import eCourse.usermanagement.domain.UserBuilderHelper;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;

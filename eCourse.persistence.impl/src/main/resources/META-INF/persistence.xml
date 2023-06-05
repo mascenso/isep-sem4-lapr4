@@ -7,9 +7,12 @@
         <class>eapli.framework.infrastructure.authz.domain.model.Role</class>
         <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
         <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
+        <class>eapli.framework.infrastructure.pubsub.impl.simplepersistent.model.EventRecord</class>
+        <class>eapli.framework.infrastructure.pubsub.impl.simplepersistent.model.EventConsumption</class>
 
-        <class>eCourse.studentusermanagement.domain.StudentUser</class>
-        <class>eCourse.studentusermanagement.domain.SignupRequest</class>
+        <class>eCourse.domain.SharedBoardUser</class>
+        <class>eCourse.domain.StudentUser</class>
+        <class>eCourse.domain.SignupRequest</class>
         <class>eCourse.domain.SharedBoard</class>
         <class>eCourse.domain.Coluna</class>
         <class>eCourse.domain.Linha</class>
@@ -20,7 +23,7 @@
         <class>eCourse.domain.Meeting</class>
         <class>eCourse.domain.ParticipantsOfMeeting</class>
         <class>eCourse.domain.Student</class>
-        <class>eCourse.teacherusermanagement.domain.TeacherUser</class>
+        <class>eCourse.TeacherUser</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
 
 
@@ -29,7 +32,7 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:~\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>
 
             <property name="javax.persistence.jdbc.user" value="sa"/>
-            <property name="javax.persistence.jdbc.password" value="eapli"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
             <!-- <property name = "hibernate.show_sql" value = "true" /> -->
