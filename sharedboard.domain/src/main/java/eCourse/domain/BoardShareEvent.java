@@ -10,6 +10,9 @@ import java.util.List;
 @Entity
 public class BoardShareEvent extends AbstractBoardShareEvent {
 
+    /* Herda o ID do AbstractBoardShareEvent!!! */
+
+
     @OneToMany(mappedBy = "event") //the relationship is controlled by the event
     private List<Notification> notifications = new ArrayList<>();
 
