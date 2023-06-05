@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TakeExamUI {
+    public static float maxGrade = 0;
 
     public static void main(String[] args) throws IOException {
         CharStream charStream = CharStreams.fromFileName("./exam.txt");
@@ -25,7 +26,7 @@ public class TakeExamUI {
         String feedbackType = parseTree.getChild(3).getChild(3).getChild(1).toString();
         String gradeType = parseTree.getChild(3).getChild(4).getChild(1).toString();
 
-        float maxGrade =0;
+
         float studentGrade =0;
 
 
@@ -53,10 +54,11 @@ public class TakeExamUI {
             String typeOfQuestion = listOfQuestions.get(i).getChild(0).getChild(0).toString();
             //maxGrade += Integer.parseInt(listOfQuestions.get(i).getChild(0).getChild(6).getChild(0).toString());
             System.out.println();
-            System.out.printf("This is a question of type %s\n",typeOfQuestion);
             studentGrade += makeQuestionForUser(listOfQuestions.get(i));
         }
-        System.out.println(123);
+        System.out.println();
+        float finalGrade =studentGrade/maxGrade*100;
+        System.out.printf("Finished the exam with the grade %.2f.\nYou've reached %.2f at a maximum of %.2f\n",finalGrade,studentGrade,maxGrade);
 
     }
 
@@ -80,11 +82,34 @@ public class TakeExamUI {
 
     private static float makeMissingWordsQuestion(ParseTree parseTree) {
         String question = parseTree.getChild(0).getChild(1).getChild(0).toString();
-        String correctAnswer = parseTree.getChild(0).getChild(4).toString();
-        String answerOfUser ="";
+        List <String> correctAnswer = List.of(parseTree.getChild(0).getChild(5).getChild(0).toString().replace("\"", "").split(" "));
+        List <String> options = List.of(parseTree.getChild(0).getChild(3).getChild(1).getChild(1).getChild(0).toString().replace("\"", "").split(" "));
+        List <String> answerOfUser =new ArrayList<>();
+        List <String> gradesByCorrectAnswer = List.of(parseTree.getChild(0).getChild(9).getChild(0).toString().replace("\"", "").split(" "));
         float grade =0;
         Scanner scanner = new Scanner(System.in);
-        return 0;
+
+        //show question and wait for answer
+        for (int i = 0; i < correctAnswer.size(); i++) {
+            System.out.printf("\nQuestion: %s\n\n",question);
+            for (int j = 0; j < options.size(); j++) {
+                System.out.printf("Option: %s\n",options.get(j));
+            }
+            System.out.printf("\nWhat is the word for %d space?\n",i+1);
+            System.out.print("Answer: ");
+            answerOfUser.add(scanner.nextLine());
+            System.out.println();
+        }
+
+        //calculate the grade of user and max grade of exam
+        for (int i = 0; i < correctAnswer.size(); i++) {
+            if(correctAnswer.get(i).equalsIgnoreCase(answerOfUser.get(i))){
+                grade += Float.parseFloat(gradesByCorrectAnswer.get(i));
+            }
+            maxGrade += Float.parseFloat(gradesByCorrectAnswer.get(i));
+        }
+
+        return grade;
     }
 
     private static float makeMultipleChoiceQuestion(ParseTree parseTree) {
@@ -110,22 +135,23 @@ public class TakeExamUI {
 
         //show options
         for (int i = 3; !parseTree.getChild(0).getChild(i).toString().contains("Answer"); i++) {
-            System.out.printf("Option: %s\n",parseTree.getChild(0).getChild(i).getChild(1).toString());
+            System.out.printf("Option: %s\n",parseTree.getChild(0).getChild(i).getChild(1).toString().replace("\"", "").split(" "));
         }
 
         //user response
         System.out.println();
         System.out.println("If you want choose more than one options please separates with a blank space.");
         System.out.println("Select option by same order.");
-        System.out.print("Answer:");
+        System.out.print("Answer: ");
         String userAnswer = scanner.nextLine();
         answerOfUser = List.of(userAnswer.split(" "));
 
-        //validate answers
+        //validate answers , calculate grade of user and max grade of exam
         for (int i = 0; i < correctAnswer.size(); i++) {
             if(i<answerOfUser.size() && correctAnswer.get(i).equalsIgnoreCase(answerOfUser.get(i))){
                 grade += Float.parseFloat(gradeForAnyAnswer.get(i).toString());
             }
+            maxGrade += Float.parseFloat(gradeForAnyAnswer.get(i).toString());
         }
         return grade;
     }
@@ -159,11 +185,12 @@ public class TakeExamUI {
             answerOfUser.add(scanner.nextLine());
         }
 
-        //validate answers
+        //validate answers, calculate grade of student and max grade of exam
         for (int i = 0; i < answerOfUser.size(); i++) {
             if(answerOfUser.get(i).equalsIgnoreCase(correctAnswer.get(i))){
                 grade += Float.parseFloat(parseTree.getChild(0).getChild(8).getChild(0).toString());
             }
+            maxGrade += Float.parseFloat(parseTree.getChild(0).getChild(8).getChild(0).toString());
         }
         return grade;
     }
@@ -186,6 +213,7 @@ public class TakeExamUI {
             }
             if (parseTree.getChild(0).getChild(i).toString().contains("Grade")){
                 correctGrade = Float.parseFloat(parseTree.getChild(0).getChild(i+1).getChild(0).toString());
+                maxGrade += correctGrade;
             }
         }
 
@@ -203,14 +231,16 @@ public class TakeExamUI {
 
         System.out.print("Answer: ");
         answerOfUser = scanner.nextFloat();
+
+        //validate answer of user
         if(Math.abs(answerOfUser - correctAnswer) <= aceptError){
             grade = correctGrade;
         }
+
         return grade;
     }
 
     private static float makeShortAnswerQuestion(ParseTree parseTree) {
-        System.out.println();
         String question = parseTree.getChild(0).getChild(1).getChild(0).toString();
         List <String> correctAnswer = new ArrayList<>();
         List <String> gradesByAnswer = new ArrayList<>();
@@ -254,6 +284,8 @@ public class TakeExamUI {
                 grade = Float.parseFloat(gradesByAnswer.get(i));
             }
         }
+        //the first is the big grade and only one is right
+        maxGrade += Float.parseFloat(gradesByAnswer.get(0));
         return grade;
     }
 
@@ -272,9 +304,12 @@ public class TakeExamUI {
             answerOfUser = scanner.nextLine();
         }while (!answerOfUser.equalsIgnoreCase("true") && !answerOfUser.equalsIgnoreCase("false"));
 
+        //validate the grade of user
         if(answerOfUser.equalsIgnoreCase(correctAnswer)){
             grade = Float.parseFloat(parseTree.getChild(0).getChild(6).getChild(0).toString());
         }
+        //get the max grade of exam
+        maxGrade += Float.parseFloat(parseTree.getChild(0).getChild(6).getChild(0).toString());
         return grade;
     }
 
