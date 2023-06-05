@@ -20,7 +20,7 @@ package eCourse.repositories;/*
  */
 
 
-import eCourse.Teacher;
+import eCourse.domain.Teacher;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 

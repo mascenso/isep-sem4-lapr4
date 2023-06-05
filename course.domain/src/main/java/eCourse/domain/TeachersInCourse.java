@@ -1,7 +1,6 @@
 package eCourse.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eCourse.Teacher;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
 import lombok.EqualsAndHashCode;

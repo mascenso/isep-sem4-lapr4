@@ -21,7 +21,7 @@
         <class>eCourse.domain.ParticipantsOfMeeting</class>
         <class>eCourse.lesson.domain.model.ParticipantsOfRecurringLesson</class>
         <class>eCourse.domain.Student</class>
-        <class>eCourse.Teacher</class>
+        <class>eCourse.domain.Teacher</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
 
 

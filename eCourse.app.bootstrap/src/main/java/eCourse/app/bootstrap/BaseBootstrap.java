@@ -66,7 +66,8 @@ public final class BaseBootstrap extends BaseApplication {
 		System.out.println("\n\n------- MASTER DATA -------");
 		new BaseBootstrapper().execute();
 
-		if (isToBootstrapDemoData) {
+		//if (isToBootstrapDemoData) //FIXME: Comentado p correr plo play IntelliJ
+		{
 			System.out.println("\n\n------- DEMO DATA -------");
 			new BaseDemoBootstrapper().execute();
 		}
