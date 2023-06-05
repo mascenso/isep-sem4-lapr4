@@ -8,7 +8,7 @@
         <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
         <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
 
-        <class>eCourse.domain.StudentUser</class>
+        <class>eCourse.domain.Student</class>
         <class>eCourse.domain.SignupRequest</class>
         <class>eCourse.domain.SharedBoard</class>
         <class>eCourse.domain.Coluna</class>
@@ -21,7 +21,7 @@
         <class>eCourse.domain.ParticipantsOfMeeting</class>
         <class>eCourse.lesson.domain.model.ParticipantsOfRecurringLesson</class>
         <class>eCourse.domain.Student</class>
-        <class>eCourse.TeacherUser</class>
+        <class>eCourse.Teacher</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
 
 

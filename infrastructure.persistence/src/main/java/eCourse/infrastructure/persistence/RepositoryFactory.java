@@ -102,9 +102,4 @@ public interface RepositoryFactory {
 
     TeacherUserRepository teacherUsers();
 
-    StudentRepository students();
-
-    NotificationRepository notifications();
-
-    SharedBoardsUsersRepository sharedBoardsUsers();
 }

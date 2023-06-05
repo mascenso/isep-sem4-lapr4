@@ -26,8 +26,8 @@ package eCourse.eventhandlers;
 import java.util.Optional;
 
 
-import eCourse.domain.StudentUser;
-import eCourse.domain.StudentUserBuilder;
+import eCourse.domain.Student;
+import eCourse.domain.StudentBuilder;
 import eCourse.domain.events.NewUserRegisteredFromSignupEvent;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.StudentUserRepository;
@@ -47,11 +47,11 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
     private final StudentUserRepository clientUserRepository = PersistenceContext
             .repositories().clientUsers();
 
-    public StudentUser addClientUser(final NewUserRegisteredFromSignupEvent event) {
+    public Student addClientUser(final NewUserRegisteredFromSignupEvent event) {
         final Optional<SystemUser> newUser = findUser(event);
 
         return newUser.map(u -> {
-            final StudentUserBuilder clientUserBuilder = new StudentUserBuilder();
+            final StudentBuilder clientUserBuilder = new StudentBuilder();
             clientUserBuilder
                     .withSystemUser(u);
             return clientUserRepository.save(clientUserBuilder.build());

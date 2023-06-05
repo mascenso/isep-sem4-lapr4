@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse;
+package eCourse.domain;
 
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -31,29 +31,35 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public class TeacherUserBuilder implements DomainFactory<TeacherUser> {
+public class StudentBuilder implements DomainFactory<Student> {
 
     private SystemUser systemUser;
-    private String acronym;
+    private MecanographicNumber mecanographicNumber;
+    private TaxPayNumber taxPayNumber;
 
-    public TeacherUserBuilder withSystemUser(final SystemUser systemUser) {
+    public StudentBuilder withSystemUser(final SystemUser systemUser) {
         this.systemUser = systemUser;
         return this;
     }
 
-    public TeacherUserBuilder withAcronym(String acronym) {
-        this.acronym = acronym;
+    public StudentBuilder withMecNumber(final MecanographicNumber mecNumber) {
+        this.mecanographicNumber = mecNumber;
+        return this;
+    }
+
+    public StudentBuilder withTaxPayNumber(final String taxPayNumber) {
+        this.taxPayNumber = new TaxPayNumber(taxPayNumber);
         return this;
     }
 
     @Override
-    public TeacherUser build() {
+    public Student build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new TeacherUser(this.systemUser, this.acronym);
+        return new Student(this.systemUser, this.mecanographicNumber, this.taxPayNumber);
     }
 
-    public TeacherUser build(SystemUser systemUser, String acronym) {
-        return new TeacherUser(systemUser, acronym);
+    public Student build(SystemUser systemUser, String aMecanographicNumber) {
+        return new Student(systemUser, new MecanographicNumber(aMecanographicNumber));
     }
 }
