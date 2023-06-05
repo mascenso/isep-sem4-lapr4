@@ -9,15 +9,19 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import java.util.Map;
 
 @Component
 @UseCaseController
 public class ShareABoardController {
 
+    @Embedded
     private SharedBoard sb;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
+
 
     private Notification notification;
 

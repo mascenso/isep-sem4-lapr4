@@ -35,6 +35,7 @@ import eCourse.app.backoffice.console.presentation.meetings.CancelMeetingUI;
 import eCourse.app.backoffice.console.presentation.meetings.ListMeetingsUI;
 import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
+import eCourse.app.backoffice.console.presentation.sharedboard.ShareABoardUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eCourse.app.backoffice.console.presentation.students.AddStudentUI;
 import eCourse.app.backoffice.console.presentation.students.EnrollStudentsUI;
@@ -111,6 +112,8 @@ public class MainMenu extends AbstractUI {
     //SHAREDBOARD
     private static final int CREATE_BOARD_OPTION = 1;
     private static final int LIST_BOARDS_OPTION = 3;
+    private static final int SHARE_A_BOARD=2;
+
 
 
     //MEETING
@@ -271,6 +274,7 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
         menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
+        menu.addItem(SHARE_A_BOARD, "Share a Board", new ShareABoardUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

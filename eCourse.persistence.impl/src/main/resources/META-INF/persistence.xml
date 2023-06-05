@@ -22,6 +22,8 @@
         <class>eCourse.domain.Student</class>
         <class>eCourse.TeacherUser</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
+        <class>eCourse.domain.SharedBoardUser</class>
+        <class>eCourse.domain.Notification</class>
 
 
         <properties>

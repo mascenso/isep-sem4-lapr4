@@ -14,13 +14,13 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
     private Long id;
 
     @ManyToOne
-    @Column(nullable = false, name = "User ID")
     private SystemUser user;
 
-    @Column(nullable = false, name = "Title")
+    @Column(unique = true)
     private SharedBoardTitle title;
 
     @Column(nullable = false, name = "Permission")
+    @Enumerated(EnumType.STRING)
     private AccessType permission;
 
     @OneToMany(cascade = CascadeType.ALL)
