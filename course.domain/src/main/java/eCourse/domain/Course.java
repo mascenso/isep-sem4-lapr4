@@ -1,5 +1,6 @@
 package eCourse.domain;
 
+import eCourse.Teacher;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Description;
@@ -33,6 +34,12 @@ public class Course implements AggregateRoot<Designation> {
 
     @ManyToOne
     private SystemUser teacherCoordinator;
+
+    /**
+     * Teachers in a course.
+     */
+    @ElementCollection(fetch = FetchType.EAGER)
+    private final Set<TeachersInCourse> teachers = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
@@ -111,6 +118,15 @@ public class Course implements AggregateRoot<Designation> {
 
     public boolean addAllStudent(List<Student> students) {
         return this.students.addAll(students);
+    }
+
+    /**
+     *
+     * @param teacher
+     * @return
+     */
+    public boolean addTeacher(Teacher teacher) {
+        return this.teachers.add(new TeachersInCourse(teacher));
     }
 
 }
