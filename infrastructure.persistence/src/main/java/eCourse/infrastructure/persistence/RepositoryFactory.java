@@ -20,6 +20,7 @@
  */
 package eCourse.infrastructure.persistence;
 
+import eCourse.domain.SharedBoardUser;
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.repositories.*;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -102,4 +103,7 @@ public interface RepositoryFactory {
 
     TeacherUserRepository teacherUsers();
 
+    NotificationRepository notifications();
+
+    SharedBoardUserRepository sharedBoardUser();
 }

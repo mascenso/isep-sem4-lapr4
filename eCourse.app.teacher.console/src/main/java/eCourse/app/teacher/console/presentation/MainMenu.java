@@ -198,7 +198,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildCoursesMenu() {
         final Menu menu = new Menu("Course >");
 
-        menu.addItem(LIST_COURSES_OPTION, "List courses Open.", new ListCoursesTeacherUI()::show);
+        menu.addItem(LIST_COURSES_OPTION, "List Open courses.", new ListCoursesTeacherUI()::show);
 
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
