@@ -1,5 +1,6 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
+import eCourse.course.application.UpdateCourseStateController;
 import eCourse.domain.*;
 import eCourse.exam.application.CreateExamController;
 import eCourse.infrastructure.persistence.PersistenceContext;
@@ -23,6 +24,7 @@ public class CreateExamBootstrapper implements Action {
 
     CreateExamController createExamController = new CreateExamController();
     private final UserManagementService userManagementService = AuthzRegistry.userService();
+    UpdateCourseStateController updateCourseStateController = new UpdateCourseStateController();
 
     @Override
     public boolean execute() {
@@ -30,7 +32,7 @@ public class CreateExamBootstrapper implements Action {
         Date closeDate;
 
         Course course1 = RegisterCourse("Course for race conditions", "SCOMP", "2022/2023", "Open",10);
-        Course course2 = RegisterCourse("Course for network", "RCOMP", "2022/2023", "Open",11);
+       // Course course2 = RegisterCourse("Course for network", "RCOMP", "2022/2023", "Open",11);
 
 
         try {
@@ -40,10 +42,11 @@ public class CreateExamBootstrapper implements Action {
             throw new RuntimeException(e);
         }
 
-        File examFile1 = new File("scomp_exam.pdf");
-        File examFile2 = new File("rcomp_exam.pdf");
+        File examFile1 = new File("exam1.txt");
+       // File examFile2 = new File("exam2.txt");
+        updateCourseStateController.updateCourseState("SCOMP", "Open");
 
-        //createExamController.createExam(course1, "SCOMP EPOCA NORMAL 2022/2023", openDate, closeDate, examFile1);
+        createExamController.createExam(course1, "SCOMP EPOCA NORMAL 2022/2023", openDate, closeDate, examFile1);
         //createExamController.createExam(course2, "RCOMP EPOCA NORMAL 2022/2023", openDate, closeDate, examFile2);
 
 

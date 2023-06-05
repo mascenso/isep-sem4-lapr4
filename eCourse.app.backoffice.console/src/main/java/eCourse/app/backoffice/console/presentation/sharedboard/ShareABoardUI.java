@@ -54,7 +54,7 @@ public class ShareABoardUI extends AbstractUI {
 
 
     private Map<SystemUser,AccessType> showAllUsers(Iterable<SystemUser> allUsers, Map<Integer, AccessType> permissions) {
-        //copy of list
+        //copies the list
         List<SystemUser> users = new ArrayList<>();
         for (SystemUser user : allUsers) {
             users.add(user);

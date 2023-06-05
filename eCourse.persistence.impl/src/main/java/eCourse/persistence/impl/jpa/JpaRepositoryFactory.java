@@ -20,6 +20,7 @@
  */
 package eCourse.persistence.impl.jpa;
 
+import eCourse.domain.SharedBoardUser;
 import eCourse.repositories.*;
 
 import eCourse.Application;
@@ -128,6 +129,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	public TransactionalContext newTransactionalContext() {
 		return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),
 				Application.settings().getExtendedPersistenceProperties());
+	}
+
+	@Override
+	public NotificationRepository notifications() {
+		return new JpaNotificationRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public SharedBoardUserRepository sharedBoardUser() {
+		return new JpaSharedBoardUserRepository(Application.settings().getPersistenceUnitName());
 	}
 
 }
