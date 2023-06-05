@@ -1,4 +1,4 @@
-// Generated from /Users/miguelcardoso/Library/CloudStorage/OneDrive-InstitutoSuperiordeEngenhariadoPorto/Licenciatura Engenharia Informatica/2 ano/2 semestre/LAPR4/projeto-v2/sem4pi-22-23-49/LPROG-module/exams/grammar/ExamSpecification.g4 by ANTLR 4.12.0
+package eCourse.antlr;// Generated from /Users/miguelcardoso/Library/CloudStorage/OneDrive-InstitutoSuperiordeEngenhariadoPorto/Licenciatura Engenharia Informatica/2 ano/2 semestre/LAPR4/projeto-v2/sem4pi-22-23-49/LPROG-module/exams/grammar/ExamSpecification.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -139,7 +139,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitExam(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitExam(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -215,7 +215,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitHeader(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitHeader(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -281,7 +281,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitFeedbackType(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitFeedbackType(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -337,7 +337,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitGradeType(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitGradeType(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -391,7 +391,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitDescription(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitDescription(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -446,7 +446,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitSection(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitSection(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -541,7 +541,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitQuestion(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitQuestion(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -653,7 +653,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitMatchingQuestion(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitMatchingQuestion(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -768,7 +768,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitListOne(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitListOne(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -831,7 +831,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitListTwo(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitListTwo(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -889,7 +889,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitQuestionText(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitQuestionText(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -955,7 +955,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitMultipleChoiceQuestion(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitMultipleChoiceQuestion(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1082,7 +1082,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitShortAnswerQuestion(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitShortAnswerQuestion(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1200,7 +1200,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitPossibleAnswer(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitPossibleAnswer(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1271,7 +1271,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitNumericalQuestion(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitNumericalQuestion(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1345,7 +1345,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitAcceptedError(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitAcceptedError(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1417,7 +1417,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitSelectMissingWordsQuestion(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitSelectMissingWordsQuestion(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1548,7 +1548,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitMissingWord(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitMissingWord(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1625,7 +1625,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitWordGroup(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitWordGroup(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1685,7 +1685,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitWord(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitWord(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1736,7 +1736,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitTrueFalseQuestion(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitTrueFalseQuestion(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1812,7 +1812,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitFeedback(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitFeedback(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1857,7 +1857,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitOptions(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitOptions(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1902,7 +1902,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitGrade(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitGrade(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1946,7 +1946,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitAnswer(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitAnswer(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1998,7 +1998,7 @@ public class ExamSpecificationParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ExamSpecificationVisitor ) return ((ExamSpecificationVisitor<? extends T>)visitor).visitPenalty(this);
+			if ( visitor instanceof ExamSpecificationVisitor) return ((ExamSpecificationVisitor<? extends T>)visitor).visitPenalty(this);
 			else return visitor.visitChildren(this);
 		}
 	}

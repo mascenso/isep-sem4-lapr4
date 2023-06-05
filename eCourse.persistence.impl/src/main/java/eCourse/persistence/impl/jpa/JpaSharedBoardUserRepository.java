@@ -1,29 +1,31 @@
 package eCourse.persistence.impl.jpa;
 
+import eCourse.Application;
+import eCourse.domain.Meeting;
 import eCourse.domain.SharedBoardTitle;
 import eCourse.domain.SharedBoardUser;
 import eCourse.repositories.NotificationRepository;
 import eCourse.repositories.SharedBoardUserRepository;
+import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.util.Optional;
 
-public class JpaSharedBoardUserRepository implements SharedBoardUserRepository {
-    public JpaSharedBoardUserRepository(String persistenceUnitName) {
+public class JpaSharedBoardUserRepository extends JpaAutoTxRepository<SharedBoardUser, String,String>
+        implements SharedBoardUserRepository {
+
+
+    public JpaSharedBoardUserRepository(TransactionalContext tx) {
+        super(tx, "ShareboardUSer Repository");
+    }
+    public JpaSharedBoardUserRepository(final String puname) {
+        super(puname, Application.settings().getExtendedPersistenceProperties(),
+                "MeetingName");
     }
 
     @Override
     public Iterable<SharedBoardUser> findByUser(SystemUser user) {
-        return null;
-    }
-
-    @Override
-    public <S extends SharedBoardUser> S save(S entity) {
-        return null;
-    }
-
-    @Override
-    public Iterable<SharedBoardUser> findAll() {
         return null;
     }
 
@@ -33,17 +35,7 @@ public class JpaSharedBoardUserRepository implements SharedBoardUserRepository {
     }
 
     @Override
-    public void delete(SharedBoardUser entity) {
-
-    }
-
-    @Override
     public void deleteOfIdentity(SharedBoardTitle entityId) {
 
-    }
-
-    @Override
-    public long count() {
-        return 0;
     }
 }
