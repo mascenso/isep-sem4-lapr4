@@ -20,21 +20,14 @@
  */
 package eCourse.infrastructure.bootstrapers.demo;
 
-import eCourse.infrastructure.bootstrapers.TestDataConstants;
-import eCourse.studentusermanagement.application.AddStudentUserController;
-import eCourse.teacherusermanagement.application.AddTeacherUserController;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.AddStudentUserController;
+import eCourse.AddTeacherUserController;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eCourse.studentusermanagement.application.AcceptRefuseSignupFactory;
-import eCourse.studentusermanagement.application.AcceptRefuseSignupRequestController;
-import eCourse.studentusermanagement.domain.SignupRequest;
-import eCourse.myclientuser.application.SignupController;
 import eapli.framework.actions.Action;
-import eapli.framework.domain.repositories.ConcurrencyException;
-import eapli.framework.domain.repositories.IntegrityViolationException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -58,15 +51,15 @@ public class StudentUserBootstrapper implements Action {
 		Set<Role> roleTea= new HashSet<>();
 		roleTea.add(ECourseRoles.TEACHER);
 
-		addStudentUserController.addStudentUser("student1", "Password1", "Mary", "Rock", "mary@isep.ipp.pt", roleStu );
-		addStudentUserController.addStudentUser("student2", "Password1", "Michael", "Rock", "michael@isep.ipp.pt",  roleStu );
-		addStudentUserController.addStudentUser("student3", "Password1", "Patty", "Tex", "patty@isep.ipp.pt",  roleStu );
-		addStudentUserController.addStudentUser("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt",  roleStu );
-		addStudentUserController.addStudentUser("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt",  roleStu );
+		addStudentUserController.addStudentUser("student1", "Password1", "Mary", "Rock", "mary@isep.ipp.pt", roleStu , "111111111");
+		addStudentUserController.addStudentUser("student2", "Password1", "Michael", "Rock", "michael@isep.ipp.pt",  roleStu , "222222222");
+		addStudentUserController.addStudentUser("student3", "Password1", "Patty", "Tex", "patty@isep.ipp.pt",  roleStu , "333333333");
+		addStudentUserController.addStudentUser("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt",  roleStu , "444444444");
+		addStudentUserController.addStudentUser("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt",  roleStu , "555555555");
 
-		addTeacherUserController.addTeacherUser("teacher1", "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTea , "abc");
-		addTeacherUserController.addTeacherUser("teacher2", "Password1", "Jane", "Doe", "teacher2@isep.ipp.pt", roleTea , "def");
-		addTeacherUserController.addTeacherUser("teacher3", "Password1", "John", "Smith", "teacher2@isep.ipp.pt", roleTea , "ghi");
+		addTeacherUserController.addTeacherUser("teacher01", "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTea , "abc");
+		addTeacherUserController.addTeacherUser("teacher02", "Password1", "Jane", "Doe", "teacher2@isep.ipp.pt", roleTea , "def");
+		addTeacherUserController.addTeacherUser("teacher03", "Password1", "John", "Smith", "teacher2@isep.ipp.pt", roleTea , "ghi");
 
 		return true;
 	}

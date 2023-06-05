@@ -29,7 +29,11 @@ import eCourse.app.backoffice.console.presentation.authz.ListUsersAction;
 import eCourse.app.backoffice.console.presentation.clientuser.AcceptRefuseSignupRequestAction;
 import eCourse.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eCourse.app.backoffice.console.presentation.courses.ListCoursesUI;
+import eCourse.app.backoffice.console.presentation.courses.SetTeachersOfCourseUI;
 import eCourse.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
+import eCourse.app.backoffice.console.presentation.meetings.AcceptRejectMeetingUI;
+import eCourse.app.backoffice.console.presentation.meetings.CancelMeetingUI;
+import eCourse.app.backoffice.console.presentation.meetings.ListMeetingsUI;
 import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
@@ -38,7 +42,7 @@ import eCourse.app.backoffice.console.presentation.students.EnrollStudentsUI;
 import eCourse.app.backoffice.console.presentation.teachers.AddTeacherUI;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -96,6 +100,11 @@ public class MainMenu extends AbstractUI {
     private static final int ADD_NEW_COURSE =2;
     private static final int UPDATE_COURSE_STATE =3;
 
+    private static final int COURSE_ENROLLMENT_OPTION = 2;
+
+    private static final int REQUEST_COURSE_ENROLLMENT_OPTION = 1;
+    private static final int SET_TEACHERS_OF_COURSE = 5;
+
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -108,6 +117,10 @@ public class MainMenu extends AbstractUI {
 
     //MEETING
     private static final int SCHEDULE_MEETING = 1;
+    private static final int CANCEL_MEETING = 2;
+    private static final int LIST_MEETING = 3;
+    private static final int ACCEPT_REJECT_MEETING = 4;
+
 
     //ENROLLMENT
     private static final int ENROLLMENT_CSV = 1;
@@ -241,6 +254,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_ALL_COURSES,"List all Courses", new ListCoursesUI()::show);
         menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
         menu.addItem(UPDATE_COURSE_STATE, "Update Course State", new UpdateCourseStateUI()::show);
+        menu.addItem(SET_TEACHERS_OF_COURSE, "Set Teachers of Course", new SetTeachersOfCourseUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
@@ -248,6 +262,10 @@ public class MainMenu extends AbstractUI {
     private Menu buildMeetingMenu(){
         final Menu menu = new Menu("Meeting >");
         menu.addItem(SCHEDULE_MEETING,"Schedule new meeting", new ScheduleMeetingsUI()::show);
+        menu.addItem(CANCEL_MEETING,"Cancel meeting", new CancelMeetingUI()::show);
+        menu.addItem(LIST_MEETING, "List Meeting", new ListMeetingsUI()::show);
+        menu.addItem(ACCEPT_REJECT_MEETING, "Accept/Reject Meeting", new AcceptRejectMeetingUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
 

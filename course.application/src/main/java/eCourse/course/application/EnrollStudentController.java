@@ -1,12 +1,12 @@
 package eCourse.course.application;
 
-import eCourse.MechanographicNumber;
 import eCourse.domain.Course;
+import eCourse.domain.MecanographicNumber;
 import eCourse.domain.Student;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
-import eCourse.repositories.StudentRepository;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.repositories.StudentUserRepository;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public class EnrollStudentController {
 
     private final AuthorizationService authorizationService = AuthzRegistry.authorizationService();
-    private final StudentRepository studentRepository = PersistenceContext.repositories().students();
+    private final StudentUserRepository studentRepository = PersistenceContext.repositories().studentUsers();
     private final CourseRepository courseRepository = PersistenceContext.repositories().courses();
 
     private ListCoursesService service = new ListCoursesService();
@@ -49,7 +49,7 @@ public class EnrollStudentController {
 
             if (values.length > CSV_STUDENT_IDENTITY_INDEX) {
 
-                Optional<Student> studentEntity = studentRepository.findByMechanographicNumber(MechanographicNumber.valueOf(values[CSV_STUDENT_IDENTITY_INDEX]));
+                Optional<Student> studentEntity = studentRepository.findByMecanographicNumber(MecanographicNumber.valueOf(values[CSV_STUDENT_IDENTITY_INDEX]));
 
                 if (studentEntity.isPresent()) {
                     validationResult.addValidStudent(studentEntity.get()); //the student exists in the database
@@ -80,9 +80,11 @@ public class EnrollStudentController {
 
         course.addAllStudent(students);
 
+        /*
         for (Student student : students) {
             student.addCourse(course);
         }
+         */
 
         courseRepository.save(course);
     }

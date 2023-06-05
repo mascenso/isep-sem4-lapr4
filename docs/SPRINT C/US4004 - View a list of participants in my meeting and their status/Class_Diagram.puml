@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class ListMeetingsUI {
+    doShow()
+}
+
+class ListMeetingsController {
+    listMeetingsByUser()
+}
+
+class ListMeetingsService {
+    getMeetingsByUser()
+}
+
+class MeetingsRepository {
+}
+
+class RepositoryFactory {
+}
+
+ListMeetingsUI -down-> ListMeetingsController   : uses the controller
+ListMeetingsController --> ListMeetingsService  : get the List
+ListMeetingsService --> RepositoryFactory
+ListMeetingsService --> MeetingsRepository      : find Meetings By Username
+
+@enduml

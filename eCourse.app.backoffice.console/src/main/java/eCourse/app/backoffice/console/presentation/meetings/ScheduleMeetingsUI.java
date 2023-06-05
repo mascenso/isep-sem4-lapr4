@@ -1,6 +1,7 @@
 package eCourse.app.backoffice.console.presentation.meetings;
 
 import eCourse.application.ScheduleMeetingController;
+import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;

@@ -23,12 +23,13 @@
  */
 package eCourse.app.backoffice.console.presentation.students;
 
+import eCourse.AddStudentUserController;
 import eCourse.app.user.console.presentation.myuser.UserDataWidget;
-import eCourse.studentusermanagement.application.AddStudentUserController;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.util.HashSet;
@@ -49,6 +50,11 @@ public class AddStudentUI extends AbstractUI {
 
         userData.show();
 
+        final String taxPayNumber = Console.readLine("Tax Pay Number:");
+
+        final String birthDate = Console.readLine("Birth Date dd/mm/yyyy:");
+
+
         final Set<Role> roleTypes = new HashSet<>();
         roleTypes.add(ECourseRoles.STUDENT);
 
@@ -59,7 +65,9 @@ public class AddStudentUI extends AbstractUI {
                     userData.firstName(),
                     userData.firstName(),
                     userData.email(),
-                    roleTypes);
+                    roleTypes,
+                    taxPayNumber
+                    );
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
         }

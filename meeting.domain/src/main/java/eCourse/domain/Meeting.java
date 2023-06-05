@@ -18,6 +18,9 @@ public class Meeting implements AggregateRoot<Long> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idMeeting;
 
+    @ManyToOne
+    private SystemUser meetingCreator;
+
     @Embedded
     private Designation title;
 
@@ -42,17 +45,20 @@ public class Meeting implements AggregateRoot<Long> {
 
     /**
      * This is a constructor to create a new meeting
-     * @param name name of meeting
-     * @param schedule date of meeting
+     *
+     * @param name               name of meeting
+     * @param schedule           date of meeting
      * @param listOfParticipants participants of meeting
-     * @param duration duration of meeting
+     * @param duration           duration of meeting
+     * @param meetingCreator
      */
-    public Meeting(Designation name, Date schedule, List<SystemUser> listOfParticipants,int  duration){
+    public Meeting(Designation name, Date schedule, List<SystemUser> listOfParticipants, int  duration, SystemUser meetingCreator){
         Preconditions.noneNull(name,schedule,duration);
 
         this.title = name;
         this.duration = duration;
         this.schedule = schedule;
+        this.meetingCreator = meetingCreator;
 
         this.participants = new ArrayList<>();
         for(SystemUser participant : listOfParticipants){
@@ -78,6 +84,9 @@ public class Meeting implements AggregateRoot<Long> {
      */
     public Date dateOfMeeting (){return this.schedule;}
 
+    public SystemUser meetingCreator(){return this.meetingCreator;}
+
+    public MeetingStatus meetingStatus(){return this.meetingStatus;}
     /**
      * Usefull method to compare 2 objects meeting
      * @param other
@@ -106,4 +115,10 @@ public class Meeting implements AggregateRoot<Long> {
     public Long identity() {
         return this.idMeeting;
     }
+
+    public void cancelMeeting() {
+        this.meetingStatus = MeetingStatus.CANCELLED;
+    }
+
+
 }
