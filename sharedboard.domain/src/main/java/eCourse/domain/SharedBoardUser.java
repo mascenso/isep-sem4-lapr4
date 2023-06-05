@@ -14,7 +14,6 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
     private Long id;
 
     @ManyToOne
-    //@JoinColumn(nullable = false, name = "User ID")
     private SystemUser user;
 
     @Column(nullable = false, name = "Title")
@@ -24,7 +23,8 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
     @Enumerated(EnumType.STRING)
     private AccessType permission;
 
-    @OneToMany(mappedBy = "shareboard",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "what",cascade = CascadeType.ALL)
+    //@OneToMany(cascade = CascadeType.ALL)
     private final Set<AbstractBoardShareEvent> events = new HashSet<>();
 
     protected SharedBoardUser(SystemUser user, SharedBoardTitle boardID, AccessType access){

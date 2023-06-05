@@ -31,9 +31,8 @@ public class CreateExamBootstrapper implements Action {
         Date openDate;
         Date closeDate;
 
-        Course course1 = RegisterCourse("Course for race conditions", "SCOMP", "2022/2023", "Open",10);
+        Course course1 = RegisterCourse("Course for race conditions", "SCOMP", "2022/2023", "Open",8);
        // Course course2 = RegisterCourse("Course for network", "RCOMP", "2022/2023", "Open",11);
-
 
         try {
             openDate = new SimpleDateFormat("dd/MM/yyyy").parse("05/06/2023");
