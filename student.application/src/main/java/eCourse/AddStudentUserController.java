@@ -1,5 +1,6 @@
 package eCourse;
 
+import eCourse.domain.Student;
 import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -34,10 +35,11 @@ public class AddStudentUserController {
 
     }
 
-    public void addStudentUser(final String username, final String password, final String firstName,
-                              final String lastName, final String email, final Set<Role> roles, final String taxPayerNumber) {
+    public Student addStudentUser(final String username, final String password, final String firstName,
+                                  final String lastName, final String email, final Set<Role> roles, final String taxPayerNumber) {
 
         addStudentUser(username, password, firstName, lastName, email, roles, taxPayerNumber, CurrentTimeCalendars.now());
+        return null;
     }
 
 

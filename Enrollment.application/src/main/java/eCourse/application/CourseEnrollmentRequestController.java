@@ -2,7 +2,7 @@ package eCourse.application;
 
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.repositories.StudentRepository;
+import eCourse.repositories.StudentUserRepository;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -12,7 +12,7 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
 @UseCaseController
 public class CourseEnrollmentRequestController {
 
-    StudentRepository studentRepository = PersistenceContext.repositories().students();
+    StudentUserRepository studentRepository = PersistenceContext.repositories().studentUsers();
 
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 

@@ -43,7 +43,7 @@ public class TeacherUserService {
     private final TeacherUserRepository repo =
             PersistenceContext.repositories().teacherUsers();
 
-    public Optional<TeacherUser> findTeacherUserByAcronym(
+    public Optional<Teacher> findTeacherUserByAcronym(
             final String acronym) {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
                 ECourseRoles.ADMIN,
@@ -51,19 +51,19 @@ public class TeacherUserService {
         return repo.ofIdentity(acronym);
     }
 
-    public Optional<TeacherUser> findClientUserByUsername(
+    public Optional<Teacher> findClientUserByUsername(
             final Username user) {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
                 ECourseRoles.ADMIN);
         return repo.findByUsername(user);
     }
     /**
-     * Creates a new StudentUser for the given SystemUser, and saves it to the
+     * Creates a new Student for the given SystemUser, and saves it to the
      * repository.
      * @param newUser
      */
     protected void createTeacherUser(final SystemUser newUser, String acronym) {
-        final TeacherUserBuilder teacherUserBuilder = new TeacherUserBuilder();
+        final TeacherBuilder teacherUserBuilder = new TeacherBuilder();
         teacherUserBuilder
                 .withSystemUser(newUser).withAcronym(acronym);
 

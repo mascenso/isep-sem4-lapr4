@@ -2,17 +2,11 @@ package eCourse.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
-import eapli.framework.general.domain.model.Designation;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
 import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 
 @Entity

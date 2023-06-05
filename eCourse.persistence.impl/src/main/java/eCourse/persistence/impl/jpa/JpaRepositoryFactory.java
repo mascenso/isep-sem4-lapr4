@@ -120,11 +120,6 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public StudentRepository students() {
-		return new JpaStudentRepository(Application.settings().getPersistenceUnitName());
-	}
-
-	@Override
 	public TransactionalContext newTransactionalContext() {
 		return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),
 				Application.settings().getExtendedPersistenceProperties());

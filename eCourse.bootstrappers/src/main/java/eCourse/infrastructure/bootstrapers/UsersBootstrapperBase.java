@@ -22,12 +22,12 @@ package eCourse.infrastructure.bootstrapers;
 
 import java.util.Set;
 
-import eCourse.course.application.AddStudentController;
+import eCourse.AddStudentUserController;
 import eCourse.domain.Student;
+import eCourse.usermanagement.application.AddUserController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eCourse.usermanagement.application.AddUserController;
 import eCourse.usermanagement.application.ListUsersController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -40,7 +40,7 @@ public class UsersBootstrapperBase {
 
     final AddUserController userController = new AddUserController();
 
-    final AddStudentController studentController = new AddStudentController();
+    final AddStudentUserController studentController = new AddStudentUserController();
 
     final ListUsersController listUserController = new ListUsersController();
 
@@ -75,7 +75,7 @@ public class UsersBootstrapperBase {
         SystemUser u = null;
         Student s = null;
         try {
-            s = studentController.addStudent(username, password, firstName, lastName, email, roles);
+            s = studentController.addStudentUser(username, password, firstName, lastName, email, roles, "999999999");
             LOGGER.debug("»»» %s", username);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             // assuming it is just a primary key violation due to the tentative
