@@ -10,10 +10,11 @@
         <class>eapli.framework.infrastructure.pubsub.impl.simplepersistent.model.EventRecord</class>
         <class>eapli.framework.infrastructure.pubsub.impl.simplepersistent.model.EventConsumption</class>
 
-        <class>eCourse.domain.SharedBoardUser</class>
+
         <class>eCourse.domain.StudentUser</class>
         <class>eCourse.domain.SignupRequest</class>
         <class>eCourse.domain.SharedBoard</class>
+        <class>eCourse.domain.SharedBoardUser</class>
         <class>eCourse.domain.Coluna</class>
         <class>eCourse.domain.Linha</class>
         <class>eCourse.domain.Course</class>
