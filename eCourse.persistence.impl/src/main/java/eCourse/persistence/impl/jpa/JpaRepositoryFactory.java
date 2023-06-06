@@ -121,21 +121,6 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public StudentRepository students() {
-		return new JpaStudentRepository(Application.settings().getPersistenceUnitName());
-	}
-
-	@Override
-	public NotificationRepository notifications() {
-		return null;
-	}
-
-	@Override
-	public SharedBoardsUsersRepository sharedBoardsUsers() {
-		return null;
-	}
-
-	@Override
 	public TransactionalContext newTransactionalContext() {
 		return JpaAutoTxRepository.buildTransactionalContext(Application.settings().getPersistenceUnitName(),
 				Application.settings().getExtendedPersistenceProperties());

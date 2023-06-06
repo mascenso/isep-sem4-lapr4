@@ -24,7 +24,7 @@
 package eCourse;
 
 
-import eCourse.domain.StudentUser;
+import eCourse.domain.Student;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.StudentUserRepository;
 import eCourse.usermanagement.application.ECourseRoles;
@@ -40,7 +40,7 @@ public class ListClientUsersController {
 
     private final StudentUserRepository repo = PersistenceContext.repositories().clientUsers();
 
-    public Iterable<StudentUser> activeClientUsers() {
+    public Iterable<Student> activeClientUsers() {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
         return this.repo.findAllActive();

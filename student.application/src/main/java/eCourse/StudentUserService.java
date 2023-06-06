@@ -26,8 +26,8 @@ package eCourse;
 
 import eCourse.domain.MecanographicNumber;
 import eCourse.domain.MecanographicNumberDomainService;
-import eCourse.domain.StudentUser;
-import eCourse.domain.StudentUserBuilder;
+import eCourse.domain.Student;
+import eCourse.domain.StudentBuilder;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.StudentUserRepository;
 import eCourse.usermanagement.application.ECourseRoles;
@@ -53,7 +53,7 @@ public class StudentUserService {
     private final UserManagementService userService = AuthzRegistry.userService();
 
 
-    public Optional<StudentUser> findClientUserByMecNumber(
+    public Optional<Student> findClientUserByMecNumber(
             final String mecNumber) {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
                 ECourseRoles.ADMIN,
@@ -65,11 +65,11 @@ public class StudentUserService {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
                 ECourseRoles.ADMIN,
                 ECourseRoles.TEACHER);
-        return repo.findMaxMecNumber().map(StudentUser::mecanographicNumber);
+        return repo.findMaxMecNumber().map(Student::mecanographicNumber);
     }
 
 
-    public Optional<StudentUser> findClientUserByUsername(
+    public Optional<Student> findClientUserByUsername(
             final Username user) {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
                 ECourseRoles.ADMIN);
@@ -77,13 +77,15 @@ public class StudentUserService {
     }
 
     /**
-     * Creates a new StudentUser for the given SystemUser, and saves it to the
+     * Creates a new Student for the given SystemUser, and saves it to the
      * repository.
+     *
      * @param newUser
+     * @return
      */
     @Transactional /* Generates a new mec number and saves it to the repository */
-    public void createStudentUser(final SystemUser newUser, final String taxPayNumber) {
-        final StudentUserBuilder studentUserBuilder = new StudentUserBuilder();
+    public Student createStudentUser(final SystemUser newUser, final String taxPayNumber) {
+        final StudentBuilder studentUserBuilder = new StudentBuilder();
         studentUserBuilder
                 .withSystemUser(newUser)
                 .withTaxPayNumber(taxPayNumber);
@@ -100,6 +102,7 @@ public class StudentUserService {
         }
 
         this.repo.save(studentUserBuilder.build());
+        return null;
     }
 
 

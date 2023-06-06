@@ -1,6 +1,6 @@
 package eCourse.course.application;
 
-import eCourse.TeacherUser;
+import eCourse.domain.Teacher;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
@@ -39,8 +39,8 @@ public class CreateCourseController {
         return PersistenceContext.repositories().courses().save(newCourse);
     }
 
-    public List<TeacherUser> listOfTeachers() {
-        List<TeacherUser> listOfTeachers = (List<TeacherUser>) PersistenceContext.repositories().teacherUsers().findAll();
+    public List<Teacher> listOfTeachers() {
+        List<Teacher> listOfTeachers = (List<Teacher>) PersistenceContext.repositories().teacherUsers().findAll();
         return listOfTeachers;
     }
 

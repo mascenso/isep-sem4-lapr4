@@ -28,7 +28,7 @@ import java.util.Set;
 
 
 import eCourse.domain.SignupRequest;
-import eCourse.domain.StudentUserBuilder;
+import eCourse.domain.StudentBuilder;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.SignupRequestRepository;
 import eCourse.repositories.StudentUserRepository;
@@ -88,10 +88,10 @@ public class AcceptRefuseSignupRequestControllerTxImpl
         txCtx.beginTransaction();
 
 
-        /** Creates a new SystemUser for the new StudentUser. */
+        /** Creates a new SystemUser for the new Student. */
         final SystemUser newUser = createSystemUserForStudentUser(theSignupRequest);
 
-        /** Saves the new StudentUser to the repository. */
+        /** Saves the new Student to the repository. */
         createStudentUser(newUser);
 
         /** Saves the new SignupRequest to the repository. */
@@ -114,12 +114,12 @@ public class AcceptRefuseSignupRequestControllerTxImpl
     }
 
     /**
-     * Creates a new StudentUser for the given SystemUser, and saves it to the
+     * Creates a new Student for the given SystemUser, and saves it to the
      * repository.
      * @param newUser
      */
     private void createStudentUser(final SystemUser newUser) {
-        final StudentUserBuilder studentUserBuilder = new StudentUserBuilder();
+        final StudentBuilder studentUserBuilder = new StudentBuilder();
         studentUserBuilder
                 .withSystemUser(newUser);
 
