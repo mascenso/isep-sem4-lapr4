@@ -29,7 +29,8 @@ public class JpaExamRepository extends JpaAutoTxRepository<Exam, ExamTitle, Exam
 
     @Override
     public Exam findByTitle(String title) {
-        return findByTitle(title);
+        throw new UnsupportedOperationException("Not supported yet.");
+        //return findByTitle(title); // comentei pq isto está mal, recursivo infinito
     }
 
     @Override
