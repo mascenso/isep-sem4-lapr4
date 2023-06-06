@@ -1,11 +1,11 @@
 package eCourse.lesson.application;
 
-import eCourse.TeacherUser;
+import eCourse.domain.Teacher;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.lesson.domain.model.RecurringLesson;
 import eCourse.lesson.domain.model.RecurringLessonBuilder;
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
-import eCourse.repositories.TeacherUserRepository;
+import eCourse.repositories.TeacherRepository;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.general.domain.model.Designation;
 
@@ -34,7 +34,7 @@ public class CreateRecurringLessonController {
 
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    TeacherUserRepository teacherRepository = PersistenceContext.repositories().teacherUsers();
+    TeacherRepository teacherRepository = PersistenceContext.repositories().teachers();
 
     private RecurringLessonRepository recurringLessonRepository;
 
@@ -45,7 +45,7 @@ public class CreateRecurringLessonController {
 
         RecurringLessonService service = new RecurringLessonService();
 
-        TeacherUser teacher = authz.session()
+        Teacher teacher = authz.session()
                 .map(UserSession::authenticatedUser)
                 .flatMap(systemUser -> teacherRepository.findByUsername(username))
                 .orElse(null);

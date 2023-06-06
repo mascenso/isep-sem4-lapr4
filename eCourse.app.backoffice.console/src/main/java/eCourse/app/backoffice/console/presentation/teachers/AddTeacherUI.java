@@ -23,7 +23,7 @@
  */
 package eCourse.app.backoffice.console.presentation.teachers;
 
-import eCourse.AddTeacherUserController;
+import eCourse.AddTeacherController;
 import eCourse.app.user.console.presentation.myuser.UserDataWidget;
 import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -42,7 +42,7 @@ import java.util.Set;
  */
 public class AddTeacherUI extends AbstractUI {
 
-    private final AddTeacherUserController theController = new AddTeacherUserController();
+    private final AddTeacherController theController = new AddTeacherController();
 
     @Override
     protected boolean doShow() {
@@ -56,7 +56,7 @@ public class AddTeacherUI extends AbstractUI {
         roleTypes.add(ECourseRoles.TEACHER);
 
         try {
-            this.theController.addTeacherUser(
+            this.theController.addTeacher(
                     userData.username(),
                     userData.password(),
                     userData.firstName(),

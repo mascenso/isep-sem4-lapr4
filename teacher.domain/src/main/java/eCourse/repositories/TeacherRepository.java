@@ -30,7 +30,7 @@ import java.util.Optional;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public interface TeacherUserRepository
+public interface TeacherRepository
         extends DomainRepository<String, Teacher> {
 
     /**

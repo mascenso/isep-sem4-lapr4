@@ -42,7 +42,7 @@ public class CourseBootstrapper implements Action {
        // updateCourseStateController.updateCourseState("RCOMP", "Open");
 
         Optional<Course> c = listCoursesService.findCourseByDesignation(Designation.valueOf("Informatica"));
-        Optional<Teacher> t = teacherService.findTeacherUserByAcronym("abc");
+        Optional<Teacher> t = teacherService.findTeacherByAcronym("abc");
         Set<Teacher> teachers = new HashSet<>();
         teachers.add(t.get());
 

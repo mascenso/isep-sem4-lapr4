@@ -2,7 +2,7 @@ package eCourse.persistence.impl.jpa;
 
 import eCourse.Application;
 import eCourse.domain.Teacher;
-import eCourse.repositories.TeacherUserRepository;
+import eCourse.repositories.TeacherRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
@@ -11,16 +11,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-class JpaTeacherUserRepository
+class JpaTeacherRepository
         extends JpaAutoTxRepository<Teacher, String, String>
-        implements TeacherUserRepository {
+        implements TeacherRepository {
 
 
-    public JpaTeacherUserRepository(final TransactionalContext autoTx) {
+    public JpaTeacherRepository(final TransactionalContext autoTx) {
         super(autoTx, "acronym");
     }
 
-    public JpaTeacherUserRepository(final String puname) {
+    public JpaTeacherRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
                 "acronym");
     }
