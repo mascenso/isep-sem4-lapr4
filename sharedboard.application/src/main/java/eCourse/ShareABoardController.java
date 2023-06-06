@@ -15,6 +15,8 @@ import java.util.Map;
 @UseCaseController
 public class ShareABoardController {
 
+    private SharedBoard sb;
+
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
     private Notification notification;
@@ -40,10 +42,10 @@ public class ShareABoardController {
         Thread shareThread = new Thread(() -> {
             synchronized (mutex) {
                 for (Map.Entry<SystemUser, AccessType> user : usersWithPermissions.entrySet()) {
-                    SharedBoardUser boardShared = SharedBoard.createShareBoardUsers(user.getKey(), board, user.getValue());
+                    SharedBoardUser boardShared = sb.createShareBoardUsers(user.getKey(), board, user.getValue());
                     Notification notif = notification.getNotification();
                     PersistenceContext.repositories().notifications().save(notif);
-                    PersistenceContext.repositories().sharedBoardsUsers().save(boardShared);
+                    PersistenceContext.repositories().sharedBoardUser().save(boardShared);
                 }
             }
         });

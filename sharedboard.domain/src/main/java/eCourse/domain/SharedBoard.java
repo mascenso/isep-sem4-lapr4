@@ -40,6 +40,9 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @Column
     private boolean archive;
 
+    @OneToMany
+    private List<SharedBoardUser> usersList;
+
 
     public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner, List<Coluna> columns, List<Linha> rows) {
         if (title == null) {
@@ -145,16 +148,10 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     }
 
 
-    public static SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
-            return new SharedBoardUser(user, boardID, access);
+    public SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
+        SharedBoardUser boardUser=new SharedBoardUser(user, boardID, access);
+        this.usersList.add(boardUser);
+            return boardUser;
     }
-
-    /*public SharedBoardColumnAndRow getPosition() {
-        return position;
-    }
-
-    public void setPosition(SharedBoardColumnAndRow position) {
-        this.position = position;
-    }*/
 
 }

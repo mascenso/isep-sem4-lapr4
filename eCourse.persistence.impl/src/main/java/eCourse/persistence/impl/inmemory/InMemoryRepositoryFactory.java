@@ -133,11 +133,12 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public SharedBoardsUsersRepository sharedBoardsUsers() {
+	public CourseEnrollmentRequestRepository courseEnrollmentRequests() { return null;}
+
+	@Override
+	public SharedBoardUserRepository sharedBoardUser() {
 		return null;
 	}
-
-	public CourseEnrollmentRequestRepository courseEnrollmentRequests() { return null;}
 
 
 }
