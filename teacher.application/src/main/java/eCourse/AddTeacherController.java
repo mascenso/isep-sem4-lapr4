@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.Set;
 
-public class AddTeacherUserController {
+public class AddTeacherController {
 
     private final AuthorizationService authorizationService = AuthzRegistry.authorizationService();
     private final UserManagementService userManagementService = AuthzRegistry.userService();
@@ -20,7 +20,7 @@ public class AddTeacherUserController {
 
 
     @Transactional
-    public void addTeacherUser(final String username, final String password, final String firstName,
+    public void addTeacher(final String username, final String password, final String firstName,
                                       final String lastName, final String email, final Set<Role> roles, String acronym, final Calendar createdOn) {
         authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
@@ -28,13 +28,13 @@ public class AddTeacherUserController {
         SystemUser user = userManagementService.registerNewUser(username, password, firstName, lastName, email, roles, createdOn);
 
         /* Register the student */
-        teacherManagementService.createTeacherUser(user, acronym);
+        teacherManagementService.createTeacher(user, acronym);
     }
 
-    public void addTeacherUser(final String username, final String password, final String firstName,
+    public void addTeacher(final String username, final String password, final String firstName,
                               final String lastName, final String email, final Set<Role> roles, String acronym) {
 
-        addTeacherUser(username, password, firstName, lastName, email, roles, acronym, CurrentTimeCalendars.now());
+        addTeacher(username, password, firstName, lastName, email, roles, acronym, CurrentTimeCalendars.now());
     }
 
 

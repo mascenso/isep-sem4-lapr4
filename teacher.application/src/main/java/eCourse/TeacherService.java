@@ -3,7 +3,7 @@ package eCourse;
 import eCourse.domain.Teacher;
 import eCourse.domain.TeacherBuilder;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.repositories.TeacherUserRepository;
+import eCourse.repositories.TeacherRepository;
 import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -17,10 +17,10 @@ public class TeacherService {
     private final AuthorizationService authz =
             AuthzRegistry.authorizationService();
 
-    private final TeacherUserRepository repo =
-            PersistenceContext.repositories().teacherUsers();
+    private final TeacherRepository repo =
+            PersistenceContext.repositories().teachers();
 
-    public Optional<Teacher> findTeacherUserByAcronym(
+    public Optional<Teacher> findTeacherByAcronym(
             final String acronym) {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
                 ECourseRoles.ADMIN,
@@ -45,12 +45,12 @@ public class TeacherService {
      * repository.
      * @param newUser
      */
-    protected void createTeacherUser(final SystemUser newUser, String acronym) {
-        final TeacherBuilder teacherUserBuilder = new TeacherBuilder();
-        teacherUserBuilder
+    protected void createTeacher(final SystemUser newUser, String acronym) {
+        final TeacherBuilder TeacherBuilder = new TeacherBuilder();
+        TeacherBuilder
                 .withSystemUser(newUser).withAcronym(acronym);
 
-        this.repo.save(teacherUserBuilder.build());
+        this.repo.save(TeacherBuilder.build());
     }
 
 

@@ -101,7 +101,7 @@ public interface RepositoryFactory {
 
     StudentUserRepository studentUsers();
 
-    TeacherUserRepository teacherUsers();
+    TeacherRepository teachers();
 
     NotificationRepository notifications();
 
