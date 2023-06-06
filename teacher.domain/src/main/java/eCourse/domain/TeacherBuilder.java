@@ -31,35 +31,29 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public class StudentUserBuilder implements DomainFactory<StudentUser> {
+public class TeacherBuilder implements DomainFactory<Teacher> {
 
     private SystemUser systemUser;
-    private MecanographicNumber mecanographicNumber;
-    private TaxPayNumber taxPayNumber;
+    private String acronym;
 
-    public StudentUserBuilder withSystemUser(final SystemUser systemUser) {
+    public TeacherBuilder withSystemUser(final SystemUser systemUser) {
         this.systemUser = systemUser;
         return this;
     }
 
-    public StudentUserBuilder withMecNumber(final MecanographicNumber mecNumber) {
-        this.mecanographicNumber = mecNumber;
-        return this;
-    }
-
-    public StudentUserBuilder withTaxPayNumber(final String taxPayNumber) {
-        this.taxPayNumber = new TaxPayNumber(taxPayNumber);
+    public TeacherBuilder withAcronym(String acronym) {
+        this.acronym = acronym;
         return this;
     }
 
     @Override
-    public StudentUser build() {
+    public Teacher build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new StudentUser(this.systemUser, this.mecanographicNumber, this.taxPayNumber);
+        return new Teacher(this.systemUser, this.acronym);
     }
 
-    public StudentUser build(SystemUser systemUser, String aMecanographicNumber) {
-        return new StudentUser(systemUser, new MecanographicNumber(aMecanographicNumber));
+    public Teacher build(SystemUser systemUser, String acronym) {
+        return new Teacher(systemUser, acronym);
     }
 }

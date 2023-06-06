@@ -22,8 +22,8 @@ package eCourse.repositories;
 
 import java.util.Optional;
 
-import eCourse.domain.StudentUser;
 import eCourse.domain.MecanographicNumber;
+import eCourse.domain.Student;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
@@ -32,7 +32,7 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 public interface StudentUserRepository
-        extends DomainRepository<MecanographicNumber, StudentUser> {
+        extends DomainRepository<MecanographicNumber, Student> {
 
     /**
      * returns the client user (utente) whose username is given
@@ -41,7 +41,7 @@ public interface StudentUserRepository
      *            the username to search for
      * @return
      */
-    Optional<StudentUser> findByUsername(Username name);
+    Optional<Student> findByUsername(Username name);
 
     /**
      * returns the client user (utente) with the given mecanographic number
@@ -49,11 +49,11 @@ public interface StudentUserRepository
      * @param number
      * @return
      */
-    default Optional<StudentUser> findByMecanographicNumber(final MecanographicNumber number) {
+    default Optional<Student> findByMecanographicNumber(final MecanographicNumber number) {
         return ofIdentity(number);
     }
 
-    public Iterable<StudentUser> findAllActive();
+    public Iterable<Student> findAllActive();
 
-    Optional<StudentUser> findMaxMecNumber();
+    Optional<Student> findMaxMecNumber();
 }
