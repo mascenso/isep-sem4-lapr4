@@ -13,6 +13,8 @@ import eapli.framework.validations.Preconditions;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.List;
@@ -23,16 +25,19 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     /**
      * The primary key of lesson is the unique title
      */
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idRecurringLesson;
+
+
     @XmlElement
     @JsonProperty
-    @EmbeddedId
     private Designation title;
 
     @ManyToOne
     private TeacherUser recurringLessonTeacher;
 
-
-    //@OneToMany(mappedBy = "recurringLesson", cascade = CascadeType.ALL)
     @OneToMany(mappedBy = "recurringLesson", cascade = CascadeType.ALL)
     private List<ParticipantsOfRecurringLesson> participants;
 
@@ -54,7 +59,15 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     @Column(nullable = false)
     private int frequency;
 
-    protected RecurringLesson(TeacherUser recurringLessonTeacher, Designation title, Calendar startDate, Calendar endDate, LocalTime startTime, int duration, int frequency) {
+    private LocalDate occurrences;
+
+    /*
+    @ElementCollection
+    @CollectionTable(name = "occurrence", joinColumns = @JoinColumn(name = "recurring_lesson_id"))
+    @Column(name = "occurrence_datetime", nullable = false)
+    private List<LocalDateTime> occurrences;
+     */
+    protected RecurringLesson(TeacherUser recurringLessonTeacher, Designation title, Calendar startDate, Calendar endDate, LocalTime startTime, int duration, int frequency, LocalDate occurrences) {
         Preconditions.noneNull(title, startDate, endDate, startTime, duration, frequency);
         this.recurringLessonTeacher = recurringLessonTeacher;
         this.title = title;
@@ -63,6 +76,7 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
         this.startTime = startTime;
         this.duration = duration;
         this.frequency = frequency;
+        this.occurrences = occurrences;
     }
 
     protected RecurringLesson() {
@@ -113,6 +127,8 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     public int duration() { return this.duration;}
 
     public int frequency() { return this.frequency;}
+
+    public LocalDate occurrences() { return this.occurrences;}
 
     public RecurringLesson updateScheduleOfLesson(Calendar startDate, Calendar endDate, int duration){
         this.duration = duration;

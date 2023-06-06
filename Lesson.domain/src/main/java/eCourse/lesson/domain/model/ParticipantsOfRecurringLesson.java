@@ -11,6 +11,10 @@ public class ParticipantsOfRecurringLesson implements AggregateRoot<Username> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idRecurringLesson;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idParticipant;
 
     @ManyToOne

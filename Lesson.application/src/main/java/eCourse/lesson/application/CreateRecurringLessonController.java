@@ -13,11 +13,16 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.Username;
+import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  *  The controller for the use case "Schedule a Class" using the domain objects.
@@ -34,20 +39,30 @@ public class CreateRecurringLessonController {
     private RecurringLessonRepository recurringLessonRepository;
 
     @Transactional
-    public RecurringLesson createRecurringLesson(final Designation title, final Calendar startDate, final Calendar endDate, final LocalTime startTime, final int duration, final int frequency) {
+    public void createRecurringLesson(final Designation title, final Calendar startDate, final Calendar endDate, final LocalTime startTime, final int duration, final int frequency) {
 
         Username username = authz.session().get().authenticatedUser().username();
+
+        RecurringLessonService service = new RecurringLessonService();
 
         TeacherUser teacher = authz.session()
                 .map(UserSession::authenticatedUser)
                 .flatMap(systemUser -> teacherRepository.findByUsername(username))
                 .orElse(null);
 
-        final var newRecurringLesson = new RecurringLessonBuilder().responsible(teacher).titled(title)
-                .starting(startDate).ending(endDate).startingAt(startTime)
-                .lasts(duration).ocurringAt(frequency).build();
+        List<Calendar> dayOfOccurrence = service.generateRecurringLessons(startDate, endDate, frequency);
 
-        //return recurringLessonRepository.save(newRecurringLesson);
-        return PersistenceContext.repositories().recurringLessons().save(newRecurringLesson);
+        for (Calendar calendar : dayOfOccurrence) {
+
+            LocalDate day = calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            final var newRecurringLesson = new RecurringLessonBuilder().responsible(teacher).titled(title)
+                    .starting(startDate).ending(endDate).startingAt(startTime)
+                    .lasts(duration).ocurringAt(frequency).happensAt(day).build();
+
+            //return recurringLessonRepository.save(newRecurringLesson);
+            PersistenceContext.repositories().recurringLessons().save(newRecurringLesson);
+        }
+
     }
 }
