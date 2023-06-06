@@ -2,7 +2,7 @@ package eCourse.lesson.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import eCourse.TeacherUser;
+import eCourse.domain.Teacher;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
@@ -36,7 +36,7 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     private Designation title;
 
     @ManyToOne
-    private TeacherUser recurringLessonTeacher;
+    private Teacher recurringLessonTeacher;
 
     @OneToMany(mappedBy = "recurringLesson", cascade = CascadeType.ALL)
     private List<ParticipantsOfRecurringLesson> participants;
@@ -67,7 +67,7 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
     @Column(name = "occurrence_datetime", nullable = false)
     private List<LocalDateTime> occurrences;
      */
-    protected RecurringLesson(TeacherUser recurringLessonTeacher, Designation title, Calendar startDate, Calendar endDate, LocalTime startTime, int duration, int frequency, LocalDate occurrences) {
+    protected RecurringLesson(Teacher recurringLessonTeacher, Designation title, Calendar startDate, Calendar endDate, LocalTime startTime, int duration, int frequency, LocalDate occurrences) {
         Preconditions.noneNull(title, startDate, endDate, startTime, duration, frequency);
         this.recurringLessonTeacher = recurringLessonTeacher;
         this.title = title;
@@ -111,7 +111,7 @@ public class RecurringLesson implements AggregateRoot<Designation>, Representati
         return null;
     }
 
-    public TeacherUser responsibleTeacher() { return this.recurringLessonTeacher; }
+    public Teacher responsibleTeacher() { return this.recurringLessonTeacher; }
 
     @Override
     public Designation identity() { return this.title; }

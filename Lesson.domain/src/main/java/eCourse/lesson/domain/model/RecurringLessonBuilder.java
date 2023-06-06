@@ -1,6 +1,6 @@
 package eCourse.lesson.domain.model;
 
-import eCourse.TeacherUser;
+import eCourse.domain.Teacher;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.general.domain.model.Designation;
 
@@ -12,7 +12,7 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
 
     private RecurringLesson theRecurringLesson;
 
-    private TeacherUser responsibleTeacher;
+    private Teacher responsibleTeacher;
 
     private Designation title;
 
@@ -28,7 +28,7 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
 
     private LocalDate occurrences;
 
-    public RecurringLessonBuilder responsible(final TeacherUser responsibleTeacher) {
+    public RecurringLessonBuilder responsible(final Teacher responsibleTeacher) {
         this.responsibleTeacher = responsibleTeacher;
         return this;
     }
