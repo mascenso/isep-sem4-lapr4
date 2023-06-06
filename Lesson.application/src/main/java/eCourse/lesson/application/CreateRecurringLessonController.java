@@ -60,8 +60,12 @@ public class CreateRecurringLessonController {
                     .starting(startDate).ending(endDate).startingAt(startTime)
                     .lasts(duration).ocurringAt(frequency).happensAt(day).build();
 
+            if(service.validateRecurringLesson(teacher, newRecurringLesson)) {
+                PersistenceContext.repositories().recurringLessons().save(newRecurringLesson);
+            } else {
+                throw new IllegalStateException();
+            }
             //return recurringLessonRepository.save(newRecurringLesson);
-            PersistenceContext.repositories().recurringLessons().save(newRecurringLesson);
         }
 
     }

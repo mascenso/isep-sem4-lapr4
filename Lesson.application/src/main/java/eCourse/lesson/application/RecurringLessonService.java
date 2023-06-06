@@ -1,5 +1,8 @@
 package eCourse.lesson.application;
 
+import eCourse.TeacherUser;
+import eCourse.lesson.domain.model.RecurringLesson;
+
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,22 +26,8 @@ public class RecurringLessonService {
         return daysOfRecurringLesson;
     }
 
-    /*
-
-    public void generateOccurrences(RecurringLesson recurringLesson) {
-
-        //recurringLesson.occurrences().clear();
-
-        // Calculate occurrences based on frequency, start date, end date, and duration
-        LocalDateTime currentDateTime = LocalDateTime.ofInstant(recurringLesson.startDate().toInstant(), ZoneId.systemDefault());
-        LocalDateTime endDateTime = LocalDateTime.ofInstant(recurringLesson.endDate().toInstant(), ZoneId.systemDefault());
-
-        while (currentDateTime.isBefore(endDateTime)) {
-            recurringLesson.occurrences().add(currentDateTime);
-            currentDateTime = currentDateTime.plusDays(recurringLesson.frequency());
-        }
+    public boolean validateRecurringLesson(TeacherUser teacher, RecurringLesson recurringLesson) {
+        return true;
     }
-
-     */
 
 }
