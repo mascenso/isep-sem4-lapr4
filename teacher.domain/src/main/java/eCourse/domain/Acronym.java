@@ -1,4 +1,4 @@
-package eCourse.repositories;/*
+/*
  * Copyright (c) 2013-2023 the original author or authors.
  *
  * MIT License
@@ -18,40 +18,53 @@ package eCourse.repositories;/*
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package eCourse.domain;
+
+import eapli.framework.domain.model.ValueObject;
+import eapli.framework.validations.Preconditions;
+
+import javax.persistence.Embeddable;
 
 
-import eCourse.domain.Acronym;
-import eCourse.domain.Teacher;
-import eapli.framework.domain.repositories.DomainRepository;
-import eapli.framework.infrastructure.authz.domain.model.Username;
+@Embeddable
+public class Acronym implements ValueObject, Comparable<Acronym> {
 
-import java.util.Optional;
+    private static final long serialVersionUID = 1L;
 
-/**
- *
- * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
- */
-public interface TeacherUserRepository
-        extends DomainRepository<Acronym, Teacher> {
+    private final String acronym;
 
-    /**
-     * returns the client user (utente) whose username is given
-     *
-     * @param name
-     *            the username to search for
-     * @return
-     */
-    Optional<Teacher> findByUsername(Username name);
+    public Acronym(final String acronym) {
+        Preconditions.nonEmpty(acronym,
+                "Acronym should neither be null nor empty");
 
-    /**
-     * returns the teacher user with the given acronym
-     *
-     * @param acronym
-     * @return
-     */
-    default Optional<Teacher> findByAcronym(final Acronym acronym) {
-        return ofIdentity(acronym);
+        Preconditions.ensure(acronym.length() == 3, "Acronym should have 3 letters");
+
+        this.acronym = acronym;
     }
 
-    public Iterable<Teacher> findAllActive();
+    protected Acronym() {
+        // for ORM
+        acronym = null;
+    }
+
+    public static Acronym valueOf(final String acronym) {
+        return new Acronym(acronym);
+    }
+
+    @Override
+    public String toString() {
+        return acronym;
+    }
+
+    @Override
+    public int compareTo(final Acronym o) {
+        return acronym.compareTo(o.acronym);
+    }
+
+    @Override
+    public int hashCode() {
+        return acronym.hashCode();
+    }
+
+
 }

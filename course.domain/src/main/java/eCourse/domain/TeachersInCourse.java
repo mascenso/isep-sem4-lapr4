@@ -47,12 +47,6 @@ public class TeachersInCourse implements ValueObject, Serializable {
         description = null;
     }
 
-    public TeachersInCourse(final Teacher teacher, final String description) {
-        Preconditions.noneNull(teacher, description);
-        this.teacher = teacher;
-        this.description = description;
-    }
-
     public Teacher teacher() {
         return teacher;
     }

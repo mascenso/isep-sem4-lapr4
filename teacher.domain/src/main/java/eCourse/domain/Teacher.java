@@ -44,7 +44,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-public class Teacher implements AggregateRoot<String> {
+public class Teacher implements AggregateRoot<Acronym> {
     private static final long serialVersionUID = 1L;
 
     // ORM primary key
@@ -57,7 +57,7 @@ public class Teacher implements AggregateRoot<String> {
 
     // Business ID
     @Column(unique = true, nullable = false)
-    private String acronym;
+    private Acronym acronym;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -70,7 +70,7 @@ public class Teacher implements AggregateRoot<String> {
             throw new IllegalArgumentException();
         }
         this.systemUser = user;
-        this.acronym = acronym;
+        this.acronym = new Acronym(acronym);
     }
 
     protected Teacher() {
@@ -96,12 +96,13 @@ public class Teacher implements AggregateRoot<String> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public String acronym() {
+    public Acronym acronym() {
         return identity();
     }
 
+
     @Override
-    public String identity() {
+    public Acronym identity() {
         return this.acronym;
     }
 

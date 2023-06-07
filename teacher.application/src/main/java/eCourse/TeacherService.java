@@ -1,5 +1,6 @@
 package eCourse;
 
+import eCourse.domain.Acronym;
 import eCourse.domain.Teacher;
 import eCourse.domain.TeacherBuilder;
 import eCourse.infrastructure.persistence.PersistenceContext;
@@ -21,7 +22,7 @@ public class TeacherService {
             PersistenceContext.repositories().teacherUsers();
 
     public Optional<Teacher> findTeacherUserByAcronym(
-            final String acronym) {
+            final Acronym acronym) {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER,
                 ECourseRoles.ADMIN,
                 ECourseRoles.TEACHER);
