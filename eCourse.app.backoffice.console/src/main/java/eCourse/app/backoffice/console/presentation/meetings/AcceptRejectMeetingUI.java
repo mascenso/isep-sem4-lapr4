@@ -53,7 +53,9 @@ public class AcceptRejectMeetingUI extends AbstractUI {
     private ParticipantsOfMeeting showMyMeetings(Iterable<ParticipantsOfMeeting> myMeetings){
         List<ParticipantsOfMeeting> meetings = new ArrayList<>();
         for (ParticipantsOfMeeting meeting : myMeetings){
-            meetings.add(meeting);
+            if (meeting.participantStatus() == ParticipantsStatus.PENDING) {
+                meetings.add(meeting);
+            }
         }
         Scanner sc = new Scanner(System.in);
 

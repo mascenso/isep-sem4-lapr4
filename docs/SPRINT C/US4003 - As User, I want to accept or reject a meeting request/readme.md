@@ -13,7 +13,7 @@
 1. The User authenticates in the system.
 2. The User accesses the meetings functionality.
 3. The User chooses the option to accept or reject a meeting request.
-4. The User chooses the meeting what wants to accept or reject a meeting request
+4. The User chooses the Pending Meeting what wants to accept or reject a meeting request
 5. The user chooses the option ACCEPT or REJECT the meeting request.
 6. The system confirms the operation.
 
