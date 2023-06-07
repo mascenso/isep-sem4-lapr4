@@ -27,6 +27,9 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
     @OneToMany(cascade = CascadeType.ALL)
     private final Set<AbstractBoardShareEvent> events = new HashSet<>();
 
+    /*@OneToMany(mappedBy = "what", cascade = CascadeType.ALL)
+    private final Set<AbstractBoardShareEvent> events = new HashSet<>();*/
+
     protected SharedBoardUser(SystemUser user, SharedBoardTitle boardID, AccessType access){
         this.user=user;
         title=boardID;
