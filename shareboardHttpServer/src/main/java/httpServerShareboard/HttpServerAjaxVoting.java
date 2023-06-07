@@ -1,4 +1,4 @@
-package http
+package httpServerShareboard;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -9,7 +9,7 @@ import java.net.Socket;
  * @author ANDRE MOREIRA (asc@isep.ipp.pt)
  */
 public class HttpServerAjaxVoting {
-    static private final String BASE_FOLDER="www";
+    static private final String BASE_FOLDER="shareboardHttpServer/src/main/java/httpServerShareboard/www";
     static private ServerSocket sock;
 
     public static void main(String args[]) throws Exception {

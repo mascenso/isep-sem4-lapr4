@@ -1,4 +1,4 @@
-package tcp
+package tcpCliSrv;
 
 import java.io.*;
 import java.net.*; 
