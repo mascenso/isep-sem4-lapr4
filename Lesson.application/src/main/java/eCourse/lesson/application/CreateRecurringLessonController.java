@@ -2,7 +2,6 @@ package eCourse.lesson.application;
 
 import eCourse.domain.Teacher;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.lesson.domain.model.RecurringLesson;
 import eCourse.lesson.domain.model.RecurringLessonBuilder;
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.repositories.TeacherRepository;
@@ -13,11 +12,10 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.Username;
-import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.DayOfWeek;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -60,8 +58,13 @@ public class CreateRecurringLessonController {
                     .starting(startDate).ending(endDate).startingAt(startTime)
                     .lasts(duration).ocurringAt(frequency).happensAt(day).build();
 
+            if(service.validateRecurringLesson(teacher, newRecurringLesson)) {
+                PersistenceContext.repositories().recurringLessons().save(newRecurringLesson);
+            } else {
+                throw new IllegalStateException("Invalid recurring lesson");
+            }
             //return recurringLessonRepository.save(newRecurringLesson);
-            PersistenceContext.repositories().recurringLessons().save(newRecurringLesson);
+
         }
 
     }

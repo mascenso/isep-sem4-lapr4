@@ -1,16 +1,21 @@
 package eCourse.app.teacher.console.presentation.RecurringLessons;
 
+import eCourse.domain.Course;
+import eCourse.domain.Teacher;
 import eCourse.lesson.application.CreateRecurringLessonController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.SelectWidget;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CreateRecurringLessonsUI extends AbstractUI {
 

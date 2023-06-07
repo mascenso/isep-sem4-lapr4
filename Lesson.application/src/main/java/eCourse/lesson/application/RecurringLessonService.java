@@ -1,11 +1,22 @@
 package eCourse.lesson.application;
 
+import eCourse.domain.Course;
+import eCourse.domain.Teacher;
+import eCourse.infrastructure.persistence.PersistenceContext;
+import eCourse.lesson.domain.model.RecurringLesson;
+import eCourse.lesson.domain.repositories.RecurringLessonRepository;
+
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class RecurringLessonService {
+
+    public Iterable<RecurringLesson> allRecurringLessons() {
+        return PersistenceContext.repositories().recurringLessons().findAll();
+    }
 
     public List<Calendar> generateRecurringLessons(Calendar startDate, Calendar endDate, int frequency) {
         List<Calendar> daysOfRecurringLesson = new ArrayList<>();
@@ -23,22 +34,14 @@ public class RecurringLessonService {
         return daysOfRecurringLesson;
     }
 
-    /*
-
-    public void generateOccurrences(RecurringLesson recurringLesson) {
-
-        //recurringLesson.occurrences().clear();
-
-        // Calculate occurrences based on frequency, start date, end date, and duration
-        LocalDateTime currentDateTime = LocalDateTime.ofInstant(recurringLesson.startDate().toInstant(), ZoneId.systemDefault());
-        LocalDateTime endDateTime = LocalDateTime.ofInstant(recurringLesson.endDate().toInstant(), ZoneId.systemDefault());
-
-        while (currentDateTime.isBefore(endDateTime)) {
-            recurringLesson.occurrences().add(currentDateTime);
-            currentDateTime = currentDateTime.plusDays(recurringLesson.frequency());
+    public boolean validateRecurringLesson(Teacher teacher, RecurringLesson recurringLesson) {
+        LocalDate day = recurringLesson.occurrences();
+        for (RecurringLesson lesson : allRecurringLessons()) {
+            if (lesson.responsibleTeacher().equals(teacher) && lesson.occurrences().equals(recurringLesson.occurrences()) && lesson.startTime().equals(recurringLesson.startTime())) {
+                return false;
+            }
         }
+        return true;
     }
-
-     */
 
 }
