@@ -22,7 +22,7 @@ public class AcceptRejectMeetingUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
-        final Iterable<ParticipantsOfMeeting> myMeetings = participantMeetingService.getMeetingsByUser();
+        final Iterable<ParticipantsOfMeeting> myMeetings = acceptRejectMeetingController.listMeetingsByUser();
         final ParticipantsOfMeeting meetingSelected = showMyMeetings(myMeetings);
 
         if (meetingSelected != null) {
@@ -78,7 +78,7 @@ public class AcceptRejectMeetingUI extends AbstractUI {
 
         System.out.println("Escolha uma opção:");
         System.out.println("1. ACCEPT");
-        System.out.println("2. REJECTED");
+        System.out.println("2. REJECT");
         System.out.print("Opção: ");
 
         int opcao = scanner.nextInt();

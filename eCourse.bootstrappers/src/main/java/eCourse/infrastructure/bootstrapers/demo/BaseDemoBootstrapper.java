@@ -55,7 +55,7 @@ public class BaseDemoBootstrapper implements Action {
 				new BackofficeUsersBootstrapper(),
 				new StudentUserBootstrapper(),
 				new CourseBootstrapper(),
-				new CreateExamBootstrapper()
+				//new CreateExamBootstrapper()
 				};
 
 		authenticateForBootstrapping();
