@@ -57,8 +57,9 @@
 		<module>teacher.domain</module>
 		<module>teacher.application</module>
 		<module>systemusers.domain</module>
+        <module>shareboardHttpServer</module>
 
-	</modules>
+    </modules>
 
 	<dependencies>
 		<!-- EAPLI framework -->
