@@ -17,11 +17,11 @@ public class JpaSharedBoardUserRepository extends JpaAutoTxRepository<SharedBoar
 
 
     public JpaSharedBoardUserRepository(TransactionalContext tx) {
-        super(tx, "ShareboardUSer Repository");
+        super(tx, "ShareBoardUSer Repository");
     }
     public JpaSharedBoardUserRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "MeetingName");
+                "ShareBoardUSer Name");
     }
 
     @Override

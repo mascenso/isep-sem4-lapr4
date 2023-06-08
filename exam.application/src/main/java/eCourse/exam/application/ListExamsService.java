@@ -11,8 +11,8 @@ import java.util.List;
 @Component
 @ApplicationService
 public class ListExamsService {
-    public Iterable<Exam> allExams(){
 
+    public Iterable<Exam> allExams(){
         return PersistenceContext.repositories().exams().findAll();
     }
 

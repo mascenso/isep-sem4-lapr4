@@ -103,9 +103,12 @@ layer between the domain code and the data storage.
     
 ### 4.4. Tests
 
-**Test 1:** * Verifies that it is not possible to share a board that the user doesn't own.
-**Test 2:** * Verifies that the owner of a board must specify an access type permission when sharing the board.
-**Test 3:** * Verifies that the user gets notified when gaining access to a shared board.
+**Test 1:** * Verifies that it is possible to share a board that the user owns.
+**Test 2:** * Verifies that at least a user must be specified when sharing a board.
+**Test 3:** * Verifies that the permissions must be specified when sharing a board with a user.
+**Test 4:** * Verifies that a board must be specified when sharing a board.
+**Test 5:** * Verifies that the event must be specified when creating a notification.
+
 
 ```
 
