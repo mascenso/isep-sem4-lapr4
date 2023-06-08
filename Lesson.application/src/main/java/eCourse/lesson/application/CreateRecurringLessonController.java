@@ -1,9 +1,11 @@
 package eCourse.lesson.application;
 
+import eCourse.domain.Course;
 import eCourse.domain.Teacher;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.lesson.domain.model.RecurringLessonBuilder;
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
+import eCourse.repositories.CourseRepository;
 import eCourse.repositories.TeacherRepository;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.general.domain.model.Designation;
@@ -21,6 +23,8 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  *  The controller for the use case "Schedule a Class" using the domain objects.
@@ -34,7 +38,29 @@ public class CreateRecurringLessonController {
 
     TeacherRepository teacherRepository = PersistenceContext.repositories().teachers();
 
+    CourseRepository courseRepository = PersistenceContext.repositories().courses();
+
     private RecurringLessonRepository recurringLessonRepository;
+
+    public Teacher getCurrentTeacher() {
+        Username username = authz.session().get().authenticatedUser().username();
+
+        Teacher teacher = authz.session()
+                .map(UserSession::authenticatedUser)
+                .flatMap(systemUser -> teacherRepository.findByUsername(username))
+                .orElse(null);
+
+        return teacher;
+    }
+
+    public Set<Course> getTeacherCourses() {
+        Teacher teacher = getCurrentTeacher();
+        Set<Course> courses = courseRepository.findByTeacher(teacher);
+        if (courses.isEmpty()) {
+            throw new IllegalStateException("No courses found for the teacher");
+        }
+        return courses;
+    }
 
     @Transactional
     public void createRecurringLesson(final Designation title, final Calendar startDate, final Calendar endDate, final LocalTime startTime, final int duration, final int frequency) {

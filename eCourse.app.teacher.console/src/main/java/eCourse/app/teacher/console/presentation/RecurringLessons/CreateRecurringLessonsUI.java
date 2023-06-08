@@ -1,5 +1,6 @@
 package eCourse.app.teacher.console.presentation.RecurringLessons;
 
+import eCourse.app.teacher.console.presentation.Courses.CoursesPrinter;
 import eCourse.domain.Course;
 import eCourse.domain.Teacher;
 import eCourse.lesson.application.CreateRecurringLessonController;
@@ -25,6 +26,18 @@ public class CreateRecurringLessonsUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
+
+        //Teacher teacher = theController.getCurrentTeacher();
+        //Course course = theController.getTeacherCourses();
+
+        Set<Course> courseByTeacher = new HashSet<>();
+
+        final Iterable<Course> courses = theController.getTeacherCourses();
+        final SelectWidget<Course> selectorCourse = new SelectWidget<>("Select a course", courses, new CoursesPrinter());
+        selectorCourse.show();
+        final Course theCourse = selectorCourse.selectedElement();
+
+
         final Designation title = Designation.valueOf(Console.readNonEmptyLine("Recurring Lesson Title", "the title of the Recurring Class should not be empty."));
         final Calendar startDate = Console.readCalendar("Start date (dd/MM/yyyy)", "dd/MM/yyyy");
         final Calendar endDate = Console.readCalendar("End Date (dd/MM/yyyy)","dd/MM/yyyy");
