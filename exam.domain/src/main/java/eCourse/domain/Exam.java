@@ -77,6 +77,11 @@ public class Exam implements AggregateRoot<ExamTitle> {
     }
 
     @Override
+    public String toString() {
+        return  ""+title;
+    }
+
+    @Override
     public boolean sameAs(Object other) {
         if (this == other) {
             return true;

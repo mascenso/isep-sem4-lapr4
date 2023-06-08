@@ -14,20 +14,21 @@ participant "Notification" as N
 database "UsersRepository" as UR
 database "ShareBoardRepository" as SBR
 database "NotificationRepository" as NR
+database "ShareBoardUserRepository" as SBRU
 
 
 U -> UI:Share a board
 UI -> C: getMyBoards(User)
-C->S:getMyBoards(User)
-S->SBR: getAll()
+C->S:listBoardsByUser(User)
+S->SBR: findByUsername()
 SBR-->S: listOfBoards
 S-->C: myBoardsList
 C-->UI: myBoardsList
 UI-->U: Select Board
 
 U->UI:Board
-UI -> C: getAllUsers(), getAccessTypes()
-C -> UR: getAllUsers()
+UI -> C: allUsers(), getAccessTypes()
+C -> UR: findAll()
 UR --> C: listOfUsers
 
 C->AT: getAccessTypes()
@@ -44,19 +45,19 @@ U->UI: Access Type
 end
 
 UI->C:createShareBoardUsers(usersWithPermissions,BoardID)
-C->SB: createShareBoardUsers(usersWithPermissions, BoardID)
+C->SB: createShareBoardUsers(user, BoardID, permission)
 
 loop number of selected Users
-SB-> SBU: createShareBoardUsers(usersWithPermissions, BoardID)
-SBU->E: createNotification(usersWithPermissions,BoardID);
-E->N: createNotification(usersWithPermissions, timestamp,BoardID);
-N-->E: notifications
-E-->SBU: notifications
-SBU-->SB: shareABoard, notifications
+SB-> SBU: create
+SBU->E: create
+E->N: createNotification();
+N-->E: notification
+E-->SBU: notification
+SBU-->SB: shareABoard, notification
 end
 
 SB-->C:shareABoard,notifications
-C->SBR: save(shareABoard)
+C->SBRU: save(shareABoard)
 C->NR: save(notifications)
 
 @enduml

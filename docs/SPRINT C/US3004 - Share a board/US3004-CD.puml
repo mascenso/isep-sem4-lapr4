@@ -9,25 +9,21 @@ class ShareABoardUI {
 
 class ShareABoardController {
     +getMyBoards()
-    +getAllUsers()
+    +allUsers()
     +getAccessType()
     +createShareBoardUsers()
 }
 
 class ListBoardsService {
-    +getAll()
-    +getMyBoards()
+    +listBoardsByUser()
 }
 
 class ShareBoard {
-    +createShareBoardUsers()
-    +createNotification()
     +createShareBoardUsers()
 }
 
 
 class Notification {
-    +createNotification()
 }
 
 class NotificationRepository{
@@ -51,11 +47,10 @@ class BoardSharedEvent{
 
 
 class ShareBoardUser {
-    +createShareBoardUsers()
 }
 
 class UsersRepository{
-    +getAllUsers()
+    +findAll()
 }
 
 User-->ShareABoardUI
