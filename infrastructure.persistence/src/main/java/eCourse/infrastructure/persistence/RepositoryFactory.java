@@ -91,6 +91,7 @@ public interface RepositoryFactory {
     CourseRepository courses();
 
     ExamRepository exams();
+
     QuestionRepository questions();
 
     RecurringLessonRepository recurringLessons();

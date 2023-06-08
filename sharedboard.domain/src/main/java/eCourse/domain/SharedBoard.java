@@ -4,13 +4,12 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+@Component
 @Entity
 public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
@@ -41,7 +40,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     private boolean archive;
 
     @OneToMany
-    private List<SharedBoardUser> usersList;
+    private List<SharedBoardUser> usersList=new ArrayList<>();
 
 
     public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner, List<Coluna> columns, List<Linha> rows) {

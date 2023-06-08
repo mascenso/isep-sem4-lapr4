@@ -28,6 +28,9 @@
         <class>eCourse.domain.CourseEnrollmentRequest</class>
         <class>eCourse.domain.SharedBoardUser</class>
         <class>eCourse.domain.Notification</class>
+        <class>eCourse.domain.AbstractBoardShareEvent</class>
+
+
 
 
         <properties>

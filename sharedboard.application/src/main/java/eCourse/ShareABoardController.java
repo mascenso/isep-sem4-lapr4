@@ -17,14 +17,6 @@ import java.util.Map;
 @UseCaseController
 public class ShareABoardController {
 
-    @Embedded
-    private SharedBoard sb;
-
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
-
-
-    private Notification notification;
-
     private Object mutex = new Object(); // Mutex object for synchronization
 
     @Autowired
@@ -42,12 +34,14 @@ public class ShareABoardController {
         return AccessType.getListOfAccessTypes();
     }
 
-    public void createShareBoardUsers(Map<SystemUser, AccessType> usersWithPermissions, SharedBoardTitle board) {
+    public void createShareBoardUsers(Map<SystemUser, AccessType> usersWithPermissions, SharedBoard board) {
         Thread shareThread = new Thread(() -> {
             synchronized (mutex) {
                 for (Map.Entry<SystemUser, AccessType> user : usersWithPermissions.entrySet()) {
-                    SharedBoardUser boardShared = sb.createShareBoardUsers(user.getKey(), board, user.getValue());
-                    Notification notif = notification.getNotification();
+                    SharedBoardUser boardShared = board.createShareBoardUsers(user.getKey(), board.identity(), user.getValue());
+                    BoardShareEvent event = new BoardShareEvent(boardShared);
+                    Notification notif = new Notification(event);
+
                     PersistenceContext.repositories().notifications().save(notif);
                     PersistenceContext.repositories().sharedBoardUser().save(boardShared);
                 }
