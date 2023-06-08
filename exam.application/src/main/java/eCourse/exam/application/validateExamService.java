@@ -92,4 +92,14 @@ public class validateExamService {
         }
         return gradeToSubmit;
     }
+
+    public float getExamGradeOnPercentage(float studentGrade, float maxExamGrade) {
+        float gradeToSubmit = 0;
+        if(studentGrade==maxExamGrade){
+            gradeToSubmit =100;
+        }else{
+            gradeToSubmit = (studentGrade/maxExamGrade)*100;
+        }
+        return gradeToSubmit;
+    }
 }

@@ -39,4 +39,8 @@ public class TakeExameController {
     public float validateMissingWordQuestion(List<String> userAnswer, Map.Entry<String, Map<String, Object>> question) {
         return service.validateMissingWordQuestion(userAnswer,question);
     }
+
+    public float getExamGradeOnPercentage(float studentGrade, float maxExamGrade) {
+        return service.getExamGradeOnPercentage(studentGrade,maxExamGrade);
+    }
 }

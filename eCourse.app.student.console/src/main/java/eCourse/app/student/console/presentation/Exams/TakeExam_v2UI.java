@@ -46,6 +46,9 @@ public class TakeExam_v2UI {
 
         }
 
+        System.out.printf("You got %.0f%% of exam right.\n",theController.getExamGradeOnPercentage(studentGrade,maxExamGrade));
+        System.out.printf("You had %.2f of %.2f possible points.\n",studentGrade,maxExamGrade);
+
     }
 
     private static float makeQuestionForUser(Map.Entry<String, Map<String, Object>> question) {
@@ -76,8 +79,8 @@ public class TakeExam_v2UI {
         Scanner scanner = new Scanner(System.in);
         int numberOfAttemps = (int)question.getValue().get("numberOfAtemps");
         List <String> options = (List<String>) question.getValue().get("options");
-
-        System.out.println("This is a question of Missing Word.\n If you choose more than one option, separate them by a space.");
+        System.out.println("\n--------------------------------------------------------------------------");
+        System.out.println("This is a question of Missing Word.\nIf you choose more than one option, separate them by a space.");
         System.out.printf("\nQuestion: %s\n",question.getValue().get("Question").toString());
 
         do{
@@ -88,19 +91,20 @@ public class TakeExam_v2UI {
             System.out.print("Answer: ");
             userAnswer = List.of(scanner.nextLine().split(" "));
             numberOfAttemps--;
-            if(numberOfAttemps>0 && theController.validateMissingWordQuestion(userAnswer,question)< (float)question.getValue().get("MaxGrade")){
+            if(numberOfAttemps>0 && theController.validateMissingWordQuestion(userAnswer,question) < (float)question.getValue().get("MaxGrade")){
                 System.out.println("You have "+ numberOfAttemps + " more attempts.");
             }
         }
-        while (numberOfAttemps!=0);
+        while (numberOfAttemps!=0 && theController.validateMissingWordQuestion(userAnswer,question)< (float)question.getValue().get("MaxGrade"));
         return theController.validateMissingWordQuestion(userAnswer,question);
     }
 
     private static float makeMultipleChoiceQuestion(Map.Entry<String, Map<String, Object>> question) {
         List <String> userAnswer = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        List<String> options = List.of(question.getValue().get("options").toString().replace("[","").replace("]","").split(" "));
-        System.out.println("This is a question of Multiple choice. \n If you choose more than one option, separate them by a space.");
+        List<String> options = (List<String>)question.getValue().get("options");
+        System.out.println("\n--------------------------------------------------------------------------");
+        System.out.println("This is a question of Multiple choice. \nIf you choose more than one option, separate them by a space.");
         System.out.printf("\nQuestion: %s\n",question.getValue().get("Question").toString());
 
         for (int i = 0; i < options.size(); i++) {
@@ -116,10 +120,10 @@ public class TakeExam_v2UI {
         Scanner scanner = new Scanner(System.in);
         List<String> ListOne = (List<String>) question.getValue().get("ListOne");
         List<String> ListForMatching = (List<String>) question.getValue().get("ListTwo");
-        List <String> CorrecAnswer = (List<String>) question.getValue().get("CorrectAnswer");
 
         //show 2 lists side by side
-        System.out.printf("\n%-20s%-20s\n","List","List for matching");
+        System.out.println("\n--------------------------------------------------------------------------");
+        System.out.printf("%-20s%-20s\n","List","List for matching");
         System.out.println("----------------------------------------");
         for (int i = 0; i < ListForMatching.size() || i< ListOne.size(); i++) {
             if(i< ListForMatching.size() && i< ListOne.size()){
@@ -142,7 +146,8 @@ public class TakeExam_v2UI {
     private static float makeNumericalQuestion(Map.Entry<String, Map<String, Object>> question) {
         float userAnswer =0;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("This is a question of Numerical Answer.");
+        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("\nThis is a question of Numerical Answer.\nUse ',' and not '.'");
         System.out.printf("\nQuestion: %s\n",question.getValue().get("Question").toString());
         System.out.print("Answer: ");
         userAnswer = scanner.nextFloat();
@@ -153,6 +158,7 @@ public class TakeExam_v2UI {
     private static float makeShortAnswerQuestion(Map.Entry<String, Map<String, Object>> question) {
         String userAnswer = "";
         Scanner scanner = new Scanner(System.in);
+        System.out.println("\n--------------------------------------------------------------------------");
         System.out.println("This is a question of Short Answer.");
         System.out.printf("\nQuestion: %s\n",question.getValue().get("Question").toString());
         System.out.print("Answer: ");
@@ -164,6 +170,7 @@ public class TakeExam_v2UI {
     private static float makeTrueFalseQuestion(Map.Entry<String, Map<String, Object>> question) {
         String userAnswer = "";
         Scanner scanner = new Scanner(System.in);
+        System.out.println("\n--------------------------------------------------------------------------");
         System.out.println("This is a question of True or false.");
         do {
         System.out.printf("\nQuestion: %s\n",question.getValue().get("Question").toString());
