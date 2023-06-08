@@ -20,7 +20,6 @@
  */
 package eCourse.persistence.impl.jpa;
 
-import eCourse.domain.SharedBoardUser;
 import eCourse.repositories.*;
 
 import eCourse.Application;
@@ -134,6 +133,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public SharedBoardUserRepository sharedBoardUser() {
 		return new JpaSharedBoardUserRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public GradesRepository gradesForExam() {
+		return new JpaGradesOfExamRepository(Application.settings().getPersistenceUnitName());
 	}
 
 }

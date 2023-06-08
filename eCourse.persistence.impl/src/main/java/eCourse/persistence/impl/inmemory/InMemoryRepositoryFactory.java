@@ -29,11 +29,6 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryUserRepository;
 
-
-/**
- *
- * @author nuno on 20/03/16.
- */
 public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	static {
@@ -132,6 +127,12 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public SharedBoardUserRepository sharedBoardUser() {
+		return null;
+	}
+
+
+	@Override
+	public GradesRepository gradesForExam() {
 		return null;
 	}
 

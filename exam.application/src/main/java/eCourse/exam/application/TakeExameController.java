@@ -1,5 +1,10 @@
 package eCourse.exam.application;
 
+import eCourse.domain.GradeOfExam;
+import eCourse.infrastructure.persistence.PersistenceContext;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.List;
@@ -7,7 +12,8 @@ import java.util.Map;
 
 public class TakeExameController {
 
-    validateExamService service = new validateExamService();
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private final validateExamService service = new validateExamService();
     public Map<String, Map<String, Object>> buildExameForTaken(ParseTree parseTree) {
         return service.buildExam(parseTree);
     }
@@ -42,5 +48,11 @@ public class TakeExameController {
 
     public float getExamGradeOnPercentage(float studentGrade, float maxExamGrade) {
         return service.getExamGradeOnPercentage(studentGrade,maxExamGrade);
+    }
+
+    public void saveGrade(float examGradeOnPercentage) {
+        SystemUser user  = authz.session().get().authenticatedUser();
+        GradeOfExam grade = new GradeOfExam(user, examGradeOnPercentage);
+        PersistenceContext.repositories().gradesForExam().save(grade);
     }
 }
