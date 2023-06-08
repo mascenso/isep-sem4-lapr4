@@ -64,17 +64,17 @@ public class TakeExamUI {
 
     private static float makeQuestionForUser(ParseTree parseTree) {
         switch (parseTree.getChild(0).getChild(0).toString()){
-            case"TrueFalse:":
+            case"TrueOrFalseQuestion":
                 return makeTrueFalseQuestion(parseTree);
-            case"ShortAnswer:":
+            case"ShortAnswerQuestion":
                 return makeShortAnswerQuestion(parseTree);
-            case "Numerical:":
+            case "NumericalQuestion":
                 return makeNumericalQuestion(parseTree);
-            case "Matching:":
+            case "matchingQuestion":
                 return makeMatchingQuestion(parseTree);
-            case "MultipleChoice:":
+            case "MultipleChoiceQuestion":
                 return makeMultipleChoiceQuestion(parseTree);
-            case "Select Missing Words:":
+            case "MissingWordsQuestion":
                 return makeMissingWordsQuestion(parseTree);
         }
         return 0;
