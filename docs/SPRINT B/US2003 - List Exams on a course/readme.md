@@ -1,4 +1,4 @@
-# US 1006: As User, I want to list all the exams in a Exam
+# US 1006: As User, I want to list all the exams in a course
 
 ## 1. Context
 

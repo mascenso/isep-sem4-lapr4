@@ -24,7 +24,7 @@
         <class>eCourse.domain.Meeting</class>
         <class>eCourse.domain.ParticipantsOfMeeting</class>
         <class>eCourse.domain.Student</class>
-        <class>eCourse.TeacherUser</class>
+        <class>eCourse.domain.Teacher</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
         <class>eCourse.domain.SharedBoardUser</class>
         <class>eCourse.domain.Notification</class>

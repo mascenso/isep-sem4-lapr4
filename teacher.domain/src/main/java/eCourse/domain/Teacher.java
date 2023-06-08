@@ -23,11 +23,11 @@
  */
 package eCourse.domain;
 
-import javax.persistence.*;
-
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+
+import javax.persistence.*;
 
 /**
  * A Client User.
@@ -44,7 +44,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
  *
  */
 @Entity
-public class StudentUser implements AggregateRoot<MecanographicNumber> {
+public class Teacher implements AggregateRoot<Acronym> {
     private static final long serialVersionUID = 1L;
 
     // ORM primary key
@@ -57,15 +57,7 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
 
     // Business ID
     @Column(unique = true, nullable = false)
-    private MecanographicNumber mecanographicNumber;
-
-    //@Temporal(TemporalType.DATE)
-    //Date dateOfBirth;
-
-    // Business ID
-    @Column(unique = true, nullable = false)
-    @Embedded
-    private TaxPayNumber taxPayNumber;
+    private Acronym acronym;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -73,25 +65,16 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
     @OneToOne()
     private SystemUser systemUser;
 
-    public StudentUser(final SystemUser user, final MecanographicNumber mecanographicNumber) {
-        if (mecanographicNumber == null || user == null) {
+    public Teacher(final SystemUser user, final String acronym) {
+        if (acronym == null || user == null) {
             throw new IllegalArgumentException();
         }
         this.systemUser = user;
-        this.mecanographicNumber = mecanographicNumber;
+        this.acronym = new Acronym(acronym);
     }
 
-    protected StudentUser() {
+    protected Teacher() {
         // for ORM only
-    }
-
-    public StudentUser(SystemUser user, MecanographicNumber mecanographicNumber, TaxPayNumber taxPayNumber) {
-        if (mecanographicNumber == null || user == null) {
-            throw new IllegalArgumentException();
-        }
-        this.systemUser = user;
-        this.mecanographicNumber = mecanographicNumber;
-        this.taxPayNumber = taxPayNumber;
     }
 
     public SystemUser user() {
@@ -113,13 +96,14 @@ public class StudentUser implements AggregateRoot<MecanographicNumber> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public MecanographicNumber mecanographicNumber() {
+    public Acronym acronym() {
         return identity();
     }
 
+
     @Override
-    public MecanographicNumber identity() {
-        return this.mecanographicNumber;
+    public Acronym identity() {
+        return this.acronym;
     }
 
 }

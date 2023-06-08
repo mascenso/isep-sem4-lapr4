@@ -26,7 +26,7 @@ import java.util.Optional;
 
 import eCourse.Application;
 import eCourse.domain.MecanographicNumber;
-import eCourse.domain.StudentUser;
+import eCourse.domain.Student;
 import eCourse.repositories.StudentUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
@@ -39,7 +39,7 @@ import javax.persistence.TypedQuery;
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 class JpaStudentUserRepository
-        extends JpaAutoTxRepository<StudentUser, MecanographicNumber, MecanographicNumber>
+        extends JpaAutoTxRepository<Student, MecanographicNumber, MecanographicNumber>
         implements StudentUserRepository {
 
     public JpaStudentUserRepository(final TransactionalContext autoTx) {
@@ -52,28 +52,28 @@ class JpaStudentUserRepository
     }
 
     @Override
-    public Optional<StudentUser> findByUsername(final Username name) {
+    public Optional<Student> findByUsername(final Username name) {
         final Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         return matchOne("e.systemUser.username=:name", params);
     }
 
     @Override
-    public Optional<StudentUser> findByMecanographicNumber(final MecanographicNumber number) {
+    public Optional<Student> findByMecanographicNumber(final MecanographicNumber number) {
         final Map<String, Object> params = new HashMap<>();
         params.put("number", number);
         return matchOne("e.mecanographicNumber=:number", params);
     }
 
     @Override
-    public Iterable<StudentUser> findAllActive() {
+    public Iterable<Student> findAllActive() {
         return match("e.systemUser.active = true");
     }
 
     @Override
-    public Optional<StudentUser> findMaxMecNumber() {
-        TypedQuery<StudentUser> stu =
-                createQuery("SELECT e FROM StudentUser e WHERE e.mecanographicNumber = (SELECT MAX(e.mecanographicNumber) FROM StudentUser e)", StudentUser.class);
+    public Optional<Student> findMaxMecNumber() {
+        TypedQuery<Student> stu =
+                createQuery("SELECT e FROM Student e WHERE e.mecanographicNumber = (SELECT MAX(e.mecanographicNumber) FROM Student e)", Student.class);
 
         return stu.getResultList().stream().findFirst();
     }

@@ -3,7 +3,6 @@ package eCourse.domain;
 import eapli.framework.domain.model.DomainFactory;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class CourseEnrollmentRequestBuilder implements DomainFactory<CourseEnrollmentRequest> {
 

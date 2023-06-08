@@ -29,6 +29,7 @@ import eCourse.app.backoffice.console.presentation.authz.ListUsersAction;
 import eCourse.app.backoffice.console.presentation.clientuser.AcceptRefuseSignupRequestAction;
 import eCourse.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eCourse.app.backoffice.console.presentation.courses.ListCoursesUI;
+import eCourse.app.backoffice.console.presentation.courses.SetTeachersOfCourseUI;
 import eCourse.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
 import eCourse.app.backoffice.console.presentation.meetings.AcceptRejectMeetingUI;
 import eCourse.app.backoffice.console.presentation.meetings.CancelMeetingUI;
@@ -104,6 +105,7 @@ public class MainMenu extends AbstractUI {
     private static final int COURSE_ENROLLMENT_OPTION = 2;
 
     private static final int REQUEST_COURSE_ENROLLMENT_OPTION = 1;
+    private static final int SET_TEACHERS_OF_COURSE = 5;
 
 
     private static final String SEPARATOR_LABEL = "--------------";
@@ -257,6 +259,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_ALL_COURSES,"List all Courses", new ListCoursesUI()::show);
         menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
         menu.addItem(UPDATE_COURSE_STATE, "Update Course State", new UpdateCourseStateUI()::show);
+        menu.addItem(SET_TEACHERS_OF_COURSE, "Set Teachers of Course", new SetTeachersOfCourseUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }

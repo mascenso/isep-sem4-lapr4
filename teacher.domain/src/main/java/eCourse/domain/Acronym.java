@@ -18,42 +18,53 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse;
+package eCourse.domain;
 
-import eapli.framework.domain.model.DomainFactory;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.domain.model.ValueObject;
+import eapli.framework.validations.Preconditions;
 
-/**
- * A factory for User entities.
- *
- * This class demonstrates the use of the factory (DDD) pattern using a fluent
- * interface. it acts as a Builder (GoF).
- *
- * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
- */
-public class TeacherUserBuilder implements DomainFactory<TeacherUser> {
+import javax.persistence.Embeddable;
 
-    private SystemUser systemUser;
-    private String acronym;
 
-    public TeacherUserBuilder withSystemUser(final SystemUser systemUser) {
-        this.systemUser = systemUser;
-        return this;
+@Embeddable
+public class Acronym implements ValueObject, Comparable<Acronym> {
+
+    private static final long serialVersionUID = 1L;
+
+    private final String acronym;
+
+    public Acronym(final String acronym) {
+        Preconditions.nonEmpty(acronym,
+                "Acronym should neither be null nor empty");
+
+        Preconditions.ensure(acronym.length() == 3, "Acronym should have 3 letters");
+
+        this.acronym = acronym;
     }
 
-    public TeacherUserBuilder withAcronym(String acronym) {
-        this.acronym = acronym;
-        return this;
+    protected Acronym() {
+        // for ORM
+        acronym = null;
+    }
+
+    public static Acronym valueOf(final String acronym) {
+        return new Acronym(acronym);
     }
 
     @Override
-    public TeacherUser build() {
-        // since the factory knows that all the parts are needed it could throw
-        // an exception. however, we will leave that to the constructor
-        return new TeacherUser(this.systemUser, this.acronym);
+    public String toString() {
+        return acronym;
     }
 
-    public TeacherUser build(SystemUser systemUser, String acronym) {
-        return new TeacherUser(systemUser, acronym);
+    @Override
+    public int compareTo(final Acronym o) {
+        return acronym.compareTo(o.acronym);
     }
+
+    @Override
+    public int hashCode() {
+        return acronym.hashCode();
+    }
+
+
 }

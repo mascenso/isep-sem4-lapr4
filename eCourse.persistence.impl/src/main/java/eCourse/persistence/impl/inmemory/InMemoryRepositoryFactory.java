@@ -123,11 +123,6 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public StudentRepository students() {
-		return null;
-	}
-
-	@Override
 	public NotificationRepository notifications() {
 		return null;
 	}

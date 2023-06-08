@@ -57,8 +57,9 @@
 		<module>teacher.domain</module>
 		<module>teacher.application</module>
 		<module>systemusers.domain</module>
+        <module>shareboardHttpServer</module>
 
-	</modules>
+    </modules>
 
 	<dependencies>
 		<!-- EAPLI framework -->
@@ -121,6 +122,13 @@
 			<groupId>org.threeten</groupId>
 			<artifactId>threetenbp</artifactId>
 			<version>1.6.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.26</version>
+			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>

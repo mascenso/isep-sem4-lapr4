@@ -1,6 +1,9 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
-import eCourse.AddTeacherUserController;
+import eCourse.domain.Teacher;
+import eCourse.TeacherService;
+import eCourse.course.application.ListCoursesService;
+import eCourse.course.application.SetTeachersOfCourseController;
 import eCourse.course.application.UpdateCourseStateController;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
@@ -14,12 +17,17 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class CourseBootstrapper implements Action {
 
     UpdateCourseStateController updateCourseStateController = new UpdateCourseStateController();
-    private final AddTeacherUserController addTeacherUserController = new AddTeacherUserController();
+    SetTeachersOfCourseController setTeachersOfCourseController = new SetTeachersOfCourseController();
+    ListCoursesService listCoursesService = new ListCoursesService();
+    TeacherService teacherService = new TeacherService();
+
+
     private final UserManagementService userManagementService = AuthzRegistry.userService();
     @Override
     public boolean execute() {
@@ -32,6 +40,14 @@ public class CourseBootstrapper implements Action {
         updateCourseStateController.updateCourseState("Inteligencia Artificial", "Open");
         //updateCourseStateController.updateCourseState("LPROG", "Open");
        // updateCourseStateController.updateCourseState("RCOMP", "Open");
+
+        Optional<Course> c = listCoursesService.findCourseByDesignation(Designation.valueOf("Informatica"));
+        Optional<Teacher> t = teacherService.findTeacherUserByAcronym(Acronym.valueOf("abc"));
+        Set<Teacher> teachers = new HashSet<>();
+        teachers.add(t.get());
+
+        setTeachersOfCourseController.addTeachersToCourse(c.get(), teachers);
+
         return true;
     }
 
