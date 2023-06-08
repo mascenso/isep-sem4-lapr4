@@ -20,8 +20,8 @@ Exam "Math Exam" {
             Option "1"
             Option "2"
             Sensitive Case: True
-            Answer: 4 22
-            Grade: 2.5 1
+            Answer: 4
+            Grade: 2.5
         }
 
         Numerical: "What is the value of pi?" {

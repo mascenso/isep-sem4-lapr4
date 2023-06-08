@@ -28,6 +28,7 @@ import eCourse.Application;
 import eCourse.app.student.console.presentation.Courses.ListCoursesStudentUI;
 import eCourse.app.student.console.presentation.Courses.RequestEnrollmentCoursesStudentUI;
 import eCourse.app.student.console.presentation.Exams.ListExamsUI;
+import eCourse.app.student.console.presentation.Exams.TakeExamUI;
 import eCourse.app.student.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.student.console.presentation.sharedBoard.NotificationUI;
 import eCourse.app.student.console.presentation.sharedBoard.ShareABoardUI;
@@ -62,6 +63,9 @@ public class MainMenu extends AbstractUI {
     private static final int STUDENT_MEETING_OPTION= 4;
     private static final int SHAREDBOARD_OPTION=5;
 
+    private static final int TAKE_EXAM= 6;
+
+
     private static final int VIEW_STUDENT_EXAMS_LIST_OPTION = 2;
     private static final int SIGNUP_FOR_A_CURSE_OPTION = 2;
 
@@ -79,6 +83,8 @@ public class MainMenu extends AbstractUI {
     private final MenuRenderer renderer;
 
 
+    //Take exam menu
+    private static final int TAKE_EXAME = 1;
     // Courses Menu
     private static final int COURSE_OPEN = 1;
 
@@ -132,12 +138,14 @@ public class MainMenu extends AbstractUI {
             final Menu coursesMenu = buildCoursesMenu();
             final Menu examsMenu = buildExamsMenu();
             final Menu MeetingsMenu = buildMeetingMenu();
+            final Menu takeExamMenu = buildTakeExamMenu();
             final Menu SharedBoardMenu =buildSharedBoardMenu();
 
             mainMenu.addSubMenu(STUDENT_COURSES_OPTION, coursesMenu);
             mainMenu.addSubMenu(STUDENT_EXAMS_OPTION, examsMenu);
             mainMenu.addSubMenu(STUDENT_MEETING_OPTION, MeetingsMenu);
             mainMenu.addSubMenu(SHAREDBOARD_OPTION,SharedBoardMenu);
+            mainMenu.addSubMenu(TAKE_EXAM, takeExamMenu);
         }
 
 
@@ -148,6 +156,14 @@ public class MainMenu extends AbstractUI {
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;
+    }
+
+    private Menu buildTakeExamMenu() {
+        final Menu studentMenu = new Menu("TakeExam  >");
+        studentMenu.addItem(TAKE_EXAME, "Take a Exam", new TakeExamUI()::show);
+        studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return studentMenu;
     }
 
     private Menu buildMeetingMenu() {

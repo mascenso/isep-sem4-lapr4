@@ -107,4 +107,6 @@ public interface RepositoryFactory {
     NotificationRepository notifications();
 
     SharedBoardUserRepository sharedBoardUser();
+
+    GradesRepository gradesForExam();
 }
