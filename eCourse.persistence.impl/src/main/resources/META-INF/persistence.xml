@@ -11,7 +11,7 @@
         <class>eapli.framework.infrastructure.pubsub.impl.simplepersistent.model.EventConsumption</class>
 
 
-        <class>eCourse.domain.StudentUser</class>
+        <class>eCourse.domain.Student</class>
         <class>eCourse.domain.SignupRequest</class>
         <class>eCourse.domain.SharedBoard</class>
         <class>eCourse.domain.SharedBoardUser</class>
@@ -23,6 +23,7 @@
         <class>eCourse.domain.Question</class>
         <class>eCourse.domain.Meeting</class>
         <class>eCourse.domain.ParticipantsOfMeeting</class>
+        <class>eCourse.lesson.domain.model.ParticipantsOfRecurringLesson</class>
         <class>eCourse.domain.Student</class>
         <class>eCourse.domain.Teacher</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
