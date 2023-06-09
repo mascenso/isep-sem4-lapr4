@@ -63,7 +63,7 @@ public class CreateRecurringLessonController {
     }
 
     @Transactional
-    public void createRecurringLesson(final Designation title, final Calendar startDate, final Calendar endDate, final LocalTime startTime, final int duration, final int frequency) {
+    public void createRecurringLesson(final Course course, final Designation title, final Calendar startDate, final Calendar endDate, final LocalTime startTime, final int duration, final int frequency) {
 
         Username username = authz.session().get().authenticatedUser().username();
 
@@ -80,7 +80,7 @@ public class CreateRecurringLessonController {
 
             LocalDate day = calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            final var newRecurringLesson = new RecurringLessonBuilder().responsible(teacher).titled(title)
+            final var newRecurringLesson = new RecurringLessonBuilder().responsible(teacher).teachedAt(course).titled(title)
                     .starting(startDate).ending(endDate).startingAt(startTime)
                     .lasts(duration).ocurringAt(frequency).happensAt(day).build();
 

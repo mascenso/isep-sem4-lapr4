@@ -45,7 +45,7 @@ public class CreateRecurringLessonsUI extends AbstractUI {
         final int duration = Console.readInteger("Duration of lesson in minutes");
         final int frequency = Console.readInteger("Frequency at which the lesson occurs. 1-Sunday and 7-Saturday");
         try {
-            theController.createRecurringLesson(title, startDate, endDate, startTime, duration, frequency);
+            theController.createRecurringLesson(theCourse, title, startDate, endDate, startTime, duration, frequency);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("This Recurring Lesson already Exists in the Database.");
         }
