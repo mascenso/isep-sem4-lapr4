@@ -125,4 +125,19 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 				Application.settings().getExtendedPersistenceProperties());
 	}
 
+	@Override
+	public NotificationRepository notifications() {
+		return new JpaNotificationRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public SharedBoardUserRepository sharedBoardUser() {
+		return new JpaSharedBoardUserRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public GradesRepository gradesForExam() {
+		return new JpaGradesOfExamRepository(Application.settings().getPersistenceUnitName());
+	}
+
 }

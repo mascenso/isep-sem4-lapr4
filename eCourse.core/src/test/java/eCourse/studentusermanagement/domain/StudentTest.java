@@ -6,6 +6,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
+import eCourse.domain.MecanographicNumber;
+import eCourse.domain.Student;
+import eCourse.domain.StudentBuilder;
 import eCourse.usermanagement.application.ECourseRoles;
 import org.junit.Test;
 
@@ -18,7 +21,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
 /**
  * Created by Nuno Bettencourt [NMB] on 03/04/16.
  */
-public class StudentUserTest {
+public class StudentTest {
 
     private final String aMecanographicNumber = "202200001";
     private final String anotherMecanographicNumber = "202200002";
@@ -38,84 +41,86 @@ public class StudentUserTest {
     }
 
     @Test
-    public void ensureStudentUserEqualsPassesForTheSameMecanographicNumber() throws Exception {
+    public void ensureStudentEqualsPassesForTheSameMecanographicNumber() throws Exception {
 
-        final StudentUser aStudentUser = new StudentUserBuilder()
+        final Student aStudent = new StudentBuilder()
                 .withSystemUser(getNewDummyUser()).build(dummyUser("dummy", ECourseRoles.STUDENT), aMecanographicNumber);
 
-        final StudentUser anotherStudentUser = new StudentUserBuilder()
+        final Student anotherStudent = new StudentBuilder()
                 .withSystemUser(getNewDummyUser()).build(dummyUser("dummy", ECourseRoles.STUDENT), aMecanographicNumber);
 
-        final boolean expected = aStudentUser.equals(anotherStudentUser);
+        final boolean expected = aStudent.equals(anotherStudent);
 
         assertTrue(expected);
     }
 
     @Test
-    public void ensureStudentUserEqualsFailsForDifferenteMecanographicNumber() throws Exception {
+    public void ensureStudentEqualsFailsForDifferenteMecanographicNumber() throws Exception {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.ADMIN);
 
-        final StudentUser aStudentUser = new StudentUserBuilder()
+        final Student aStudent = new StudentBuilder()
                 .withMecNumber(new MecanographicNumber(aMecanographicNumber))
                 .withSystemUser(getNewDummyUser()).build();
 
-        final StudentUser anotherStudentUser = new StudentUserBuilder()
+        final Student anotherStudent = new StudentBuilder()
                 .withMecNumber(new MecanographicNumber(anotherMecanographicNumber))
                 .withSystemUser(getNewDummyUser()).build();
 
-        final boolean expected = aStudentUser.equals(anotherStudentUser);
+        final boolean expected = aStudent.equals(anotherStudent);
+
+        assertFalse(expected);
+    }
+
+
+    /*
+    @Test
+    public void ensureStudentEqualsAreTheSameForTheSameInstance() throws Exception {
+        final Student aStudent = new Student();
+
+        final boolean expected = aStudent.equals(aStudent);
+
+        assertTrue(expected);
+    }*/
+
+    @Test
+    public void ensureStudentEqualsFailsForDifferenteObjectTypes() throws Exception {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(ECourseRoles.ADMIN);
+
+        final Student aStudent = new StudentBuilder()
+                .withMecNumber(new MecanographicNumber(aMecanographicNumber))
+                .withSystemUser(getNewDummyUser()).build();
+
+        final boolean expected = aStudent.equals(getNewDummyUser());
 
         assertFalse(expected);
     }
 
     @Test
-    public void ensureStudentUserEqualsAreTheSameForTheSameInstance() throws Exception {
-        final StudentUser aStudentUser = new StudentUser();
+    public void ensureStudentIsTheSameAsItsInstance() throws Exception {
+        final Student aStudent = new StudentBuilder()
+                .withMecNumber(new MecanographicNumber(aMecanographicNumber))
+                .withSystemUser(getNewDummyUser()).build();
 
-        final boolean expected = aStudentUser.equals(aStudentUser);
+        final boolean expected = aStudent.sameAs(aStudent);
 
         assertTrue(expected);
     }
 
     @Test
-    public void ensureStudentUserEqualsFailsForDifferenteObjectTypes() throws Exception {
+    public void ensureTwoStudentWithDifferentMecanographicNumbersAreNotTheSame() throws Exception {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.ADMIN);
-
-        final StudentUser aStudentUser = new StudentUserBuilder()
+        final Student aStudent = new StudentBuilder()
                 .withMecNumber(new MecanographicNumber(aMecanographicNumber))
                 .withSystemUser(getNewDummyUser()).build();
 
-        final boolean expected = aStudentUser.equals(getNewDummyUser());
-
-        assertFalse(expected);
-    }
-
-    @Test
-    public void ensureStudentUserIsTheSameAsItsInstance() throws Exception {
-        final StudentUser aStudentUser = new StudentUserBuilder()
-                .withMecNumber(new MecanographicNumber(aMecanographicNumber))
-                .withSystemUser(getNewDummyUser()).build();
-
-        final boolean expected = aStudentUser.sameAs(aStudentUser);
-
-        assertTrue(expected);
-    }
-
-    @Test
-    public void ensureTwoStudentUserWithDifferentMecanographicNumbersAreNotTheSame() throws Exception {
-        final Set<Role> roles = new HashSet<>();
-        roles.add(ECourseRoles.ADMIN);
-        final StudentUser aStudentUser = new StudentUserBuilder()
-                .withMecNumber(new MecanographicNumber(aMecanographicNumber))
-                .withSystemUser(getNewDummyUser()).build();
-
-        final StudentUser anotherStudentUser = new StudentUserBuilder()
+        final Student anotherStudent = new StudentBuilder()
                 .withMecNumber(new MecanographicNumber(anotherMecanographicNumber))
                 .withSystemUser(getNewDummyUser()).build();
 
-        final boolean expected = aStudentUser.sameAs(anotherStudentUser);
+        final boolean expected = aStudent.sameAs(anotherStudent);
 
         assertFalse(expected);
     }

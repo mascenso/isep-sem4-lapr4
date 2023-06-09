@@ -1,0 +1,12 @@
+l@startuml
+'https://plantuml.com/use-case-diagram
+
+actor User
+    User -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Accesses the meetings functionality)
+    (Accesses the meetings functionality) --> (Chooses the option to accept or reject meetings)
+    (Chooses the option to accept or reject meetings) --> (The System shows to the user their meetings)
+    (The System shows to the user their meetings) --> (The user chooses if wants accept or reject the meeting)
+    (The user chooses if wants accept or reject the meeting) --> (The System confirms the operation)
+
+@enduml

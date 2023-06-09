@@ -24,10 +24,11 @@ public class ShareABoardUI extends AbstractUI {
 
         System.out.println("Which one you want to share? Press 0 to exit:");
 
-        final Map<Integer, SharedBoardTitle> hashmap = new HashMap<>();
+        final Map<Integer, SharedBoard> hashmap = new HashMap<>();
+
         int selectedOption = showInfo(myBoards, hashmap);
 
-        SharedBoardTitle boardID = hashmap.get(selectedOption);
+        SharedBoard boardID = hashmap.get(selectedOption);
 
         Iterable<SystemUser> systemUsers = theController.allUsers();
         Map<Integer, AccessType> access =theController.getAccessTypes();
@@ -40,10 +41,10 @@ public class ShareABoardUI extends AbstractUI {
     }
 
 
-    protected int showInfo(Iterable<SharedBoard> myBoards, Map<Integer, SharedBoardTitle> map) {
+    protected int showInfo(Iterable<SharedBoard> myBoards, Map<Integer, SharedBoard> map) {
         int index = 1;
         for (SharedBoard sb : myBoards) {
-            map.put(index, sb.identity());
+            map.put(index, sb);
             System.out.println(index + ". " + sb.identity());
             index++;
         }
@@ -54,7 +55,7 @@ public class ShareABoardUI extends AbstractUI {
 
 
     private Map<SystemUser,AccessType> showAllUsers(Iterable<SystemUser> allUsers, Map<Integer, AccessType> permissions) {
-        //copy of list
+        //copies the list
         List<SystemUser> users = new ArrayList<>();
         for (SystemUser user : allUsers) {
             users.add(user);

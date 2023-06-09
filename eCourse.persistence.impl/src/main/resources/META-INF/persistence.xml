@@ -7,10 +7,14 @@
         <class>eapli.framework.infrastructure.authz.domain.model.Role</class>
         <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
         <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
+        <class>eapli.framework.infrastructure.pubsub.impl.simplepersistent.model.EventRecord</class>
+        <class>eapli.framework.infrastructure.pubsub.impl.simplepersistent.model.EventConsumption</class>
+
 
         <class>eCourse.domain.Student</class>
         <class>eCourse.domain.SignupRequest</class>
         <class>eCourse.domain.SharedBoard</class>
+        <class>eCourse.domain.SharedBoardUser</class>
         <class>eCourse.domain.Coluna</class>
         <class>eCourse.domain.Linha</class>
         <class>eCourse.domain.Course</class>
@@ -23,6 +27,12 @@
         <class>eCourse.domain.Student</class>
         <class>eCourse.domain.Teacher</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
+        <class>eCourse.domain.SharedBoardUser</class>
+        <class>eCourse.domain.Notification</class>
+        <class>eCourse.domain.AbstractBoardShareEvent</class>
+        <class>eCourse.domain.GradeOfExam</class>
+
+
 
 
         <properties>

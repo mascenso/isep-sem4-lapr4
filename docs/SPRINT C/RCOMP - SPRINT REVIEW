@@ -1,0 +1,91 @@
+RCOMP 2022-2023 Project - Sprint 4 review
+=========================================
+### Sprint master: 1100358 ###
+
+# 1. Sprint's backlog #
+
+T.2.1 OSPF based dynamic routing
+T.2.1 DHCPv4 service
+T.2.1 VoIP service
+T.2.1 Adding a second server to each DMZ network to run the HTTP service.
+T.2.1 Configuring DNS servers to establish a DNS domains tree.
+T.2.1 Enforcing NAT (Network Address Translation).
+T.2.1 Establishing traffic access policies on routers (static firewall).
+
+# 2. Subtasks assessment #
+
+## 2.1. 1201951 - OSPF, DHCPv4, VoIP, DMZ & HTTP service, NAT, Firewall for Building A and Campus  #
+
+* The DNS was not fully functional, maybe with more time I could find the problem but with the workload we have I could not confirm where the error was.
+* The failure to complete the pl forms in time may have caused greater difficulty in solving these problems.
+
+### Strengths as a team
+
+* We all work in cooperation to successfully complete the project on time;
+* Consistent technical decisions among the various group members and meeting the fundamental technical requirements;
+* IPv4 networks' addresses well established from the previous sprints.
+
+### Issues as a team
+
+* High volume of assignments,  which poses challenges in effectively managing our time.
+* Making pls earlier would have helped to solve some situations;
+
+
+
+## 2.2. 1210857 - OSPF, DHCPv4, VoIP, DMZ & HTTP service, NAT, Firewall for Building B  #
+### Partially implemented with issues. ###
+
+* Unfortunately it was not possible to complete the implementation of the firewalls since it was not possible to do the ACL implementation, probably due to the subinterfaces.
+* Also, the OSPF didn't worked in building A and we weren't able to figure out the reason.
+
+### Strengths as a team
+
+* Good team communication, commitment and coordination, some information was decided early in the sprint;
+* Consistent technical decisions among the various group members and meeting the fundamental technical requirements;
+
+
+### Issues as a team
+
+* High volume of assignments, which poses challenges in effectively managing our time;
+* Resolving the PLs earlier would have helped to solve some situations;
+
+
+## 2.3. 1210855 - OSPF, DHCPv4, VoIP, DMZ & HTTP service, NAT, Firewall for Building C  #
+### Totally implemented with issues. ###
+
+### Strengths as a team
+
+* Good team communication, commitment and coordination, some information was decided early in the sprint;
+* Consistent technical decisions among the various group members and meeting the fundamental technical requirements;
+* Consistent design with the building plannings developed on Sprint 1.
+* IPv4 networks' addresses well established from Sprint 2.
+
+### Issues as a team
+
+* High volume of assignments,  which poses challenges in effectively managing our time.
+* An unknown problem occured with VoIP configuration on Building C, which led to a large amount of rework.
+* No success on reached http server by its name, only through IP address
+* Making pls earlier would have helped to solve some situations;
+
+
+## 2.4. 1100358 - OSPF, DHCPv4, VoIP, DMZ & HTTP service, NAT, Firewall for Building D  #
+### Totally implemented with issues. ###
+
+* Consistent design with the building plannings developed on Sprint 1.
+* IPv4 networks' addresses well established from Sprint 2.
+
+### Strengths as a team
+
+* We all work in cooperation to successfully complete the project on time;
+* Consistent technical decisions among the various group members and meeting the fundamental technical requirements;
+* Consistent design with the building plannings developed on Sprint 1.
+* IPv4 networks' addresses well established from Sprint 2.
+
+### Issues as a team
+
+* Some decisions could be better justified on file readme;
+* High volume of assignments,  which poses challenges in effectively managing our time.
+* Making pls earlier would have helped to solve some situations;
+
+
+

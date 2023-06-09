@@ -15,7 +15,7 @@ public class SharedBoardApplication {
 
     @GetMapping("/")
     public String hello() {
-        return "helo";
+        return "hello";
     }
 
 }

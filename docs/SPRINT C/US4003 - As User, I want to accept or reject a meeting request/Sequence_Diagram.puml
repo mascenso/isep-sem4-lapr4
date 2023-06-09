@@ -1,0 +1,69 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor User
+participant AcceptRejectMeetingUI           as UI <<Presentation>>
+control     AcceptRejectMeetingController   as Controller <<Application>>
+participant ParticipantMeetingService       as Service <<Application>>
+participant PersistenceContext              as Persistence <<persistence>>
+participant RepositoryFactory               as RepFactory <<factory>>
+database    MeetingRequestRepository        as Repository <<Repository>>
+participant "ParticipantOfMettings"         as Mettings <<Domain>>
+
+activate User
+User -> UI                  : Select the option Meeting and \n option Accept or Reject Meeting
+activate UI
+UI -> Controller            : listMeetingsByUser()
+activate Controller
+Controller -> Service       : getMeetingsByUser()
+
+activate Service
+Service -> Persistence      : repositories()
+activate Persistence
+Persistence --> Service     : theFactory
+deactivate Persistence
+Service -> RepFactory       : meetingRequests()
+activate RepFactory
+RepFactory -> Repository    : findByUsername()
+deactivate RepFactory
+activate Repository
+Repository --> Service      : meetingListByUser
+deactivate Repository
+Service --> Controller      : getMeetingsByUser()
+deactivate Service
+Controller --> UI           : listMeetingsByUser
+
+UI --> User                 : myMeetings
+User -> UI                  : Selects the meeting wants to accept or reject
+UI -> Controller            : showParticipantsStatus
+alt newStatus = accept
+
+Controller -> Controller    : acceptMeetingRequest
+else newStatus = reject
+Controller -> Controller    : rejectMeetingRequest
+end
+Controller -> Persistence   : repositories()
+activate Persistence
+Persistence -> Controller   : theFactory
+deactivate Persistence
+Controller -> RepFactory    : meetingRequests()
+Controller -> Repository    : save(participantsOfMeeting)
+activate Repository
+Repository --> Controller   : participantsOfMeeting
+deactivate Repository
+Controller --> UI           : participantsOfMeeting
+deactivate Controller
+UI -> User                  : Confirms the operation
+deactivate UI
+deactivate User
+
+
+
+
+
+
+
+
+@enduml

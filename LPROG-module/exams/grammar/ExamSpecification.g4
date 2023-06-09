@@ -88,12 +88,12 @@ feedback: 'Feedback:' STRING;
 options: 'Option:' STRING;
 grade: NUM;
 answer: STRING|NUM;
-penalty: 'Peanlty:' DOUBLE;
+penalty: 'Penalty:' DOUBLE;
 
-
-NUM: [0-9]+ ('.' [0-9]+)?;
-ESC: '\\' ["\\"];
-STRING: '"' (ESC | ~["\r\n"])* '"';
+NUM: [0-9]+(.[0-9]+)?;
+DOUBLE: [0-9]+ (.[0-9]+)?;
+ESC: '\\' [\\"];
+STRING: '"' (ESC | ~[\r\n])* '"';
 
 NONE: 'None';
 ONSUBMISSION: 'OnSubmission';

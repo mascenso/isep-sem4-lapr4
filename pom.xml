@@ -58,7 +58,7 @@
 		<module>teacher.application</module>
 		<module>systemusers.domain</module>
 
-	</modules>
+    </modules>
 
 	<dependencies>
 		<!-- EAPLI framework -->

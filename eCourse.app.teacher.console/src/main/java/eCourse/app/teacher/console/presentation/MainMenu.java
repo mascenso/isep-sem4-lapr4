@@ -34,6 +34,8 @@ import eCourse.app.teacher.console.presentation.exam.UpdateExamUI;
 import eCourse.app.teacher.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.teacher.console.presentation.question.AddExamQuestionsUI;
 import eCourse.app.teacher.console.presentation.question.UpdateExamQuestionsUI;
+import eCourse.app.teacher.console.presentation.sharedBoard.NotificationUI;
+import eCourse.app.teacher.console.presentation.sharedBoard.ShareABoardUI;
 import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -68,6 +70,7 @@ public class MainMenu extends AbstractUI {
     private static final int QUESTIONS_OPTION = 5;
     private static final int COURSES_OPTION = 6;
     private static final int MEETING_OPTION = 7;
+    private static final int SHAREDBOARD_OPTION=8;
 
     //MEETING
     private static final int SCHEDULE_MEETING_OPTION = 1;
@@ -86,8 +89,16 @@ public class MainMenu extends AbstractUI {
     private static final int CREATE_RECURRING_LESSON_OPTION = 1;
     private static final int UPDATE_SCHEDULE_RECURRING_LESSON_OPTION = 2;
 
+    //QUESTION
     private static final int ADD_QUESTIONS_OPTION = 1;
     private static final int UPDATE_QUESTIONS_OPTION = 2;
+
+    //SHAREDBOARD
+    private static final int CREATE_BOARD_OPTION = 1;
+    private static final int LIST_BOARDS_OPTION = 2;
+    private static final int SHARE_A_BOARD=3;
+    private static final int BOARD_NOTIFICATION=4;
+
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -181,6 +192,11 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(MEETING_OPTION, classesMenu);
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
+            final Menu SharedBoardMenu =buildSharedBoardMenu();
+            mainMenu.addSubMenu(SHAREDBOARD_OPTION,SharedBoardMenu);
+        }
+
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;
@@ -239,6 +255,18 @@ public class MainMenu extends AbstractUI {
         menu.addItem(CREATE_RECURRING_LESSON_OPTION, "Create Recurring Lesson", new CreateRecurringLessonsUI()::show);
         menu.addItem(UPDATE_SCHEDULE_RECURRING_LESSON_OPTION, "Update Recurring Lesson", new UpdateScheduleRecurringLessonUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildSharedBoardMenu() {
+        final Menu menu = new Menu("Boards >");
+
+        //menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
+        //menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
+        menu.addItem(SHARE_A_BOARD, "Share a Board", new ShareABoardUI()::show);
+        menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
+        menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return menu;
     }

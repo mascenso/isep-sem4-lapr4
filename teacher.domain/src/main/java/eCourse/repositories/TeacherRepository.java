@@ -21,6 +21,7 @@ package eCourse.repositories;/*
 
 
 import eCourse.domain.Teacher;
+import eCourse.domain.Acronym;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
@@ -31,7 +32,7 @@ import java.util.Optional;
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 public interface TeacherRepository
-        extends DomainRepository<String, Teacher> {
+        extends DomainRepository<Acronym, Teacher> {
 
     /**
      * returns the client user (utente) whose username is given
@@ -43,16 +44,16 @@ public interface TeacherRepository
     Optional<Teacher> findByUsername(Username name);
 
     /**
-     * returns the client user (utente) with the given mecanographic number
+     * returns the teacher user with the given acronym
      *
      * @param acronym
      * @return
      */
-    default Optional<Teacher> findByMecanographicNumber(final String acronym) {
+    default Optional<Teacher> findByMecanographicNumber(final Acronym acronym) {
         return ofIdentity(acronym);
     }
 
-    Optional<Teacher> findByAcronym(String acronym);
+    Optional<Teacher> findByAcronym(Acronym acronym);
 
     public Iterable<Teacher> findAllActive();
 }

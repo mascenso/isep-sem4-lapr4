@@ -3,6 +3,7 @@ package eCourse.persistence.impl.jpa;
 import eCourse.Application;
 import eCourse.domain.Teacher;
 import eCourse.repositories.TeacherRepository;
+import eCourse.domain.Acronym;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.Optional;
 
 class JpaTeacherRepository
-        extends JpaAutoTxRepository<Teacher, String, String>
+        extends JpaAutoTxRepository<Teacher, Acronym, Acronym>
         implements TeacherRepository {
 
 
@@ -33,10 +34,10 @@ class JpaTeacherRepository
     }
 
     @Override
-    public Optional<Teacher> findByAcronym(final String acronym) {
+    public Optional<Teacher> findByAcronym(final Acronym acronym) {
         final Map<String, Object> params = new HashMap<>();
         params.put("acronym", acronym);
-        return matchOne("e.acronym=:number", params);
+        return matchOne("e.acronym=:acronym", params);
     }
 
     @Override
