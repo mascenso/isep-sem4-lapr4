@@ -20,8 +20,8 @@ package eCourse.repositories;/*
  */
 
 
-import eCourse.domain.Acronym;
 import eCourse.domain.Teacher;
+import eCourse.domain.Acronym;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
@@ -31,7 +31,7 @@ import java.util.Optional;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public interface TeacherUserRepository
+public interface TeacherRepository
         extends DomainRepository<Acronym, Teacher> {
 
     /**
@@ -49,9 +49,11 @@ public interface TeacherUserRepository
      * @param acronym
      * @return
      */
-    default Optional<Teacher> findByAcronym(final Acronym acronym) {
+    default Optional<Teacher> findByMecanographicNumber(final Acronym acronym) {
         return ofIdentity(acronym);
     }
+
+    Optional<Teacher> findByAcronym(Acronym acronym);
 
     public Iterable<Teacher> findAllActive();
 }
