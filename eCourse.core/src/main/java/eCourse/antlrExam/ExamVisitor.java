@@ -1,4 +1,4 @@
-package eCourse.antlr;
+package eCourse.antlrExam;
 
 import java.util.*;
 import java.util.stream.Collectors;

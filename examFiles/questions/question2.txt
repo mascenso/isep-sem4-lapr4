@@ -1,0 +1,4 @@
+TrueFalse: "The best football club in Portugal is FCPORTO?." {
+    Answer: True
+    Grade: 2
+}
