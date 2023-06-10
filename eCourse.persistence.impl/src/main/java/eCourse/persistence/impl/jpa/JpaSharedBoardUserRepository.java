@@ -8,6 +8,7 @@ import eCourse.repositories.NotificationRepository;
 import eCourse.repositories.SharedBoardUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.util.HashMap;
@@ -27,7 +28,7 @@ public class JpaSharedBoardUserRepository extends JpaAutoTxRepository<SharedBoar
     }
 
     @Override
-    public Iterable<SharedBoardUser> findByUser(SystemUser name) {
+    public Iterable<SharedBoardUser> findByUser(Username name) {
         final Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         return match("e.user.username=:name", params);

@@ -33,6 +33,6 @@ public class JpaSharedBoardRepository extends JpaAutoTxRepository<SharedBoard, S
     public Iterable<SharedBoard> findBoardByTitle(SharedBoardTitle name) {
         final Map<String, Object> params = new HashMap<>();
         params.put("name", name);
-        return match("e.SHARED_BOARD_TITLE=:name", params);
+        return match("e.title=:name", params);
     }
 }

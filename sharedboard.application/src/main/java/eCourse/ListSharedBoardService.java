@@ -35,16 +35,19 @@ public class ListSharedBoardService {
 
     public Iterable<SharedBoard> listBoardsSharedWithUser() {
         List<SharedBoard> list = new ArrayList<>();
+        Iterable<SharedBoard> board = null;
         authz.session().map(s -> s.authenticatedUser().identity());
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
-        Iterable<SharedBoardUser> boardIterable = PersistenceContext.repositories().sharedBoardUser().findByUser(user.get());
+        Iterable<SharedBoardUser> boardIterable = PersistenceContext.repositories().sharedBoardUser().findByUser(user.get().identity());
         List<SharedBoardUser> sharedBoardListWithUser = IteratorUtils.toList(boardIterable.iterator());
-        for (SharedBoardUser sb : sharedBoardListWithUser) {
-            SharedBoard board = (SharedBoard) PersistenceContext.repositories().sharedBoards().findBoardByTitle(sb.hasTitle());
-            list.add(board);
+        if (sharedBoardListWithUser.size() == 0) {
+            return list;
         }
+        for (SharedBoardUser sb : sharedBoardListWithUser) {
+            board = PersistenceContext.repositories().sharedBoards().findBoardByTitle(sb.hasTitle());
+        }
+        return IteratorUtils.toList(board.iterator());
 
-        return list;
     }
 
 

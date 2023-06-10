@@ -25,7 +25,7 @@ package eCourse.infrastructure.bootstrapers;
 
 import eCourse.domain.UserBuilderHelper;
 import eCourse.infrastructure.bootstrapers.demo.BackofficeUsersBootstrapper;
-import eCourse.infrastructure.bootstrapers.demo.CourseBootstrapper;
+//import eCourse.infrastructure.bootstrapers.demo.CourseBootstrapper;
 //import eCourse.infrastructure.bootstrapers.demo.CreateExamBootstrapper;
 import eCourse.usermanagement.application.ECourseRoles;
 import org.slf4j.Logger;
@@ -66,6 +66,7 @@ public class BaseBootstrapper implements Action {
         // declare bootstrap actions
         final Action[] actions = {new MasterUsersBootstrapper(),
                 new BackofficeUsersBootstrapper(),
+               // new CourseBootstrapper()
         };
 
         registerPowerUser();

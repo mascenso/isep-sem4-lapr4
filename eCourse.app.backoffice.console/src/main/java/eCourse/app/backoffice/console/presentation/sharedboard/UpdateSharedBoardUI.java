@@ -39,17 +39,19 @@ public class UpdateSharedBoardUI extends AbstractUI {
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
 
         String answer;
-        if (board.owner().sameAs(user) && !board.archive()) {
-            System.out.println("Do you want to archive the board?");
-            answer = Console.readLine("Type yes or no");
-            if (answer.equalsIgnoreCase("yes")) {
-                theController.changeArchive(board);
-                return false;
+        if (board.owner().sameAs(user.get()))
+            if (!board.archive()) {
+                System.out.println("Do you want to archive the board?");
+                answer = Console.readLine("Type yes or no");
+                if (answer.equalsIgnoreCase("yes")) {
+                    theController.changeArchive(board);
+                    return false;
+                }
             }
-        }
 
-        System.out.println("This board has " + board.numberOfColumns() + "columns and " +
-                board.numberOfRows() + "rows.");
+
+        System.out.println("This board has " + board.numberOfColumns() + " columns and " +
+                board.numberOfRows() + " rows.");
 
         int columns, rows;
         do {

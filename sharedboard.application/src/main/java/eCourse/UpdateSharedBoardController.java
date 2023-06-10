@@ -40,11 +40,12 @@ public class UpdateSharedBoardController {
 
         board.changeRows(rows);
 
-        BoardShareEvent event = new BoardShareEvent(board);
+        BoardUpdateEvent event = new BoardUpdateEvent(board);
         Notification notif = new Notification(event);
 
-        PersistenceContext.repositories().notifications().save(notif);
         PersistenceContext.repositories().sharedBoards().save(board);
+        PersistenceContext.repositories().notifications().save(notif);
+
 
     }
 

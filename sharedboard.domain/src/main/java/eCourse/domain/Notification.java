@@ -28,10 +28,10 @@ public class Notification implements AggregateRoot<Long> {
     private int numberColumns;
     private int numberRows;
 
-    @OneToMany
+    @ElementCollection
     private List<Coluna> colunas;
 
-    @OneToMany
+    @ElementCollection
     private List<Linha> linhas;
 
 
@@ -46,15 +46,16 @@ public class Notification implements AggregateRoot<Long> {
         this.permission = event.what().withPermission();
     }
 
-    public Notification(SharedBoard board) {
-        Preconditions.noneNull(board);
-        this.title = board.boardTitle();
-        this.numberColumns = board.numberOfColumns();
-        this.numberRows = board.numberOfRows();
-        this.user = board.owner();
-        this.archive = board.archive();
-        this.colunas = board.colunas();
-        this.linhas = board.linhas();
+    public Notification(BoardUpdateEvent event) {
+        Preconditions.noneNull(event);
+        this.id = identity();
+        this.title = event.board().boardTitle();
+        this.numberColumns = event.board().numberOfColumns();
+        this.numberRows = event.board().numberOfRows();
+        this.user = event.board().owner();
+        this.archive = event.board().archive();
+        this.colunas = event.board().colunas();
+        this.linhas = event.board().linhas();
     }
 
     public Long id() {

@@ -24,12 +24,10 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     /*@Embedded
     private SharedBoardColumnAndRow position;*/
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "SHARED_BOARD_TITLE")
+    @ElementCollection
     private List<Linha> linhas;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "SHARED_BOARD_TITLE")
+    @ElementCollection
     private List<Coluna> colunas;
 
     @ManyToOne

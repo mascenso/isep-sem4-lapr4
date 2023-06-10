@@ -33,12 +33,7 @@ public class CourseBootstrapper implements Action {
     @Override
     public boolean execute() {
 
-        Optional<Course> c = listCoursesService.findCourseByDesignation(Designation.valueOf("Informatica"));
-        Optional<Teacher> t = teacherService.findTeacherByAcronym(Acronym.valueOf("abc"));
-        Set<Teacher> teachers = new HashSet<>();
-        teachers.add(t.get());
 
-        setTeachersOfCourseController.addTeachersToCourse(c.get(), teachers);
         RegisterCourse("Course for developers", "Informatica", "2022/2023", "Open", 4);
         RegisterCourse("Course for big brains", "Inteligencia Artificial", "2022/2023", "Open", 5);
         RegisterCourse("Course for grammar", "LPROG", "2022/2023", "Open", 6);
@@ -49,7 +44,12 @@ public class CourseBootstrapper implements Action {
         //updateCourseStateController.updateCourseState("LPROG", "Open");
         // updateCourseStateController.updateCourseState("RCOMP", "Open");
 
+        Optional<Course> c = listCoursesService.findCourseByDesignation(Designation.valueOf("Informatica"));
+        Optional<Teacher> t = teacherService.findTeacherByAcronym(Acronym.valueOf("abc"));
+        Set<Teacher> teachers = new HashSet<>();
+        teachers.add(t.get());
 
+        setTeachersOfCourseController.addTeachersToCourse(c.get(), teachers);
 
         return true;
     }
