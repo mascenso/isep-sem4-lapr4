@@ -1,5 +1,6 @@
 package eCourse.exam.application;
 
+import eCourse.domain.Exam;
 import eCourse.domain.GradeOfExam;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -14,6 +15,8 @@ public class TakeExameController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final validateExamService service = new validateExamService();
+
+    private ListExamsService listExamService = new ListExamsService();
     public Map<String, Map<String, Object>> buildExameForTaken(ParseTree parseTree) {
         return service.buildExam(parseTree);
     }
@@ -50,9 +53,13 @@ public class TakeExameController {
         return service.getExamGradeOnPercentage(studentGrade,maxExamGrade);
     }
 
-    public void saveGrade(float examGradeOnPercentage) {
+    public void saveGrade(float examGradeOnPercentage, Exam examSelected) {
         SystemUser user  = authz.session().get().authenticatedUser();
-        GradeOfExam grade = new GradeOfExam(user, examGradeOnPercentage);
+        GradeOfExam grade = new GradeOfExam(user, examGradeOnPercentage,examSelected);
         PersistenceContext.repositories().gradesForExam().save(grade);
+    }
+
+    public List<Exam> getExams() {
+        return (List<Exam>) listExamService.allExams();
     }
 }

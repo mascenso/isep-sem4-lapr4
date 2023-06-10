@@ -21,7 +21,7 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
 import eCourse.AddStudentUserController;
-import eCourse.AddTeacherUserController;
+import eCourse.AddTeacherController;
 import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class StudentUserBootstrapper implements Action {
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentUserBootstrapper.class);
 
 	private final AddStudentUserController addStudentUserController = new AddStudentUserController();
-	private final AddTeacherUserController addTeacherUserController = new AddTeacherUserController();
+	private final AddTeacherController addTeacherController = new AddTeacherController();
 
 	@Override
 	public boolean execute() {
@@ -57,9 +57,9 @@ public class StudentUserBootstrapper implements Action {
 		addStudentUserController.addStudentUser("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt",  roleStu , "444444444");
 		addStudentUserController.addStudentUser("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt",  roleStu , "555555555");
 
-		addTeacherUserController.addTeacherUser("teacher01", "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTea , "abc");
-		addTeacherUserController.addTeacherUser("teacher02", "Password1", "Jane", "Doe", "teacher2@isep.ipp.pt", roleTea , "def");
-		addTeacherUserController.addTeacherUser("teacher03", "Password1", "John", "Smith", "teacher2@isep.ipp.pt", roleTea , "ghi");
+		addTeacherController.addTeacher("teacher01", "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTea , "abc");
+		addTeacherController.addTeacher("teacher02", "Password1", "Jane", "Doe", "teacher2@isep.ipp.pt", roleTea , "def");
+		addTeacherController.addTeacher("teacher03", "Password1", "John", "Smith", "teacher2@isep.ipp.pt", roleTea , "ghi");
 
 		return true;
 	}

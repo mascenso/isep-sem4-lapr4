@@ -34,7 +34,7 @@ public class CourseBootstrapper implements Action {
     public boolean execute() {
 
         Optional<Course> c = listCoursesService.findCourseByDesignation(Designation.valueOf("Informatica"));
-        Optional<Teacher> t = teacherService.findTeacherUserByAcronym(Acronym.valueOf("abc"));
+        Optional<Teacher> t = teacherService.findTeacherByAcronym(Acronym.valueOf("abc"));
         Set<Teacher> teachers = new HashSet<>();
         teachers.add(t.get());
 

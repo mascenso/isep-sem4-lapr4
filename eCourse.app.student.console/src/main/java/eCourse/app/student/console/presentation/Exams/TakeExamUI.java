@@ -1,10 +1,8 @@
 package eCourse.app.student.console.presentation.Exams;
 
-import eCourse.antlr.ExamSpecificationLexer;
-import eCourse.antlr.ExamSpecificationParser;
-import eCourse.domain.Course;
+import eCourse.antlrExam.ExamSpecificationLexer;
+import eCourse.antlrExam.ExamSpecificationParser;
 import eCourse.domain.Exam;
-import eCourse.domain.ExamBuilder;
 import eCourse.exam.application.TakeExameController;
 import eapli.framework.presentation.console.AbstractUI;
 import org.antlr.v4.runtime.CharStream;
@@ -24,9 +22,11 @@ public class TakeExamUI extends AbstractUI {
         @Override
         protected boolean doShow() {
 
+            List<Exam> ListOfExams = theController.getExams();
+            Exam examSelected = showListExams(ListOfExams);
             CharStream charStream = null;
             try {
-                charStream = CharStreams.fromFileName("./exam.txt");
+                charStream = CharStreams.fromFileName("./"+examSelected.getExamFile());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -38,6 +38,7 @@ public class TakeExamUI extends AbstractUI {
             Map<String, Map<String, Object>> exam = theController.buildExameForTaken(parseTree);
             Map<String, Object> header = exam.get("Header");
 
+            //max grade for exam
             final float maxExamGrade = Float.parseFloat(header.get("MaxExamGrade").toString());
             float studentGrade = 0;
             //begin exam
@@ -59,8 +60,23 @@ public class TakeExamUI extends AbstractUI {
             System.out.printf("You got %.0f%% of exam right.\n", theController.getExamGradeOnPercentage(studentGrade, maxExamGrade));
             System.out.printf("You had %.2f of %.2f possible points.\n", studentGrade, maxExamGrade);
 
-            theController.saveGrade(theController.getExamGradeOnPercentage(studentGrade, maxExamGrade));
+            theController.saveGrade(theController.getExamGradeOnPercentage(studentGrade, maxExamGrade),examSelected);
         return true;
+    }
+
+    private Exam showListExams(List<Exam> listOfExams) {
+            Scanner scanner = new Scanner(System.in);
+            int selectedOption = -1;
+            do {
+                for (int i = 0; i < listOfExams.size(); i++) {
+                    System.out.printf("(%d) %s\n", i, listOfExams.get(i).getExamTitle());
+                }
+                selectedOption = scanner.nextInt();
+                if (selectedOption<0 || selectedOption >= listOfExams.size()){
+                    System.out.println("Select a valid exam.");
+                }
+            }while (selectedOption<0 || selectedOption >= listOfExams.size());
+            return listOfExams.get(selectedOption);
     }
 
     @Override
