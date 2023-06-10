@@ -5,9 +5,7 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.validations.Preconditions;
 import javax.persistence.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Exam implements AggregateRoot<ExamTitle> {
@@ -53,6 +51,7 @@ public class Exam implements AggregateRoot<ExamTitle> {
         return course;
     }
 
+
     public ExamTitle getExamTitle() {
         return title;
     }
@@ -67,6 +66,13 @@ public class Exam implements AggregateRoot<ExamTitle> {
 
     public File getExamFile() {
         return file;
+    }
+
+    @OneToOne(mappedBy = "exam")
+    private GradeOfExam examGrade;
+
+    public GradeOfExam getExamGrade() {
+        return examGrade;
     }
 
     public Exam updateExam(Date open, Date close, File file){

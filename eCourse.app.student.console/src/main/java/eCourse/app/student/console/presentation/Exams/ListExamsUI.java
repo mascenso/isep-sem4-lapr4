@@ -40,6 +40,6 @@ public class ListExamsUI extends AbstractListUI {
 
     @Override
     protected String listHeader() {
-        return String.format("#  %-30s%-20s%-20s%-20s%-20s", "Title", "NumberColumns", "NumberRows", "Owner", "Archive");
+        return String.format("#  %-30s%-20s%-20s%-20s%-20s", "Title", "Course", "NumberRows", "Owner", "Archive");
     }
 }
