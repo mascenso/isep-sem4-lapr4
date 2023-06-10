@@ -66,8 +66,7 @@ public class BaseBootstrapper implements Action {
         // declare bootstrap actions
         final Action[] actions = {new MasterUsersBootstrapper(),
                 new BackofficeUsersBootstrapper(),
-                new CourseBootstrapper()};
-               // new CreateExamBootstrapper()};
+        };
 
         registerPowerUser();
         authenticateForBootstrapping();
