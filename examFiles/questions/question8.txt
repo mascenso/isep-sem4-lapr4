@@ -1,0 +1,8 @@
+Numerical: "How much people live is Spain?" {
+    Acceptance Error = 20000
+    Option 47400000
+    Option 77400000
+    Option 57400000
+    Answer: 47400000
+    Grade: 3
+}

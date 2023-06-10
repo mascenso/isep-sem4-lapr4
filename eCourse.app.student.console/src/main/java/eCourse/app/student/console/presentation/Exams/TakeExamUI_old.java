@@ -1,7 +1,7 @@
 package eCourse.app.student.console.presentation.Exams;
 
-import eCourse.antlr.ExamSpecificationLexer;
-import eCourse.antlr.ExamSpecificationParser;
+import eCourse.antlrExam.ExamSpecificationLexer;
+import eCourse.antlrExam.ExamSpecificationParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

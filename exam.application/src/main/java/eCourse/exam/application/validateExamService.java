@@ -1,9 +1,8 @@
 package eCourse.exam.application;
 
-import eCourse.antlr.ExamVisitor;
+import eCourse.antlrExam.ExamVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
