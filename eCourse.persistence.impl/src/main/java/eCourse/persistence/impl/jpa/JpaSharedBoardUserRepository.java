@@ -10,6 +10,8 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class JpaSharedBoardUserRepository extends JpaAutoTxRepository<SharedBoardUser, String,String>
@@ -25,8 +27,10 @@ public class JpaSharedBoardUserRepository extends JpaAutoTxRepository<SharedBoar
     }
 
     @Override
-    public Iterable<SharedBoardUser> findByUser(SystemUser user) {
-        return null;
+    public Iterable<SharedBoardUser> findByUser(SystemUser name) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        return match("e.user.username=:name", params);
     }
 
     @Override

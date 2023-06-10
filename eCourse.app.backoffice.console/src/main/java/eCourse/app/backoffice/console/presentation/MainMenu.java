@@ -35,10 +35,7 @@ import eCourse.app.backoffice.console.presentation.meetings.AcceptRejectMeetingU
 import eCourse.app.backoffice.console.presentation.meetings.CancelMeetingUI;
 import eCourse.app.backoffice.console.presentation.meetings.ListMeetingsUI;
 import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
-import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
-import eCourse.app.backoffice.console.presentation.sharedboard.NotificationUI;
-import eCourse.app.backoffice.console.presentation.sharedboard.ShareABoardUI;
-import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
+import eCourse.app.backoffice.console.presentation.sharedboard.*;
 import eCourse.app.backoffice.console.presentation.students.AddStudentUI;
 import eCourse.app.backoffice.console.presentation.students.EnrollStudentsUI;
 import eCourse.app.backoffice.console.presentation.teachers.AddTeacherUI;
@@ -116,8 +113,8 @@ public class MainMenu extends AbstractUI {
     private static final int CREATE_BOARD_OPTION = 1;
     private static final int LIST_BOARDS_OPTION = 2;
     private static final int SHARE_A_BOARD=3;
-    private static final int BOARD_NOTIFICATION=4;
-
+    private static final int UPDATE_SHARED_BOARD=4;
+    private static final int BOARD_NOTIFICATION=5;
 
 
     //MEETING
@@ -280,7 +277,9 @@ public class MainMenu extends AbstractUI {
         menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
         menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
         menu.addItem(SHARE_A_BOARD, "Share a Board", new ShareABoardUI()::show);
+        menu.addItem(UPDATE_SHARED_BOARD,"Update a board", new UpdateSharedBoardUI()::show);
         menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
+
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

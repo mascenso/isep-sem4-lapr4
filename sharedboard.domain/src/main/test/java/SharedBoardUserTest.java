@@ -16,6 +16,7 @@ public class SharedBoardUserTest {
 
     private SharedBoardUser sharedBoardUser1;
     private SharedBoardUser sharedBoardUser2;
+    private SharedBoardUser sharedBoardUser3;
     private Role POWER_USER;
     private Role ADMIN;
     private Role TEACHER;
@@ -116,5 +117,17 @@ public class SharedBoardUserTest {
         assertEquals(AccessType.READ, sharedBoardUser2.hasPermission());
         assertNotEquals(AccessType.WRITE, sharedBoardUser1.hasPermission());
         assertNotEquals(AccessType.WRITE, sharedBoardUser2.hasPermission());
+    }
+
+
+    @Test
+    public void ensureEqualsSharedBoardUser() {
+        AccessType permission = AccessType.READ;
+        sharedBoardUser1 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission);
+        sharedBoardUser2 = board2.createShareBoardUsers(other, board2.boardTitle(), permission);
+        sharedBoardUser3 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission);
+
+        assertTrue(sharedBoardUser1.sameAs(sharedBoardUser3));
+        assertFalse(sharedBoardUser2.sameAs(sharedBoardUser3));
     }
 }

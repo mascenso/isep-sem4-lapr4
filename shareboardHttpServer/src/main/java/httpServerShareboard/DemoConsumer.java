@@ -40,7 +40,7 @@ public class DemoConsumer {
  
 		HTTPmessage request = new HTTPmessage();
 		request.setRequestMethod("PUT");
-		request.setURI("/votes/1");
+		request.setURI("/board/1");
             	System.out.println("Casting " + VOTES_TO_CAST + " votes on the first candidate ...");
 
 

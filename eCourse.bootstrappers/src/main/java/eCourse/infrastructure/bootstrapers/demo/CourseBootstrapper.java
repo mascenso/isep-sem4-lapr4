@@ -29,17 +29,9 @@ public class CourseBootstrapper implements Action {
 
 
     private final UserManagementService userManagementService = AuthzRegistry.userService();
+
     @Override
     public boolean execute() {
-        RegisterCourse("Course for developers", "Informatica","2022/2023","Open",4);
-        RegisterCourse("Course for big brains", "Inteligencia Artificial","2022/2023","Open",5);
-        RegisterCourse("Course for grammar", "LPROG","2022/2023","Open",6);
-        RegisterCourse("Course for all", "RCOMP","2022/2023","Open",7);
-
-        updateCourseStateController.updateCourseState("Informatica", "Open");
-        updateCourseStateController.updateCourseState("Inteligencia Artificial", "Open");
-        //updateCourseStateController.updateCourseState("LPROG", "Open");
-       // updateCourseStateController.updateCourseState("RCOMP", "Open");
 
         Optional<Course> c = listCoursesService.findCourseByDesignation(Designation.valueOf("Informatica"));
         Optional<Teacher> t = teacherService.findTeacherUserByAcronym(Acronym.valueOf("abc"));
@@ -47,14 +39,25 @@ public class CourseBootstrapper implements Action {
         teachers.add(t.get());
 
         setTeachersOfCourseController.addTeachersToCourse(c.get(), teachers);
+        RegisterCourse("Course for developers", "Informatica", "2022/2023", "Open", 4);
+        RegisterCourse("Course for big brains", "Inteligencia Artificial", "2022/2023", "Open", 5);
+        RegisterCourse("Course for grammar", "LPROG", "2022/2023", "Open", 6);
+        RegisterCourse("Course for all", "RCOMP", "2022/2023", "Open", 7);
+
+        updateCourseStateController.updateCourseState("Informatica", "Open");
+        updateCourseStateController.updateCourseState("Inteligencia Artificial", "Open");
+        //updateCourseStateController.updateCourseState("LPROG", "Open");
+        // updateCourseStateController.updateCourseState("RCOMP", "Open");
+
+
 
         return true;
     }
 
-    private boolean RegisterCourse(final String description, final String name, final String edition, final String state, int number){
+    private boolean RegisterCourse(final String description, final String name, final String edition, final String state, int number) {
         final Set<Role> roleTypes = new HashSet<>();
         roleTypes.add(ECourseRoles.TEACHER);
-        SystemUser user = userManagementService.registerNewUser("teacher"+number, "Password1", "John", "Doe", "teacher1@isep.ipp.pt",roleTypes);
+        SystemUser user = userManagementService.registerNewUser("teacher" + number, "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTypes);
         final Course newCourse = new CourseBuilder().descriptioned(Description.valueOf(description)).named(Designation.valueOf(name))
                 .edition(CourseEdition.valueOf(edition)).teacherCoordinator(user).build();
         PersistenceContext.repositories().courses().save(newCourse);

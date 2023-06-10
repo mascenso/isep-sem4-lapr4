@@ -5,6 +5,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -15,22 +16,45 @@ public class Notification implements AggregateRoot<Long> {
     private Long id;
 
     @ManyToOne
-    @JoinColumn (name= "username")
+    @JoinColumn(name = "username")
     private SystemUser user;
 
     private SharedBoardTitle title;
 
     private AccessType permission;
 
+    private boolean archive;
+
+    private int numberColumns;
+    private int numberRows;
+
+    @OneToMany
+    private List<Coluna> colunas;
+
+    @OneToMany
+    private List<Linha> linhas;
+
+
     public Notification() {
     }
 
     public Notification(BoardShareEvent event) {
         Preconditions.noneNull(event);
-        this.id=identity();
-        this.user=event.what().boardUser();
-        this.title=event.what().hasTitle();
-        this.permission=event.what().withPermission();
+        this.id = identity();
+        this.user = event.what().boardUser();
+        this.title = event.what().hasTitle();
+        this.permission = event.what().withPermission();
+    }
+
+    public Notification(SharedBoard board) {
+        Preconditions.noneNull(board);
+        this.title = board.boardTitle();
+        this.numberColumns = board.numberOfColumns();
+        this.numberRows = board.numberOfRows();
+        this.user = board.owner();
+        this.archive = board.archive();
+        this.colunas = board.colunas();
+        this.linhas = board.linhas();
     }
 
     public Long id() {
@@ -66,9 +90,7 @@ public class Notification implements AggregateRoot<Long> {
         final Notification otherNotification = (Notification) other;
 
         return user.equals(otherNotification.user)
-                && title.equals(otherNotification.title)
-                && permission.equals(otherNotification.permission)
-                && id.equals(otherNotification.id);
+                && title.equals(otherNotification.title) ;
     }
 
     @Override
@@ -78,7 +100,11 @@ public class Notification implements AggregateRoot<Long> {
 
     @Override
     public String toString() {
-        return "You have been granted access to board " + title +
-                ", and you have " + permission + " permissions.";
+        if (permission != null) {
+            return "You have been granted access to board " + title +
+                    ", and you have " + permission + " permissions!";
+        } else {
+            return "The board " + title + " was updated!";
+        }
     }
 }

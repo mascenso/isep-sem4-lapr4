@@ -14,11 +14,14 @@ public class NotificationTest {
 
     private Notification notification1;
     private Notification notification2;
+    private Notification notification3;
     private BoardShareEvent boardShareEvent1;
     private BoardShareEvent boardShareEvent2;
+    private BoardShareEvent boardShareEvent3;
 
     private SharedBoardUser sharedBoardUser1;
     private SharedBoardUser sharedBoardUser2;
+    private SharedBoardUser sharedBoardUser3;
     private Role POWER_USER;
     private Role ADMIN;
     private Role TEACHER;
@@ -107,5 +110,22 @@ public class NotificationTest {
         assertNotEquals(sharedBoardUser2.hasPermission(), notification1.permission());
     }
 
+    @Test
+    public void ensureEqualsSNotification() {
+        AccessType permission1 = AccessType.READ;
+        AccessType permission2 = AccessType.WRITE;
+        sharedBoardUser1 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission1);
+        sharedBoardUser2 = board2.createShareBoardUsers(other, board2.boardTitle(), permission2);
+        sharedBoardUser3 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission1);
+
+        boardShareEvent1 = new BoardShareEvent(sharedBoardUser1);
+        boardShareEvent2 = new BoardShareEvent(sharedBoardUser2);
+        boardShareEvent3 = new BoardShareEvent(sharedBoardUser1);
+        notification1 = new Notification(boardShareEvent1);
+        notification2 = new Notification(boardShareEvent2);
+        notification3 = new Notification(boardShareEvent1);
+        assertTrue(notification1.sameAs(notification3));
+        assertFalse(notification1.sameAs(notification2));
+    }
 
 }

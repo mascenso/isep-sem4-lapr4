@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SharedBoardUserRepository extends DomainRepository<SharedBoardTitle, SharedBoardUser> {
+
     Iterable<SharedBoardUser> findByUser(final SystemUser user);
 }

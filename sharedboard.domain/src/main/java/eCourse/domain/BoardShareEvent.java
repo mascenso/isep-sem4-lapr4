@@ -18,6 +18,9 @@ public class BoardShareEvent extends AbstractBoardShareEvent {
     @ManyToOne
     private SharedBoardUser what;
 
+    @ManyToOne
+    private SharedBoard board;
+
     // for ORM
     protected BoardShareEvent() {
         super();
@@ -26,6 +29,11 @@ public class BoardShareEvent extends AbstractBoardShareEvent {
 
     public BoardShareEvent(final SharedBoardUser what) {
         super(what);
+        createNotification();
+    }
+
+    public BoardShareEvent(final SharedBoard board) {
+        super(board);
         createNotification();
     }
 

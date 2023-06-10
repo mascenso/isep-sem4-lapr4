@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-/*
+
 public class CreateExamBootstrapper implements Action {
 
     private final CreateExamController createExamController = new CreateExamController();
@@ -30,7 +30,7 @@ public class CreateExamBootstrapper implements Action {
     public boolean execute() {
         Date openDate;
         Date closeDate;
-
+/*
         Course course1 = registerCourse("Course for race conditions", "SCOMP", "2022/2023", "Open", 10);
         // Course course2 = registerCourse("Course for network", "RCOMP", "2022/2023", "Open", 11);
 
@@ -40,7 +40,7 @@ public class CreateExamBootstrapper implements Action {
         } catch (ParseException e) {
             throw new RuntimeException("Error parsing dates", e);
         }
-/*
+
         File examFile1 = new File("docs/exams1.txt");
         // File examFile2 = new File("exam2.txt");
         updateCourseStateController.updateCourseState("SCOMP", "Open");
@@ -48,10 +48,10 @@ public class CreateExamBootstrapper implements Action {
         createExamController.createExam(course1, "SCOMP EPOCA NORMAL 2022/2023", openDate, closeDate, examFile1);
         // createExamController.createExam(course2, "RCOMP EPOCA NORMAL 2022/2023", openDate, closeDate, examFile2);
 
-
+*/
         return true;
     }
-
+/*
     private boolean registerExam(final Course course, final String title, Date openDate, Date endDate, final File file) {
         ExamTitle examTitle = ExamTitle.valueOf(title);
         final Exam newExam = new ExamBuilder().theCourse(course).theExamTitle(examTitle).theOpenDate(openDate)
@@ -69,6 +69,6 @@ public class CreateExamBootstrapper implements Action {
         PersistenceContext.repositories().courses().save(newCourse);
         return newCourse;
     }
-
-}
 */
+}
+

@@ -44,7 +44,11 @@ class TcpSrvSumThread implements Runnable {
 			do {
    				sum=0;
 				do {
-   					num=0; f=1; for(i=0;i<4;i++) {num=num+f*sIn.read(); f=f*256;}
+   					num=0; f=1;
+					   for(i=0;i<4;i++) {
+						   num=num+f*sIn.read();
+						   f=f*256;
+					   }
 					sum=sum+num;
 					}
    				while(num>0);
