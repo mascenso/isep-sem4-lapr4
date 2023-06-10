@@ -1,0 +1,8 @@
+Numerical: "How many people live in Portugal?" {
+    Acceptance Error = 10000
+    Option 1000000
+    Option 20000000
+    Option 3000000
+    Answer: 1000000
+    Grade: 3
+}

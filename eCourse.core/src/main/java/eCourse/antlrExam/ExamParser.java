@@ -1,4 +1,4 @@
-package eCourse.antlr;
+package eCourse.antlrExam;
 
 import java.io.*;
 import org.antlr.v4.runtime.*;

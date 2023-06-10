@@ -25,11 +25,12 @@ public class GradeOfExam implements AggregateRoot<Long> {
 
     public GradeOfExam(){}
 
-    public GradeOfExam(SystemUser student,Float grade){
+    public GradeOfExam(SystemUser student,Float grade, Exam exam){
         this.date = new Date();
         this.student = student;
         this.grade = grade;
-        //falta aqui o exame
+        this.exam = exam;
+
     }
 
     @Override
