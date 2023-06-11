@@ -1,13 +1,11 @@
-package eCourse.app.student.console.presentation.Exams;
+package eCourse.app.teacher.console.presentation.exam;
 
-import eCourse.app.common.console.ExamPrinter;
 import eCourse.domain.Exam;
-import eCourse.domain.SharedBoard;
 import eCourse.exam.application.ListExamsController;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
 
-public class ListExamsUI extends AbstractListUI {
+public class TeacherListExamsUI extends AbstractListUI {
 
     private final ListExamsController listExamsController = new ListExamsController();
 
@@ -31,7 +29,7 @@ public class ListExamsUI extends AbstractListUI {
 
     @Override
     protected Visitor<Exam> elementPrinter() {
-        return new ExamPrinter();
+        return new TeacherExamGradesPrinter();
     }
 
     @Override
