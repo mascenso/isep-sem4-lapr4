@@ -217,8 +217,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(ADD_NEW_EXAM_OPTION, "Create Exam", new CreateExamUI()::show);
         menu.addItem(UPDATE_EXAM_OPTION, "Update Exam", new UpdateExamUI()::show);
         menu.addItem(ADD_NEW_AUTOMATIC_EXAM_OPTION, "Create Automatic Exam", new CreateAutomaticExamUI()::show);
-        menu.addItem(LIST_TEACHER_EXAM_GRADES_OPTION, "View Exam Grades", new TeacherListExamsUI()::show);
         menu.addItem(LIST_EXAMS_COURSE_OPTION, "List Exams", new ListExamsCourseUI()::show);
+        menu.addItem(LIST_TEACHER_EXAM_GRADES_OPTION, "View Exam Grades", new TeacherListExamsUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
