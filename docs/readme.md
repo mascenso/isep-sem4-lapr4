@@ -40,3 +40,6 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 | **[1210857](1210857/readme.md)**|**B**| [US 3003 - Design a conceptual solution for Synchronization of shared boards.](SPRINT%20B/US_3003-Synchronization%20Boards/readme.md)                                                                                             |
 | **[1210857](1210857/readme.md)**|**B**| [US 4001 - Schedule a meeting](SPRINT%20B/US_4001-Schedule%20a%20meeting/readme.md)                                                                                                                                               |
 | **[1201951](1201951/readme.md)**|**B**| [US 4002 - Cancel a meeting](SPRINT%20B/US_4002-Cancel%20Meeting/readme.md)                                                                                                                                                       |
+| **[1210855](1210855/readme.md)**|**C**| [US 3006 - Create a post-it on a board](../SPRINT%20C/US_3006-CreateaPost-it)                         |
+| **[1210855](1210855/readme.md)**|**C**| [US 3007 - Change a post-it](../SPRINT%20C/US_3007-ChangeaPost-it)                         |
+| **[1210855](1210855/readme.md)**|**C**| [US 3008 - Undo the last change in a post-it](../SPRINT%20C/US_3008-UndoLastPost-itChange)                  |

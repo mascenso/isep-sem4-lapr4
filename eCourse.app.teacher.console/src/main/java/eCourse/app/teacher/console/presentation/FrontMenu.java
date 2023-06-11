@@ -40,7 +40,6 @@ import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 public class FrontMenu extends AbstractUI {
 
     private static final int EXIT_OPTION = 0;
-
     private static final int LOGIN_OPTION = 1;
     private static final int SIGNUP_OPTION = 2;
 
