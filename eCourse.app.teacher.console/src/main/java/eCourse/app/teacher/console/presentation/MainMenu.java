@@ -26,6 +26,7 @@ package eCourse.app.teacher.console.presentation;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
 import eCourse.app.teacher.console.presentation.Courses.ListCoursesTeacherUI;
+import eCourse.app.teacher.console.presentation.RecurringLessons.CreateExtraLessonUI;
 import eCourse.app.teacher.console.presentation.RecurringLessons.CreateRecurringLessonsUI;
 import eCourse.app.teacher.console.presentation.RecurringLessons.UpdateScheduleRecurringLessonUI;
 import eCourse.app.teacher.console.presentation.exam.CreateAutomaticExamUI;
@@ -49,11 +50,6 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
-/**
- * TODO split this class in more specialized classes for each menu
- *
- * @author Paulo Gandra Sousa
- */
 public class MainMenu extends AbstractUI {
 
     private static final String SEPARATOR_LABEL = "--------------";
@@ -66,11 +62,10 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int EXAMS_OPTION = 2;
     private static final int CLASSES_OPTION = 3;
-    private static final int RECURRING_LESSON_OPTION = 4;
-    private static final int QUESTIONS_OPTION = 5;
-    private static final int COURSES_OPTION = 6;
-    private static final int MEETING_OPTION = 7;
-    private static final int SHAREDBOARD_OPTION=8;
+    private static final int QUESTIONS_OPTION = 4;
+    private static final int COURSES_OPTION = 5;
+    private static final int MEETING_OPTION = 6;
+    private static final int SHAREDBOARD_OPTION=7;
 
     //MEETING
     private static final int SCHEDULE_MEETING_OPTION = 1;
@@ -87,7 +82,9 @@ public class MainMenu extends AbstractUI {
     //RECURRING LESSONS
 
     private static final int CREATE_RECURRING_LESSON_OPTION = 1;
-    private static final int UPDATE_SCHEDULE_RECURRING_LESSON_OPTION = 2;
+    private static final int CREATE_EXTRA_LESSON = 2;
+    private static final int UPDATE_SCHEDULE_RECURRING_LESSON_OPTION = 3;
+
 
     //QUESTION
     private static final int ADD_QUESTIONS_OPTION = 1;
@@ -168,16 +165,6 @@ public class MainMenu extends AbstractUI {
 
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
 
-            final Menu recurringLessonMenu = buildRecurringLessonMenu();
-            mainMenu.addSubMenu(RECURRING_LESSON_OPTION, recurringLessonMenu);
-        }
-
-        if (!Application.settings().isMenuLayoutHorizontal()) {
-            mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
-        }
-
-        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
-
             final Menu questionsMenu = buildQuestionsMenu();
             mainMenu.addSubMenu(QUESTIONS_OPTION, questionsMenu);
         }
@@ -226,7 +213,6 @@ public class MainMenu extends AbstractUI {
         menu.addItem(ADD_NEW_EXAM_OPTION, "Create Exam", new CreateExamUI()::show);
         menu.addItem(UPDATE_EXAM_OPTION, "Update Exam", new UpdateExamUI()::show);
         menu.addItem(ADD_NEW_AUTOMATIC_EXAM_OPTION, "Create Automatic Exam", new CreateAutomaticExamUI()::show);
-
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
@@ -244,19 +230,13 @@ public class MainMenu extends AbstractUI {
     private Menu buildClassesMenu() {
         final Menu teacherMenu = new Menu("Classes  >");
 
+        teacherMenu.addItem(CREATE_RECURRING_LESSON_OPTION, "Create Recurring Lesson", new CreateRecurringLessonsUI()::show);
+        teacherMenu.addItem(CREATE_EXTRA_LESSON, "Create Extra Lesson", new CreateExtraLessonUI()::show);
+        teacherMenu.addItem(UPDATE_SCHEDULE_RECURRING_LESSON_OPTION, "Update Recurring Lesson", new UpdateScheduleRecurringLessonUI()::show);
+
         teacherMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return teacherMenu;
-    }
-
-    private Menu buildRecurringLessonMenu() {
-        final Menu menu = new Menu("Recurring Lesson >");
-
-        menu.addItem(CREATE_RECURRING_LESSON_OPTION, "Create Recurring Lesson", new CreateRecurringLessonsUI()::show);
-        menu.addItem(UPDATE_SCHEDULE_RECURRING_LESSON_OPTION, "Update Recurring Lesson", new UpdateScheduleRecurringLessonUI()::show);
-        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
-
-        return menu;
     }
 
     private Menu buildSharedBoardMenu() {
