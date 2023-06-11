@@ -17,5 +17,5 @@ public interface CourseRepository extends DomainRepository<Designation, Course>{
 
     Optional<Course> findByDesignation(Designation name);
 
-    Set<Course> findByTeacher(Teacher teacher);
+    Iterable<Course> findByTeacher(Teacher teacher);
 }
