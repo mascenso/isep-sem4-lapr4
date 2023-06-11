@@ -17,6 +17,16 @@ public class Exam implements AggregateRoot<ExamTitle> {
     @ManyToOne
     private Course course;
 
+    @OneToMany(mappedBy = "exam")
+    private Set<GradeOfExam> examGrades;
+
+    @ManyToOne
+    private Teacher teacher;
+
+    public Set<GradeOfExam> getExamGrades() {
+        return examGrades;
+    }
+
     @Column(unique = true)
     private ExamTitle title;
 
@@ -30,10 +40,11 @@ public class Exam implements AggregateRoot<ExamTitle> {
     @Column(nullable = false)
     private Date closeDate;
 
-    protected Exam(final ExamTitle examTitle ,final Course course, final Date openDate, final Date endDate,  final File examFile ) {
+    protected Exam(final ExamTitle examTitle ,final Course course, final Teacher teacher, final Date openDate, final Date endDate,  final File examFile ) {
         Preconditions.noneNull(examTitle, course, openDate, endDate, examFile);
         this.title =examTitle;
         this.course = course;
+        this.teacher = teacher;
         this.openDate=openDate;
         this.closeDate=endDate;
         this.file=examFile;
@@ -68,12 +79,7 @@ public class Exam implements AggregateRoot<ExamTitle> {
         return file;
     }
 
-    @OneToOne(mappedBy = "exam")
-    private GradeOfExam examGrade;
-
-    public GradeOfExam getExamGrade() {
-        return examGrade;
-    }
+    public Teacher getTeacher() { return teacher; }
 
     public Exam updateExam(Date open, Date close, File file){
         this.closeDate=close;

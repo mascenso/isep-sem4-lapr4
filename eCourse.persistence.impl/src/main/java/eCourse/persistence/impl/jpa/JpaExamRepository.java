@@ -4,6 +4,7 @@ import eCourse.Application;
 import eCourse.domain.Course;
 import eCourse.domain.Exam;
 import eCourse.domain.ExamTitle;
+import eCourse.domain.Teacher;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import eCourse.repositories.ExamRepository;
@@ -26,6 +27,12 @@ public class JpaExamRepository extends JpaAutoTxRepository<Exam, ExamTitle, Exam
     public List<Exam> findByCourse(Course course) {
         return null;
     }
+
+    @Override
+    public List<Exam> findByTeacher(Teacher teacher) {
+        return null;
+    }
+
 
     @Override
     public Exam findByTitle(String title) {
