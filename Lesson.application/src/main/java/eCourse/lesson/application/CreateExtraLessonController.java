@@ -53,10 +53,10 @@ public class CreateExtraLessonController {
         return teacher;
     }
 
-    public Set<Course> getTeacherCourses() {
+    public Iterable<Course> getTeacherCourses() {
         Teacher teacher = getCurrentTeacher();
-        Set<Course> courses = courseRepository.findByTeacher(teacher);
-        if (courses.isEmpty()) {
+        Iterable<Course> courses = courseRepository.findByTeacher(teacher);
+        if (!courses.iterator().hasNext()){
             throw new IllegalStateException("No courses found for the teacher");
         }
         return courses;
@@ -90,7 +90,6 @@ public class CreateExtraLessonController {
                 throw new IllegalStateException("Invalid recurring lesson");
             }
             //return recurringLessonRepository.save(newRecurringLesson);
-
         }
 
     }
