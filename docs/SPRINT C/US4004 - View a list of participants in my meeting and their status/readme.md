@@ -54,14 +54,14 @@ Below is the use case diagram to show the interactions between the user and the 
 ### 4.1. Realization
 
 
-| Interaction ID | Question: Which class is responsible for... | Answer                   | Justification (with patterns)                                                                                           |
-|:---------------|:--------------------------------------------|:-------------------------|:------------------------------------------------------------------------------------------------------------------------|
-| Step 1         | ... interacting with the actor?             | ListMeetingsUi           | UI pattern: UpdateCourseState is responsible for interacting with the actor to shows the list of the meetings.          |
-|                | ... coordinating the US?                    | ListMeetingsController   | Controller pattern: ListMeetingsController is responsible for coordinating the use case and invoking necessary classes. |
-| Step 2         | ... return list of meetings                 | MeetingsRepository       | Repository pattern: MeetingsRepository is responsible for retrieving the list of meetings from the database.            |
-| Step 3         | ... show the meetings to the user           | UpdateCourseStateUI      | UI pattern: ListMeetingsUI is responsible for presenting the meetings to the user.                                      |
-| Step 4         | ... Validate User                           | AppSettings              | Settings pattern: AppSettings is responsible for validating if the user is valid based on application settings.         |
-| Step 5         | ... get list of the meetings by user        | UpdateCourseStateService |                                                                                                                         |
+| Interaction ID | Question: Which class is responsible for... | Answer                 | Justification (with patterns)                                                                                           |
+|:---------------|:--------------------------------------------|:-----------------------|:------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?             | ListMeetingsUi         | UI pattern: ListMeetingsUI is responsible for interacting with the actor to shows the list of the meetings.          |
+|                | ... coordinating the US?                    | ListMeetingsController | Controller pattern: ListMeetingsController is responsible for coordinating the use case and invoking necessary classes. |
+| Step 2         | ... return list of meetings                 | MeetingsRepository     | Repository pattern: MeetingsRepository is responsible for retrieving the list of meetings from the database.            |
+| Step 3         | ... show the meetings to the user           | ListMeetingsUI         | UI pattern: ListMeetingsUI is responsible for presenting the meetings to the user.                                      |
+| Step 4         | ... Validate User                           | AppSettings            | Settings pattern: AppSettings is responsible for validating if the user is valid based on application settings.         |
+| Step 5         | ... get list of the meetings by user        | ListMeetingsService    |                                                                                                                         |
 
 ### 4.2. Class Diagram
 

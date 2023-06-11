@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 @UseCaseController
 public class ListExamsController {
-    @Autowired
-    private ListExamsService service = new ListExamsService();
+
+    private final ListExamsService service = new ListExamsService();
 
     public Iterable<Exam> allExams() {
 

@@ -23,9 +23,16 @@
         <class>eCourse.domain.Question</class>
         <class>eCourse.domain.Meeting</class>
         <class>eCourse.domain.ParticipantsOfMeeting</class>
+        <class>eCourse.lesson.domain.model.ParticipantsOfRecurringLesson</class>
         <class>eCourse.domain.Student</class>
         <class>eCourse.domain.Teacher</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
+        <class>eCourse.domain.SharedBoardUser</class>
+        <class>eCourse.domain.Notification</class>
+        <class>eCourse.domain.AbstractBoardShareEvent</class>
+        <class>eCourse.domain.GradeOfExam</class>
+
+
 
 
         <properties>

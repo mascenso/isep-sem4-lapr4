@@ -2,15 +2,15 @@
 'https://plantuml.com/class-diagram
 
 class ListMeetingsUI {
-    doShow()
+    + doShow()
 }
 
 class ListMeetingsController {
-    listMeetingsByUser()
+    + listMeetingsByUser()
 }
 
 class ListMeetingsService {
-    getMeetingsByUser()
+    + getMeetingsByUser()
 }
 
 class MeetingsRepository {

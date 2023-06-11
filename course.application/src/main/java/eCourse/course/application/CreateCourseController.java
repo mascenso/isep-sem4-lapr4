@@ -32,15 +32,15 @@ public class CreateCourseController {
     }
 
     @Transactional
-    public Course createCourse (final String name, final String edition, final String description, SystemUser teacherUser){
+    public Course createCourse (final String name, final String edition, final String description, SystemUser teacher){
 
         final Course newCourse = new CourseBuilder().descriptioned(Description.valueOf(description)).named(Designation.valueOf(name))
-                .edition(CourseEdition.valueOf(edition)).teacherCoordinator(teacherUser).build();
+                .edition(CourseEdition.valueOf(edition)).teacherCoordinator(teacher).build();
         return PersistenceContext.repositories().courses().save(newCourse);
     }
 
     public List<Teacher> listOfTeachers() {
-        List<Teacher> listOfTeachers = (List<Teacher>) PersistenceContext.repositories().teacherUsers().findAll();
+        List<Teacher> listOfTeachers = (List<Teacher>) PersistenceContext.repositories().teachers().findAll();
         return listOfTeachers;
     }
 

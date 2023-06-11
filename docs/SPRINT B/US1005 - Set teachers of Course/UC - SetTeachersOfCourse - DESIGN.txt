@@ -4,17 +4,17 @@
 	_________
         
         Classes do domínio: TeacherInCourse (nova classe)
-                            TeacherUser (atualizar)
+                            Teacher (atualizar)
 
         A classe RegisterCourseUI foi atualizada de modo permitir a indicação dos
-        alergeneos presentes no prato. Para tal foi criada a classe auxiliar 
-        TeacherUserInCourseSettings com responsabilidade de apresentar todos os 
-        alergeneos para o utilizador selecionar os presentes no prato
+        teachers presentes no course. Para tal foi criada a classe auxiliar 
+        TeacherInCourseSettings com responsabilidade de apresentar todos os
+        teachers para o utilizador selecionar os presentes no course
         A classe RegisterCourseController foi atualizada de modo a permitir registar 
         um dish que inclui criar um Course e a ele adicionar o conjunto de 
-        alergeneos nele presentes (Set<TeacherUserInCourse>) para posteriormente ser 
+        teachers nele presentes (Set<TeacherInCourse>) para posteriormente ser
         guardada em CourseRepository.
 
         Foi também atualizada a classe CoursePrinter para serem visualizados os 
-        alergeneos nele presentes, para tal foi criada a classe TeacherUserInCourseWidget
+        teachers nele presentes, para tal foi criada a classe TeacherInCourseWidget
         para a visualização.

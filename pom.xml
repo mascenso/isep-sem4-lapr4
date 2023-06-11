@@ -31,6 +31,7 @@
 		<module>eCourse.app.student.console</module>
 		<module>eCourse.app.common.console</module>
 		<module>eCourse.app.bootstrap</module>
+		<module>eCourse.app.sharedboard.console</module>
 		<module>eCourse.bootstrappers</module>
 		<module>eCourse.core</module>
 		<module>eCourse.persistence.impl</module>
@@ -58,7 +59,8 @@
 		<module>teacher.application</module>
 		<module>systemusers.domain</module>
 
-	</modules>
+
+    </modules>
 
 	<dependencies>
 		<!-- EAPLI framework -->

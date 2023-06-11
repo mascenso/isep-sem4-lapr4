@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class AcceptRejectMeetingUI {
+    + doShow()
+}
+
+class AcceptRejectMeetingsController {
+    + acceptMeetingRequest()
+    + rejectMeetingRequest()
+    + listMeetingsByUser()
+
+}
+
+class ParticipantMeetingService {
+    + getMeetingsByUser()
+}
+
+class MeetingRequestRepository {
+}
+
+class RepositoryFactory {
+}
+
+AcceptRejectMeetingUI -down-> AcceptRejectMeetingsController   : uses the controller
+AcceptRejectMeetingsController --> ParticipantMeetingService  : get the List
+ParticipantMeetingService --> RepositoryFactory
+ParticipantMeetingService --> MeetingRequestRepository         : find Meetings By Username
+
+@enduml

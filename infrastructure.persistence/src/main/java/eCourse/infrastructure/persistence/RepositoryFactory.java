@@ -91,6 +91,7 @@ public interface RepositoryFactory {
     CourseRepository courses();
 
     ExamRepository exams();
+
     QuestionRepository questions();
 
     RecurringLessonRepository recurringLessons();
@@ -101,9 +102,11 @@ public interface RepositoryFactory {
 
     StudentUserRepository studentUsers();
 
-    TeacherUserRepository teacherUsers();
+    TeacherRepository teachers();
 
     NotificationRepository notifications();
 
     SharedBoardUserRepository sharedBoardUser();
+
+    GradesRepository gradesForExam();
 }
