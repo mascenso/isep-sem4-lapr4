@@ -1,4 +1,4 @@
-// Generated from /Users/patricia/Documents/ISEP/2ºano/2ºsemestre/PI/sem4pi-22-23-49/LPROG-module/exams/grammar/ExamSpecification.g4 by ANTLR 4.12.0
+// Generated from /Users/miguelcardoso/Library/CloudStorage/OneDrive-InstitutoSuperiordeEngenhariadoPorto/Licenciatura Engenharia Informatica/2 ano/2 semestre/LAPR4/projeto-v2/sem4pi-22-23-49/LPROG-module/exams/grammar/ExamSpecification.g4 by ANTLR 4.12.0
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -19,8 +19,8 @@ public class ExamSpecificationParser extends Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
-		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, NUM=30, ESC=31, STRING=32, 
-		NONE=33, ONSUBMISSION=34, AFTERCLOSING=35, WS=36, DOUBLE=37;
+		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, NUM=30, DOUBLE=31, ESC=32, 
+		STRING=33, NONE=34, ONSUBMISSION=35, AFTERCLOSING=36, WS=37;
 	public static final int
 		RULE_exam = 0, RULE_header = 1, RULE_feedbackType = 2, RULE_gradeType = 3, 
 		RULE_description = 4, RULE_section = 5, RULE_question = 6, RULE_matchingQuestion = 7, 
@@ -48,8 +48,8 @@ public class ExamSpecificationParser extends Parser {
 			"'Grade:'", "'List One:'", "'List Two:'", "'MultipleChoice:'", "'ShortAnswer:'", 
 			"'Sensitive Case: '", "'True'", "'False'", "'Option '", "'Numerical:'", 
 			"'Acceptance Error = '", "'Select Missing Words:'", "'Number of attempts: '", 
-			"'Missing Word: '", "'TrueFalse:'", "'Feedback:'", "'Option:'", "'Peanlty:'", 
-			null, null, null, "'None'", "'OnSubmission'", "'AfterClosing'"
+			"'Missing Word: '", "'TrueFalse:'", "'Feedback:'", "'Option:'", "'Penalty:'", 
+			null, null, null, null, "'None'", "'OnSubmission'", "'AfterClosing'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -57,8 +57,8 @@ public class ExamSpecificationParser extends Parser {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, "NUM", "ESC", "STRING", "NONE", "ONSUBMISSION", 
-			"AFTERCLOSING", "WS", "DOUBLE"
+			null, null, null, null, null, null, "NUM", "DOUBLE", "ESC", "STRING", 
+			"NONE", "ONSUBMISSION", "AFTERCLOSING", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -297,7 +297,7 @@ public class ExamSpecificationParser extends Parser {
 			match(T__4);
 			setState(74);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 120259084288L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -353,7 +353,7 @@ public class ExamSpecificationParser extends Parser {
 			match(T__5);
 			setState(77);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 60129542144L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 120259084288L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2075,8 +2075,8 @@ public class ExamSpecificationParser extends Parser {
 		"\u0001\u0017\u0001\u0017\u0001\u0018\u0001\u0018\u0001\u0019\u0001\u0019"+
 		"\u0001\u0019\u0001\u0019\u0000\u0000\u001a\u0000\u0002\u0004\u0006\b\n"+
 		"\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02\u0000"+
-		"\u0003\u0001\u0000!#\u0001\u0000\u0012\u0013\u0002\u0000\u001e\u001e "+
-		" \u0129\u00004\u0001\u0000\u0000\u0000\u0002?\u0001\u0000\u0000\u0000"+
+		"\u0003\u0001\u0000\"$\u0001\u0000\u0012\u0013\u0002\u0000\u001e\u001e"+
+		"!!\u0129\u00004\u0001\u0000\u0000\u0000\u0002?\u0001\u0000\u0000\u0000"+
 		"\u0004I\u0001\u0000\u0000\u0000\u0006L\u0001\u0000\u0000\u0000\bO\u0001"+
 		"\u0000\u0000\u0000\nR\u0001\u0000\u0000\u0000\fg\u0001\u0000\u0000\u0000"+
 		"\u000ei\u0001\u0000\u0000\u0000\u0010\u0084\u0001\u0000\u0000\u0000\u0012"+
@@ -2088,18 +2088,18 @@ public class ExamSpecificationParser extends Parser {
 		"\u0000\u0000(\u0109\u0001\u0000\u0000\u0000*\u0115\u0001\u0000\u0000\u0000"+
 		",\u0118\u0001\u0000\u0000\u0000.\u011b\u0001\u0000\u0000\u00000\u011d"+
 		"\u0001\u0000\u0000\u00002\u011f\u0001\u0000\u0000\u000045\u0005\u0001"+
-		"\u0000\u000056\u0005 \u0000\u000067\u0005\u0002\u0000\u000079\u0003\u0002"+
+		"\u0000\u000056\u0005!\u0000\u000067\u0005\u0002\u0000\u000079\u0003\u0002"+
 		"\u0001\u00008:\u0003\n\u0005\u000098\u0001\u0000\u0000\u0000:;\u0001\u0000"+
 		"\u0000\u0000;9\u0001\u0000\u0000\u0000;<\u0001\u0000\u0000\u0000<=\u0001"+
 		"\u0000\u0000\u0000=>\u0005\u0003\u0000\u0000>\u0001\u0001\u0000\u0000"+
-		"\u0000?@\u0005\u0004\u0000\u0000@A\u0005 \u0000\u0000AB\u0005\u0002\u0000"+
+		"\u0000?@\u0005\u0004\u0000\u0000@A\u0005!\u0000\u0000AB\u0005\u0002\u0000"+
 		"\u0000BC\u0003\u0004\u0002\u0000CE\u0003\u0006\u0003\u0000DF\u0003\b\u0004"+
 		"\u0000ED\u0001\u0000\u0000\u0000EF\u0001\u0000\u0000\u0000FG\u0001\u0000"+
 		"\u0000\u0000GH\u0005\u0003\u0000\u0000H\u0003\u0001\u0000\u0000\u0000"+
 		"IJ\u0005\u0005\u0000\u0000JK\u0007\u0000\u0000\u0000K\u0005\u0001\u0000"+
 		"\u0000\u0000LM\u0005\u0006\u0000\u0000MN\u0007\u0000\u0000\u0000N\u0007"+
-		"\u0001\u0000\u0000\u0000OP\u0005\u0007\u0000\u0000PQ\u0005 \u0000\u0000"+
-		"Q\t\u0001\u0000\u0000\u0000RS\u0005\b\u0000\u0000ST\u0005 \u0000\u0000"+
+		"\u0001\u0000\u0000\u0000OP\u0005\u0007\u0000\u0000PQ\u0005!\u0000\u0000"+
+		"Q\t\u0001\u0000\u0000\u0000RS\u0005\b\u0000\u0000ST\u0005!\u0000\u0000"+
 		"TV\u0005\u0002\u0000\u0000UW\u0003\b\u0004\u0000VU\u0001\u0000\u0000\u0000"+
 		"VW\u0001\u0000\u0000\u0000WX\u0001\u0000\u0000\u0000XZ\u0005\t\u0000\u0000"+
 		"Y[\u0003\f\u0006\u0000ZY\u0001\u0000\u0000\u0000[\\\u0001\u0000\u0000"+
@@ -2128,7 +2128,7 @@ public class ExamSpecificationParser extends Parser {
 		"\u0005\u000e\u0000\u0000\u008b\u008d\u0003\u0014\n\u0000\u008c\u008b\u0001"+
 		"\u0000\u0000\u0000\u008d\u008e\u0001\u0000\u0000\u0000\u008e\u008c\u0001"+
 		"\u0000\u0000\u0000\u008e\u008f\u0001\u0000\u0000\u0000\u008f\u0013\u0001"+
-		"\u0000\u0000\u0000\u0090\u0091\u0005 \u0000\u0000\u0091\u0015\u0001\u0000"+
+		"\u0000\u0000\u0000\u0090\u0091\u0005!\u0000\u0000\u0091\u0015\u0001\u0000"+
 		"\u0000\u0000\u0092\u0093\u0005\u000f\u0000\u0000\u0093\u0094\u0003\u0014"+
 		"\n\u0000\u0094\u0096\u0005\u0002\u0000\u0000\u0095\u0097\u0003,\u0016"+
 		"\u0000\u0096\u0095\u0001\u0000\u0000\u0000\u0097\u0098\u0001\u0000\u0000"+
@@ -2194,21 +2194,21 @@ public class ExamSpecificationParser extends Parser {
 		"\u0000\u0000\u0102\u0103\u0001\u0000\u0000\u0000\u0103\u0101\u0001\u0000"+
 		"\u0000\u0000\u0103\u0104\u0001\u0000\u0000\u0000\u0104\u0105\u0001\u0000"+
 		"\u0000\u0000\u0105\u0106\u0005\u0003\u0000\u0000\u0106%\u0001\u0000\u0000"+
-		"\u0000\u0107\u0108\u0005 \u0000\u0000\u0108\'\u0001\u0000\u0000\u0000"+
+		"\u0000\u0107\u0108\u0005!\u0000\u0000\u0108\'\u0001\u0000\u0000\u0000"+
 		"\u0109\u010a\u0005\u001a\u0000\u0000\u010a\u010b\u0003\u0014\n\u0000\u010b"+
 		"\u010c\u0005\u0002\u0000\u0000\u010c\u010d\u0005\u000b\u0000\u0000\u010d"+
 		"\u010f\u0007\u0001\u0000\u0000\u010e\u0110\u0003*\u0015\u0000\u010f\u010e"+
 		"\u0001\u0000\u0000\u0000\u010f\u0110\u0001\u0000\u0000\u0000\u0110\u0111"+
 		"\u0001\u0000\u0000\u0000\u0111\u0112\u0005\f\u0000\u0000\u0112\u0113\u0003"+
 		".\u0017\u0000\u0113\u0114\u0005\u0003\u0000\u0000\u0114)\u0001\u0000\u0000"+
-		"\u0000\u0115\u0116\u0005\u001b\u0000\u0000\u0116\u0117\u0005 \u0000\u0000"+
+		"\u0000\u0115\u0116\u0005\u001b\u0000\u0000\u0116\u0117\u0005!\u0000\u0000"+
 		"\u0117+\u0001\u0000\u0000\u0000\u0118\u0119\u0005\u001c\u0000\u0000\u0119"+
-		"\u011a\u0005 \u0000\u0000\u011a-\u0001\u0000\u0000\u0000\u011b\u011c\u0005"+
+		"\u011a\u0005!\u0000\u0000\u011a-\u0001\u0000\u0000\u0000\u011b\u011c\u0005"+
 		"\u001e\u0000\u0000\u011c/\u0001\u0000\u0000\u0000\u011d\u011e\u0007\u0002"+
 		"\u0000\u0000\u011e1\u0001\u0000\u0000\u0000\u011f\u0120\u0005\u001d\u0000"+
-		"\u0000\u0120\u0121\u0005%\u0000\u0000\u01213\u0001\u0000\u0000\u0000\u001d"+
-		";EV\\gotz\u0080\u0088\u008e\u0098\u009e\u00a1\u00a7\u00b1\u00b5\u00bb"+
-		"\u00c1\u00cf\u00e0\u00e6\u00e9\u00ee\u00f4\u00fb\u00fd\u0103\u010f";
+		"\u0000\u0120\u0121\u0005\u001f\u0000\u0000\u01213\u0001\u0000\u0000\u0000"+
+		"\u001d;EV\\gotz\u0080\u0088\u008e\u0098\u009e\u00a1\u00a7\u00b1\u00b5"+
+		"\u00bb\u00c1\u00cf\u00e0\u00e6\u00e9\u00ee\u00f4\u00fb\u00fd\u0103\u010f";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

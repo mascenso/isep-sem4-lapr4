@@ -1,10 +1,8 @@
 package eCourse.lesson.application;
 
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.lesson.application.ListRecurringLessonsService;
 import eCourse.lesson.domain.model.RecurringLesson;
 
-import java.time.Duration;
 import java.util.Calendar;
 
 public class UpdateScheduleRecurringLessonsController {
@@ -12,7 +10,6 @@ public class UpdateScheduleRecurringLessonsController {
     private ListRecurringLessonsService service = new ListRecurringLessonsService();
 
     public Iterable<RecurringLesson> allRecurringLessons() {
-
         return service.allRecurringLessons();
     }
 

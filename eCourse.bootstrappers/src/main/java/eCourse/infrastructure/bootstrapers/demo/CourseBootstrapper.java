@@ -1,10 +1,13 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
+import eCourse.domain.Teacher;
+import eCourse.TeacherService;
+import eCourse.course.application.ListCoursesService;
+import eCourse.course.application.SetTeachersOfCourseController;
 import eCourse.course.application.UpdateCourseStateController;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.teacherusermanagement.application.AddTeacherUserController;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
@@ -12,17 +15,19 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.time.util.CurrentTimeCalendars;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class CourseBootstrapper implements Action {
 
     UpdateCourseStateController updateCourseStateController = new UpdateCourseStateController();
-    private final AddTeacherUserController addTeacherUserController = new AddTeacherUserController();
+    SetTeachersOfCourseController setTeachersOfCourseController = new SetTeachersOfCourseController();
+    ListCoursesService listCoursesService = new ListCoursesService();
+    TeacherService teacherService = new TeacherService();
+
+
     private final UserManagementService userManagementService = AuthzRegistry.userService();
     @Override
     public boolean execute() {
@@ -35,6 +40,14 @@ public class CourseBootstrapper implements Action {
         updateCourseStateController.updateCourseState("Inteligencia Artificial", "Open");
         //updateCourseStateController.updateCourseState("LPROG", "Open");
        // updateCourseStateController.updateCourseState("RCOMP", "Open");
+
+        Optional<Course> c = listCoursesService.findCourseByDesignation(Designation.valueOf("Informatica"));
+        Optional<Teacher> t = teacherService.findTeacherByAcronym(Acronym.valueOf("abc"));
+        Set<Teacher> teachers = new HashSet<>();
+        teachers.add(t.get());
+
+        setTeachersOfCourseController.addTeachersToCourse(c.get(), teachers);
+
         return true;
     }
 

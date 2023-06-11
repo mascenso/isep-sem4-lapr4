@@ -20,12 +20,12 @@
  */
 package eCourse.app.backoffice.console.presentation.clientuser;
 
+import eCourse.AcceptRefuseSignupFactory;
+import eCourse.AcceptRefuseSignupRequestController;
+import eCourse.domain.SignupRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eCourse.studentusermanagement.application.AcceptRefuseSignupFactory;
-import eCourse.studentusermanagement.application.AcceptRefuseSignupRequestController;
-import eCourse.studentusermanagement.domain.SignupRequest;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;

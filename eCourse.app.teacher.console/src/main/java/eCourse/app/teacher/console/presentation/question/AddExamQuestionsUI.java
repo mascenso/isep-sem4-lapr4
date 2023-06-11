@@ -9,6 +9,7 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,13 +28,16 @@ public class AddExamQuestionsUI extends AbstractUI {
 
         final Course selectedCourse = listOfCourses.get(selectedOption - 1);
 
+        //o tipo de questao deve ser lida diretamente do exam
+
         Map<Integer, QuestionType> listOfQuestionTypes = theController.getAllQuestionTypes();
         showExistingTypes(listOfQuestionTypes, "Select the question type:");
         int option = Console.readOption(1, listOfQuestionTypes.size(), 0);
 
-        String description = Console.readNonEmptyLine("Insert a  description: ", "The description cannot be empty!");
+        String description = Console.readNonEmptyLine("Insert a description: ", "The description cannot be empty!");
 
         final String questionPath = Console.readNonEmptyLine("Insert the Question's path file : ", "The path cannot be empty!");
+
         File questionFile = new File(questionPath);
 
         try {

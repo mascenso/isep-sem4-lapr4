@@ -68,7 +68,7 @@ public class MeetingBuilder implements DomainFactory<Meeting> {
         if (theMeeting != null) {
             return theMeeting;
         }
-        if (name != null && duration >0 && schedule != null && participants!= null && meetingStatus != null && meetingTimeStamp !=null && this.meetingCreator !=null) {
+        if (name != null && duration >0 && schedule != null && participants!= null && meetingStatus != null && meetingTimeStamp !=null) {
 
             theMeeting = new Meeting(name,schedule,participants,duration,meetingCreator);
 

@@ -27,22 +27,24 @@ import eCourse.app.backoffice.console.presentation.authz.AddUserUI;
 import eCourse.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import eCourse.app.backoffice.console.presentation.authz.ListUsersAction;
 import eCourse.app.backoffice.console.presentation.clientuser.AcceptRefuseSignupRequestAction;
-import eCourse.app.backoffice.console.presentation.courses.CourseEnrollmentRequestUI;
 import eCourse.app.backoffice.console.presentation.courses.CreateCourseUI;
 import eCourse.app.backoffice.console.presentation.courses.ListCoursesUI;
+import eCourse.app.backoffice.console.presentation.courses.SetTeachersOfCourseUI;
 import eCourse.app.backoffice.console.presentation.courses.UpdateCourseStateUI;
 import eCourse.app.backoffice.console.presentation.meetings.AcceptRejectMeetingUI;
 import eCourse.app.backoffice.console.presentation.meetings.CancelMeetingUI;
 import eCourse.app.backoffice.console.presentation.meetings.ListMeetingsUI;
 import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
+import eCourse.app.backoffice.console.presentation.sharedboard.NotificationUI;
+import eCourse.app.backoffice.console.presentation.sharedboard.ShareABoardUI;
 import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eCourse.app.backoffice.console.presentation.students.AddStudentUI;
 import eCourse.app.backoffice.console.presentation.students.EnrollStudentsUI;
 import eCourse.app.backoffice.console.presentation.teachers.AddTeacherUI;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -103,6 +105,7 @@ public class MainMenu extends AbstractUI {
     private static final int COURSE_ENROLLMENT_OPTION = 2;
 
     private static final int REQUEST_COURSE_ENROLLMENT_OPTION = 1;
+    private static final int SET_TEACHERS_OF_COURSE = 5;
 
 
     private static final String SEPARATOR_LABEL = "--------------";
@@ -111,7 +114,10 @@ public class MainMenu extends AbstractUI {
 
     //SHAREDBOARD
     private static final int CREATE_BOARD_OPTION = 1;
-    private static final int LIST_BOARDS_OPTION = 3;
+    private static final int LIST_BOARDS_OPTION = 2;
+    private static final int SHARE_A_BOARD=3;
+    private static final int BOARD_NOTIFICATION=4;
+
 
 
     //MEETING
@@ -253,6 +259,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_ALL_COURSES,"List all Courses", new ListCoursesUI()::show);
         menu.addItem(ADD_NEW_COURSE, "Add new Course", new CreateCourseUI()::show);
         menu.addItem(UPDATE_COURSE_STATE, "Update Course State", new UpdateCourseStateUI()::show);
+        menu.addItem(SET_TEACHERS_OF_COURSE, "Set Teachers of Course", new SetTeachersOfCourseUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }
@@ -272,6 +279,8 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
         menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
+        menu.addItem(SHARE_A_BOARD, "Share a Board", new ShareABoardUI()::show);
+        menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
@@ -280,7 +289,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildEnrollmentMenu() {
         final Menu menu = new Menu("Enrollments >");
 
-        menu.addItem(ENROLLMENT_CSV, "Entrollment from csv file", new EnrollStudentsUI()::show);
+        menu.addItem(ENROLLMENT_CSV, "Enrollment from csv file", new EnrollStudentsUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

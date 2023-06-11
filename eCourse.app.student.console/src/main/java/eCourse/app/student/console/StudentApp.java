@@ -21,12 +21,9 @@
 package eCourse.app.student.console;
 
 import eCourse.app.common.console.BaseApplication;
-import eCourse.app.common.console.presentation.authz.LoginAction;
 import eCourse.app.student.console.presentation.FrontMenu;
-import eCourse.app.student.console.presentation.MainMenu;
+import eCourse.domain.ECoursePasswordPolicy;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.ECoursePasswordPolicy;
-import eCourse.usermanagement.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;

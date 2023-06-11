@@ -4,9 +4,6 @@ import eCourse.course.application.BulkCsvValidateResult;
 import eCourse.course.application.EnrollStudentController;
 import eCourse.course.application.UpdateCourseStateController;
 import eCourse.domain.Course;
-import eCourse.domain.CourseState;
-import eCourse.usermanagement.domain.BaseCourseStates;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 

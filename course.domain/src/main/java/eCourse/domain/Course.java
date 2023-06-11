@@ -34,6 +34,12 @@ public class Course implements AggregateRoot<Designation> {
     @ManyToOne
     private SystemUser teacherCoordinator;
 
+    /**
+     * Teachers in a course.
+     */
+    @ElementCollection(fetch = FetchType.EAGER)
+    private final Set<TeachersInCourse> teachers = new HashSet<>();
+
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "Course_Student",
@@ -113,4 +119,22 @@ public class Course implements AggregateRoot<Designation> {
         return this.students.addAll(students);
     }
 
+    /**
+     *
+     * @param teacher
+     * @return
+     */
+    public boolean addTeacher(Teacher teacher) {
+        return this.teachers.add(new TeachersInCourse(teacher));
+    }
+
+    public Set<TeachersInCourse> teachers() {
+        return teachers;
+    }
+
+    public void addTeachers(Set<Teacher> teachersOfCourse) {
+        for (Teacher teacher : teachersOfCourse) {
+            this.teachers.add(new TeachersInCourse(teacher));
+        }
+    }
 }
