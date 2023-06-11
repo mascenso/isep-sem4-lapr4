@@ -21,10 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.app.teacher.console.presentation;
+package eCourse.app.sharedboard.console.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.LoginUI;
-import eCourse.app.user.console.presentation.myuser.SignupRequestAction;
 import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.ChainedAction;
 import eapli.framework.actions.menu.Menu;
@@ -41,7 +40,6 @@ public class FrontMenu extends AbstractUI {
 
     private static final int EXIT_OPTION = 0;
     private static final int LOGIN_OPTION = 1;
-    private static final int SIGNUP_OPTION = 2;
 
     @Override
     public boolean show() {
@@ -56,12 +54,11 @@ public class FrontMenu extends AbstractUI {
     public boolean doShow() {
         final Menu menu = new Menu();
         menu.addItem(LOGIN_OPTION, "Login", new ChainedAction(new LoginUI(
-                ECourseRoles.TEACHER)::show, () -> {
+                )::show, () -> {
             new MainMenu().mainLoop();
             return true;
         }));
         //TODO: instead of leaving the app, return to the main menu again
-        menu.addItem(SIGNUP_OPTION, "Sign up", new SignupRequestAction());
         menu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         final MenuRenderer renderer = new VerticalMenuRenderer(menu, MenuItemRenderer.DEFAULT);

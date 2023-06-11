@@ -1,5 +1,6 @@
 package eCourse.app.student.console.presentation.Exams;
 
+import eCourse.app.common.console.ExamPrinter;
 import eCourse.domain.Exam;
 import eCourse.domain.SharedBoard;
 import eCourse.exam.application.ListExamsController;

@@ -1,4 +1,4 @@
-package eCourse.app.student.console.presentation.Exams;
+package eCourse.app.common.console;
 
 import eCourse.domain.Exam;
 import eCourse.domain.GradeOfExam;
