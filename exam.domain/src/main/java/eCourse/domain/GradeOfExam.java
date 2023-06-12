@@ -42,4 +42,14 @@ public class GradeOfExam implements AggregateRoot<Long> {
     public Long identity() {
         return idGrade;
     }
+
+    public float getGrade() {
+        return grade;
+    }
+
+    public SystemUser getStudent() {
+        return student;
+    }
+
+
 }
