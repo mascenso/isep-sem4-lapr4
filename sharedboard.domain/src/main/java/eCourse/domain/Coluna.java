@@ -2,7 +2,7 @@ package eCourse.domain;
 
 import javax.persistence.*;
 
-@Entity
+@Embeddable
 public class Coluna {
     private static final long serialVersionUID = 1L;
 

@@ -14,6 +14,7 @@ public class AbstractBoardShareEvent extends DomainEventBase implements DomainEv
     @ManyToOne
     private SharedBoardUser what;
 
+
     protected AbstractBoardShareEvent() {
         // for ORM
         what = null;
@@ -22,7 +23,6 @@ public class AbstractBoardShareEvent extends DomainEventBase implements DomainEv
     protected AbstractBoardShareEvent(final SharedBoardUser what) {
         this.what = what;
     }
-
 
     public SharedBoardUser what() {
         return what;
