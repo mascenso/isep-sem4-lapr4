@@ -20,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  *  The controller for the use case "Schedule a Class" using the domain objects.
@@ -38,25 +36,23 @@ public class CreateExtraLessonController {
     private RecurringLessonRepository recurringLessonRepository;
     private ListRecurringLessonsService service = new ListRecurringLessonsService();
 
-    public Iterable<RecurringLesson> allRecurringLessons() {
-        return service.allRecurringLessons();
+    public Set<RecurringLesson> allRecurringLessons() {
+        return service.allRecurringLessonsId();
     }
 
     public Teacher getCurrentTeacher() {
         Username username = authz.session().get().authenticatedUser().username();
 
-        Teacher teacher = authz.session()
+        return authz.session()
                 .map(UserSession::authenticatedUser)
                 .flatMap(systemUser -> teacherRepository.findByUsername(username))
                 .orElse(null);
-
-        return teacher;
     }
 
-    public Set<Course> getTeacherCourses() {
+    public Iterable<Course> getTeacherCourses() {
         Teacher teacher = getCurrentTeacher();
-        Set<Course> courses = courseRepository.findByTeacher(teacher);
-        if (courses.isEmpty()) {
+        Iterable<Course> courses = courseRepository.findByTeacher(teacher);
+        if (!courses.iterator().hasNext()){
             throw new IllegalStateException("No courses found for the teacher");
         }
         return courses;
@@ -90,7 +86,6 @@ public class CreateExtraLessonController {
                 throw new IllegalStateException("Invalid recurring lesson");
             }
             //return recurringLessonRepository.save(newRecurringLesson);
-
         }
 
     }
