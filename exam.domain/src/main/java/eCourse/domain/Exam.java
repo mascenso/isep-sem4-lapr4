@@ -5,19 +5,27 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.validations.Preconditions;
 import javax.persistence.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Exam implements AggregateRoot<ExamTitle> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
     private Course course;
+
+    @OneToMany(mappedBy = "exam")
+    private Set<GradeOfExam> examGrades;
+
+    @ManyToOne
+    private Teacher teacher;
+
+    public Set<GradeOfExam> getExamGrades() {
+        return examGrades;
+    }
 
     @Column(unique = true)
     private ExamTitle title;
@@ -32,10 +40,11 @@ public class Exam implements AggregateRoot<ExamTitle> {
     @Column(nullable = false)
     private Date closeDate;
 
-    protected Exam(final ExamTitle examTitle ,final Course course, final Date openDate, final Date endDate,  final File examFile ) {
+    protected Exam(final ExamTitle examTitle ,final Course course, final Teacher teacher, final Date openDate, final Date endDate,  final File examFile ) {
         Preconditions.noneNull(examTitle, course, openDate, endDate, examFile);
         this.title =examTitle;
         this.course = course;
+        this.teacher = teacher;
         this.openDate=openDate;
         this.closeDate=endDate;
         this.file=examFile;
@@ -53,6 +62,7 @@ public class Exam implements AggregateRoot<ExamTitle> {
         return course;
     }
 
+
     public ExamTitle getExamTitle() {
         return title;
     }
@@ -69,11 +79,18 @@ public class Exam implements AggregateRoot<ExamTitle> {
         return file;
     }
 
+    public Teacher getTeacher() { return teacher; }
+
     public Exam updateExam(Date open, Date close, File file){
         this.closeDate=close;
         this.openDate=open;
         this.file=file;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return  ""+title;
     }
 
     @Override

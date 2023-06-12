@@ -8,16 +8,19 @@ import java.util.Date;
 public class ExamBuilder implements DomainFactory<Exam> {
     private Exam theExam;
     private Course theCourse;
-
+    private Teacher theTeacher;
     private ExamTitle examTitle;
-
     private Date openDate;
     private Date closeDate;
-
     private File file;
 
     public ExamBuilder theCourse(final Course course) {
         this.theCourse = course;
+        return this;
+    }
+
+    public ExamBuilder theTeacher(final Teacher teacher) {
+        this.theTeacher = teacher;
         return this;
     }
 
@@ -49,8 +52,8 @@ public class ExamBuilder implements DomainFactory<Exam> {
             return theExam;
         }
 
-        if (examTitle != null && theCourse != null && openDate != null && closeDate != null && file != null) {
-            theExam = new Exam(examTitle, theCourse, openDate, closeDate, file);
+        if (examTitle != null && theCourse != null && theTeacher != null && openDate != null && closeDate != null && file != null) {
+            theExam = new Exam(examTitle, theCourse, theTeacher, openDate, closeDate, file);
             return theExam;
         }
         throw new IllegalStateException();

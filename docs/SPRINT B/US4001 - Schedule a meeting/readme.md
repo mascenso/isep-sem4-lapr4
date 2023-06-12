@@ -1,66 +1,102 @@
 # US4001 As User, I want to schedule a meeting.
 
-*This is an example template*
 
 ## 1. Context
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+*In the application it is necessary to have a way to schedule meetings between several users and this US solves that problem. There can't be meetings about posts but several users can be in the same meeting.
+The same user cannot be in meetings that happen at the same time.*
 
 ## 2. Requirements
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies).*
-
+• FRM01 - Schedule a Meeting A user schedules a meeting. The system must check if
+all participants are available and send invitations to participants.
 
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+**input Data:**
+* Typed Data:
+    * name
+    * participants
+    * date
+    * hour
+    * duration
 
+**Output Data:**
+* Meeting is save on repository
 ## 4. Design
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
+## Class diagram
+![a class diagram](cd-4001.png "A Class Diagram")
+## Use case diagram
+![use case diagram](uc-4001.png "A Use Case Diagram")
+## Sequence diagram
+![use case diagram](sd-4001.png "A sequence Diagram")
+## System sequence diagram
+![use case diagram](ssd-4001.png "A system sequence Diagram")
+
+*Rational*
+
+| Interaction ID | Question: Which class is responsible for... | Answer                                         | Justification (with patterns)                                                                              |
+|:---------------|:--------------------------------------------|:-----------------------------------------------|:-----------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?             | ScheduleMeetingUI                              | UI layer interacts with the user, following the UI pattern.                                                |
+|                | ... coordinating the US?                    | ScheduleMeetingController                      | Controller handles the use case, following the Application pattern.                                        |
+| Step 2         | get participants to show                    | ScheduleMeetingController/ userRepository      |                                                                                                            |
+| Step 3         | show course participants for user           | ScheduleMeetingUI                              |                                                                                                            |
+| Step 4         | Create Meeting?                             | MeetingBuilder                                 | Domain service or factory responsible for creating a Meeting in the domain.                                |
+| Step 5         | Saving the Meeting                          | ScheduleMeetingController / PersistenceContext | Controller collaborates with the PersistenceContext to persist the Meeting.                                |
+| Step 6         | show meeting information for user           | ScheduleMeetingUI                              | UI layer displays the course information to the user.                                                      |
 
 ### 4.1. Realization
 
-### 4.2. Class Diagram
-
-![a class diagram](class-diagram-01.svg "A Class Diagram")
-
 ### 4.3. Applied Patterns
 
+*UI Pattern*
+*Application patters (controller)*
+*Domain Service*
+*Factory*
+*Persistence patterns*
+
 ### 4.4. Tests
-
-**Test 1:** *Verifies that it is not possible to create a meeting if the time is not compatible with that of the participants*
-
-**Test 2:** *Verifies that it is not possible to create a meeting without a time.*
-
-**Test 3:** *Verifies that it is not possible to create a meeting without duration.*
-
-**Test 4:** *Verifies that the meeting always starts with the marked status.*
+**testIfDesignationIsCorrect:** *Checks if designation is correct.*
 
 ```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
+    @Test
+    public void testIfDesignationIsCorrect() {
+        assertEquals(name1, Meeting1.designation().toString());
+        assertEquals(name2, Meeting2.designation().toString());
+    }
+````
+**testIfScheduleIsCorrect:** *Checks if schedule is correct.*
+
+```
+    @Test
+    public void testIfScheduleIsCorrect() {
+        assertEquals(new Date(date1), Meeting1.dateOfMeeting());
+        assertEquals(new Date(date2), Meeting2.dateOfMeeting());
+        assertEquals(new Date(date3), Meeting3.dateOfMeeting());
+    }
+````
+**testIFMeetingIsEqualToAnotherMeeting:** *Checks if meeting is equal to another.*
+
+```
+    @Test
+    public void testIFMeetingIsEqualToAnotherMeeting() {
+        assertFalse(Meeting1.sameAs(Meeting2));
+        assertFalse(Meeting2.sameAs(Meeting3));
+        assertTrue(Meeting1.sameAs(Meeting3));
+    }
 ````
 
 ## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
 
 ## 6. Integration/Demonstration
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
 
 ## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
+*This US is implemented in a way that validates if users have other meetings at the same time but does not validate if they have classes at the time of the meeting, it is a point to be improved in the next sprint.*
 
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
-
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*

@@ -22,9 +22,10 @@ package eCourse.persistence.impl.inmemory;
 
 import java.util.Optional;
 
-import eCourse.clientusermanagement.domain.ClientUser;
-import eCourse.clientusermanagement.domain.MecanographicNumber;
-import eCourse.clientusermanagement.repositories.ClientUserRepository;
+
+import eCourse.domain.MecanographicNumber;
+import eCourse.domain.Student;
+import eCourse.repositories.StudentUserRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
@@ -33,25 +34,30 @@ import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainR
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 public class InMemoryClientUserRepository
-        extends InMemoryDomainRepository<ClientUser, MecanographicNumber>
-        implements ClientUserRepository {
+        extends InMemoryDomainRepository<Student, MecanographicNumber>
+        implements StudentUserRepository {
 
     static {
         InMemoryInitializer.init();
     }
 
     @Override
-    public Optional<ClientUser> findByUsername(final Username name) {
+    public Optional<Student> findByUsername(final Username name) {
         return matchOne(e -> e.user().username().equals(name));
     }
 
     @Override
-    public Optional<ClientUser> findByMecanographicNumber(final MecanographicNumber number) {
+    public Optional<Student> findByMecanographicNumber(final MecanographicNumber number) {
         return Optional.of(data().get(number));
     }
 
     @Override
-    public Iterable<ClientUser> findAllActive() {
+    public Iterable<Student> findAllActive() {
         return match(e -> e.user().isActive());
+    }
+
+    @Override
+    public Optional<Student> findMaxMecNumber() {
+            throw new UnsupportedOperationException("To be implemented");
     }
 }

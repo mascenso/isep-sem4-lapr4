@@ -1,0 +1,33 @@
+@startuml
+actor Teacher as Actor
+participant CreateAutomaticExameUI as UI <<presentation>>
+participant CreateAutomaticExameController as Controller <<aplication>>
+participant QuestionType as Enum <<Enum>>
+participant FindQuestionsForAutomaticExamService as Servide <<service>>
+participant AutomaticExam as Domain <<domain>>
+database AutomaticExamRepository as Repository1 <<repository>>
+database QuestionRepository as Repository2 <<repository>>
+
+Actor -> UI:Doshow()
+UI -> Controller: typeQuestion()
+Controller-> Enum: typesQuestions()
+Enum --> Controller
+Controller --> UI
+UI -> UI:ShowListofQuestionTypes
+UI --> Actor:Ask teacher to select type
+Actor -> UI:Type selected
+UI --> Actor: Ask number of Questions
+Actor-> UI: Write number
+UI -> Controller: CreateAutomaticExame(type, question)
+Controller -> Repository2: findByQuestionType(Questiontype)
+Repository2 --> Controller: List<Questions>
+note right : Return all questions of type on format List <questions>
+Controller -> Servide: listQuestionsForExam(List<Question>, numberOfQuestions)
+Servide --> Controller: List<Question>
+note right : Return List<questions> with number of questions passed\n by parameter
+Controller -> Domain: CreateAutomaticExame(type, quantity, questions)
+Domain --> Controller: AutomaticExam
+Controller -> Repository1: save(AutomaticExam)
+Controller --> UI:AutomaticExam
+UI --> Actor: Show AutomaticExam
+@enduml

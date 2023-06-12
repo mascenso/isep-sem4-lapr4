@@ -21,8 +21,8 @@
 package eCourse.persistence.impl.jpa;
 
 import eCourse.Application;
-import eCourse.clientusermanagement.domain.SignupRequest;
-import eCourse.clientusermanagement.repositories.SignupRequestRepository;
+import eCourse.domain.SignupRequest;
+import eCourse.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
@@ -45,7 +45,7 @@ class JpaSignupRequestRepository extends JpaAutoTxRepository<SignupRequest, User
     @Override
     public Iterable<SignupRequest> pendingSignupRequests() {
         return match(
-                "e.approvalStatus=eCourse.clientusermanagement.domain"
+                "e.approvalStatus=eCourse.studentusermanagement.domain"
                         + ".ApprovalStatus.PENDING");
     }
 }

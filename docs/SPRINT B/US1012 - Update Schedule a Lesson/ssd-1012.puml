@@ -1,0 +1,24 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Teacher
+activate Teacher
+
+Teacher -> System: Asks to update recurrent lesson
+System --> Teacher: Show all lessons on system
+Teacher -> System: Choose a reccurrent lesson to update
+System --> Teacher: Show the startDate of lesson and ask for a new
+Teacher -> System: insert new startDate
+System --> Teacher: Show the endDate of lesson and ask for a new
+Teacher -> System: insert new endDate
+
+System --> Teacher: Show the duration of lesson and ask for a new
+Teacher -> System: Insert new duration
+System --> Teacher: Recurrent lesson has been updated
+
+
+deactivate Teacher
+
+@enduml

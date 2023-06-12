@@ -21,15 +21,15 @@
 package eCourse.app.bootstrap;
 
 import eCourse.app.common.console.BaseApplication;
-import eCourse.clientusermanagement.application.eventhandlers.NewUserRegisteredFromSignupWatchDog;
-import eCourse.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import eCourse.clientusermanagement.domain.events.SignupAcceptedEvent;
+import eCourse.domain.ECoursePasswordPolicy;
+import eCourse.domain.events.NewUserRegisteredFromSignupEvent;
+import eCourse.domain.events.SignupAcceptedEvent;
+import eCourse.eventhandlers.NewUserRegisteredFromSignupWatchDog;
 import eCourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eCourse.infrastructure.bootstrapers.demo.BaseDemoBootstrapper;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.smoketests.BaseDemoSmokeTester;
 import eCourse.usermanagement.application.eventhandlers.SignupAcceptedWatchDog;
-import eCourse.usermanagement.domain.ECoursePasswordPolicy;
 import eapli.framework.collections.util.ArrayPredicates;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
@@ -66,7 +66,8 @@ public final class BaseBootstrap extends BaseApplication {
 		System.out.println("\n\n------- MASTER DATA -------");
 		new BaseBootstrapper().execute();
 
-		if (isToBootstrapDemoData) {
+		//if (isToBootstrapDemoData) //FIXME: Comentado p correr plo play IntelliJ
+		{
 			System.out.println("\n\n------- DEMO DATA -------");
 			new BaseDemoBootstrapper().execute();
 		}

@@ -24,8 +24,7 @@
 package eCourse.app.student.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.LoginUI;
-import eCourse.app.user.console.presentation.myuser.SignupRequestAction;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.ChainedAction;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.presentation.console.AbstractUI;
@@ -42,7 +41,6 @@ public class FrontMenu extends AbstractUI {
     private static final int EXIT_OPTION = 0;
 
     private static final int LOGIN_OPTION = 1;
-    private static final int SIGNUP_OPTION = 2;
 
     @Override
     public boolean show() {
@@ -62,7 +60,6 @@ public class FrontMenu extends AbstractUI {
             return true;
         }));
         //TODO: instead of leaving the app, return to the main menu again
-        menu.addItem(SIGNUP_OPTION, "Sign up", new SignupRequestAction());
         menu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         final MenuRenderer renderer = new VerticalMenuRenderer(menu, MenuItemRenderer.DEFAULT);

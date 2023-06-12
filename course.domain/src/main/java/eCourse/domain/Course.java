@@ -4,15 +4,19 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Course implements AggregateRoot<Designation> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCourse;
 
     @Embedded
@@ -27,13 +31,31 @@ public class Course implements AggregateRoot<Designation> {
     @Embedded
     private CourseState state;
 
-    protected Course (final Designation name, final Description description, final CourseEdition edition){
+    @ManyToOne
+    private SystemUser teacherCoordinator;
+
+    /**
+     * Teachers in a course.
+     */
+    @ElementCollection(fetch = FetchType.EAGER)
+    private final Set<TeachersInCourse> teachers = new HashSet<>();
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "Course_Student",
+            joinColumns = {@JoinColumn(name = "IDCOURSE")},
+            inverseJoinColumns = {@JoinColumn(name = "NUMBER")}
+    )
+    Set<Student> students = new HashSet<>();
+
+    protected Course (final Designation name, final Description description, final CourseEdition edition, SystemUser teacherCordinator){
         Preconditions.noneNull(name,description,edition);
 
         this.name = name;
         this.edition = edition;
         this.state= new CourseState("Close");
         this.description = description;
+        this.teacherCoordinator = teacherCordinator;
     }
 
     protected Course(){
@@ -47,6 +69,8 @@ public class Course implements AggregateRoot<Designation> {
     public CourseState state (){return state;}
 
     public CourseEdition edition (){return edition;}
+
+    public String cordinator (){return teacherCoordinator.name().toString();}
 
     public CourseState updateState(CourseState newState) {
         if (!this.state.equals(newState)) {
@@ -78,6 +102,7 @@ public class Course implements AggregateRoot<Designation> {
         return name;
     }
 
+
     public CourseState getCourseState() {
         return state;
     }
@@ -86,5 +111,30 @@ public class Course implements AggregateRoot<Designation> {
         return DomainEntities.areEqual(this, o);
     }
 
+    public boolean addStudent(Student student) {
+        return this.students.add(student);
+    }
 
+    public boolean addAllStudent(List<Student> students) {
+        return this.students.addAll(students);
+    }
+
+    /**
+     *
+     * @param teacher
+     * @return
+     */
+    public boolean addTeacher(Teacher teacher) {
+        return this.teachers.add(new TeachersInCourse(teacher));
+    }
+
+    public Set<TeachersInCourse> teachers() {
+        return teachers;
+    }
+
+    public void addTeachers(Set<Teacher> teachersOfCourse) {
+        for (Teacher teacher : teachersOfCourse) {
+            this.teachers.add(new TeachersInCourse(teacher));
+        }
+    }
 }

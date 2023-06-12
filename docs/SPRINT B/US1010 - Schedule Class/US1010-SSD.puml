@@ -1,0 +1,29 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Teacher
+activate Teacher
+
+
+Teacher -> System: Asks to create a Recurring Lesson
+System --> Teacher: Ask for title of Recurring Lesson
+Teacher -> System: Insert title
+System --> Teacher: Asks start date of the Recurring Lesson
+Teacher -> System: Insert start Date of the Recurring Lesson
+System --> Teacher: Asks the end date of the Recurring Lesson
+Teacher -> System: Insert the end date
+System --> Teacher: Asks the start Time
+Teacher -> System: Inserts the start Time
+System --> Teacher: Asks the Duration of the Recurring Lesson
+Teacher -> System: Inserts the duration
+System --> Teacher: Asks the frequency of the Recurring Lesson
+Teacher -> System: Inserts the frequency
+
+System --> Teacher: Saves Recurring Lesson
+
+
+deactivate Teacher
+
+@enduml

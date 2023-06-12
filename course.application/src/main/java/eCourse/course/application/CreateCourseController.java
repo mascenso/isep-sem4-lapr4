@@ -1,17 +1,19 @@
 package eCourse.course.application;
 
+import eCourse.domain.Teacher;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
-import eCourse.usermanagement.domain.BaseCourseStates;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 @Component
@@ -30,11 +32,16 @@ public class CreateCourseController {
     }
 
     @Transactional
-    public Course createCourse (final String name, final String edition, final String description){
+    public Course createCourse (final String name, final String edition, final String description, SystemUser teacher){
 
         final Course newCourse = new CourseBuilder().descriptioned(Description.valueOf(description)).named(Designation.valueOf(name))
-                .edition(CourseEdition.valueOf(edition)).build();
+                .edition(CourseEdition.valueOf(edition)).teacherCoordinator(teacher).build();
         return PersistenceContext.repositories().courses().save(newCourse);
+    }
+
+    public List<Teacher> listOfTeachers() {
+        List<Teacher> listOfTeachers = (List<Teacher>) PersistenceContext.repositories().teachers().findAll();
+        return listOfTeachers;
     }
 
     /*public void changeCourseState(Long idCourse, String newState) {

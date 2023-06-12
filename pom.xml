@@ -31,6 +31,7 @@
 		<module>eCourse.app.student.console</module>
 		<module>eCourse.app.common.console</module>
 		<module>eCourse.app.bootstrap</module>
+		<module>eCourse.app.sharedboard.console</module>
 		<module>eCourse.bootstrappers</module>
 		<module>eCourse.core</module>
 		<module>eCourse.persistence.impl</module>
@@ -46,9 +47,18 @@
 		<module>exam.application</module>
 		<module>question.domain</module>
 		<module>question.application</module>
+		<module>Enrollment.application</module>
+		<module>Enrollment.domain</module>
+		<module>meeting.application</module>
+		<module>meeting.domain</module>
+        <module>common.domain</module>
+		<module>infrastructure.persistence</module>
+		<module>student.domain</module>
+		<module>student.application</module>
+		<module>teacher.domain</module>
+		<module>teacher.application</module>
+		<module>systemusers.domain</module>
 
-        <module>meeting.application</module>
-        <module>meeting.domain</module>
 
     </modules>
 
@@ -113,6 +123,13 @@
 			<groupId>org.threeten</groupId>
 			<artifactId>threetenbp</artifactId>
 			<version>1.6.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.26</version>
+			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>

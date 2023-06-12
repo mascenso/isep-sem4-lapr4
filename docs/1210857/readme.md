@@ -3,11 +3,11 @@
 ## Developed Tasks
 
 
-| Sprint | Task                                     |
-|--------|------------------------------------------|
-| **B**  | [US 1007](../SPRINT B/US_1007/readme.md) |
-| **B**  | [US 1009](../SPRINT B/US_1009/readme.md) |
-| **B**  | [US 2001](../SPRINT%20B/US2001-Create%20an%20Exam/readme.md) |
-| **B**  | [US 3003](../SPRINT B/US_3003/readme.md) |
-| **B**  | [US 4001](../SPRINT B/US_4001/readme.md) |
+| Sprint | Task                                                                              |
+|--------|-----------------------------------------------------------------------------------|
+| **B**  | [US 2007](../SPRINT%B/US2007%-%Add%or%Update%Exam%Questions/readme.md)            |
+| **B**  | [US 1009](../SPRINT%B/US1009%-%Approve%or%Reject%Students%Applications/readme.md) |
+| **B**  | [US 2001](../SPRINT%B/US2001%-%Create%or%Update%an%Exam/readme.md)                |
+| **B**  | [US 3003](../SPRINT B/US2001%-%Create%or%Update%an%Exam/readme.md)                |
+| **B**  | [US 4001](../SPRINT B/US2001%-%Create%or%Update%an%Exam/readme.md)                |
 

@@ -23,11 +23,12 @@
  */
 package eCourse.usermanagement.application.eventhandlers;
 
-import eCourse.clientusermanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import eCourse.clientusermanagement.domain.events.SignupAcceptedEvent;
+
+import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.UserBuilderHelper;
+import eCourse.domain.events.NewUserRegisteredFromSignupEvent;
+import eCourse.domain.events.SignupAcceptedEvent;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.domain.ECourseRoles;
-import eCourse.usermanagement.domain.UserBuilderHelper;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.domain.repositories.ConcurrencyException;

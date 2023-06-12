@@ -27,7 +27,7 @@ public class ListCoursesUI extends AbstractListUI<Course> {
 
     @Override
     public String listHeader() {
-        return String.format("# %-40s%-20s%-40s%-4s", "NAME", "EDITION", "DESCRIPTION", "STATE");
+        return String.format("# %-40s%-20s%-40s%-20s%-20s", "NAME", "EDITION", "DESCRIPTION", "STATE", "COORDINATOR");
     }
 
     @Override

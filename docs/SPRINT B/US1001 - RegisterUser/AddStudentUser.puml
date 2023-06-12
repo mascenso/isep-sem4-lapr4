@@ -1,0 +1,70 @@
+@startuml
+actor Admin as Actor
+
+participant AddStudentUserUI as UI <<presentation>>
+participant AddStudentUserController as Controller <<application>>
+participant StudentUserService as StudentService <<service>>
+participant StudentUserBuilder as Builder <<builder>>
+participant MecanographicNumberDomainService as DomainService <<service>>
+participant MecanographicNumber as MecanographicNumber <<value>>
+participant "studentUser:StudentUser" as Domain <<domain>>
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database UserRepository as Repository <<repository>>
+
+Actor --> UI: Add StudentUser
+activate UI
+UI -> Controller : addStudentUser
+activate Controller
+note right of Controller: **Use UserManagementService to create a new SystemUser**
+
+Controller -> StudentService : createStudentUser
+
+activate StudentService
+StudentService -> Builder : withSystemUser
+activate Builder
+Builder -> DomainService : generate
+activate DomainService
+DomainService -> DomainService : generateNumber
+activate DomainService
+DomainService --> DomainService
+deactivate DomainService
+DomainService --> Builder
+deactivate DomainService
+create MecanographicNumber
+Builder -> MecanographicNumber : new
+activate MecanographicNumber
+MecanographicNumber --> Builder
+deactivate MecanographicNumber
+Builder --> StudentService
+deactivate Builder
+StudentService -> Builder : build
+activate Builder
+create Domain
+Builder -> Domain : new
+activate Domain
+Domain --> Builder
+deactivate Domain
+Builder --> StudentService
+deactivate Builder
+StudentService --> Controller
+'deactivate StudentService
+StudentService -> Persistence: repositories()
+        activate Persistence
+            Persistence -> Factory: create
+            Persistence -> StudentService: factory
+        deactivate Persistence
+
+        StudentService -> Factory: users()
+        activate Factory
+            Factory -> Repository: create
+            Factory -> StudentService: userRepository
+        deactivate Factory
+           StudentService->Repository:save(user)
+           StudentService->Controller: user
+        deactivate StudentService
+        Controller->UI: user
+    deactivate Controller
+        UI-->Actor: displayUserInfo
+return
+@enduml

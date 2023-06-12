@@ -1,0 +1,20 @@
+	_________
+
+	DESIGN
+	_________
+        
+        Classes do domínio: TeacherInCourse (nova classe)
+                            Teacher (atualizar)
+
+        A classe RegisterCourseUI foi atualizada de modo permitir a indicação dos
+        teachers presentes no course. Para tal foi criada a classe auxiliar 
+        TeacherInCourseSettings com responsabilidade de apresentar todos os
+        teachers para o utilizador selecionar os presentes no course
+        A classe RegisterCourseController foi atualizada de modo a permitir registar 
+        um dish que inclui criar um Course e a ele adicionar o conjunto de 
+        teachers nele presentes (Set<TeacherInCourse>) para posteriormente ser
+        guardada em CourseRepository.
+
+        Foi também atualizada a classe CoursePrinter para serem visualizados os 
+        teachers nele presentes, para tal foi criada a classe TeacherInCourseWidget
+        para a visualização.

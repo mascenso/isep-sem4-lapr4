@@ -36,4 +36,27 @@ public final class CourseState {
     public String toString() {
         return actualState;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof CourseState)) {
+            return false;
+        }
+
+        // typecast o to Complex so that we can compare data members
+        CourseState c = (CourseState) o;
+        return this.actualState.equals(c.actualState);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.actualState.hashCode();
+    }
 }

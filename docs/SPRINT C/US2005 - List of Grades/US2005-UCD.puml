@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+
+
+actor Student
+    Student -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option to view my grades)
+    (Select the option to view my grades) --> (selects the course he wishes to view the exam grades)
+    (selects the course he wishes to view the exam grades) --> (shows the exams taken by that student for that course and their grades)
+
+
+@enduml

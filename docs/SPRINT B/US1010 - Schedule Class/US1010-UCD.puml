@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+
+
+actor Teacher
+    Teacher -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option Recurring Lesson)
+    (Select the option Recurring Lesson) --> (Chooses the option to Create a Recurring Lesson)
+    (Chooses the option to Create a Recurring Lesson) --> (Inputs the Lesson Title)
+    (Inputs the Lesson Title) --> (Inputs the Lesson Start date)
+    (Inputs the Lesson Start date) --> (Inputs the end Date)
+    (Inputs the end Date) --> (Inputs the duration of the lesson)
+    (Inputs the duration of the lesson) --> (save)
+
+
+@enduml

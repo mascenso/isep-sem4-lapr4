@@ -26,8 +26,13 @@ package eCourse.app.student.console.presentation;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
 import eCourse.app.student.console.presentation.Courses.ListCoursesStudentUI;
+import eCourse.app.student.console.presentation.Courses.RequestEnrollmentCoursesStudentUI;
 import eCourse.app.student.console.presentation.Exams.ListExamsUI;
-import eCourse.usermanagement.domain.ECourseRoles;
+import eCourse.app.student.console.presentation.Exams.TakeExamUI;
+import eCourse.app.student.console.presentation.meetings.ScheduleMeetingsUI;
+import eCourse.app.student.console.presentation.sharedBoard.NotificationUI;
+import eCourse.app.student.console.presentation.sharedBoard.ShareABoardUI;
+import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -55,17 +60,36 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int STUDENT_COURSES_OPTION = 2;
     private static final int STUDENT_EXAMS_OPTION= 3;
+    private static final int STUDENT_MEETING_OPTION= 4;
+    private static final int SHAREDBOARD_OPTION=5;
+
+    private static final int TAKE_EXAM= 6;
+
 
     private static final int VIEW_STUDENT_EXAMS_LIST_OPTION = 2;
+    private static final int SIGNUP_FOR_A_CURSE_OPTION = 2;
+
+
+    //SHAREDBOARD
+    private static final int CREATE_BOARD_OPTION = 1;
+    private static final int LIST_BOARDS_OPTION = 2;
+    private static final int SHARE_A_BOARD=3;
+    private static final int BOARD_NOTIFICATION=4;
+
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
     private final Menu menu;
     private final MenuRenderer renderer;
 
+
+    //Take exam menu
+    private static final int TAKE_EXAME = 1;
     // Courses Menu
     private static final int COURSE_OPEN = 1;
 
+    // Meeting Menu
+    private static final int SCHEEDULE_MEETING = 1;
     public MainMenu() {
         menu = buildMainMenu();
         renderer = getRenderer(menu);
@@ -113,10 +137,17 @@ public class MainMenu extends AbstractUI {
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.STUDENT)) {
             final Menu coursesMenu = buildCoursesMenu();
             final Menu examsMenu = buildExamsMenu();
+            final Menu MeetingsMenu = buildMeetingMenu();
+            final Menu takeExamMenu = buildTakeExamMenu();
+            final Menu SharedBoardMenu =buildSharedBoardMenu();
 
             mainMenu.addSubMenu(STUDENT_COURSES_OPTION, coursesMenu);
             mainMenu.addSubMenu(STUDENT_EXAMS_OPTION, examsMenu);
+            mainMenu.addSubMenu(STUDENT_MEETING_OPTION, MeetingsMenu);
+            mainMenu.addSubMenu(SHAREDBOARD_OPTION,SharedBoardMenu);
+            mainMenu.addSubMenu(TAKE_EXAM, takeExamMenu);
         }
+
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -127,9 +158,26 @@ public class MainMenu extends AbstractUI {
         return mainMenu;
     }
 
+    private Menu buildTakeExamMenu() {
+        final Menu studentMenu = new Menu("TakeExam  >");
+        studentMenu.addItem(TAKE_EXAME, "Take a Exam", new TakeExamUI()::show);
+        studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return studentMenu;
+    }
+
+    private Menu buildMeetingMenu() {
+        final Menu studentMenu = new Menu("Meeting  >");
+        studentMenu.addItem(SCHEEDULE_MEETING, "Schedule a meeting", new ScheduleMeetingsUI()::show);
+        studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return studentMenu;
+    }
+
     private Menu buildCoursesMenu() {
         final Menu studentMenu = new Menu("Courses  >");
         studentMenu.addItem(COURSE_OPEN, "List All Courses", new ListCoursesStudentUI()::show);
+        studentMenu.addItem(SIGNUP_FOR_A_CURSE_OPTION, "Request Enrollment", new RequestEnrollmentCoursesStudentUI());
         studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return studentMenu;
@@ -142,6 +190,18 @@ public class MainMenu extends AbstractUI {
         studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return studentMenu;
+    }
+
+    private Menu buildSharedBoardMenu() {
+        final Menu menu = new Menu("Boards >");
+
+        //menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
+        //menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
+        menu.addItem(SHARE_A_BOARD, "Share a Board", new ShareABoardUI()::show);
+        menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
+        menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
+
+        return menu;
     }
 
 }

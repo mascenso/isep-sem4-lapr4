@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+title Domain Model Excerpt - US06
+
+
+class Company {
+String designation
+AuthFacade authFacade
+VaccinationCenterContainer vcContainer
+VaccineScheduleContainer vsContainer
+SortData sortData
+EmployeeContainer empContainer
+SNSUserContainer snsUserContainer
+BruteForceAlgoritm bruteForceAlgoritm
+VaccineContainer vaccineContainer
+RecoveryRoomContainer recoveryRoomContainer
+VaccineTypeContainer vaccineTypeContaine
+AdministrationProcessContainer administrationProcessContainer
+setDGSDailyRecordTask()
+}
+
+class Task{
+Timer timer
+}
+
+Company"1" -- "*"Task: schedules
+
+
+@enduml
