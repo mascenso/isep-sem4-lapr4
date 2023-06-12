@@ -20,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  *  The controller for the use case "Schedule a Class" using the domain objects.
@@ -38,19 +36,17 @@ public class CreateExtraLessonController {
     private RecurringLessonRepository recurringLessonRepository;
     private ListRecurringLessonsService service = new ListRecurringLessonsService();
 
-    public Iterable<RecurringLesson> allRecurringLessons() {
-        return service.allRecurringLessons();
+    public Set<RecurringLesson> allRecurringLessons() {
+        return service.allRecurringLessonsId();
     }
 
     public Teacher getCurrentTeacher() {
         Username username = authz.session().get().authenticatedUser().username();
 
-        Teacher teacher = authz.session()
+        return authz.session()
                 .map(UserSession::authenticatedUser)
                 .flatMap(systemUser -> teacherRepository.findByUsername(username))
                 .orElse(null);
-
-        return teacher;
     }
 
     public Iterable<Course> getTeacherCourses() {
