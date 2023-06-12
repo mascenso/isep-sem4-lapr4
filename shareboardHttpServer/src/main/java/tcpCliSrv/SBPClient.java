@@ -99,7 +99,7 @@ public class SBPClient {
                 //Autenticação bem sucedida
                 System.out.println("SUM RESULT = " + responseData);
             } else if (responseCode == 3) {// ERR – Error response message
-                if (response[4] == 'A' && response[5] == 'U') {
+                if (response[4] == 65 && response[5] == 85) {
                     System.out.println("Authentication failed: Invalid username or password");
                 } else {
                     System.out.println("Error: " + new String(response, 2, 2));

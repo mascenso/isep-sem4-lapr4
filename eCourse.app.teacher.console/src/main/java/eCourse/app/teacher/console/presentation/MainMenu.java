@@ -39,6 +39,7 @@ import eCourse.app.teacher.console.presentation.question.AddExamQuestionsUI;
 import eCourse.app.teacher.console.presentation.question.UpdateExamQuestionsUI;
 import eCourse.app.teacher.console.presentation.sharedBoard.NotificationUI;
 import eCourse.app.teacher.console.presentation.sharedBoard.ShareABoardUI;
+import eCourse.app.teacher.console.presentation.sharedBoard.UpdateSharedBoardUI;
 import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
