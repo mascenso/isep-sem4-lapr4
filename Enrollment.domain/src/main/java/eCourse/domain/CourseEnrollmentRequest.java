@@ -85,4 +85,8 @@ public class CourseEnrollmentRequest implements AggregateRoot<Long> {
     public Long identity() {
         return EnrollmentID;
     }
+
+    public Course getCourse() { return course; }
+
+    public Student getStudent() { return student; }
 }
