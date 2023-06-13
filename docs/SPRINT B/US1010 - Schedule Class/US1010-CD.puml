@@ -1,0 +1,40 @@
+@startuml
+
+class RecurringLessonUI {
+    +doShow()
+}
+
+class CreateRecurringLessonController {
+    +createRecurringLesson()
+}
+
+class RecurringLesson {
+}
+
+class ScheduleLessonService {
+    +PropagateLessons()
+    +ValidateRecurringLessons()
+    +allRecurringLessons()
+}
+
+class RepositoryFactory {
+    +create()
+}
+
+class PersistenceContext {
+    -RecurringLessonRepository: RecurringLessonRepository
+    +repositories()
+}
+
+class RecurringLessonRepository {
+}
+
+RecurringLessonUI --> CreateRecurringLessonController
+CreateRecurringLessonController --> ScheduleLessonService
+ScheduleLessonService --> PersistenceContext
+CreateRecurringLessonController --> PersistenceContext
+PersistenceContext --> RepositoryFactory
+RepositoryFactory --> RecurringLessonRepository
+CreateRecurringLessonController --> RecurringLesson
+
+@enduml

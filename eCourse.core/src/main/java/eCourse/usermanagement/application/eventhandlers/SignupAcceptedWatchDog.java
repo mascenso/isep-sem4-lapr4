@@ -20,10 +20,10 @@
  */
 package eCourse.usermanagement.application.eventhandlers;
 
+import eCourse.domain.events.SignupAcceptedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eCourse.clientusermanagement.domain.events.SignupAcceptedEvent;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.pubsub.EventHandler;

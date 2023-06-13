@@ -1,0 +1,17 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Student
+activate Student
+
+
+Student -> System: Requests Course Enrollment
+System --> Student: Shows the Courses in Enrollment state
+Student -> System: Selects the course he desires to enroll
+System --> Student: Let's the student know his \nrequest for a course enrollment was registered
+
+deactivate Student
+
+@enduml

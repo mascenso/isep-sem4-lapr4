@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+actor User
+    User -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option to Cancel Meeting)
+    (Select the option to Cancel Meeting) --> (Select meeting to cancel)
+  (Select meeting to cancel) --> (Save)
+
+@enduml

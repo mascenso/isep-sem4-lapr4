@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+
+
+actor Student
+    Student -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option Course Enrollment)
+    (Select the option Course Enrollment) --> (selects the option to view courses open for enrollment)
+    (selects the option to view courses open for enrollment) --> (Selects the course he wants to enroll)
+    (Selects the course he wants to enroll) --> (save)
+
+
+
+@enduml

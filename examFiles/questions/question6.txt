@@ -1,0 +1,8 @@
+Numerical: "What is the value of pi?" {
+    Acceptance Error = 0.01
+    Option 3.14
+    Option 3.149
+    Option 3.141
+    Answer: 3.14
+    Grade: 3
+}

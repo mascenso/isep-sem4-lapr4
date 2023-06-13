@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+actor Teacher
+    Teacher -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option to Create AutomaticExam)
+    (Select the option to Create AutomaticExam) --> (Put all information required : title, type, numberQuestions)
+  (Put all information required : title, type, numberQuestions) --> (Save)
+
+
+@enduml

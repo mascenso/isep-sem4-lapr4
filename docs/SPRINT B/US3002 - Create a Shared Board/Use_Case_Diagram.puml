@@ -5,10 +5,10 @@
 actor User
     User -down-> (Authenticates to the system)
     (Authenticates to the system) --> (Select the option to create a Shared Board)
-    (Select the option to create a Shared Board) --> (Fill the request data and optional shares)
-
-  (Fill the request data and optional shares) --> (Save)
-  (Fill the request data and optional shares) --> (Cancel)
+    (Select the option to create a Shared Board) --> (Types the number of Columns and Rows)
+    (Types the number of Columns and Rows) --> (Types the name of Columns and Rows)
+  (Types the name of Columns and Rows) --> (Save)
+  (Types the name of Columns and Rows) --> (Cancel)
 
 
 @enduml

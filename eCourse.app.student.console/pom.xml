@@ -6,7 +6,7 @@
     <parent>
         <groupId>isep.sem4.pi</groupId>
         <artifactId>eCourse</artifactId>
-        <relativePath>../</relativePath>
+        <relativePath>../pom.xml</relativePath>
         <version>0.1.0</version>
     </parent>
 
@@ -68,6 +68,36 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.7.11</version>
         </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>exam.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>meeting.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>Enrollment.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>sharedboard.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+
 
     </dependencies>
 

@@ -20,12 +20,12 @@
  */
 package eCourse.app.backoffice.console.presentation.clientuser;
 
+import eCourse.AcceptRefuseSignupFactory;
+import eCourse.AcceptRefuseSignupRequestController;
+import eCourse.domain.SignupRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eCourse.clientusermanagement.application.AcceptRefuseSignupFactory;
-import eCourse.clientusermanagement.application.AcceptRefuseSignupRequestController;
-import eCourse.clientusermanagement.domain.SignupRequest;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
@@ -47,6 +47,7 @@ public class AcceptRefuseSignupRequestUI extends AbstractUI {
     protected boolean doShow() {
         final SelectWidget<SignupRequest> selector = new SelectWidget<>("Pending signups",
                 this.theController.listPendingSignupRequests(), new SignupRequestPrinter());
+
         selector.show();
         final SignupRequest theSignupRequest = selector.selectedElement();
         if (theSignupRequest != null) {

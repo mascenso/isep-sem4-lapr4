@@ -1,0 +1,68 @@
+@startuml
+
+class User
+
+class ShareABoardUI {
+    +doShow()
+    +showAllUsers()
+}
+
+class ShareABoardController {
+    +getMyBoards()
+    +allUsers()
+    +getAccessType()
+    +createShareBoardUsers()
+}
+
+class ListBoardsService {
+    +listBoardsByUser()
+}
+
+class ShareBoard {
+    +createShareBoardUsers()
+}
+
+
+class Notification {
+}
+
+class NotificationRepository{
+    +getMyNotifications()
+    +save()
+}
+
+class ShareBoardRepository{
+    +save()
+}
+
+enum AccessType {
+    READ
+    WRITE
+}
+
+class BoardSharedEvent{
+    -timestamp
+    +createNotification()
+}
+
+
+class ShareBoardUser {
+}
+
+class UsersRepository{
+    +findAll()
+}
+
+User-->ShareABoardUI
+ShareABoardUI-->ShareABoardController
+ShareABoardController-->ListBoardsService
+ShareABoardController-->UsersRepository
+ShareABoardController-->AccessType
+ShareABoardController-->ShareBoard
+ShareABoardController-->NotificationRepository
+ShareABoardController-->ShareBoardRepository
+ListBoardsService-->ShareBoardRepository
+ShareBoard-->ShareBoardUser
+ShareBoardUser-->BoardSharedEvent
+BoardSharedEvent-->Notification
+@enduml

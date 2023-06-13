@@ -1,0 +1,11 @@
+l@startuml
+'https://plantuml.com/use-case-diagram
+
+actor User
+    User -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Accesses the meetings functionality)
+    (Accesses the meetings functionality) --> (Chooses the option to view the list of their meetings)
+    (Chooses the option to view the list of their meetings) --> (Chooses the meeting what wants view the list of participants and their status)
+    (Chooses the meeting what wants view the list of participants and their status) --> (System shows the operation )
+
+@enduml

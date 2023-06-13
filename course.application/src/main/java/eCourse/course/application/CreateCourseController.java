@@ -1,17 +1,19 @@
 package eCourse.course.application;
 
-import eCourse.domain.Course;
-import eCourse.domain.CourseBuilder;
-import eCourse.domain.CourseEdition;
-import eCourse.domain.CourseStates;
+import eCourse.domain.Teacher;
+import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 @Component
@@ -21,16 +23,25 @@ public class CreateCourseController {
     @Autowired
     private CourseRepository courseRepository;
 
-    public String [] getCourseStates(){
+    /*public String [] getCourseStates(){
         return CourseStates.stateValues();
+    }*/
+
+    public String [] getCourseStates(){
+        return Arrays.stream(BaseCourseStates.allCourseStates()).map(CourseState::toString).toArray(String[]::new);
     }
 
     @Transactional
-    public Course createCourse (final String name, final String edition, final String description, final String state){
+    public Course createCourse (final String name, final String edition, final String description, SystemUser teacher){
 
         final Course newCourse = new CourseBuilder().descriptioned(Description.valueOf(description)).named(Designation.valueOf(name))
-                .edition(CourseEdition.valueOf(edition)).state(CourseStates.valueOf(state)).build();
+                .edition(CourseEdition.valueOf(edition)).teacherCoordinator(teacher).build();
         return PersistenceContext.repositories().courses().save(newCourse);
+    }
+
+    public List<Teacher> listOfTeachers() {
+        List<Teacher> listOfTeachers = (List<Teacher>) PersistenceContext.repositories().teachers().findAll();
+        return listOfTeachers;
     }
 
     /*public void changeCourseState(Long idCourse, String newState) {

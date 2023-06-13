@@ -3,10 +3,13 @@ package eCourse.domain;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
 
+@Component
 @Entity
 public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
@@ -21,12 +24,10 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     /*@Embedded
     private SharedBoardColumnAndRow position;*/
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "SHARED_BOARD_TITLE")
+    @ElementCollection
     private List<Linha> linhas;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "SHARED_BOARD_TITLE")
+    @ElementCollection
     private List<Coluna> colunas;
 
     @ManyToOne
@@ -36,15 +37,18 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @Column
     private boolean archive;
 
+    @OneToMany
+    private List<SharedBoardUser> usersList = new ArrayList<>();
 
-    public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner,  List<Coluna> columns, List<Linha> rows) {
+
+    public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner, List<Coluna> columns, List<Linha> rows) {
         if (title == null) {
             throw new IllegalArgumentException();
         }
-        if ( (numberColumns < 1) || (numberColumns > 10) ) {
+        if ((numberColumns < 1) || (numberColumns > 10)) {
             throw new IllegalArgumentException("Column value must be between 1 and 10");
         }
-        if ( (numberRows < 1) || (numberRows > 20) ){
+        if ((numberRows < 1) || (numberRows > 20)) {
             throw new IllegalArgumentException("Row value must be between 1 and 20");
         }
         this.title = title;
@@ -57,10 +61,10 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     }
 
     public SharedBoard(int numberRows, int numberColumns) {
-        if ( (numberColumns < 1) || (numberColumns > 10) ) {
+        if ((numberColumns < 1) || (numberColumns > 10)) {
             throw new IllegalArgumentException("Column value must be between 1 and 10");
         }
-        if ( (numberRows < 1) || (numberRows > 20) ){
+        if ((numberRows < 1) || (numberRows > 20)) {
             throw new IllegalArgumentException("Row value must be between 1 and 20");
         }
         this.numberRows = numberRows;
@@ -71,15 +75,16 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
     }
 
-    public SharedBoardTitle title(){
+
+    public SharedBoardTitle title() {
         return title;
     }
 
-    public SystemUser owner(){
+    public SystemUser owner() {
         return this.owner;
     }
 
-    public boolean archive(){
+    public boolean archive() {
         return archive;
     }
 
@@ -87,7 +92,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return colunas;
     }
 
-    public void setColunas(List<Coluna> colunas) {
+    public void changeColumns(List<Coluna> colunas) {
         this.colunas = colunas;
     }
 
@@ -95,10 +100,9 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return linhas;
     }
 
-    public void setLinhas(List<Linha> linhas) {
+    public void changeRows(List<Linha> linhas) {
         this.linhas = linhas;
     }
-
     public void updateArchive(boolean archive) {
         this.archive = archive;
     }
@@ -127,7 +131,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return this.title;
     }
 
-    public boolean isArchive(){
+    public boolean isArchive() {
         return true;
     }
 
@@ -135,16 +139,22 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return numberColumns;
     }
 
-    public int numberOfRows(){
+    public int numberOfRows() {
         return numberRows;
     }
 
-    /*public SharedBoardColumnAndRow getPosition() {
-        return position;
+    public void changeNumberRows(int numberRows) {
+        this.numberRows = numberRows;
     }
 
-    public void setPosition(SharedBoardColumnAndRow position) {
-        this.position = position;
-    }*/
+    public void changeNumberColumns(int numberColumns) {
+        this.numberColumns = numberColumns;
+    }
+
+    public SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
+        SharedBoardUser boardUser = new SharedBoardUser(user, boardID, access);
+        this.usersList.add(boardUser);
+        return boardUser;
+    }
 
 }

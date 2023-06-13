@@ -3,14 +3,20 @@ package eCourse.exam.application;
 import eCourse.domain.*;
 import eCourse.course.application.ListCoursesService;
 import eCourse.infrastructure.persistence.PersistenceContext;
+import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.repositories.CourseRepository;
 import eCourse.repositories.ExamRepository;
+import eCourse.repositories.TeacherRepository;
 import eapli.framework.application.UseCaseController;
-import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserSession;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.*;
 
 @UseCaseController
@@ -20,57 +26,40 @@ public class CreateExamController {
     private ListCoursesService courseService = new ListCoursesService();
 
     @Autowired
-    private CourseRepository repo;
-    @Autowired
     private ExamRepository examRepository;
 
     @Autowired
     private CourseRepository courseRepository;
 
+    private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    @Transactional
-    public SequenceSection createSections(final Integer sectionNumber, final String decription, final List<Question> questions) {
-        final SequenceSection newSQ = SequenceSection.valueOf(sectionNumber, decription, questions);
-        return newSQ;
+    TeacherRepository teacherRepository = PersistenceContext.repositories().teachers();
+
+    public Teacher getCurrentTeacher() {
+        Username username = authz.session().get().authenticatedUser().username();
+
+        Teacher teacher = authz.session()
+                .map(UserSession::authenticatedUser)
+                .flatMap(systemUser -> teacherRepository.findByUsername(username))
+                .orElse(null);
+        return teacher;
     }
 
-    @Transactional
-    public Header createHeader(final String decription, final Integer feedbackType, final Integer gradeType) {
-        final Header newHeader = Header.valueOf(decription, feedbackType, gradeType);
-        return newHeader;
-    }
 
     @Transactional
-    public Exam createExam(final Course course, final String title, Date openDate, Date endDate, final Header header, final List<SequenceSection> sequenceSections) {
+    public Exam createExam(final Course course, final Teacher teacher, final String title, Date openDate, Date endDate, final File file) {
 
         ExamTitle examTitle=ExamTitle.valueOf(title);
-        final Exam newExam = new ExamBuilder().theCourse(course).theExamTitle(examTitle).theOpenDate(openDate)
-                .theCloseDate(endDate).theHeader(header).theSequenceSection(sequenceSections).build();
-
+        final Exam newExam = new ExamBuilder().theCourse(course).theTeacher(teacher).theExamTitle(examTitle).theOpenDate(openDate)
+                .theCloseDate(endDate).theFile(file).build();
         return PersistenceContext.repositories().exams().save(newExam);
     }
 
     public List<Course> getOpenCourses() {
-        List<Course> openCourses = new ArrayList<>();
-        for (Course course : courseService.allCourses()) {
-            if (course.getCourseState().getActualState().equals("Open")) {
-                openCourses.add(course);
-            }
-        }
-        return openCourses;
+        return courseService.getOpenCourses();
     }
 
-    public Course findCourse(final Designation designation) {
-        return courseRepository.findByDesignation(designation).orElseThrow(() ->
-                new IllegalArgumentException("Course not found with designation: " + designation));
-    }
-
-    public Map<Integer, FeedbackType> getAllFeedbackTypes() {
-        return FeedbackType.getListOfFeedbackTypes();
-    }
-
-
-    public Map<Integer, GradeType> getAllGradeTypes() {
-        return GradeType.getListOfGradeTypes();
+    public ExamTitle getExamTitle(String title) {
+        return ExamTitle.valueOf(title);
     }
 }

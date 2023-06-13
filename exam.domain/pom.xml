@@ -4,7 +4,7 @@
     <parent>
         <groupId>isep.sem4.pi</groupId>
         <artifactId>eCourse</artifactId>
-        <relativePath>../</relativePath>
+        <relativePath>../pom.xml</relativePath>
         <version>0.1.0</version>
 
     </parent>
@@ -27,6 +27,12 @@
             <artifactId>question.domain</artifactId>
             <version>0.1.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

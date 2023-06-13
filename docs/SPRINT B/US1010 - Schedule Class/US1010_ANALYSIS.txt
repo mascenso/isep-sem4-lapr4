@@ -1,0 +1,31 @@
+	___________
+
+	ANÁLISE
+	____________
+
+
+	FRC09 - Schedule of Class A teacher schedule a class (always a recurring class, happens every week).
+	System must check if the Teacher is available for the class period
+
+
+	______________________
+
+	REGRAS DE NEG�CIO
+	_____________________
+
+
+	* Uma classe é sempre recorrente semanalmente
+	* Os professores s\ao responsaveis pela calendarização das suas aulas
+	* Deve ser impossivel calendarizar uma aula que seja coincidente com outra do mesmo curso.
+	* O sistema deve tambem avisar que o professor já tem aulas de outros cursos.
+
+
+	______________________
+		
+	TESTES UNIT�RIOS
+	_____________________
+
+
+	* testchangeNutricionalInfoToMustNotBeNull
+	* testchangePriceToMustNotBeNull
+	* testchangePriceToCanNotBeNegative

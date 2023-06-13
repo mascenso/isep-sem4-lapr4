@@ -1,0 +1,20 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor User
+activate User
+
+User -> System: Asks to share a board
+System --> User: Shows list of owned boards
+User -> System: Select a board
+System --> User: Shows list of users
+User -> System: Selects a user
+System --> User: Asks for access type
+User -> System: Selects access type
+System --> User: Creates a notification to users
+
+deactivate User
+
+@enduml

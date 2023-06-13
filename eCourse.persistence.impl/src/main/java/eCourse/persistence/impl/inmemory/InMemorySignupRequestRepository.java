@@ -20,8 +20,8 @@
  */
 package eCourse.persistence.impl.inmemory;
 
-import eCourse.clientusermanagement.domain.SignupRequest;
-import eCourse.clientusermanagement.repositories.SignupRequestRepository;
+import eCourse.domain.SignupRequest;
+import eCourse.repositories.SignupRequestRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 

@@ -3,6 +3,7 @@ package eCourse.domain;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 public class CourseBuilder implements DomainFactory<Course> {
 
@@ -14,7 +15,8 @@ public class CourseBuilder implements DomainFactory<Course> {
 
     private CourseEdition edition;
 
-    private CourseStates state;
+    private SystemUser teacherCordinator;
+
 
     public CourseBuilder named(final Designation name){
         this.name = name;
@@ -30,11 +32,11 @@ public class CourseBuilder implements DomainFactory<Course> {
         this.edition = edition;
         return this;
     }
-
-    public CourseBuilder state(final CourseStates state){
-        this.state = state;
+    public CourseBuilder teacherCoordinator (final SystemUser teacher){
+        this.teacherCordinator = teacher;
         return this;
     }
+
     private Course buildOrThrow() {
         // we will create the actual instance inside the builder during the building
         // process, but that is hidden from the client code. conceptually, the client
@@ -42,8 +44,8 @@ public class CourseBuilder implements DomainFactory<Course> {
         if (theCourse != null) {
             return theCourse;
         }
-        if (name != null && description != null && edition != null && state != null) {
-            theCourse = new Course(name, description,edition,state);
+        if (name != null && description != null && edition != null && teacherCordinator != null) {
+            theCourse = new Course(name, description,edition, teacherCordinator);
             return theCourse;
         }
         throw new IllegalStateException();

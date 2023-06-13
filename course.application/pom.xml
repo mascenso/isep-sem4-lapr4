@@ -7,7 +7,7 @@
     <parent>
         <groupId>isep.sem4.pi</groupId>
         <artifactId>eCourse</artifactId>
-        <relativePath>../</relativePath>
+        <relativePath>../pom.xml</relativePath>
         <version>0.1.0</version>
     </parent>
 
@@ -26,19 +26,40 @@
         </dependency>
         <dependency>
             <groupId>isep.sem4.pi</groupId>
-            <artifactId>core</artifactId>
-            <version>0.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>isep.sem4.pi</groupId>
             <artifactId>sharedboard.domain</artifactId>
             <version>0.1.0</version>
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>org.microjpa</groupId>
-            <artifactId>microjpa</artifactId>
-            <version>1.2.4</version>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>infrastructure.persistence</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>systemusers.domain</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>core</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>student.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>teacher.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 </project>

@@ -1,60 +1,48 @@
 package eCourse.app.backoffice.console.presentation.courses;
 
+import eCourse.domain.Teacher;
 import eCourse.course.application.CreateCourseController;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+
+import java.util.List;
+import java.util.Scanner;
 
 public class CreateCourseUI extends AbstractUI {
 
     private final CreateCourseController theController = new CreateCourseController();
     @Override
     protected boolean doShow() {
+        List<Teacher> listOfTeachers =theController.listOfTeachers();
         final String name = Console.readNonEmptyLine("Name","The name should not be empty");
         final String edition = Console.readNonEmptyLine("Edition","The edition should not be empty");
         final String description = Console.readNonEmptyLine("Description","The description should not be empty");
 
-        String show = null;
+        Scanner scanner = new Scanner(System.in);
 
-        do {
-            show = showStates();
-        } while(show == null);
-
-        final String state = show;
-
-        theController.createCourse(name,edition,description,state);
+        System.out.println("Please choose the Teacher responsible for the course.");
+        for (int i = 0; i < listOfTeachers.size(); i++) {
+            System.out.printf("(%d) %s\n",i,listOfTeachers.get(i).identity());
+        }
+        int choose =-1;
+        do{
+            System.out.print("Answer: ");
+            choose= scanner.nextInt();
+            if(choose<0 || choose>= listOfTeachers.size()){
+                System.out.println("-----------------------------");
+                System.out.println("Please choose a valid teacher");
+                System.out.println("-----------------------------");
+            }
+        }while(choose<0 || choose>= listOfTeachers.size());
+        theController.createCourse(name,edition,description,listOfTeachers.get(choose).user());
         return false;
     }
 
-    private String showStates(){
-        final String [] courseStates = buildCourseStates();
-        for (int i = 0; i < courseStates.length; i++) {
-            System.out.println("("+i+") " + courseStates[i]);
-        }
-        int choose = Console.readInteger("State");
-        return choose < courseStates.length ? courseStates[choose] : null;
-    }
 
     private String [] buildCourseStates() {
         final String [] courseStates = theController.getCourseStates();
         return courseStates;
     }
-/*
-    private boolean showStates(String state){
-        final Menu courseStates = buildCourseStates();
-        final MenuRenderer renderer = new VerticalMenuRenderer(courseStates,MenuItemRenderer.DEFAULT);
-        return renderer.render();
-    }
-
-    private Menu buildCourseStates() {
-        final Menu courseStates = new Menu();
-        int counter = 0;
-        courseStates.addItem(MenuItem.of(counter++, "No State", Actions.SUCCESS));
-        for (final String states : theController.getCourseStates()) {
-            courseStates.addItem(MenuItem.of(counter++, states, Actions.SUCCESS));
-        }
-        return courseStates;
-    }
-    */
 
     @Override
     public String headline() {

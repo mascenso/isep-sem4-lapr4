@@ -1,0 +1,17 @@
+l@startuml
+'https://plantuml.com/use-case-diagram
+
+
+
+
+actor Manager
+    Manager -down-> (Authenticates to the system)
+    (Authenticates to the system) --> (Select the option to update the Courses)
+    (Select the option to update the Courses) --> (Select the desired course option)
+    (Select the desired course option) --> (Select the desired new state option)
+
+  (Select the desired new state option) --> (Save)
+  (Select the desired new state option) --> (Cancel)
+
+
+@enduml

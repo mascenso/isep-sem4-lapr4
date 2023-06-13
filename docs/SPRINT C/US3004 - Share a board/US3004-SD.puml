@@ -1,0 +1,63 @@
+@startuml
+
+autoactivate on
+
+actor User as U
+participant "ShareABoardUI" as UI
+participant "ShareABoardController" as C
+participant "ListBoardsService" as S
+participant "ShareBoard" as SB
+participant "SharedBoardUser" as SBU
+participant "AcessType" as AT
+participant "BoardSharedEvent" as E
+participant "Notification" as N
+database "UsersRepository" as UR
+database "ShareBoardRepository" as SBR
+database "NotificationRepository" as NR
+database "ShareBoardUserRepository" as SBRU
+
+
+U -> UI:Share a board
+UI -> C: getMyBoards(User)
+C->S:listBoardsByUser(User)
+S->SBR: findByUsername()
+SBR-->S: listOfBoards
+S-->C: myBoardsList
+C-->UI: myBoardsList
+UI-->U: Select Board
+
+U->UI:Board
+UI -> C: allUsers(), getAccessTypes()
+C -> UR: findAll()
+UR --> C: listOfUsers
+
+C->AT: getAccessTypes()
+AT-->C: accessTypes
+C --> UI: listOfUsers,accessTypes
+
+UI -> UI: showAllUsers()
+
+loop user select option 0(exit)
+UI --> U: Select User
+U -> UI: User
+UI-->U: Select Access Type
+U->UI: Access Type
+end
+
+UI->C:createShareBoardUsers(usersWithPermissions,BoardID)
+C->SB: createShareBoardUsers(user, BoardID, permission)
+
+loop number of selected Users
+SB-> SBU: create
+SBU->E: create
+E->N: createNotification();
+N-->E: notification
+E-->SBU: notification
+SBU-->SB: shareABoard, notification
+end
+
+SB-->C:shareABoard,notifications
+C->SBRU: save(shareABoard)
+C->NR: save(notifications)
+
+@enduml

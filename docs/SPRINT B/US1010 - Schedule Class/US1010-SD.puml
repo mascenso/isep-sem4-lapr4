@@ -1,0 +1,55 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Actor
+activate Actor
+note right of Actor: Existe um serviço com a responsabilidade de verificar a disponibilidade do professor no dia marcado e a propagação da lesson para a frequencia estipulada
+participant CreateRecurringLessonUI as UI <<Presentation>>
+participant CreateRecurringLessonController as Controller <<Application>>
+participant RecurringLessonBuilder as Builder <<builder>>
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database RecurringLessonRepository as LessonRepository <<Repository>>
+participant "serviço:RecurringLessonService" as Service <<Domain>>
+participant RecurringLesson as RecurringLesson <<Domain>>
+
+
+Actor -> UI: CreateRecurringLesson()
+activate UI
+UI -> Actor: Ask User the recurring lesson information
+Actor -> UI: inputs frequency, start date, end date, duration,\n title and start time
+
+UI -> Controller: createRecurringLesson(title, startDate, endDate, startTime, duration, frequency)
+activate Controller
+Controller -> Builder: buildOrThrow()
+activate Builder
+Builder -> RecurringLesson: RecurringLesson(title, startDate, endDate, startTime, duration, frequency)
+activate RecurringLesson
+RecurringLesson -> Builder: recurringLesson
+deactivate RecurringLesson
+Builder -> Controller: recurringLesson
+deactivate Builder
+Controller -> Service: propagateLessonByFrequency(recurringLesson)
+activate Service
+Controller -> Service: checkTeacherAvailability(recurringLesson)
+deactivate Service
+Controller -> Persistence: repositories()
+activate Persistence
+Persistence -> Factory: newInstance()
+Activate Factory
+Factory -> Persistence: RecurringLesson
+deactivate Factory
+Persistence -> Controller: RecurringLesson
+deactivate Persistence
+Controller -> LessonRepository: save(recurringLesson)
+activate LessonRepository
+LessonRepository -> Controller: recurringLesson
+deactivate LessonRepository
+Controller -> UI: recurringLesson
+deactivate Controller
+Actor <- UI: back to menu
+
+
+@enduml
