@@ -51,8 +51,11 @@ public class MainMenu extends AbstractUI {
     //SHAREDBOARD
     private static final int CREATE_BOARD_OPTION = 1;
     private static final int LIST_BOARDS_OPTION = 2;
+    private static final int BOOK_A_MEAL = 99;
     private static final int SHARE_A_BOARD=3;
     private static final int BOARD_NOTIFICATION=4;
+    private static final int UPDATE_SHARED_BOARD=5;
+
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -104,14 +107,10 @@ public class MainMenu extends AbstractUI {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.STUDENT)) {
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.STUDENT, ECourseRoles.TEACHER, ECourseRoles.ADMIN)) {
             final Menu SharedBoardMenu =buildSharedBoardMenu();
-
-
             mainMenu.addSubMenu(SHAREDBOARD_OPTION,SharedBoardMenu);
-
         }
-
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
@@ -128,7 +127,10 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Boards >");
         //menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
         //menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
-        menu.addItem(SHARE_A_BOARD, "Share a Board", new BookAMealThruKioskUI()::show);
+        menu.addItem(BOOK_A_MEAL, "BookaMealExampleCafet", new BookAMealThruKioskUI()::show);
+        menu.addItem(SHARE_A_BOARD, "Share a board", new ShareABoardUI()::show);
+        menu.addItem(UPDATE_SHARED_BOARD,"Update a board", new UpdateSharedBoardUI()::show);
+        menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
         menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return menu;

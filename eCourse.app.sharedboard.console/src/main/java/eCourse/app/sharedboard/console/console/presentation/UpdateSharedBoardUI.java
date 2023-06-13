@@ -1,4 +1,4 @@
-package eCourse.app.student.console.presentation.sharedBoard;
+package eCourse.app.sharedboard.console.console.presentation;
 
 import eCourse.UpdateSharedBoardController;
 import eCourse.domain.AccessType;

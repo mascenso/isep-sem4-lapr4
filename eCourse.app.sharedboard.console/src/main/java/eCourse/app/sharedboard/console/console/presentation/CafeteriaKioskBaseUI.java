@@ -22,15 +22,13 @@ package eCourse.app.sharedboard.console.console.presentation;
 
 import eapli.framework.presentation.console.AbstractUI;
 
-/**
- * @author Paulo Gandra de Sousa 2021.05.25
- */
+
 @SuppressWarnings("squid:S106")
 public abstract class CafeteriaKioskBaseUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "=== KIOSK ===";
+        return "=== SHARED BOARD ===";
     }
 
     @Override

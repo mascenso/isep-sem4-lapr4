@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.sharedboard.console.console;
+package eCourse.app.sharedboard.console;
 
 import eCourse.app.common.console.BaseApplication;
 import eCourse.app.sharedboard.console.console.presentation.FrontMenu;
