@@ -43,11 +43,17 @@ public class CreateRecurringLessonsUI extends AbstractUI {
         Calendar endDate;
         do {
             endDate = Console.readCalendar("End Date (dd/MM/yyyy). Must be after the start date.","dd/MM/yyyy");
-        } while (endDate.compareTo(startDate) < 0);
+        } while (endDate.compareTo(startDate) <= 0);
 
         final LocalTime startTime =  LocalTime.parse(Console.readNonEmptyLine("Start Time (hh:mm)","hh:mm"));
-        final int duration = Console.readInteger("Duration of lesson in minutes");
-        final int frequency = Console.readInteger("Frequency at which the lesson occurs. 1-Sunday and 7-Saturday");
+        int duration;
+        do {
+            duration = Console.readInteger("Duration of lesson in minutes");
+        } while (duration <= 0);
+        int frequency;
+        do {
+            frequency = Console.readInteger("Frequency (day of the week) at which the lesson occurs. 1-Sunday and 7-Saturday");
+        } while (frequency < 1 | frequency > 7);
         try {
             theController.createRecurringLesson(theCourse, title, startDate, endDate, startTime, duration, frequency);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
