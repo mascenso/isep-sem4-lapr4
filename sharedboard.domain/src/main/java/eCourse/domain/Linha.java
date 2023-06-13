@@ -8,9 +8,7 @@ public class Linha {
     //private static final long serialVersionUID = 1L;
 
     //private int position;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+
 
     @Column
     private String name;
@@ -26,13 +24,7 @@ public class Linha {
         this.name = name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public Long getId() {
-        return id;
-    }
 
     public String getName() {
         return name;

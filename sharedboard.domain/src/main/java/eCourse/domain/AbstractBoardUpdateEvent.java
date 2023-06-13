@@ -19,6 +19,10 @@ public class AbstractBoardUpdateEvent extends DomainEventBase implements DomainE
         this.board = board;
     }
 
+    protected AbstractBoardUpdateEvent() {
+        board = null;
+    }
+
     public SharedBoard board() {
         return board;
     }

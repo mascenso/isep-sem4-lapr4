@@ -21,6 +21,9 @@ public class BoardUpdateEvent extends AbstractBoardUpdateEvent {
         createUpdateBoardNotification(user);
     }
 
+    public BoardUpdateEvent(){
+
+    }
 
     private void createUpdateBoardNotification(SystemUser user) {
         Notification notification = new Notification(this, user);
