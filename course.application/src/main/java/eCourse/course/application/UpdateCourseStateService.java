@@ -74,7 +74,7 @@ public class UpdateCourseStateService {
         }
 
         //3 - update the course with the state OPEN
-        course.updateState(BaseCourseStates.OPEN);
+        course.open();
         courseRepository.save(course);
     }
 
@@ -96,7 +96,7 @@ public class UpdateCourseStateService {
         }
 
         //3 - update the course with the state ENROLL
-        course.updateState(BaseCourseStates.ENROLL);
+        course.enroll();
         courseRepository.save(course);
     }
 
@@ -118,7 +118,7 @@ public class UpdateCourseStateService {
         }
 
         //3 - update the course with the state OPEN
-        course.updateState(BaseCourseStates.PROGRESS);
+        course.progress();
         courseRepository.save(course);
     }
 
@@ -141,7 +141,7 @@ public class UpdateCourseStateService {
         }
 
         //3 - update the course with the state CLOSE
-        course.updateState(BaseCourseStates.CLOSE);
+        course.close();
         courseRepository.save(course);
     }
 
