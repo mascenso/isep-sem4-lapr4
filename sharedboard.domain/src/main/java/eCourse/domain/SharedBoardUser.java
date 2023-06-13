@@ -1,5 +1,6 @@
 package eCourse.domain;
 
+import eCourse.ECourseUser;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.validations.Preconditions;
@@ -15,7 +16,6 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
     private Long id;
 
     @ManyToOne
-    //@JoinColumn(nullable = false, name = "User ID")
     private SystemUser user;
 
     @Column(nullable = false, name = "Title")

@@ -24,10 +24,10 @@ public class PostIt implements AggregateRoot<PostItId> {
     @JoinColumn(name = "board_id")
     private SharedBoard shareBoard;
 
-    @JoinColumn(name = "row_id")
+    @JoinColumn
     private Linha row;
 
-    @JoinColumn(name = "column_id")
+    @JoinColumn
     private Coluna column;
 
 

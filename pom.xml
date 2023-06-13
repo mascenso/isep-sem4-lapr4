@@ -57,6 +57,7 @@
 		<module>teacher.application</module>
 		<module>systemusers.domain</module>
 		<module>shareboardHttpServer</module>
+        <module>common.domain</module>
 
 
     </modules>

@@ -34,7 +34,7 @@ public class CreateCourseUI extends AbstractUI {
                 System.out.println("-----------------------------");
             }
         }while(choose<0 || choose>= listOfTeachers.size());
-        theController.createCourse(name,edition,description,listOfTeachers.get(choose).user());
+        theController.createCourse(name,edition,description,listOfTeachers.get(choose).systemUser());
         return false;
     }
 

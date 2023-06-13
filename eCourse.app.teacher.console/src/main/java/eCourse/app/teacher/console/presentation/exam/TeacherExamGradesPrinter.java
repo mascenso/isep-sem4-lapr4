@@ -22,7 +22,7 @@ public class TeacherExamGradesPrinter implements Visitor<Exam> {
 
         SystemUser loggedUser = authz.session().get().authenticatedUser();
 
-        if (visitee.getTeacher().user().equals(loggedUser)) {
+        if (visitee.getTeacher().systemUser().equals(loggedUser)) {
             for (GradeOfExam gradeOfExam : visitee.getExamGrades()) {
                 System.out.printf("%-30s%-20s%-20s%-20.2f%-20s%n",
                         visitee.getExamTitle(), visitee.getExamCourse().identity().toString(),

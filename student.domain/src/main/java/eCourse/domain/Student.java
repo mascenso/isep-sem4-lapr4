@@ -1,6 +1,7 @@
 package eCourse.domain;
 
 
+import eCourse.ECourseUser;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -8,17 +9,10 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import javax.persistence.*;
 
 @Entity
-public class Student implements AggregateRoot<MecanographicNumber> {
+@DiscriminatorValue("STUDENT")
+public class Student extends ECourseUser implements AggregateRoot<MecanographicNumber> {
 
     private static final long serialVersionUID = 1L;
-
-    // ORM primary key
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Version
-    private Long version;
 
     // Business ID
     @Column(unique = true, nullable = false)
@@ -32,11 +26,6 @@ public class Student implements AggregateRoot<MecanographicNumber> {
     @Embedded
     private TaxPayNumber taxPayNumber;
 
-    /**
-     * cascade = CascadeType.NONE as the systemUser is part of another aggregate
-     */
-    @OneToOne()
-    private SystemUser systemUser;
 
     public Student(final SystemUser user, final MecanographicNumber mecanographicNumber) {
         if (mecanographicNumber == null || user == null) {
