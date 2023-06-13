@@ -18,48 +18,18 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.user.console.presentation.myuser;
+package eCourse.app.common.console.myuser;
 
-import eapli.framework.io.util.Console;
+import eapli.framework.actions.Action;
 
 /**
- * TODO move to console.common to allow reuse from both backoffice and UtenteApp
  *
- * widget for reading user data Jorge Santos ajs@isp.ipp.pt
+ * @author Jorge Santos ajs@isep.ipp.pt
  */
-public class UserDataWidget {
+public class SignupRequestAction implements Action {
 
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
-
-    public void show() {
-        this.username = Console.readLine("Username");
-        this.password = Console.readLine("Password");
-        this.firstName = Console.readLine("First Name");
-        this.lastName = Console.readLine("Last Name");
-        this.email = Console.readLine("E-Mail");
-    }
-
-    public String username() {
-        return this.username;
-    }
-
-    public String password() {
-        return this.password;
-    }
-
-    public String firstName() {
-        return this.firstName;
-    }
-
-    public String lastName() {
-        return this.lastName;
-    }
-
-    public String email() {
-        return this.email;
+    @Override
+    public boolean execute() {
+        return new SignupRequestUI().show();
     }
 }

@@ -12,8 +12,7 @@ import javax.persistence.*;
 public class PostIt implements AggregateRoot<PostItId> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private PostItId id;
+    private Long id;
 
     @Embedded
     private  PostItTitle title;
@@ -33,7 +32,6 @@ public class PostIt implements AggregateRoot<PostItId> {
 
 
     public PostIt(PostItId id, PostItTitle title, PostItContent description, SharedBoard shareBoard, Linha row, Coluna column) {
-        this.id = id;
         this.title = title;
         this.description = description;
         this.shareBoard = shareBoard;
