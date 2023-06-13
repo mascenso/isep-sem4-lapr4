@@ -40,7 +40,11 @@ public class CreateRecurringLessonsUI extends AbstractUI {
 
         final Designation title = Designation.valueOf(Console.readNonEmptyLine("Recurring Lesson Title", "the title of the Recurring Class should not be empty."));
         final Calendar startDate = Console.readCalendar("Start date (dd/MM/yyyy)", "dd/MM/yyyy");
-        final Calendar endDate = Console.readCalendar("End Date (dd/MM/yyyy)","dd/MM/yyyy");
+        Calendar endDate;
+        do {
+            endDate = Console.readCalendar("End Date (dd/MM/yyyy). Must be after the start date.","dd/MM/yyyy");
+        } while (endDate.compareTo(startDate) < 0);
+
         final LocalTime startTime =  LocalTime.parse(Console.readNonEmptyLine("Start Time (hh:mm)","hh:mm"));
         final int duration = Console.readInteger("Duration of lesson in minutes");
         final int frequency = Console.readInteger("Frequency at which the lesson occurs. 1-Sunday and 7-Saturday");
