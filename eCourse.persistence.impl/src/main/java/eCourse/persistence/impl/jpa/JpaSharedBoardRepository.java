@@ -27,4 +27,11 @@ public class JpaSharedBoardRepository extends JpaAutoTxRepository<SharedBoard, S
         params.put("name", name);
         return match("e.owner.username=:name", params);
     }
+
+    @Override
+    public Iterable<SharedBoard> findBoardByTitle(SharedBoardTitle name) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        return match("e.title=:name", params);
+    }
 }

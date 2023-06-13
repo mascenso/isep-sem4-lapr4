@@ -1,0 +1,8 @@
+ShortAnswer: "How much is 10 + 2?" {
+    Option "12"
+    Option "10"
+    Option "8"
+    Sensitive Case: True
+    Answer: 12
+    Grade: 3
+}

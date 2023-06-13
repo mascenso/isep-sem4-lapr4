@@ -26,11 +26,11 @@
 
 	<modules>
 		<module>eCourse.app.backoffice.console</module>
-		<module>eCourse.app.user.console</module>
 		<module>eCourse.app.teacher.console</module>
 		<module>eCourse.app.student.console</module>
 		<module>eCourse.app.common.console</module>
 		<module>eCourse.app.bootstrap</module>
+		<module>eCourse.app.sharedboard.console</module>
 		<module>eCourse.bootstrappers</module>
 		<module>eCourse.core</module>
 		<module>eCourse.persistence.impl</module>
@@ -50,13 +50,14 @@
 		<module>Enrollment.domain</module>
 		<module>meeting.application</module>
 		<module>meeting.domain</module>
-        <module>common.domain</module>
 		<module>infrastructure.persistence</module>
 		<module>student.domain</module>
 		<module>student.application</module>
 		<module>teacher.domain</module>
 		<module>teacher.application</module>
 		<module>systemusers.domain</module>
+		<module>shareboardHttpServer</module>
+
 
     </modules>
 

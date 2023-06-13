@@ -25,13 +25,7 @@ package eCourse.domain;
 
 import java.util.Calendar;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -62,7 +56,7 @@ public class SignupRequest implements AggregateRoot<Username> {
     @Version
     private Long version;
 
-    @EmbeddedId
+    @Id
     private Username username;
     private Password password;
     private Name name;
