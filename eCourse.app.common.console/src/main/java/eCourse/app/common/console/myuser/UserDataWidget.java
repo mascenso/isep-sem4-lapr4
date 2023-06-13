@@ -18,32 +18,48 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.user.console.presentation;
+package eCourse.app.common.console.myuser;
 
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.io.util.Console;
 
 /**
+ * TODO move to console.common to allow reuse from both backoffice and UtenteApp
  *
- * @author mcn
+ * widget for reading user data Jorge Santos ajs@isp.ipp.pt
  */
-@SuppressWarnings("squid:S106")
-public abstract class ClientUserBaseUI extends AbstractUI {
+public class UserDataWidget {
 
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
 
-    @Override
-    public String headline() {
-
-        return authz.session().map(s -> "Base [ @" + s.authenticatedUser().identity() + " ] ")
-                .orElse("Base [ ==Anonymous== ]");
+    public void show() {
+        this.username = Console.readLine("Username");
+        this.password = Console.readLine("Password");
+        this.firstName = Console.readLine("First Name");
+        this.lastName = Console.readLine("Last Name");
+        this.email = Console.readLine("E-Mail");
     }
 
-    @Override
-    protected void drawFormTitle(final String title) {
-        final String titleBorder = BORDER.substring(0, 2) + " " + title;
-        System.out.println(titleBorder);
-        drawFormBorder();
+    public String username() {
+        return this.username;
+    }
+
+    public String password() {
+        return this.password;
+    }
+
+    public String firstName() {
+        return this.firstName;
+    }
+
+    public String lastName() {
+        return this.lastName;
+    }
+
+    public String email() {
+        return this.email;
     }
 }

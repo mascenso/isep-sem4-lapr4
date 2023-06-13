@@ -26,7 +26,6 @@
 
 	<modules>
 		<module>eCourse.app.backoffice.console</module>
-		<module>eCourse.app.user.console</module>
 		<module>eCourse.app.teacher.console</module>
 		<module>eCourse.app.student.console</module>
 		<module>eCourse.app.common.console</module>
@@ -51,7 +50,6 @@
 		<module>Enrollment.domain</module>
 		<module>meeting.application</module>
 		<module>meeting.domain</module>
-        <module>common.domain</module>
 		<module>infrastructure.persistence</module>
 		<module>student.domain</module>
 		<module>student.application</module>
