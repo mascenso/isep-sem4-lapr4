@@ -24,12 +24,17 @@ class ListExamService {
     examByCourse()
 }
 
-class ListCourseService{
-    listOfCoursesEnroll()
-}
 
 class validateExamService{
     validateExam()
+    getExamGradeOnPercentage()
+    validateMissingWordQuestion()
+    validateMultipleChoiceQuestion()
+    validateMatchingQuestion()
+    validateNumericalQuestion()
+    validateTheShortAnswer()
+    validateTheAnswerTrueOrFalse()
+    validTrueOrFalseOption()
 }
 
 TakeExamUI : doShow()
