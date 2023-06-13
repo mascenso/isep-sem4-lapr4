@@ -9,7 +9,7 @@ public class SBPClient {
     static Socket sock;
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.out.println("Server IPv4/IPv6 address or DNS name is required as an argument");
             System.exit(1);
         }
@@ -22,7 +22,7 @@ public class SBPClient {
         }
 
         try {
-            sock = new Socket(serverIP, Integer.parseInt(args[0]));
+            sock = new Socket(serverIP, Integer.parseInt(args[1]));
         } catch (IOException ex) {
             System.out.println("Failed to establish TCP connection");
             System.exit(1);
@@ -74,8 +74,18 @@ public class SBPClient {
             byte[] usernameBytes = username.getBytes(StandardCharsets.US_ASCII);
             byte[] passwordBytes = password.getBytes(StandardCharsets.US_ASCII);
 
-            System.arraycopy(usernameBytes, 0, sbpMessage, 4, usernameLength);
-            System.arraycopy(passwordBytes, 0, sbpMessage, 4 + usernameLength, passwordLength);
+            //byte[] sbpMessage = new byte[8 + usernameBytes.length + passwordBytes.length];
+
+            byte[] sbpMessageWithUserData = new byte[8 + usernameBytes.length + passwordBytes.length];
+
+
+            //System.arraycopy(usernameBytes, 0, sbpMessage, 4, usernameLength);
+            //System.arraycopy(passwordBytes, 0, sbpMessage, 4 + usernameLength, passwordLength);
+
+            System.arraycopy(sbpMessage, 0, sbpMessageWithUserData, 0, sbpMessage.length); // Copy the first 4 fields
+            System.arraycopy(usernameBytes, 0, sbpMessageWithUserData, 8, usernameBytes.length); // Copy the username
+            System.arraycopy(passwordBytes, 0, sbpMessageWithUserData, 8 + usernameBytes.length, passwordBytes.length); // Copy the password
+
 
             // DATA
             // Converte o num em um array de bytes (com deslocamentos à direita) e armazena no index 4 a 7 do sbpMessage.
