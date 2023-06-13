@@ -32,13 +32,13 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * UI for adding a user to the application.
- *
- * Created by nuno on 22/03/16.
+ * UI for adding a student to the application.
  */
 public class AddStudentUI extends AbstractUI {
 
@@ -52,7 +52,10 @@ public class AddStudentUI extends AbstractUI {
 
         final String taxPayNumber = Console.readLine("Tax Pay Number:");
 
-        final String birthDate = Console.readLine("Birth Date dd/mm/yyyy:");
+        LocalDate birthdate = Console.readDate("Please insert user's birthdate: dd-MM-yyyy ", "dd-MM-yyyy")
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
 
 
         final Set<Role> roleTypes = new HashSet<>();
@@ -66,7 +69,8 @@ public class AddStudentUI extends AbstractUI {
                     userData.firstName(),
                     userData.email(),
                     roleTypes,
-                    taxPayNumber
+                    taxPayNumber,
+                    birthdate
                     );
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
