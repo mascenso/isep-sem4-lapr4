@@ -43,7 +43,7 @@ public class AppSettings {
     private static final String UI_MENU_LAYOUT_KEY = "ui.menu.layout";
     private static final String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
     private static final String SCHEMA_GENERATION_KEY = "javax.persistence.schema-generation.database.action";
-    private static final String HIGH_CALORIES_DISH_LIMIT = "HighCaloriesDishLimit";
+    private static final String ACRONYM_NUM_LETTERS = "acronymLetters";
 
     private final Properties applicationProperties = new Properties();
 
@@ -73,7 +73,7 @@ public class AppSettings {
         this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
         this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli"
                 + ".base");
-        this.applicationProperties.setProperty(HIGH_CALORIES_DISH_LIMIT, "300");
+        this.applicationProperties.setProperty(ACRONYM_NUM_LETTERS, "3");
     }
 
     public Boolean isMenuLayoutHorizontal() {
@@ -90,7 +90,7 @@ public class AppSettings {
     }
 
     public Integer getHighCaloriesDishLimit() {
-        return Integer.valueOf(this.applicationProperties.getProperty(HIGH_CALORIES_DISH_LIMIT));
+        return Integer.valueOf(this.applicationProperties.getProperty(ACRONYM_NUM_LETTERS));
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

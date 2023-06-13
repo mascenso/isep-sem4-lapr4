@@ -179,7 +179,7 @@ public class TakeExamUI extends AbstractUI {
         float userAnswer =0;
         Scanner scanner = new Scanner(System.in);
         System.out.println("--------------------------------------------------------------------------");
-        System.out.println("\nThis is a question of Numerical Answer.\nUse ',' and not '.'");
+        System.out.println("\nThis is a question of Numerical Answer.\nUse '.' and not ','");
         System.out.printf("\nQuestion: %s\n",question.getValue().get("Question").toString());
         System.out.print("Answer: ");
         userAnswer = scanner.nextFloat();

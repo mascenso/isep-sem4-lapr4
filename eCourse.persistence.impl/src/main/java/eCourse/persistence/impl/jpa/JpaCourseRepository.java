@@ -9,6 +9,7 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import javax.persistence.TypedQuery;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -38,11 +39,13 @@ implements CourseRepository {
     }
 
     @Override
-    public Set<Course> findByTeacher(Teacher teacher) {
-        return StreamSupport.stream(findAll().spliterator(), false)
-                .filter(course -> course.teachers().stream()
-                        .anyMatch(association -> association.teacher().equals(teacher)))
-                .collect(Collectors.toSet());
+    public Iterable<Course> findByTeacher(Teacher teacher) {
+        final TypedQuery<Course> query = entityManager().createQuery(
+                "SELECT d FROM Course d JOIN d.teachers aind WHERE aind.teacher = :teacher",
+                Course.class);
+        query.setParameter("teacher", teacher);
+
+        return query.getResultList();
     }
 
 

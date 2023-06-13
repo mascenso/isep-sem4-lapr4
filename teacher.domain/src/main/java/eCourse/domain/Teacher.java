@@ -20,6 +20,7 @@ public class Teacher implements AggregateRoot<Acronym> {
 
     // Business ID
     @Column(unique = true, nullable = false)
+    @Embedded
     private Acronym acronym;
 
     /**

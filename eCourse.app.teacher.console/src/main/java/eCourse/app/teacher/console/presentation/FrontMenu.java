@@ -24,7 +24,7 @@
 package eCourse.app.teacher.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.LoginUI;
-import eCourse.app.user.console.presentation.myuser.SignupRequestAction;
+import eCourse.app.common.console.myuser.SignupRequestAction;
 import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.ChainedAction;
 import eapli.framework.actions.menu.Menu;
@@ -40,7 +40,6 @@ import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 public class FrontMenu extends AbstractUI {
 
     private static final int EXIT_OPTION = 0;
-
     private static final int LOGIN_OPTION = 1;
     private static final int SIGNUP_OPTION = 2;
 

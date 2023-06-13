@@ -25,6 +25,7 @@ public class CreateExamUI extends AbstractUI {
         final Map<Integer, Designation> hashmap = new HashMap<>();
 
 
+
         System.out.println("List of Open Courses:");
         int selectedOption = showCourses(listOfCourses, hashmap);
         final Course selectedCourse = listOfCourses.get(selectedOption - 1);
@@ -45,7 +46,8 @@ public class CreateExamUI extends AbstractUI {
                 throw new FileNotFoundException("The file doesn't exist!");
             }
 
-            theController.createExam(selectedCourse, title, openDate, closeDate, examFile);
+            Teacher loggedTeacher = theController.getCurrentTeacher();
+            theController.createExam(selectedCourse, loggedTeacher, title, openDate, closeDate, examFile);
         } catch (final IntegrityViolationException e) {
             System.out.println("You tried to enter an exam which already exists in the database.");
         } catch (final ConcurrencyException e) {

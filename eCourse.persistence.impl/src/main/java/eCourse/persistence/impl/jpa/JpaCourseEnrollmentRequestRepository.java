@@ -2,19 +2,17 @@ package eCourse.persistence.impl.jpa;
 
 import eCourse.Application;
 import eCourse.domain.CourseEnrollmentRequest;
+import eCourse.domain.EnrollmentStatus;
 import eCourse.repositories.CourseEnrollmentRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 public class JpaCourseEnrollmentRequestRepository extends JpaAutoTxRepository<CourseEnrollmentRequest, Long, String>
 implements CourseEnrollmentRequestRepository {
-
-    /*
-    public class JpaMeetingRepository extends JpaAutoTxRepository<Meeting, String,String>
-        implements MeetingsRepository {
-     */
 
     public JpaCourseEnrollmentRequestRepository(final TransactionalContext autoTx) {
         super(autoTx, "CourseEnrollmentID");
@@ -45,6 +43,12 @@ implements CourseEnrollmentRequestRepository {
 
     @Override
     public Iterable<CourseEnrollmentRequest> pendingCourseEnrollmentRequests() {
-        return null;
+        TypedQuery<CourseEnrollmentRequest> query = entityManager().createQuery(
+                "SELECT cer FROM CourseEnrollmentRequest cer WHERE cer.enrollmentStatus = :status",
+                CourseEnrollmentRequest.class);
+        query.setParameter("status", EnrollmentStatus.PENDING);
+
+        return query.getResultList();
     }
+
 }
