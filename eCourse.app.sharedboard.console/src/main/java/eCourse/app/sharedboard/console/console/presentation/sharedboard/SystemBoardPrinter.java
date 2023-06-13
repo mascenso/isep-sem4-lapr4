@@ -1,4 +1,4 @@
-package eCourse.app.backoffice.console.presentation.sharedboard;
+package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.domain.SharedBoard;
 import eapli.framework.visitor.Visitor;

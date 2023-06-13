@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.app.sharedboard.console.console.presentation;
+package eCourse.app.sharedboard.console.console.presentation.meals;
 
 import eCourse.app.sharedboard.console.mealbooking.csvprotocol.client.MealDTO;
 import eapli.framework.visitor.Visitor;

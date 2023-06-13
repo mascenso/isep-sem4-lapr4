@@ -25,6 +25,8 @@ package eCourse.app.sharedboard.console.console.presentation;
 
 import eCourse.Application;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
+import eCourse.app.sharedboard.console.console.presentation.meals.BookAMealThruKioskUI;
+import eCourse.app.sharedboard.console.console.presentation.sharedboard.*;
 import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -125,14 +127,16 @@ public class MainMenu extends AbstractUI {
 
     private Menu buildSharedBoardMenu() {
         final Menu menu = new Menu("Boards >");
-        //menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
-        //menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
-        menu.addItem(BOOK_A_MEAL, "BookaMealExampleCafet", new BookAMealThruKioskUI()::show);
+        menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
+        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
+
+
         menu.addItem(SHARE_A_BOARD, "Share a board", new ShareABoardUI()::show);
         menu.addItem(UPDATE_SHARED_BOARD,"Update a board", new UpdateSharedBoardUI()::show);
         menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
-        menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
+        menu.addItem(BOOK_A_MEAL, "BookaMealExampleCafet", new BookAMealThruKioskUI()::show);
+        menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
         return menu;
     }
 

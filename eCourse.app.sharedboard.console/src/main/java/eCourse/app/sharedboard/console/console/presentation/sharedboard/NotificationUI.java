@@ -1,4 +1,4 @@
-package eCourse.app.sharedboard.console.console.presentation;
+package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.NotificationController;
 import eCourse.domain.Notification;

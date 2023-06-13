@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.app.sharedboard.console.console.presentation;
+package eCourse.app.sharedboard.console.console.presentation.meals;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -60,7 +60,8 @@ public class BookAMealThruKioskUI extends CafeteriaKioskBaseUI {
 
 	private void selectMealAndBook(final Calendar theDay, final String mealType) {
 		final var theMeal = selectPublishedMealsForDayAndType(theDay, mealType);
-		if (theMeal != null) {
+		//if (theMeal != null)
+		{
 			try {
 				final BookingTokenDTO token = theController.bookMealForMe(CredentialStore.getUsername(),
 						CredentialStore.getPassword(), theMeal);
