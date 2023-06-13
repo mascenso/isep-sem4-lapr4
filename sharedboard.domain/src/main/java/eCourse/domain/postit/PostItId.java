@@ -2,12 +2,11 @@ package eCourse.domain.postit;
 
 import eapli.framework.domain.model.ValueObject;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 @Embeddable
 public class PostItId implements ValueObject, Comparable<PostItId> {
-@Column(name= "id")
+
     private Long id;
 
 
