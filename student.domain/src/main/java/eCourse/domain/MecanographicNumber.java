@@ -27,19 +27,9 @@ import eapli.framework.strings.util.StringPredicates;
 
 import java.time.Year;
 
-/**
- *
- * @author Jorge Santos ajs@isep.ipp.pt
- */
 @Embeddable
 public class MecanographicNumber implements ValueObject, Comparable<MecanographicNumber> {
 
-    /**
-     * Since it is a very important composite business identifier,
-     * it should remain inside the domain layer.
-     * However, (TODO) it should create a sequence, assuring consistency
-     * with the database.
-     */
     private String number;
 
     public MecanographicNumber(final String mecanographicNumber) {
@@ -47,9 +37,6 @@ public class MecanographicNumber implements ValueObject, Comparable<Mecanographi
             throw new IllegalArgumentException(
                     "Mecanographic Number should neither be null nor empty");
         }
-
-        // TODO validate invariants, i.e., mecanographic number regular
-        // expression
         this.number = mecanographicNumber;
     }
 
@@ -96,5 +83,4 @@ public class MecanographicNumber implements ValueObject, Comparable<Mecanographi
     public int compareTo(final MecanographicNumber arg0) {
         return number.compareTo(arg0.number);
     }
-
 }

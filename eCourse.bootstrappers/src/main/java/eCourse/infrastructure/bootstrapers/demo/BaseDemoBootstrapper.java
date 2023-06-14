@@ -23,6 +23,7 @@
  */
 package eCourse.infrastructure.bootstrapers.demo;
 
+import eCourse.domain.SharedBoard;
 import eCourse.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
@@ -54,7 +55,8 @@ public class BaseDemoBootstrapper implements Action {
 		final Action[] actions = {
 				new BackofficeUsersBootstrapper(),
 				new StudentUserBootstrapper(),
-				new CourseBootstrapper()
+				new CourseBootstrapper(),
+				new SharedBoardBootstrapper(),
 				//new CreateExamBootstrapper()
 		};
 

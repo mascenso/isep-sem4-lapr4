@@ -1,5 +1,9 @@
 package eCourse.domain;
 
+import eCourse.domain.enums.AccessType;
+import eCourse.domain.valueobjects.SBColumn;
+import eCourse.domain.valueobjects.SBRow;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.validations.Preconditions;
@@ -24,7 +28,7 @@ public class Notification implements AggregateRoot<Long> {
 
     private SharedBoardTitle title;
 
-    private AccessType permission;
+    private eCourse.domain.enums.AccessType permission;
 
     private boolean archive;
 
@@ -32,10 +36,10 @@ public class Notification implements AggregateRoot<Long> {
     private int numberRows;
 
     @ElementCollection
-    private List<Coluna> colunas;
+    private List<SBColumn> colunas;
 
     @ElementCollection
-    private List<Linha> linhas;
+    private List<SBRow> linhas;
 
 
     public Notification() {
@@ -70,7 +74,7 @@ public class Notification implements AggregateRoot<Long> {
         return user;
     }
 
-    public AccessType permission() {
+    public eCourse.domain.enums.AccessType permission() {
         return permission;
     }
 

@@ -1,9 +1,9 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.UpdateSharedBoardController;
-import eCourse.domain.AccessType;
+import eCourse.domain.enums.AccessType;
 import eCourse.domain.SharedBoard;
-import eCourse.domain.SharedBoardTitle;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
@@ -82,11 +82,11 @@ public class UpdateSharedBoardUI extends AbstractUI {
         final String[] rowNames = new String[rows];
 
         for (int i = 0; i < columns; i++) {
-            columnNames[i] = Console.readLine("Column " + (i + 1) + " name:");
+            columnNames[i] = Console.readLine("SBColumn " + (i + 1) + " name:");
         }
 
         for (int i = 0; i < rows; i++) {
-            rowNames[i] = Console.readLine("Row " + (i + 1) + " name:");
+            rowNames[i] = Console.readLine("SBRow " + (i + 1) + " name:");
         }
 
         theController.updateSharedBoard(rows, columns, columnNames, rowNames, board, user.get());

@@ -137,5 +137,10 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 		return null;
 	}
 
+	@Override
+	public SharedBoardCellRepository sharedBoardCells() {
+		return null;
+	}
+
 
 }
