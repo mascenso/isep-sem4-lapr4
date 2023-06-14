@@ -40,6 +40,7 @@ public class Course implements AggregateRoot<Designation> {
     @ElementCollection(fetch = FetchType.EAGER)
     private final Set<TeachersInCourse> teachers = new HashSet<>();
 
+
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "Course_Student",
@@ -72,12 +73,12 @@ public class Course implements AggregateRoot<Designation> {
 
     public String cordinator (){return teacherCoordinator.name().toString();}
 
-    public CourseState updateState(CourseState newState) {
+    /*public CourseState updateState(CourseState newState) {
         if (!this.state.equals(newState)) {
             this.state = newState;
         }
         return newState;
-    }
+    }*/
 
     @Override
     public boolean sameAs(Object other) {
@@ -105,6 +106,22 @@ public class Course implements AggregateRoot<Designation> {
 
     public CourseState getCourseState() {
         return state;
+    }
+
+    public void open() {
+        state = new CourseState("Open");
+    }
+
+    public void progress() {
+        state = new CourseState("Progress");
+    }
+
+    public void enroll() {
+        state = new CourseState("Enroll");
+    }
+
+    public void close() {
+        state = new CourseState("Close");
     }
     @Override
     public boolean equals(final Object o) {
