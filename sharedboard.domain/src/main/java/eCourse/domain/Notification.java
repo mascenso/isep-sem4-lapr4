@@ -74,10 +74,6 @@ public class Notification implements AggregateRoot<Long> {
         return permission;
     }
 
-    public void setPermission(AccessType permission) {
-        this.permission = permission;
-    }
-
     public SharedBoardTitle title() {
         return title;
     }

@@ -26,8 +26,8 @@ public class UpdateSharedBoardController {
 
     public void updateSharedBoard(int numberOfRows, int numberOfColumns, String[] columnNames, String[] rowNames, SharedBoard board, SystemUser user) {
 
-        board.changeNumberRows(numberOfRows);
-        board.changeNumberColumns(numberOfColumns);
+        board.changeNumberOfRows(numberOfRows);
+        board.changeNumberOfColumns(numberOfColumns);
 
         List<Coluna> columns = new ArrayList<>();
         for (String columnName : columnNames){

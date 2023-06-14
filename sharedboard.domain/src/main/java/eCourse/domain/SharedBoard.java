@@ -103,6 +103,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     public void changeRows(List<Linha> linhas) {
         this.linhas = linhas;
     }
+
     public void updateArchive(boolean archive) {
         this.archive = archive;
     }
@@ -131,10 +132,6 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return this.title;
     }
 
-    public boolean isArchive() {
-        return true;
-    }
-
     public int numberOfColumns() {
         return numberColumns;
     }
@@ -143,11 +140,11 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return numberRows;
     }
 
-    public void changeNumberRows(int numberRows) {
+    public void changeNumberOfRows(int numberRows) {
         this.numberRows = numberRows;
     }
 
-    public void changeNumberColumns(int numberColumns) {
+    public void changeNumberOfColumns(int numberColumns) {
         this.numberColumns = numberColumns;
     }
 
