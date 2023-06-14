@@ -57,6 +57,7 @@ public class MainMenu extends AbstractUI {
     private static final int SHARE_A_BOARD=3;
     private static final int BOARD_NOTIFICATION=4;
     private static final int UPDATE_SHARED_BOARD=5;
+    private static final int CREATE_POST_IT=6;
 
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
@@ -134,6 +135,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(SHARE_A_BOARD, "Share a board", new ShareABoardUI()::show);
         menu.addItem(UPDATE_SHARED_BOARD,"Update a board", new UpdateSharedBoardUI()::show);
         menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
+
+        menu.addItem(CREATE_POST_IT, "Create post-it", new CreateAPostItUI()::show);
 
         menu.addItem(BOOK_A_MEAL, "BookaMealExampleCafet", new BookAMealThruKioskUI()::show);
         menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);

@@ -109,4 +109,6 @@ public interface RepositoryFactory {
     SharedBoardUserRepository sharedBoardUser();
 
     GradesRepository gradesForExam();
+
+    SharedBoardCellRepository sharedBoardCells();
 }
