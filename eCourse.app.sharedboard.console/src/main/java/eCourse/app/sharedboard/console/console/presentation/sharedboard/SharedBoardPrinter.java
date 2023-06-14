@@ -1,7 +1,7 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
-import eCourse.domain.Coluna;
-import eCourse.domain.Linha;
+import eCourse.domain.valueobjects.SBColumn;
+import eCourse.domain.valueobjects.SBRow;
 import eCourse.domain.SharedBoard;
 
 
@@ -15,7 +15,7 @@ public class SharedBoardPrinter {
 
         // Imprime números de colunas
         System.out.print("  |");
-        for (Coluna column : sharedBoard.colunas()) {
+        for (SBColumn column : sharedBoard.colunas()) {
             System.out.printf(" %s |", column.getName());
         }
         System.out.println();
@@ -29,7 +29,7 @@ public class SharedBoardPrinter {
 
         // Imprime números de linhas e células
         for (int i = 1; i <= numberOfRows; i++) {
-            Linha row = sharedBoard.linhas().get(i - 1);
+            SBRow row = sharedBoard.linhas().get(i - 1);
             System.out.printf("%2d|", i);
 
             System.out.println();

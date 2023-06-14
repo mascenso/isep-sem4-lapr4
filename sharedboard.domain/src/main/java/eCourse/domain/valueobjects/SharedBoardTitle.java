@@ -1,8 +1,11 @@
-package eCourse.domain;
+package eCourse.domain.valueobjects;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class SharedBoardTitle implements ValueObject, Comparable<SharedBoardTitle> {
     private static final long serialVersionUID = 1L;
 

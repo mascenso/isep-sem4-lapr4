@@ -3,7 +3,7 @@ package eCourse.persistence.impl.jpa;
 import eCourse.Application;
 import eCourse.domain.SharedBoard;
 import eCourse.repositories.SharedBoardRepository;
-import eCourse.domain.SharedBoardTitle;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;

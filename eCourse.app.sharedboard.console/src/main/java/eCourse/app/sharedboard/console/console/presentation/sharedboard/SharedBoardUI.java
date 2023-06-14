@@ -1,11 +1,10 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 
-import eCourse.domain.Coluna;
+import eCourse.domain.valueobjects.SBColumn;
 import eCourse.CreateSharedBoardController;
-import eCourse.domain.Linha;
+import eCourse.domain.valueobjects.SBRow;
 import eCourse.domain.SharedBoard;
-import eCourse.domain.SharedBoardColumnAndRow;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
@@ -27,26 +26,26 @@ public class SharedBoardUI extends AbstractUI {
 
         final SharedBoard sharedBoardColumnAndRow = new SharedBoard(numberOfRows, numberOfColumns);
         for (int i = 0; i < numberOfColumns; i++) {
-            columnNames[i] = Console.readLine("Column name " + (i+1) + " : ");
+            columnNames[i] = Console.readLine("SBColumn name " + (i+1) + " : ");
         }
 
 
         for (int i = 0; i < numberOfRows; i++) {
-            rowNames[i] = Console.readLine("Row name " + (i+1) + ": " );
+            rowNames[i] = Console.readLine("SBRow name " + (i+1) + ": " );
         }
 
-        List<Coluna> columns = new ArrayList<>();
+        List<SBColumn> columns = new ArrayList<>();
         for (String columnName : columnNames){
-            columns.add(new Coluna(columnName));
+            columns.add(new SBColumn(columnName));
         }
 
-        List<Linha> rows = new ArrayList<>();
+        List<SBRow> rows = new ArrayList<>();
         for (String rowName : rowNames){
-            rows.add(new Linha(rowName));
+            rows.add(new SBRow(rowName));
         }
 
         try {
-            CreateSharedBoardController.addSharedBoard(title, numberOfColumns, numberOfRows, columns, rows);
+            createSharedBoardController.addSharedBoard(title, numberOfColumns, numberOfRows, columns, rows);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("This title is already in use");
         }
