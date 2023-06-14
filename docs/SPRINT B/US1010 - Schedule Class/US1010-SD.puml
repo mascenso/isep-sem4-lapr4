@@ -12,17 +12,41 @@ participant RecurringLessonBuilder as Builder <<builder>>
 participant PersistenceContext as Persistence <<persistence>>
 participant RepositoryFactory as Factory <<factory>>
 database RecurringLessonRepository as LessonRepository <<Repository>>
+database TeacherRepository as TeacherRepository <<Repository>>
+database CourseRepository as CourseRepository <<Repository>>
 participant "serviço:RecurringLessonService" as Service <<Domain>>
+participant "serviço:AuthorizationService" as Authz <<Domain>>
 participant RecurringLesson as RecurringLesson <<Domain>>
 
 
 Actor -> UI: CreateRecurringLesson()
 activate UI
+UI -> Controller: getTeacherCourses()
+activate Controller
+Controller -> UI: courses
+UI -> Actor: selectorCourse.show()
+Actor -> UI: Selects one of the courses
 UI -> Actor: Ask User the recurring lesson information
-Actor -> UI: inputs frequency, start date, end date, duration,\n title and start time
+Actor -> UI: inputs Recurring Lesson title, start date, start time\n end date, duration and frequency
 
 UI -> Controller: createRecurringLesson(title, startDate, endDate, startTime, duration, frequency)
-activate Controller
+
+Controller -> Authz: session().get().authenticatedUser().username()
+activate Authz
+Authz -> Controller: username
+deactivate Authz
+Controller -> TeacherRepository: getCurrentTeacher()
+activate TeacherRepository
+TeacherRepository -> Controller: teacher
+deactivate TeacherRepository
+Controller -> CourseRepository: getTeacherCourses()
+activate CourseRepository
+CourseRepository -> Controller: courses
+deactivate CourseRepository
+Controller -> Service: generateRecurringLessons(startDate, endDate, frequency)
+activate Service
+Service -> Controller: List<Calendar> dayOfOccurrence
+deactivate Service
 Controller -> Builder: buildOrThrow()
 activate Builder
 Builder -> RecurringLesson: RecurringLesson(title, startDate, endDate, startTime, duration, frequency)
@@ -33,12 +57,12 @@ Builder -> Controller: recurringLesson
 deactivate Builder
 Controller -> Service: propagateLessonByFrequency(recurringLesson)
 activate Service
-Controller -> Service: checkTeacherAvailability(recurringLesson)
+Controller -> Service: validateRecurringLesson(teacher, recurringLesson)
 deactivate Service
 Controller -> Persistence: repositories()
 activate Persistence
 Persistence -> Factory: newInstance()
-Activate Factory
+activate Factory
 Factory -> Persistence: RecurringLesson
 deactivate Factory
 Persistence -> Controller: RecurringLesson
