@@ -32,6 +32,18 @@
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>systemusers.domain</artifactId>
+            <version>0.1.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>systemusers.domain</artifactId>
+            <version>0.1.0</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 

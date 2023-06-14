@@ -11,7 +11,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 
-public class ExamTitle implements Serializable, ValueObject, Comparable<ExamTitle> {
+public class ExamTitle implements ValueObject, Comparable<ExamTitle> {
+
     private static final long serialVersionUID = 1L;
 
     @Column(

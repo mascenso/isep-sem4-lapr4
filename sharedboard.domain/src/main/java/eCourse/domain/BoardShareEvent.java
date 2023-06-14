@@ -1,6 +1,5 @@
 package eCourse.domain;
 
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ public class BoardShareEvent extends AbstractBoardShareEvent {
     @ManyToOne
     private SharedBoardUser what;
 
+
     // for ORM
     protected BoardShareEvent() {
         super();
@@ -26,12 +26,15 @@ public class BoardShareEvent extends AbstractBoardShareEvent {
 
     public BoardShareEvent(final SharedBoardUser what) {
         super(what);
-        createNotification();
+        createSharedBoardNotification();
     }
 
-    private void createNotification() {
+
+    private void createSharedBoardNotification() {
         Notification notification = new Notification(this);
         notifications.add(notification);
     }
+
+
 
 }

@@ -1,11 +1,11 @@
 package eCourse.domain;
 
-
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Student implements AggregateRoot<MecanographicNumber> {
@@ -22,10 +22,11 @@ public class Student implements AggregateRoot<MecanographicNumber> {
 
     // Business ID
     @Column(unique = true, nullable = false)
+    @Embedded
     private MecanographicNumber mecanographicNumber;
 
-    //@Temporal(TemporalType.DATE)
-    //Date dateOfBirth;
+    @Embedded
+    private Birthdate birthdate;
 
     // Business ID
     @Column(unique = true, nullable = false)
@@ -50,13 +51,14 @@ public class Student implements AggregateRoot<MecanographicNumber> {
         // for ORM only
     }
 
-    public Student(SystemUser user, MecanographicNumber mecanographicNumber, TaxPayNumber taxPayNumber) {
+    public Student(SystemUser user, MecanographicNumber mecanographicNumber, TaxPayNumber taxPayNumber, Birthdate birthdate) {
         if (mecanographicNumber == null || user == null) {
             throw new IllegalArgumentException();
         }
         this.systemUser = user;
         this.mecanographicNumber = mecanographicNumber;
         this.taxPayNumber = taxPayNumber;
+        this.birthdate = birthdate;
     }
 
     public SystemUser user() {
@@ -85,6 +87,14 @@ public class Student implements AggregateRoot<MecanographicNumber> {
     @Override
     public MecanographicNumber identity() {
         return this.mecanographicNumber;
+    }
+
+    public TaxPayNumber taxPayNumber() {
+        return this.taxPayNumber;
+    }
+
+    public Birthdate birthdate() {
+        return this.birthdate;
     }
 
     /*

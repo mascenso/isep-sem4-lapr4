@@ -10,6 +10,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public class AddStudentUserController {
 
     @Transactional
     public void addStudentUser(final String username, final String password, final String firstName,
-                                      final String lastName, final String email, final Set<Role> roles, final String taxPayerNumber, final Calendar createdOn) {
+                               final String lastName, final String email, final Set<Role> roles, final String taxPayerNumber, LocalDate birthdate, final Calendar createdOn) {
         authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
 
@@ -30,15 +31,15 @@ public class AddStudentUserController {
         SystemUser user = userManagementService.registerNewUser(username, password, firstName, lastName, email, roles, createdOn);
 
         /* Register the student */
-        studentManagementService.createStudentUser(user, taxPayerNumber);
+        studentManagementService.createStudentUser(user, taxPayerNumber, birthdate);
 
 
     }
 
     public Student addStudentUser(final String username, final String password, final String firstName,
-                                  final String lastName, final String email, final Set<Role> roles, final String taxPayerNumber) {
+                                  final String lastName, final String email, final Set<Role> roles, final String taxPayerNumber, LocalDate birthdate) {
 
-        addStudentUser(username, password, firstName, lastName, email, roles, taxPayerNumber, CurrentTimeCalendars.now());
+        addStudentUser(username, password, firstName, lastName, email, roles, taxPayerNumber, birthdate, CurrentTimeCalendars.now());
         return null;
     }
 

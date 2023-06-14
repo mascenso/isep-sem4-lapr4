@@ -9,12 +9,13 @@ class CreateRecurringLessonController {
 }
 
 class RecurringLesson {
+    +updateScheduleOfLesson(Calendar startDate, Calendar endDate, int duration)
 }
 
 class ScheduleLessonService {
-    +PropagateLessons()
-    +ValidateRecurringLessons()
     +allRecurringLessons()
+    +generateRecurringLessons(Calendar startDate, Calendar endDate, int frequency)
+    +validateRecurringLesson(Teacher teacher, RecurringLesson recurringLesson)
 }
 
 class RepositoryFactory {

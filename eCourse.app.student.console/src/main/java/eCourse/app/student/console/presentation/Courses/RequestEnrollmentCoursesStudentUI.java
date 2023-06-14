@@ -49,7 +49,7 @@ public class RequestEnrollmentCoursesStudentUI extends AbstractListUI<Course> im
 
     @Override
     public boolean execute() {
-        new ListCoursesStudentUI().show();
+        //new ListCoursesStudentUI().show();
 
         final Iterable<Course> allCoursesEnrollment = listController.allCoursesEnrollment();
         if (!allCoursesEnrollment.iterator().hasNext()) {
@@ -59,10 +59,18 @@ public class RequestEnrollmentCoursesStudentUI extends AbstractListUI<Course> im
             final SelectWidget<Course> selector = new SelectWidget<>("Select a course", allCoursesEnrollment, new CoursesPrinter());
             selector.show();
             final Course selCourse = selector.selectedElement();
-            courseEnrollmentRequestController.courseEnrollment(selCourse);
+
+            boolean enrollmentSuccessful = courseEnrollmentRequestController.courseEnrollment(selCourse);
 
             //try
             //theController.changeDishState(updtDish);
+
+            if (enrollmentSuccessful) {
+                System.out.println("Enrollment request submitted successfully.");
+            } else {
+                System.out.println("You have already requested enrollment in this course.");
+            }
+
             }
 
         return true;

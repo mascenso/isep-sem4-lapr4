@@ -56,7 +56,6 @@ public class TakeExamUI extends AbstractUI {
                 }
 
             }
-
             System.out.printf("You got %.0f%% of exam right.\n", theController.getExamGradeOnPercentage(studentGrade, maxExamGrade));
             System.out.printf("You had %.2f of %.2f possible points.\n", studentGrade, maxExamGrade);
 

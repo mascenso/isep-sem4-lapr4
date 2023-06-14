@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface SharedBoardRepository extends DomainRepository<SharedBoardTitle, SharedBoard> {
 
     Iterable<SharedBoard> findByUsername(final Username name);
+
+    Iterable<SharedBoard> findBoardByTitle(final SharedBoardTitle title);
 }

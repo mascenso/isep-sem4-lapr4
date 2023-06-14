@@ -3,7 +3,6 @@ package eCourse.domain;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -14,6 +13,7 @@ import java.util.*;
 public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
     @EmbeddedId
+    @Column(name="title")
     private SharedBoardTitle title;
 
     @Column
@@ -21,15 +21,13 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @Column
     private int numberColumns;
 
-    /*@Embedded
-    private SharedBoardColumnAndRow position;*/
+    @OneToMany(mappedBy="sharedboard", cascade = CascadeType.ALL)
+    private List<SharedBoardCell> matrixCells = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "SHARED_BOARD_TITLE")
+    @ElementCollection
     private List<Linha> linhas;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "SHARED_BOARD_TITLE")
+    @ElementCollection
     private List<Coluna> colunas;
 
     @ManyToOne
@@ -40,7 +38,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     private boolean archive;
 
     @OneToMany
-    private List<SharedBoardUser> usersList=new ArrayList<>();
+    private List<SharedBoardUser> usersList = new ArrayList<>();
 
 
     public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner, List<Coluna> columns, List<Linha> rows) {
@@ -60,6 +58,17 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         this.archive = archive;
         this.colunas = columns;
         this.linhas = rows;
+        this.matrixCells = newEmptyBoard(numberRows, numberColumns);
+    }
+
+    private List<SharedBoardCell> newEmptyBoard(int numberRows, int numberColumns) {
+        List<SharedBoardCell> matrixCells = new ArrayList<>();
+        for (int i = 0; i < numberRows; i++) {
+            for (int j = 0; j < numberColumns; j++) {
+                matrixCells.add(new SharedBoardCell(this, "_" + i + "," + j));
+            }
+        }
+        return matrixCells;
     }
 
     public SharedBoard(int numberRows, int numberColumns) {
@@ -74,7 +83,6 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     }
 
     protected SharedBoard() {
-
     }
 
 
@@ -94,7 +102,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return colunas;
     }
 
-    public void setColunas(List<Coluna> colunas) {
+    public void changeColumns(List<Coluna> colunas) {
         this.colunas = colunas;
     }
 
@@ -102,10 +110,9 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return linhas;
     }
 
-    public void setLinhas(List<Linha> linhas) {
+    public void changeRows(List<Linha> linhas) {
         this.linhas = linhas;
     }
-
     public void updateArchive(boolean archive) {
         this.archive = archive;
     }
@@ -146,11 +153,18 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return numberRows;
     }
 
+    public void changeNumberRows(int numberRows) {
+        this.numberRows = numberRows;
+    }
+
+    public void changeNumberColumns(int numberColumns) {
+        this.numberColumns = numberColumns;
+    }
 
     public SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
-        SharedBoardUser boardUser=new SharedBoardUser(user, boardID, access);
+        SharedBoardUser boardUser = new SharedBoardUser(user, boardID, access);
         this.usersList.add(boardUser);
-            return boardUser;
+        return boardUser;
     }
 
 }

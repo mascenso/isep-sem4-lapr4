@@ -27,24 +27,33 @@
         <class>eCourse.domain.Student</class>
         <class>eCourse.domain.Teacher</class>
         <class>eCourse.domain.CourseEnrollmentRequest</class>
-        <class>eCourse.domain.SharedBoardUser</class>
         <class>eCourse.domain.Notification</class>
         <class>eCourse.domain.AbstractBoardShareEvent</class>
+        <class>eCourse.domain.AbstractBoardUpdateEvent</class>
         <class>eCourse.domain.GradeOfExam</class>
+        <class>eCourse.domain.SharedBoardCell</class>
 
 
 
 
         <properties>
-            <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://vsgate-s2.dei.isep.ipp.pt:10977/remoteDataBase"/>-->
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:~\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://vsgate-s2.dei.isep.ipp.pt:10977/remoteDataBase"/>
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:~\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>-->
 
-            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.user" value=""/>
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
             <!-- <property name = "hibernate.show_sql" value = "true" /> -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+            <!-- Hibernate C3PO Connection Pooling -->
+            <property name="hibernate.connection.provider_class" value="org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl"/>
+            <property name="hibernate.c3p0.min_size" value="5" />
+            <property name="hibernate.c3p0.max_size" value="20" />
+            <property name="hibernate.c3p0.timeout" value="300" />
+            <property name="hibernate.c3p0.max_statements" value="50" />
+            <property name="hibernate.c3p0.idle_test_period" value="120" />
 
         </properties>
     </persistence-unit>
