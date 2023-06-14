@@ -140,4 +140,9 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 		return new JpaGradesOfExamRepository(Application.settings().getPersistenceUnitName());
 	}
 
+	@Override
+	public SharedBoardCellRepository sharedBoardCells() {
+		return new JpaSharedBoardCellRepository(Application.settings().getPersistenceUnitName());
+	}
+
 }

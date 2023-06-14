@@ -24,8 +24,8 @@ public class CreateSharedBoardController {
     private final TransactionalContext tx = repositoryFactory.newTransactionalContext();
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public static void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<Coluna> columnNames, List<Linha> rowNames) throws IntegrityViolationException, ConcurrencyException {
-        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER, ECourseRoles.PROJECT_MANAGER, ECourseRoles.TEACHER, ECourseRoles.STUDENT);
+    public void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<Coluna> columnNames, List<Linha> rowNames) throws IntegrityViolationException, ConcurrencyException {
+        authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER, ECourseRoles.PROJECT_MANAGER, ECourseRoles.TEACHER, ECourseRoles.STUDENT, ECourseRoles.POWER_USER);
 
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
         SharedBoard createdSharedBoard = new CreateSharedBoardBuilder()

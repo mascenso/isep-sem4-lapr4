@@ -46,7 +46,7 @@ public class SharedBoardUI extends AbstractUI {
         }
 
         try {
-            CreateSharedBoardController.addSharedBoard(title, numberOfColumns, numberOfRows, columns, rows);
+            createSharedBoardController.addSharedBoard(title, numberOfColumns, numberOfRows, columns, rows);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("This title is already in use");
         }
