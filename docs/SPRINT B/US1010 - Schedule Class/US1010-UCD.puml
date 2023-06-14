@@ -6,13 +6,16 @@
 
 actor Teacher
     Teacher -down-> (Authenticates to the system)
-    (Authenticates to the system) --> (Select the option Recurring Lesson)
-    (Select the option Recurring Lesson) --> (Chooses the option to Create a Recurring Lesson)
-    (Chooses the option to Create a Recurring Lesson) --> (Inputs the Lesson Title)
+    (Authenticates to the system) --> (Select the option Classes)
+    (Select the option Classes) --> (Selects the option "Create Recurring Lesson")
+    (Selects the option "Create Recurring Lesson") --> (Selects one of the courses he teaches)
+    (Selects one of the courses he teaches) --> (Inputs the Lesson Title)
     (Inputs the Lesson Title) --> (Inputs the Lesson Start date)
     (Inputs the Lesson Start date) --> (Inputs the end Date)
-    (Inputs the end Date) --> (Inputs the duration of the lesson)
-    (Inputs the duration of the lesson) --> (save)
+    (Inputs the end Date) --> (Inputs the start time)
+    (Inputs the start time) --> (Inputs the duration of the lesson)
+    (Inputs the duration of the lesson) --> (Inputs the frequency of the recurring lesson)
+    (Inputs the frequency of the recurring lesson) --> (save)
 
 
 @enduml
