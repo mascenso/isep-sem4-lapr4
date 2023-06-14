@@ -66,6 +66,30 @@ public class Notification implements AggregateRoot<Long> {
         this.user = user;
     }
 
+    public SystemUser owner() {
+        return owner;
+    }
+
+    public boolean archive() {
+        return archive;
+    }
+
+    public int numberOfColumns() {
+        return numberColumns;
+    }
+
+    public int numberOfRows() {
+        return numberRows;
+    }
+
+    public List<SBColumn> listOfColumns() {
+        return colunas;
+    }
+
+    public List<SBRow> listOfRows() {
+        return linhas;
+    }
+
     public Long id() {
         return id;
     }
