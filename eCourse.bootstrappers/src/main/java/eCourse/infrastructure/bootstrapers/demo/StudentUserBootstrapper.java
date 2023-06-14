@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import eapli.framework.actions.Action;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,11 +52,11 @@ public class StudentUserBootstrapper implements Action {
 		Set<Role> roleTea= new HashSet<>();
 		roleTea.add(ECourseRoles.TEACHER);
 
-		addStudentUserController.addStudentUser("student1", "Password1", "Mary", "Rock", "mary@isep.ipp.pt", roleStu , "111111111");
-		addStudentUserController.addStudentUser("student2", "Password1", "Michael", "Rock", "michael@isep.ipp.pt",  roleStu , "222222222");
-		addStudentUserController.addStudentUser("student3", "Password1", "Patty", "Tex", "patty@isep.ipp.pt",  roleStu , "333333333");
-		addStudentUserController.addStudentUser("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt",  roleStu , "444444444");
-		addStudentUserController.addStudentUser("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt",  roleStu , "555555555");
+		addStudentUserController.addStudentUser("student1", "Password1", "Mary", "Rock", "mary@isep.ipp.pt", roleStu , "111111111", LocalDate.of(1990, 1, 1));
+		addStudentUserController.addStudentUser("student2", "Password1", "Michael", "Rock", "michael@isep.ipp.pt",  roleStu , "222222222", LocalDate.of(1993, 3, 10));
+		addStudentUserController.addStudentUser("student3", "Password1", "Patty", "Tex", "patty@isep.ipp.pt",  roleStu , "333333333", LocalDate.of(1993, 5, 20));
+		addStudentUserController.addStudentUser("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt",  roleStu , "444444444", LocalDate.of(1995, 7, 30));
+		addStudentUserController.addStudentUser("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt",  roleStu , "555555555", LocalDate.of(1992, 9, 10));
 
 		addTeacherController.addTeacher("teacher01", "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTea , "abc");
 		addTeacherController.addTeacher("teacher02", "Password1", "Jane", "Doe", "teacher2@isep.ipp.pt", roleTea , "def");

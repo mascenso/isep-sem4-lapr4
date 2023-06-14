@@ -1,4 +1,4 @@
-package eCourse.app.backoffice.console.presentation.sharedboard;
+package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.UpdateSharedBoardController;
 import eCourse.domain.AccessType;
@@ -11,7 +11,10 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class UpdateSharedBoardUI extends AbstractUI {
 

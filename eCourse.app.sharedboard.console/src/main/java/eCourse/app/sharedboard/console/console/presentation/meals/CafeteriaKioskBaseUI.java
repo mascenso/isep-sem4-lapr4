@@ -18,19 +18,17 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.sharedboard.console.console.presentation;
+package eCourse.app.sharedboard.console.console.presentation.meals;
 
 import eapli.framework.presentation.console.AbstractUI;
 
-/**
- * @author Paulo Gandra de Sousa 2021.05.25
- */
+
 @SuppressWarnings("squid:S106")
 public abstract class CafeteriaKioskBaseUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "=== KIOSK ===";
+        return "=== SHARED BOARD ===";
     }
 
     @Override

@@ -76,6 +76,6 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.STUDENT);
 
-        registerStudent(username, password, firstName, lastName, email, roles);
+        registerUser(username, password, firstName, lastName, email, roles);
     }
 }

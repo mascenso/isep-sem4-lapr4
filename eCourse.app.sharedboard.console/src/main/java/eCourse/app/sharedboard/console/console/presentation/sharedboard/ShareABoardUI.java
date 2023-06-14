@@ -1,7 +1,8 @@
-package eCourse.app.backoffice.console.presentation.sharedboard;
+package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.ShareABoardController;
-import eCourse.domain.*;
+import eCourse.domain.AccessType;
+import eCourse.domain.SharedBoard;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
@@ -25,7 +26,6 @@ public class ShareABoardUI extends AbstractUI {
         System.out.println("Which one you want to share? Press 0 to exit:");
 
         final Map<Integer, SharedBoard> hashmap = new HashMap<>();
-
         int selectedOption = showInfo(myBoards, hashmap);
 
         SharedBoard boardID = hashmap.get(selectedOption);
