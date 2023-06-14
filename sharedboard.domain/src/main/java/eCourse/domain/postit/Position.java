@@ -4,7 +4,6 @@ import eapli.framework.domain.model.ValueObject;
 import javax.persistence.Embeddable;
 import javax.xml.bind.annotation.XmlType;
 
-
 @XmlType
 @Embeddable
 public class Position implements ValueObject {
@@ -16,8 +15,6 @@ public class Position implements ValueObject {
         this.horCoord = horCoord;
         this.vertCoord = vertCoord;
     }
-
-
     public Position() {
         this(null, null);
     }

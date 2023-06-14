@@ -1,6 +1,7 @@
 package eCourse;
 
 import eCourse.domain.*;
+import eCourse.domain.enums.AccessType;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;

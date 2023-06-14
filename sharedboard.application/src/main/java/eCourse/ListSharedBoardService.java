@@ -1,8 +1,8 @@
 package eCourse;
 
-import eCourse.domain.AccessType;
+import eCourse.domain.enums.AccessType;
 import eCourse.domain.SharedBoard;
-import eCourse.domain.SharedBoardTitle;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eCourse.domain.SharedBoardUser;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.ApplicationService;
@@ -12,7 +12,6 @@ import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;

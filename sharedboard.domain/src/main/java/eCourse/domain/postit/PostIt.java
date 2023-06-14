@@ -1,10 +1,5 @@
 package eCourse.domain.postit;
 
-import eCourse.domain.Coluna;
-import eCourse.domain.Linha;
-import eCourse.domain.SharedBoard;
-import eapli.framework.domain.model.AggregateRoot;
-import eapli.framework.domain.model.DomainEntity;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
 

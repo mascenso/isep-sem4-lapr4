@@ -1,6 +1,10 @@
 import eCourse.domain.*;
+
+import eCourse.domain.enums.AccessType;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import eapli.framework.time.util.CurrentTimeCalendars;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,12 +14,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class NotificationTest {
-
-    private Notification notification1;
-    private Notification notification2;
-    private BoardShareEvent boardShareEvent1;
-    private BoardShareEvent boardShareEvent2;
+public class SharedBoardUserTest {
 
     private SharedBoardUser sharedBoardUser1;
     private SharedBoardUser sharedBoardUser2;
@@ -48,14 +47,38 @@ public class NotificationTest {
     }
 
     @Test
-    public void ensureEventCannotBeNull() {
+    public void ensureCanShareOwnedBoard() {
         AccessType permission = AccessType.READ;
         sharedBoardUser1 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission);
-        boardShareEvent1 = new BoardShareEvent(sharedBoardUser1);
-        notification1 = new Notification(boardShareEvent1);
 
-        assertNotNull(boardShareEvent1);
-        assertNotNull(notification1);
+        assertNotNull(sharedBoardUser1);
+    }
+
+    @Test
+    public void ensureUserIsRequired() {
+        AccessType permission = AccessType.READ;
+        assertThrows(IllegalArgumentException.class, () -> {
+            SystemUser nullType = null;
+            SharedBoardUser.valueOf(nullType, board1.boardTitle(), permission);
+        });
+    }
+
+    @Test
+    public void ensureBoardIDIsRequired() {
+        AccessType permission = AccessType.READ;
+        assertThrows(IllegalArgumentException.class, () -> {
+            SharedBoardTitle nullType = null;
+            SharedBoardUser.valueOf(owner, nullType, permission);
+        });
+    }
+
+    @Test
+    public void ensurePermissionIsRequired() {
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            AccessType permission = null;
+            SharedBoardUser.valueOf(other, board1.boardTitle(), permission);
+        });
     }
 
     @Test
@@ -63,49 +86,37 @@ public class NotificationTest {
         AccessType permission = AccessType.READ;
         sharedBoardUser1 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission);
         sharedBoardUser2 = board2.createShareBoardUsers(other, board2.boardTitle(), permission);
-        boardShareEvent1 = new BoardShareEvent(sharedBoardUser1);
-        boardShareEvent2 = new BoardShareEvent(sharedBoardUser2);
-        notification1 = new Notification(boardShareEvent1);
-        notification2 = new Notification(boardShareEvent2);
 
-        assertEquals(owner, notification1.user());
-        assertEquals(other, notification2.user());
-        assertNotEquals(other, notification1.user());
-        assertNotEquals(owner, notification2.user());
+        assertEquals(owner, sharedBoardUser1.boardUser());
+        assertEquals(other, sharedBoardUser2.boardUser());
+        assertNotEquals(other, sharedBoardUser1.boardUser());
+        assertNotEquals(owner, sharedBoardUser2.boardUser());
     }
 
+
     @Test
-    public void ensureTitleIsCorrect() {
+    public void ensureBoardIDIsCorrect() {
         AccessType permission = AccessType.READ;
+        SharedBoardTitle title1=new SharedBoardTitle("Board 1");
+        SharedBoardTitle title2=new SharedBoardTitle("Board 2");
         sharedBoardUser1 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission);
         sharedBoardUser2 = board2.createShareBoardUsers(other, board2.boardTitle(), permission);
-        boardShareEvent1 = new BoardShareEvent(sharedBoardUser1);
-        boardShareEvent2 = new BoardShareEvent(sharedBoardUser2);
-        notification1 = new Notification(boardShareEvent1);
-        notification2 = new Notification(boardShareEvent2);
 
-        assertEquals(board2.boardTitle(), notification2.title());
-        assertEquals(board1.boardTitle(), notification1.title());
-        assertNotEquals(board2.boardTitle(), notification1.title());
-        assertNotEquals(board1.boardTitle(), notification2.title());
+        assertEquals(title1, sharedBoardUser1.hasTitle());
+        assertEquals(title2, sharedBoardUser2.hasTitle());
+        assertNotEquals(title2, sharedBoardUser1.hasTitle());
+        assertNotEquals(title1, sharedBoardUser2.hasTitle());
     }
 
     @Test
     public void ensurePermissionIsCorrect() {
-        AccessType permission1 = AccessType.READ;
-        AccessType permission2 = AccessType.WRITE;
-        sharedBoardUser1 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission1);
-        sharedBoardUser2 = board2.createShareBoardUsers(other, board2.boardTitle(), permission2);
-        boardShareEvent1 = new BoardShareEvent(sharedBoardUser1);
-        boardShareEvent2 = new BoardShareEvent(sharedBoardUser2);
-        notification1 = new Notification(boardShareEvent1);
-        notification2 = new Notification(boardShareEvent2);
+        AccessType permission = AccessType.READ;
+        sharedBoardUser1 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission);
+        sharedBoardUser2 = board2.createShareBoardUsers(other, board2.boardTitle(), permission);
 
-        assertEquals(sharedBoardUser2.hasPermission(), notification2.permission());
-        assertEquals(sharedBoardUser1.hasPermission(), notification1.permission());
-        assertNotEquals(sharedBoardUser1.hasPermission(), notification2.permission());
-        assertNotEquals(sharedBoardUser2.hasPermission(), notification1.permission());
+        assertEquals(AccessType.READ, sharedBoardUser1.hasPermission());
+        assertEquals(AccessType.READ, sharedBoardUser2.hasPermission());
+        assertNotEquals(AccessType.WRITE, sharedBoardUser1.hasPermission());
+        assertNotEquals(AccessType.WRITE, sharedBoardUser2.hasPermission());
     }
-
-
 }
