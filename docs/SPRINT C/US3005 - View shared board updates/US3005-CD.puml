@@ -32,7 +32,6 @@ class Notification {
 }
 
 class NotificationRepository{
-    +getMyNotifications()
     +save()
 }
 
