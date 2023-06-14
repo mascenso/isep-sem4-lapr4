@@ -1,14 +1,21 @@
 package eCourse.lesson.domain.model;
 
+import eCourse.domain.Course;
+import eCourse.domain.Teacher;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.general.domain.model.Designation;
 
-import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
 
     private RecurringLesson theRecurringLesson;
+
+    private Teacher responsibleTeacher;
+
+    private Course recurringLessonCourse;
 
     private Designation title;
 
@@ -16,7 +23,23 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
 
     private Calendar endDate;
 
+    private LocalTime startTime;
+
     private int duration;
+
+    private int frequency;
+
+    private LocalDate occurrences;
+
+    public RecurringLessonBuilder responsible(final Teacher responsibleTeacher) {
+        this.responsibleTeacher = responsibleTeacher;
+        return this;
+    }
+
+    public RecurringLessonBuilder teachedAt(final Course recurringLessonCourse) {
+        this.recurringLessonCourse = recurringLessonCourse;
+        return this;
+    }
 
     public RecurringLessonBuilder titled(final Designation title) {
         this.title = title;
@@ -33,8 +56,23 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
         return this;
     }
 
+    public RecurringLessonBuilder startingAt(final LocalTime startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+
     public RecurringLessonBuilder lasts(final int duration) {
         this.duration = duration;
+        return this;
+    }
+
+    public RecurringLessonBuilder ocurringAt(final int frequency) {
+        this.frequency = frequency;
+        return this;
+    }
+
+    public RecurringLessonBuilder happensAt(final LocalDate occurrences) {
+        this.occurrences = occurrences;
         return this;
     }
 
@@ -42,8 +80,8 @@ public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
         if (theRecurringLesson != null) {
             return theRecurringLesson;
         }
-        if (title != null && startDate != null && endDate != null && duration > 0) {
-            theRecurringLesson = new RecurringLesson(title, startDate, endDate, duration);
+        if (responsibleTeacher != null && recurringLessonCourse != null && title != null && startDate != null && endDate != null && startTime != null  && occurrences != null && duration > 0 && frequency > 0 && frequency < 8) {
+            theRecurringLesson = new RecurringLesson(responsibleTeacher, recurringLessonCourse,title, startDate, endDate, startTime, duration, frequency, occurrences);
             return theRecurringLesson;
         }
         throw new IllegalStateException();

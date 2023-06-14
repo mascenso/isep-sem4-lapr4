@@ -9,3 +9,6 @@
 | **B**  | [US 1005](../SPRINT%20B/US_1005-SetTeachersOfaCourse/readme.md)         |
 | **B**  | [US 1011](../SPRINT%20B/US_1011-ScheduleAnExtraordinaryClass/readme.md) |
 | **B**  | [US 2003](../SPRINT%20B/US_2003-ListAllExamsInaCourse/readme.md)        |
+| **C**  | [US 3006](../SPRINT%20C/US_3006-CreateaPost-it)                         |
+| **C**  | [US 3007](../SPRINT%20C/US_3007-ChangeaPost-it)                         |
+| **C**  | [US 3008](../SPRINT%20C/US_3008-UndoLastPost-itChange)                  |

@@ -1,7 +1,7 @@
 package eCourse.app.backoffice.console.presentation.courses;
 
 import eCourse.domain.Teacher;
-import eCourse.app.common.console.teachers.TeachersPrinter;
+import eCourse.app.common.console.teachers.TeacherPrinter;
 import eCourse.course.application.SetTeachersOfCourseController;
 import eCourse.domain.Course;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -29,7 +29,7 @@ public class SetTeachersOfCourseUI extends AbstractUI {
         if (theCourse != null) {
             while (true) {
                 final Iterable<Teacher> listOfTeachers = theController.allTeachers();
-                final SelectWidget<Teacher> selectorTeacher = new SelectWidget<>("Select a teacher", listOfTeachers, new TeachersPrinter());
+                final SelectWidget<Teacher> selectorTeacher = new SelectWidget<>("Select a teacher", listOfTeachers, new TeacherPrinter());
                 selectorTeacher.show();
                 final Teacher theTeacher = selectorTeacher.selectedElement();
 

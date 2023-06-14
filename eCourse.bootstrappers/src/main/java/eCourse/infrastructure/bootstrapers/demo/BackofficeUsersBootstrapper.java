@@ -48,7 +48,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     }
 
     private void registerTeacher(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                 final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.TEACHER);
 
@@ -56,7 +56,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     }
 
     private void registerProjectManager(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                        final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.PROJECT_MANAGER);
 
@@ -64,7 +64,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     }
 
     private void registerManager(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                 final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.MANAGER);
 
@@ -72,10 +72,10 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     }
 
     private void registerStudent(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                 final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.STUDENT);
 
-        registerStudent(username, password, firstName, lastName, email, roles);
+        registerUser(username, password, firstName, lastName, email, roles);
     }
 }

@@ -1,5 +1,6 @@
 package eCourse.exam.application;
 
+import eCourse.domain.Course;
 import eCourse.domain.Exam;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.ApplicationService;
@@ -11,8 +12,8 @@ import java.util.List;
 @Component
 @ApplicationService
 public class ListExamsService {
-    public Iterable<Exam> allExams(){
 
+    public Iterable<Exam> allExams(){
         return PersistenceContext.repositories().exams().findAll();
     }
 
@@ -23,6 +24,16 @@ public class ListExamsService {
             openExams.add(exam);
         }
         return openExams;
+    }
+
+    public List<Exam> getExamByCourse(Course course) {
+        List<Exam> examListByCourse = new ArrayList<>();
+        for (Exam exm : allExams()) {
+            if (exm.getExamCourse().equals(course)) {
+                examListByCourse.add(exm);
+            }
+        }
+        return examListByCourse;
     }
 
 }

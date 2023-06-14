@@ -10,7 +10,6 @@ public class UpdateScheduleRecurringLessonsController {
     private ListRecurringLessonsService service = new ListRecurringLessonsService();
 
     public Iterable<RecurringLesson> allRecurringLessons() {
-
         return service.allRecurringLessons();
     }
 

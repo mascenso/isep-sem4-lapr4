@@ -1,7 +1,6 @@
 import eCourse.domain.CreateSharedBoardBuilder;
 import eCourse.domain.SharedBoard;
-import eCourse.domain.SharedBoardColumnAndRow;
-import eCourse.domain.SharedBoardTitle;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

@@ -21,7 +21,7 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
 import eCourse.AddStudentUserController;
-import eCourse.AddTeacherUserController;
+import eCourse.AddTeacherController;
 import eCourse.usermanagement.application.ECourseRoles;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import org.slf4j.Logger;
@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import eapli.framework.actions.Action;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,7 +41,7 @@ public class StudentUserBootstrapper implements Action {
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentUserBootstrapper.class);
 
 	private final AddStudentUserController addStudentUserController = new AddStudentUserController();
-	private final AddTeacherUserController addTeacherUserController = new AddTeacherUserController();
+	private final AddTeacherController addTeacherController = new AddTeacherController();
 
 	@Override
 	public boolean execute() {
@@ -51,15 +52,15 @@ public class StudentUserBootstrapper implements Action {
 		Set<Role> roleTea= new HashSet<>();
 		roleTea.add(ECourseRoles.TEACHER);
 
-		addStudentUserController.addStudentUser("student1", "Password1", "Mary", "Rock", "mary@isep.ipp.pt", roleStu , "111111111");
-		addStudentUserController.addStudentUser("student2", "Password1", "Michael", "Rock", "michael@isep.ipp.pt",  roleStu , "222222222");
-		addStudentUserController.addStudentUser("student3", "Password1", "Patty", "Tex", "patty@isep.ipp.pt",  roleStu , "333333333");
-		addStudentUserController.addStudentUser("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt",  roleStu , "444444444");
-		addStudentUserController.addStudentUser("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt",  roleStu , "555555555");
+		addStudentUserController.addStudentUser("student1", "Password1", "Mary", "Rock", "mary@isep.ipp.pt", roleStu , "111111111", LocalDate.of(1990, 1, 1));
+		addStudentUserController.addStudentUser("student2", "Password1", "Michael", "Rock", "michael@isep.ipp.pt",  roleStu , "222222222", LocalDate.of(1993, 3, 10));
+		addStudentUserController.addStudentUser("student3", "Password1", "Patty", "Tex", "patty@isep.ipp.pt",  roleStu , "333333333", LocalDate.of(1993, 5, 20));
+		addStudentUserController.addStudentUser("student4", "Password1", "Michael", "Cards", "cards@isep.ipp.pt",  roleStu , "444444444", LocalDate.of(1995, 7, 30));
+		addStudentUserController.addStudentUser("student5", "Password1", "Armands", "Fons", "armands@isep.ipp.pt",  roleStu , "555555555", LocalDate.of(1992, 9, 10));
 
-		addTeacherUserController.addTeacherUser("teacher01", "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTea , "abc");
-		addTeacherUserController.addTeacherUser("teacher02", "Password1", "Jane", "Doe", "teacher2@isep.ipp.pt", roleTea , "def");
-		addTeacherUserController.addTeacherUser("teacher03", "Password1", "John", "Smith", "teacher2@isep.ipp.pt", roleTea , "ghi");
+		addTeacherController.addTeacher("teacher01", "Password1", "John", "Doe", "teacher1@isep.ipp.pt", roleTea , "abc");
+		addTeacherController.addTeacher("teacher02", "Password1", "Jane", "Doe", "teacher2@isep.ipp.pt", roleTea , "def");
+		addTeacherController.addTeacher("teacher03", "Password1", "John", "Smith", "teacher2@isep.ipp.pt", roleTea , "ghi");
 
 		return true;
 	}

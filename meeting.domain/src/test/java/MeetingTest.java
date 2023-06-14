@@ -1,16 +1,15 @@
-import eCourse.domain.Meeting;
-import eCourse.domain.MeetingBuilder;
-import eCourse.domain.ParticipantsOfMeeting;
-import eCourse.domain.ParticipantsStatus;
+import eCourse.domain.*;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.*;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertFalse;
@@ -30,9 +29,13 @@ public class MeetingTest {
     private String user = "Miguel";
     private List<SystemUser> participants = new ArrayList<>();
 
-    Meeting Meeting1 = new MeetingBuilder().duration(duration1).named(Designation.valueOf("Meeting 1")).schedule(new Date(date1)).participants( participants).build();
-    Meeting Meeting2 = new MeetingBuilder().duration(duration2).named(Designation.valueOf("Meeting 2")).schedule(new Date(date2)).participants( participants).build();
-    Meeting Meeting3 = new MeetingBuilder().duration(duration3).named(Designation.valueOf("Meeting 1")).schedule(new Date(date3)).participants( participants).build();
+    final Set<Role> roles = new HashSet<>();
+
+    private SystemUser systemUser = null;
+
+    Meeting Meeting1 = new MeetingBuilder().duration(duration1).named(Designation.valueOf("Meeting 1")).schedule(new Date(date1)).MeetingCreator(systemUser).participants( participants).build();
+    Meeting Meeting2 = new MeetingBuilder().duration(duration2).named(Designation.valueOf("Meeting 2")).schedule(new Date(date2)).MeetingCreator(systemUser).participants( participants).build();
+    Meeting Meeting3 = new MeetingBuilder().duration(duration3).named(Designation.valueOf("Meeting 1")).schedule(new Date(date3)).MeetingCreator(systemUser).participants( participants).build();
 
 
 
