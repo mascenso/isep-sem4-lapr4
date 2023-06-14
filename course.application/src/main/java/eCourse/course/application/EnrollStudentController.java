@@ -15,6 +15,7 @@ import eapli.framework.validations.Preconditions;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class EnrollStudentController {
@@ -65,7 +66,7 @@ public class EnrollStudentController {
     }
 
 
-    public void enrollStudent(String courseIdentity, List<Student> students) {
+    public void enrollStudent(String courseIdentity, Set<Student> students) {
 
         //1 - validate if the user is authenticated and has a valid role
         this.authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.MANAGER, ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
@@ -78,7 +79,7 @@ public class EnrollStudentController {
         Course course = courseRepository.findByDesignation(Designation.valueOf(courseIdentity))
                 .orElseThrow(() -> new NoSuchElementException("The course " + courseIdentity + " does not exist in the database"));
 
-        course.addAllStudent(students);
+        course.addStudents(students);
 
         /*
         for (Student student : students) {
