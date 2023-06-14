@@ -12,6 +12,7 @@ public class SharedBoardCell implements AggregateRoot<String> {
     }
 
     @Id
+   // @GeneratedValue(strategy = GenerationType.AUTO)
     private String id; //custom SBtitle_1,2
 
     @Enumerated(EnumType.STRING)

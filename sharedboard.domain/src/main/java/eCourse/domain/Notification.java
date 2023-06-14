@@ -12,11 +12,11 @@ import javax.persistence.*;
 import java.util.List;
 
 
-@Embeddable
+@Entity
 public class Notification implements AggregateRoot<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
@@ -47,13 +47,15 @@ public class Notification implements AggregateRoot<Long> {
 
     public Notification(BoardShareEvent event) {
         Preconditions.noneNull(event);
+        this.id=identity();
         this.user = event.what().boardUser();
         this.title = event.what().hasTitle();
         this.permission = event.what().withPermission();
     }
 
     public Notification(BoardUpdateEvent event, SystemUser user) {
-        Preconditions.noneNull(event);
+        Preconditions.noneNull(event,user);
+        this.id=identity();
         this.title = event.board().boardTitle();
         this.numberColumns = event.board().numberOfColumns();
         this.numberRows = event.board().numberOfRows();
@@ -88,9 +90,6 @@ public class Notification implements AggregateRoot<Long> {
         return linhas;
     }
 
-    public Long id() {
-        return id;
-    }
 
     public SystemUser user() {
         return user;
@@ -120,7 +119,7 @@ public class Notification implements AggregateRoot<Long> {
                 && title.equals(otherNotification.title);
     }
 
-    @Override
+
     public Long identity() {
         return id;
     }

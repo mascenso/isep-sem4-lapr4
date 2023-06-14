@@ -12,17 +12,16 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.util.*;
 
-@Component
 @Entity
 public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
     @EmbeddedId
-    @javax.persistence.Column(name="title")
+    @Column(name="title")
     private SharedBoardTitle title;
 
-    @javax.persistence.Column
+    @Column
     private int numberRows;
-    @javax.persistence.Column
+    @Column
     private int numberColumns;
 
     @OneToMany(mappedBy="sharedboard", cascade = CascadeType.ALL)
@@ -38,7 +37,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @JoinColumn()
     private SystemUser owner;
 
-    @javax.persistence.Column
+    @Column
     private boolean archive;
 
     @OneToMany
