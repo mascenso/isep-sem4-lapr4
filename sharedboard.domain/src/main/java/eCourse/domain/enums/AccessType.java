@@ -1,4 +1,4 @@
-package eCourse.domain;
+package eCourse.domain.enums;
 
 import java.util.HashMap;
 import java.util.Map;

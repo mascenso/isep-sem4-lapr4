@@ -1,7 +1,7 @@
 package eCourse.repositories;
 
 import eCourse.domain.SharedBoard;
-import eCourse.domain.SharedBoardTitle;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.springframework.stereotype.Repository;

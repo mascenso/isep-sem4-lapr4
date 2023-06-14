@@ -28,12 +28,21 @@ public class SharedBoardCell implements AggregateRoot<String> {
     }
 
     public SharedBoardCell() {
+        // for ORM only
     }
-
 
     @Override
     public boolean sameAs(Object other) {
-        return false;
+        if (!(other instanceof SharedBoardCell)) {
+            return false;
+        }
+
+        final SharedBoardCell that = (SharedBoardCell) other;
+        if (this == that) {
+            return true;
+        }
+
+        return identity().equals(that.identity()) && state.equals(that.state);
     }
 
     @Override

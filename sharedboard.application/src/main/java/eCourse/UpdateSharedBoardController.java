@@ -1,6 +1,10 @@
 package eCourse;
 
 import eCourse.domain.*;
+import eCourse.domain.enums.AccessType;
+import eCourse.domain.valueobjects.SBColumn;
+import eCourse.domain.valueobjects.SBRow;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -29,15 +33,15 @@ public class UpdateSharedBoardController {
         board.changeNumberRows(numberOfRows);
         board.changeNumberColumns(numberOfColumns);
 
-        List<Coluna> columns = new ArrayList<>();
+        List<SBColumn> columns = new ArrayList<>();
         for (String columnName : columnNames){
-            columns.add(new Coluna(columnName));
+            columns.add(new SBColumn(columnName));
         }
         board.changeColumns(columns);
 
-        List<Linha> rows = new ArrayList<>();
+        List<SBRow> rows = new ArrayList<>();
         for (String rowName : rowNames){
-            rows.add(new Linha(rowName));
+            rows.add(new SBRow(rowName));
         }
 
         board.changeRows(rows);

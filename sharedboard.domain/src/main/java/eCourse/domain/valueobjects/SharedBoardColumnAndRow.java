@@ -1,4 +1,4 @@
-package eCourse.domain;
+package eCourse.domain.valueobjects;
 
 import eapli.framework.domain.model.ValueObject;
 
@@ -11,10 +11,10 @@ public class SharedBoardColumnAndRow implements ValueObject {
 
     public SharedBoardColumnAndRow(int numberRows, int numberColumns) {
         if ( (numberColumns < 1) || (numberColumns > 10) ) {
-            throw new IllegalArgumentException("Column value must be between 1 and 10");
+            throw new IllegalArgumentException("SBColumn value must be between 1 and 10");
         }
         if ( (numberRows < 1) || (numberRows > 20) ){
-            throw new IllegalArgumentException("Row value must be between 1 and 20");
+            throw new IllegalArgumentException("SBRow value must be between 1 and 20");
         }
         this.numberRows = numberRows;
         this.numberColumns = numberColumns;

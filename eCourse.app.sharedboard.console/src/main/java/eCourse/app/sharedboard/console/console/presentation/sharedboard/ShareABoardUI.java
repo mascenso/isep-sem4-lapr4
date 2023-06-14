@@ -1,7 +1,7 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.ShareABoardController;
-import eCourse.domain.AccessType;
+import eCourse.domain.enums.AccessType;
 import eCourse.domain.SharedBoard;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
