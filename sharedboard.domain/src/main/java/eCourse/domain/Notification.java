@@ -12,7 +12,7 @@ import javax.persistence.*;
 import java.util.List;
 
 
-@Entity
+@Embeddable
 public class Notification implements AggregateRoot<Long> {
 
     @Id
@@ -28,7 +28,7 @@ public class Notification implements AggregateRoot<Long> {
 
     private SharedBoardTitle title;
 
-    private eCourse.domain.enums.AccessType permission;
+    private AccessType permission;
 
     private boolean archive;
 
@@ -47,7 +47,6 @@ public class Notification implements AggregateRoot<Long> {
 
     public Notification(BoardShareEvent event) {
         Preconditions.noneNull(event);
-        this.id = identity();
         this.user = event.what().boardUser();
         this.title = event.what().hasTitle();
         this.permission = event.what().withPermission();
@@ -55,7 +54,6 @@ public class Notification implements AggregateRoot<Long> {
 
     public Notification(BoardUpdateEvent event, SystemUser user) {
         Preconditions.noneNull(event);
-        this.id = identity();
         this.title = event.board().boardTitle();
         this.numberColumns = event.board().numberOfColumns();
         this.numberRows = event.board().numberOfRows();

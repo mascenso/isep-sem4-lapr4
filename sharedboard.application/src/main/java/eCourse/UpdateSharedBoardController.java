@@ -23,6 +23,9 @@ public class UpdateSharedBoardController {
     @Autowired
     private ListSharedBoardService listSharedBoardService = new ListSharedBoardService();
 
+    private Object mutex = new Object(); // Mutex object for synchronization
+
+
     public Iterable<SharedBoard> listOfAllUserBoards(Map<SharedBoardTitle, AccessType> map) {
         return listSharedBoardService.listOfAllUserBoards(map);
     }
@@ -30,29 +33,32 @@ public class UpdateSharedBoardController {
 
     public void updateSharedBoard(int numberOfRows, int numberOfColumns, String[] columnNames, String[] rowNames, SharedBoard board, SystemUser user) {
 
-        board.changeNumberOfRows(numberOfRows);
-        board.changeNumberOfColumns(numberOfColumns);
+        Thread shareThread = new Thread(() -> {
+            synchronized (mutex) {
+                board.changeNumberOfRows(numberOfRows);
+                board.changeNumberOfColumns(numberOfColumns);
 
-        List<SBColumn> columns = new ArrayList<>();
-        for (String columnName : columnNames){
-            columns.add(new SBColumn(columnName));
-        }
-        board.changeColumns(columns);
+                List<SBColumn> columns = new ArrayList<>();
+                for (String columnName : columnNames) {
+                    columns.add(new SBColumn(columnName));
+                }
+                board.changeColumns(columns);
 
-        List<SBRow> rows = new ArrayList<>();
-        for (String rowName : rowNames){
-            rows.add(new SBRow(rowName));
-        }
+                List<SBRow> rows = new ArrayList<>();
+                for (String rowName : rowNames) {
+                    rows.add(new SBRow(rowName));
+                }
 
-        board.changeRows(rows);
+                board.changeRows(rows);
 
-        BoardUpdateEvent event = new BoardUpdateEvent(board, user);
-        Notification notif = new Notification(event, user);
+                BoardUpdateEvent event = new BoardUpdateEvent(board, user);
+                Notification notif = new Notification(event, user);
 
-        PersistenceContext.repositories().sharedBoards().save(board);
-        PersistenceContext.repositories().notifications().save(notif);
-
-
+                PersistenceContext.repositories().sharedBoards().save(board);
+                PersistenceContext.repositories().notifications().save(notif);
+            }
+        });
+        shareThread.start();
     }
 
     public void changeArchive(SharedBoard board) {
