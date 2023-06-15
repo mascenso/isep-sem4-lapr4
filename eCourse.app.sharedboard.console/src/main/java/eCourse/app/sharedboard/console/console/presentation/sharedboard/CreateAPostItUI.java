@@ -41,24 +41,22 @@ public class CreateAPostItUI extends AbstractUI {
                 .getResourceAsStream(imageFilename);
 
         if (inputStream == null) {
-            LOGGER.warn("Could not load image {}", imageFilename);
+            System.out.println("Could not load image " + imageFilename);
             // fallback to registration without image
             //theController.register(name, description);
         } else {
             try {
-                PostIt postIt = theController.registerPostIt("ksjdlak" , inputStream);
+                theController.registerPostIt(theBoard, "ksjdlak" , inputStream);
+                System.out.println("PostIt created successfully");
 
-                System.out.println(postIt.toString());
+                //System.out.println(postIt.toString());
 
-                LOGGER.info("aaaa");
             } catch (final IntegrityViolationException | ConcurrencyException e) {
+                System.out.println("That postIt already exists");
                 // ignoring exception. assuming it is just a primary key violation
                 // due to the tentative of inserting a duplicated entry
-                LOGGER.warn("Assuming {} already exists (activate trace log for details)", "aaaa");
-                LOGGER.trace("Assuming existing record", e);
             } catch (final IOException e) {
-                LOGGER.error("There was a problem loading the image file {} while registering allergen {}",
-                        imageFilename, "aaaa");
+                System.out.println("There was a problem loading the image file");
             }
         }
 

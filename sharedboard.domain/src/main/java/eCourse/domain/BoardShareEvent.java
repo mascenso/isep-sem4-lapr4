@@ -35,6 +35,4 @@ public class BoardShareEvent extends AbstractBoardShareEvent {
         notifications.add(notification);
     }
 
-
-
 }

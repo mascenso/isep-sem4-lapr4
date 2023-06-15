@@ -1,9 +1,11 @@
 package eCourse;
 
 import eCourse.domain.*;
+import eCourse.domain.valueobjects.SBColumn;
+import eCourse.domain.valueobjects.SBRow;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.persistence.RepositoryFactory;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -24,7 +26,7 @@ public class CreateSharedBoardController {
     private final TransactionalContext tx = repositoryFactory.newTransactionalContext();
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<Coluna> columnNames, List<Linha> rowNames) throws IntegrityViolationException, ConcurrencyException {
+    public void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<SBColumn> columnNames, List<SBRow> rowNames) throws IntegrityViolationException, ConcurrencyException {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER, ECourseRoles.PROJECT_MANAGER, ECourseRoles.TEACHER, ECourseRoles.STUDENT, ECourseRoles.POWER_USER);
 
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);

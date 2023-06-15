@@ -22,8 +22,11 @@ public class TakeExamUI extends AbstractUI {
         @Override
         protected boolean doShow() {
 
-            List<Exam> ListOfExams = theController.getExams();
+            List<Exam> ListOfExams = theController.ExamsUnsolved();
             Exam examSelected = showListExams(ListOfExams);
+            Boolean examValidToSubmit = theController.ValidateIfExamIsOpenToSubmit(examSelected);
+
+            if(examValidToSubmit){
             CharStream charStream = null;
             try {
                 charStream = CharStreams.fromFileName("./"+examSelected.getExamFile());
@@ -60,10 +63,19 @@ public class TakeExamUI extends AbstractUI {
             System.out.printf("You had %.2f of %.2f possible points.\n", studentGrade, maxExamGrade);
 
             theController.saveGrade(theController.getExamGradeOnPercentage(studentGrade, maxExamGrade),examSelected);
+            }else{
+                System.out.println("The submission period for this exam has already expired.");
+            }
         return true;
     }
 
     private Exam showListExams(List<Exam> listOfExams) {
+            if(listOfExams.isEmpty()){
+                System.out.println("=========================");
+                System.out.println("Dont exist exams to take.");
+                System.out.println("=========================");
+                return null;
+            }else{
             Scanner scanner = new Scanner(System.in);
             int selectedOption = -1;
             do {
@@ -75,7 +87,7 @@ public class TakeExamUI extends AbstractUI {
                     System.out.println("Select a valid exam.");
                 }
             }while (selectedOption<0 || selectedOption >= listOfExams.size());
-            return listOfExams.get(selectedOption);
+            return listOfExams.get(selectedOption);}
     }
 
     @Override

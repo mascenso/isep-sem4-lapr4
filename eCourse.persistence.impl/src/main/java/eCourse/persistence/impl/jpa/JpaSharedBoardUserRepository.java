@@ -1,10 +1,8 @@
 package eCourse.persistence.impl.jpa;
 
 import eCourse.Application;
-import eCourse.domain.Meeting;
-import eCourse.domain.SharedBoardTitle;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eCourse.domain.SharedBoardUser;
-import eCourse.repositories.NotificationRepository;
 import eCourse.repositories.SharedBoardUserRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -32,6 +30,13 @@ public class JpaSharedBoardUserRepository extends JpaAutoTxRepository<SharedBoar
         final Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         return match("e.user.username=:name", params);
+    }
+
+    @Override
+    public Iterable<SharedBoardUser> findUsersBySharedBoard(SharedBoardTitle name) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        return match("e.title=:name", params);
     }
 
     @Override

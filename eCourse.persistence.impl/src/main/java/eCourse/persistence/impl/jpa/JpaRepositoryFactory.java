@@ -20,6 +20,7 @@
  */
 package eCourse.persistence.impl.jpa;
 
+import eCourse.domain.repositories.SignupRequestRepository;
 import eCourse.repositories.*;
 
 import eCourse.Application;

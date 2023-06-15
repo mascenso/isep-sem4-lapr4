@@ -15,8 +15,8 @@
         <class>eCourse.domain.SignupRequest</class>
         <class>eCourse.domain.SharedBoard</class>
         <class>eCourse.domain.SharedBoardUser</class>
-        <class>eCourse.domain.Coluna</class>
-        <class>eCourse.domain.Linha</class>
+        <class>eCourse.domain.valueobjects.SBColumn</class>
+        <class>eCourse.domain.valueobjects.SBRow</class>
         <class>eCourse.domain.Course</class>
         <class>eCourse.lesson.domain.model.RecurringLesson</class>
         <class>eCourse.domain.Exam</class>
@@ -37,8 +37,8 @@
 
 
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://vsgate-s2.dei.isep.ipp.pt:10977/remoteDataBase"/>
-            <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:~\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>-->
+           <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://vsgate-s2.dei.isep.ipp.pt:10977/remoteDataBase"/>
+            <!--   <property name="javax.persistence.jdbc.url" value="jdbc:h2:~\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>-->
 
             <property name="javax.persistence.jdbc.user" value=""/>
             <property name="javax.persistence.jdbc.password" value=""/>
