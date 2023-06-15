@@ -55,11 +55,15 @@ The user needs to be logged in the application as a Student.
 
 ![Use Case Diagram](US1008-UCD.svg "US1008 Use Case Diagram")
 
-### 1.6. System Sequence Diagram (SSD)
+### 1.6. Domain Model
+
+![US1008](US1008_DM.svg "US1008 Domain Model")
+
+### 1.7. System Sequence Diagram (SSD)
 
 ![US06_SSD](US1008-SSD.svg)
 
-### 1.7 Other Relevant Remarks
+### 1.8. Other Relevant Remarks
 
 
 ## 3. Design - User Story Realization 
