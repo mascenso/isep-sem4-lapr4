@@ -25,7 +25,6 @@ public class TakeAutomaticExamUI extends AbstractUI {
 
             List<Exam> ListOfExams = theController.AutomaticExamsUnsolved();
             Exam examSelected = showListExams(ListOfExams);
-            Boolean examValidToSubmit = theController.ValidateIfExamIsOpenToSubmit(examSelected);
 
             CharStream charStream = null;
             try {
