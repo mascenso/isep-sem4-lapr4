@@ -130,7 +130,7 @@ public class Notification implements AggregateRoot<Long> {
             return "You have been granted access to board " + title +
                     ", and you have " + permission + " permissions!";
         } else {
-            return "The board " + title + " was updated by " + user.identity() + "!";
+            return "The board " + title + " was updated!";
         }
     }
 }

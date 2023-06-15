@@ -105,7 +105,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return colunas;
     }
 
-    public void changeColumns(List<SBColumn> colunas) {
+    public synchronized void changeColumns(List<SBColumn> colunas) {
         this.colunas = colunas;
     }
 
@@ -113,7 +113,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return linhas;
     }
 
-    public void changeRows(List<SBRow> linhas) {
+    public synchronized void changeRows(List<SBRow> linhas) {
         this.linhas = linhas;
     }
 
@@ -153,15 +153,15 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return numberRows;
     }
 
-    public void changeNumberOfRows(int numberRows) {
+    public synchronized void changeNumberOfRows(int numberRows) {
         this.numberRows = numberRows;
     }
 
-    public void changeNumberOfColumns(int numberColumns) {
+    public synchronized void changeNumberOfColumns(int numberColumns) {
         this.numberColumns = numberColumns;
     }
 
-    public SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
+    public synchronized SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
         SharedBoardUser boardUser = new SharedBoardUser(user, boardID, access);
         this.usersList.add(boardUser);
         return boardUser;
