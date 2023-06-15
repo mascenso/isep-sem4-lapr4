@@ -1,18 +1,38 @@
 @startuml
 
-class RequestEnrollmentUI {
-    +doShow()
+class RequestEnrollmentCoursesStudentUI {
+    +elements()
+    +elementPrinter()
+    +elementName()
+    +listHeader()
+    +emptyMessage()
+    +headline()
+    +execute()
 }
 
-class RequestEnrollmentController {
-    +CreateCourseEnrollmentRequest()
+class ListCoursesStudentController {
+    +allCoursesEnrollment()
 }
 
-class RequestEnrollmentRepository {
+class CourseEnrollmentRequestController {
+    +courseEnrollment(selCourse)
+}
+
+class ListCoursesService {
+    +getEnrollmentCourses()
+}
+
+class StudentUserRepository {
+    +findByUsername()
+}
+
+class AuthorizationService {
+    +session()
 }
 
 class PersistenceContext {
     -CourseEnrollmentRequestRepository: CourseEnrollmentRequestRepository
+    -CourseRepository: courses
     +repositories()
 }
 
@@ -20,23 +40,40 @@ class RepositoryFactory {
     +create()
 }
 
-class CourseEnrollmentService {
-    listEnrollingCourses()
-}
-
-class CourseEnrollmentRequest {
+class CourseEnrollmentRequestService {
+    +listEnrollingCourses()
+    +validateCourseEnrollmentRequest(student, course)
 }
 
 class CourseEnrollmentRequestRepository {
 }
 
-RequestEnrollmentUI --> RequestEnrollmentController
-RequestEnrollmentController --> RequestEnrollmentRepository
-RequestEnrollmentController --> PersistenceContext
-RequestEnrollmentController --> CourseEnrollmentService
-CourseEnrollmentService --> PersistenceContext
+class CourseRepository {
+    +findAll()
+}
+
+class SystemUser {
+    +authenticatedUser()
+    +username()
+}
+
+RequestEnrollmentCoursesStudentUI --> CourseEnrollmentRequestController
+RequestEnrollmentCoursesStudentUI --> ListCoursesStudentController
+ListCoursesStudentController --> ListCoursesService
+ListCoursesService --> PersistenceContext
+ListCoursesStudentController --> PersistenceContext
+CourseEnrollmentRequestController --> AuthorizationService
+CourseEnrollmentRequestController --> PersistenceContext
+AuthorizationService --> SystemUser
+SystemUser --> StudentUserRepository
 PersistenceContext --> RepositoryFactory
 RepositoryFactory --> CourseEnrollmentRequestRepository
-RequestEnrollmentController --> CourseEnrollmentRequest
+RepositoryFactory --> CourseRepository
+RepositoryFactory --> StudentUserRepository
+CourseEnrollmentRequestController --> CourseEnrollmentRequestService
+CourseEnrollmentRequestService --> PersistenceContext
+
+
+
 
 @enduml
