@@ -37,7 +37,7 @@ import eCourse.app.teacher.console.presentation.exam.UpdateExamUI;
 import eCourse.app.teacher.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.teacher.console.presentation.question.AddExamQuestionsUI;
 import eCourse.app.teacher.console.presentation.question.UpdateExamQuestionsUI;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;

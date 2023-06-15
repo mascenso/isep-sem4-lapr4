@@ -30,7 +30,7 @@ import eCourse.domain.Student;
 import eCourse.domain.StudentBuilder;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.StudentUserRepository;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;

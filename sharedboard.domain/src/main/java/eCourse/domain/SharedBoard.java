@@ -1,6 +1,7 @@
 package eCourse.domain;
 
 import eCourse.domain.enums.AccessType;
+import eCourse.domain.postit.PostIt;
 import eCourse.domain.valueobjects.SBColumn;
 import eCourse.domain.valueobjects.SBRow;
 import eCourse.domain.valueobjects.SharedBoardTitle;
@@ -165,6 +166,13 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         SharedBoardUser boardUser = new SharedBoardUser(user, boardID, access);
         this.usersList.add(boardUser);
         return boardUser;
+    }
+
+    public PostIt addPostItToCell(PostIt postIt, int row, int column) {
+
+        this.matrixCells.get(row * this.numberColumns + column).addPostIt(postIt);
+
+        return postIt;
     }
 
 }

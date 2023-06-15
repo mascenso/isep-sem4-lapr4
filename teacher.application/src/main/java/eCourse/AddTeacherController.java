@@ -1,6 +1,7 @@
 package eCourse;
 
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.Teacher;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
@@ -20,7 +21,7 @@ public class AddTeacherController {
 
 
     @Transactional
-    public void addTeacher(final String username, final String password, final String firstName,
+    public Teacher addTeacher(final String username, final String password, final String firstName,
                                       final String lastName, final String email, final Set<Role> roles, String acronym, final Calendar createdOn) {
         authorizationService.ensureAuthenticatedUserHasAnyOf(ECourseRoles.POWER_USER, ECourseRoles.ADMIN);
 
@@ -28,13 +29,13 @@ public class AddTeacherController {
         SystemUser user = userManagementService.registerNewUser(username, password, firstName, lastName, email, roles, createdOn);
 
         /* Register the student */
-        teacherManagementService.createTeacher(user, acronym);
+        return teacherManagementService.createTeacher(user, acronym);
     }
 
-    public void addTeacher(final String username, final String password, final String firstName,
+    public Teacher addTeacher(final String username, final String password, final String firstName,
                               final String lastName, final String email, final Set<Role> roles, String acronym) {
 
-        addTeacher(username, password, firstName, lastName, email, roles, acronym, CurrentTimeCalendars.now());
+        return addTeacher(username, password, firstName, lastName, email, roles, acronym, CurrentTimeCalendars.now());
     }
 
 

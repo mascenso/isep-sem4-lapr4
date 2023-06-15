@@ -10,14 +10,20 @@ database GradesRepository as Repository3 <<repository>>
 note right of Controller:Some steps have been skipped in order to facilitate reading \n namely Persistence Context and Repository factor \n for an example with these steps see US1002
 Actor -> UI: Take a exam
 activate UI
-    UI -> Controller: getExams()
-    Controller -> Service1: allExams(course)
-    Service1 -> Repository1: exams()
+    UI -> Controller: ExamsUnsolved()
+    Controller -> Service1: ExamsUnsolved(course)
+    Service1 -> Repository1: ExamsUnsolved()
     Service1 --> Controller: List <Exam>
     Controller --> UI: List <Exam>
     UI -> UI : Show List exams
     UI --> Actor: Select exam to take
     Actor -> UI: Selected exam
+    UI -> Controller: ValidateIfExamIsOpenToSubmit()
+    Controller -> Service3: ValidateIfExamIsOpenToSubmit()
+    Service3 -> Controller: boolean
+    Controller -> UI: boolean
+    alt if return true
+
     UI -> Controller: buildExamForTaken()
     Controller -> Service3: buildExam()
     Service3 -> Controller: exam
@@ -36,5 +42,5 @@ activate UI
     UI -> Controller: saveGrade()
     Controller -> Repository3: saveGrade()
     UI -> Actor: show feedback
-
+    end
 @enduml

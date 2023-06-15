@@ -1,24 +1,5 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
-import eCourse.course.application.UpdateCourseStateController;
-import eCourse.domain.*;
-import eCourse.exam.application.CreateExamController;
-import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.application.ECourseRoles;
-import eapli.framework.actions.Action;
-import eapli.framework.general.domain.model.Description;
-import eapli.framework.general.domain.model.Designation;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.application.UserManagementService;
-import eapli.framework.infrastructure.authz.domain.model.Role;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-
-import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 /*
 public class CreateExamBootstrapper implements Action {
 

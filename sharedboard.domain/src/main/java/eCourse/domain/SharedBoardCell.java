@@ -1,11 +1,13 @@
 package eCourse.domain;
 
+import eCourse.domain.postit.PostIt;
 import eapli.framework.domain.model.AggregateRoot;
 
 import javax.persistence.*;
 
 @Entity
 public class SharedBoardCell implements AggregateRoot<String> {
+    private static final long serialVersionUID = 1L;
 
     private enum CellState {
         EMPTY, FILLED
@@ -22,14 +24,26 @@ public class SharedBoardCell implements AggregateRoot<String> {
     @JoinColumn(name="sharedboard_title")
     private SharedBoard sharedboard;
 
+    @Embedded
+    private PostIt postit;
+
     protected SharedBoardCell(SharedBoard matrix, String id) {
         this.sharedboard = matrix;
         this.state = CellState.EMPTY;
         this.id = matrix.boardTitle().toString() + "_" + id;
+        this.postit = null;
     }
 
     public SharedBoardCell() {
         // for ORM only
+    }
+
+    public void addPostIt(PostIt postIt) {
+        if (postIt == null) {
+            throw new IllegalArgumentException();
+        }
+        this.postit = postIt;
+        this.state = CellState.FILLED;
     }
 
     @Override

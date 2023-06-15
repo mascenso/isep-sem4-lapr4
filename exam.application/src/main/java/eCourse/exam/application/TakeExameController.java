@@ -59,7 +59,11 @@ public class TakeExameController {
         PersistenceContext.repositories().gradesForExam().save(grade);
     }
 
-    public List<Exam> getExams() {
-        return (List<Exam>) listExamService.allExams();
+    public List<Exam> ExamsUnsolved() {
+        return (List<Exam>) listExamService.ExamsUnsolved();
+    }
+
+    public Boolean ValidateIfExamIsOpenToSubmit(Exam examSelected) {
+        return service.ValidateIfExamIsOpenToSubmit(examSelected);
     }
 }

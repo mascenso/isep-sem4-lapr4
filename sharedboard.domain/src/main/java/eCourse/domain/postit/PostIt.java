@@ -6,6 +6,7 @@ import eapli.framework.validations.Preconditions;
 import javax.persistence.*;
 import java.util.Arrays;
 
+@Embeddable
 public class PostIt implements ValueObject{
 
     private final String textContent;

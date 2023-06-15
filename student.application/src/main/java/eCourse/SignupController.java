@@ -29,7 +29,7 @@ import eCourse.domain.SignupRequest;
 import eCourse.domain.SignupRequestBuilder;
 import eCourse.domain.UserBuilderHelper;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.repositories.SignupRequestRepository;
+import eCourse.domain.repositories.SignupRequestRepository;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.time.util.CurrentTimeCalendars;
 
