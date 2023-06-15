@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.usermanagement.application;
+package eCourse.domain;
 
 import eapli.framework.infrastructure.authz.domain.model.Role;
 

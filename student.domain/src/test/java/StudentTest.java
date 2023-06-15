@@ -1,15 +1,13 @@
-package eCourse.studentusermanagement.domain;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import eCourse.domain.ECourseRoles;
 import eCourse.domain.MecanographicNumber;
 import eCourse.domain.Student;
 import eCourse.domain.StudentBuilder;
-import eCourse.usermanagement.application.ECourseRoles;
 import org.junit.Test;
 
 import eapli.framework.infrastructure.authz.domain.model.NilPasswordPolicy;

@@ -27,7 +27,7 @@ import eCourse.Application;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.app.sharedboard.console.console.presentation.meals.BookAMealThruKioskUI;
 import eCourse.app.sharedboard.console.console.presentation.sharedboard.*;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
