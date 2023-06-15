@@ -26,8 +26,8 @@ package eCourse;
 import eCourse.domain.SignupRequest;
 import eCourse.domain.events.SignupAcceptedEvent;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.repositories.SignupRequestRepository;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.repositories.SignupRequestRepository;
+import eCourse.domain.ECourseRoles;
 import org.springframework.transaction.annotation.Transactional;
 
 

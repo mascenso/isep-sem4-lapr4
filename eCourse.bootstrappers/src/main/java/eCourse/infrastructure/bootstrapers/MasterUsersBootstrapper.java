@@ -23,7 +23,7 @@ package eCourse.infrastructure.bootstrapers;
 import java.util.HashSet;
 import java.util.Set;
 
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
