@@ -28,6 +28,7 @@ import eCourse.Application;
 import eCourse.app.student.console.presentation.Courses.ListCoursesStudentUI;
 import eCourse.app.student.console.presentation.Courses.RequestEnrollmentCoursesStudentUI;
 import eCourse.app.student.console.presentation.Exams.ListExamsUI;
+import eCourse.app.student.console.presentation.Exams.TakeAutomaticExamUI;
 import eCourse.app.student.console.presentation.Exams.TakeExamUI;
 import eCourse.app.student.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.domain.ECourseRoles;
@@ -75,6 +76,7 @@ public class MainMenu extends AbstractUI {
 
     //Take exam menu
     private static final int TAKE_EXAME = 1;
+    private static final int TAKE_AUTOMATIC_EXAME = 2;
     // Courses Menu
     private static final int COURSE_OPEN = 1;
 
@@ -149,6 +151,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildTakeExamMenu() {
         final Menu studentMenu = new Menu("TakeExam  >");
         studentMenu.addItem(TAKE_EXAME, "Take a Exam", new TakeExamUI()::show);
+        studentMenu.addItem(TAKE_AUTOMATIC_EXAME, "Take A AUTOMATIC Exam", new TakeAutomaticExamUI()::show);
         studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return studentMenu;

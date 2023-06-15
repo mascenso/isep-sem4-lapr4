@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class TakeExameController {
+public class TakeAutomaticExameController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final validateExamService service = new validateExamService();
@@ -61,19 +61,19 @@ public class TakeExameController {
         PersistenceContext.repositories().gradesForExam().save(grade);
     }
 
-    public List<Exam> ExamsUnsolved() {
+    public Boolean ValidateIfExamIsOpenToSubmit(Exam examSelected) {
+        return service.ValidateIfExamIsOpenToSubmit(examSelected);
+    }
+
+    public List<Exam> AutomaticExamsUnsolved() {
         List<Exam> listExams = (List<Exam>) listExamService.ExamsUnsolved();
         List<Exam> listExamsToSend = new ArrayList<>();
         Date date = new Date(0);
         for (int i = 0; i < listExams.size(); i++) {
-            if(listExams.get(i).getExamCloseDate().getTime() !=date.getTime() && listExams.get(i).getExamOpenDate().getTime() != date.getTime()){
+            if(listExams.get(i).getExamCloseDate().getTime() ==date.getTime() && listExams.get(i).getExamOpenDate().getTime() == date.getTime()){
                 listExamsToSend.add(listExams.get(i));
             }
         }
         return listExamsToSend;
-    }
-
-    public Boolean ValidateIfExamIsOpenToSubmit(Exam examSelected) {
-        return service.ValidateIfExamIsOpenToSubmit(examSelected);
     }
 }
