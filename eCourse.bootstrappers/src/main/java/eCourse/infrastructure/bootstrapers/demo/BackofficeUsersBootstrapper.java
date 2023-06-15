@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import eCourse.infrastructure.bootstrapers.UsersBootstrapperBase;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
@@ -38,11 +38,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
 
     @Override
     public boolean execute() {
-        registerTeacher("teacher", PASSWORD1, "Mick", "Jagger", "jagger@emai.l.com");
-        registerProjectManager("pm", PASSWORD1, "Michael", "Jackson", "pmmichael@emai.l.com");
         registerManager("manager", PASSWORD1, "Patty", "Smith", "patty@emai.l.com");
-        registerStudent("student", PASSWORD1, "Jay", "Z", "jayz@isep.ipp.pt");
-        registerStudent("isep959", "Password1", "Mary", "Smith", "mary@smith.com");
 
         return true;
     }

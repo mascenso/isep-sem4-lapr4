@@ -1,15 +1,13 @@
-package eCourse.studentusermanagement.domain;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import eCourse.domain.ECourseRoles;
 import eCourse.domain.MecanographicNumber;
 import eCourse.domain.Student;
 import eCourse.domain.StudentBuilder;
-import eCourse.usermanagement.application.ECourseRoles;
 import org.junit.Test;
 
 import eapli.framework.infrastructure.authz.domain.model.NilPasswordPolicy;
@@ -18,9 +16,6 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
 
-/**
- * Created by Nuno Bettencourt [NMB] on 03/04/16.
- */
 public class StudentTest {
 
     private final String aMecanographicNumber = "202200001";
@@ -72,16 +67,57 @@ public class StudentTest {
         assertFalse(expected);
     }
 
+    @Test
+    public void ensureMecNumberCantBeNull() throws Exception {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(ECourseRoles.ADMIN);
 
-    /*
+        try {
+            new StudentBuilder().withMecNumber(null).withSystemUser(getNewDummyUser()).build();
+        } catch (final IllegalArgumentException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void ensureTaxPayNumberCantIsValid() throws Exception {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(ECourseRoles.ADMIN);
+
+        try {
+            new StudentBuilder().withTaxPayNumber("502").withSystemUser(getNewDummyUser()).build();
+        } catch (final IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void ensureTaxPayNumberCantBeNull() throws Exception {
+        final Set<Role> roles = new HashSet<>();
+        roles.add(ECourseRoles.ADMIN);
+
+        try {
+            new StudentBuilder().withTaxPayNumber(null).withSystemUser(getNewDummyUser()).build();
+        } catch (final IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            assertTrue(true);
+        }
+    }
+
+
+
+
     @Test
     public void ensureStudentEqualsAreTheSameForTheSameInstance() throws Exception {
-        final Student aStudent = new Student();
+        final Student aStudent = new StudentBuilder()
+                .withMecNumber(new MecanographicNumber(aMecanographicNumber))
+                .withSystemUser(getNewDummyUser()).build();
 
         final boolean expected = aStudent.equals(aStudent);
 
         assertTrue(expected);
-    }*/
+    }
 
     @Test
     public void ensureStudentEqualsFailsForDifferenteObjectTypes() throws Exception {

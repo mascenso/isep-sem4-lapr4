@@ -22,7 +22,7 @@ package eCourse.infrastructure.bootstrapers.demo;
 
 import eCourse.AddStudentUserController;
 import eCourse.AddTeacherController;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

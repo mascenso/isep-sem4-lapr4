@@ -52,6 +52,19 @@ public class Acronym implements ValueObject, Comparable<Acronym> {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Acronym)) {
+            return false;
+        }
+
+        final Acronym that = (Acronym) o;
+        return this.acronym.equals(that.acronym);
+    }
+
+    @Override
     public String toString() {
         return acronym;
     }

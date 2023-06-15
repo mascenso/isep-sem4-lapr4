@@ -39,17 +39,20 @@ run script
 
 make sure a JRE is installed and on the PATH
 
-run script
+run scripts
 
-    run-backoffice 
+    run-backoffice.sh
+    run-student.sh
+    run-teacher.sh
+    run-sharedboard.sh
+    or run-bootsrap.sh (To bootstrap demo data)
 
 or
 
-    run-user.bat
+    the bat files
 
 ## 6. How to Install/Deploy into Another Machine (or Virtual Machine)
 
-*To Do*
 
 ## 7. How to Generate PlantUML Diagrams
 
@@ -61,7 +64,7 @@ To generate plantuml diagrams for documentation execute the script (for the mome
 
 *To Do*
 
-- eapli.base.consoleapp
+- eCourse.backoffice.app / eCourse.student.app / eCourse.teacher.app / eCourse.sharedboard.app
 
   - presentation using console
   - Main class

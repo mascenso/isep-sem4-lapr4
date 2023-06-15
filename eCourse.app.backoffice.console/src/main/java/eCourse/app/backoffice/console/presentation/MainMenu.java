@@ -40,7 +40,7 @@ import eCourse.app.backoffice.console.presentation.students.EnrollStudentsUI;
 import eCourse.app.backoffice.console.presentation.teachers.AddTeacherUI;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;

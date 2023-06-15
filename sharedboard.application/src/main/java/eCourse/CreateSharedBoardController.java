@@ -5,7 +5,7 @@ import eCourse.domain.valueobjects.SBColumn;
 import eCourse.domain.valueobjects.SBRow;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.persistence.RepositoryFactory;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;

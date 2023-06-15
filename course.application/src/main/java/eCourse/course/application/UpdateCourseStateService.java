@@ -5,7 +5,7 @@ import eCourse.domain.Course;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
 
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.general.domain.model.Designation;

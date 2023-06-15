@@ -5,7 +5,7 @@ import eCourse.domain.Acronym;
 import eCourse.domain.TeacherBuilder;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.TeacherRepository;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -46,12 +46,12 @@ public class TeacherService {
      * repository.
      * @param newUser
      */
-    protected void createTeacher(final SystemUser newUser, String acronym) {
+    protected Teacher createTeacher(final SystemUser newUser, String acronym) {
         final TeacherBuilder TeacherBuilder = new TeacherBuilder();
         TeacherBuilder
                 .withSystemUser(newUser).withAcronym(acronym);
 
-        this.repo.save(TeacherBuilder.build());
+        return this.repo.save(TeacherBuilder.build());
     }
 
 

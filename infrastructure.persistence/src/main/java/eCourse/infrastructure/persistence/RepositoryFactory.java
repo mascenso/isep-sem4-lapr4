@@ -20,7 +20,7 @@
  */
 package eCourse.infrastructure.persistence;
 
-import eCourse.domain.SharedBoardUser;
+import eCourse.domain.repositories.SignupRequestRepository;
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.repositories.*;
 import eapli.framework.domain.repositories.TransactionalContext;

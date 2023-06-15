@@ -23,6 +23,7 @@
  */
 package eCourse.usermanagement.application;
 
+import eCourse.domain.ECourseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
