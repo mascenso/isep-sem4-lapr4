@@ -110,7 +110,7 @@ public class MainMenu extends AbstractUI {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.STUDENT, ECourseRoles.TEACHER, ECourseRoles.ADMIN)) {
+        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.STUDENT, ECourseRoles.TEACHER, ECourseRoles.ADMIN, ECourseRoles.POWER_USER, ECourseRoles.MANAGER)) {
             final Menu SharedBoardMenu =buildSharedBoardMenu();
             mainMenu.addSubMenu(SHAREDBOARD_OPTION,SharedBoardMenu);
         }
