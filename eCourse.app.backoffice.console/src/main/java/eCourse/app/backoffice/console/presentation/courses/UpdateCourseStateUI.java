@@ -40,9 +40,6 @@ public class UpdateCourseStateUI extends AbstractUI {
         for (Course course : allCourses) {
             courses.add(course);
         }
-
-
-
         Scanner scanner = new Scanner(System.in);
 
         //show a list of courses

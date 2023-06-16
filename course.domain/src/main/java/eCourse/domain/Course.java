@@ -41,18 +41,15 @@ public class Course implements AggregateRoot<Designation> {
     private final Set<TeachersInCourse> teachers = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private final Set<StudentsInCourse> studentsInCourse = new HashSet<>();
+    private final Set<StudentsInCourse> students = new HashSet<>();
 
-
-
-    @ManyToMany(cascade = {CascadeType.ALL})
+    /*@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "Course_Student",
             joinColumns = {@JoinColumn(name = "IDCOURSE")},
             inverseJoinColumns = {@JoinColumn(name = "NUMBER")}
     )
-    Set<Student> students = new HashSet<>();
-
+    Set<Student> students = new HashSet<>();*/
     protected Course (final Designation name, final Description description, final CourseEdition edition, SystemUser teacherCordinator){
         Preconditions.noneNull(name,description,edition);
 
@@ -133,11 +130,17 @@ public class Course implements AggregateRoot<Designation> {
     }
 
     public boolean addStudent(Student student) {
-        return this.students.add(student);
+        return this.students.add(new StudentsInCourse(student));
     }
 
-    public boolean addAllStudent(List<Student> students) {
-        return this.students.addAll(students);
+    public Set<StudentsInCourse> students(){
+        return students;
+    }
+
+    public void addStudents (Set<Student> studentsOfCourse) {
+        for (Student student : studentsOfCourse) {
+            this.students.add(new StudentsInCourse(student));
+        }
     }
 
     /**
@@ -147,10 +150,6 @@ public class Course implements AggregateRoot<Designation> {
      */
     public boolean addTeacher(Teacher teacher) {
         return this.teachers.add(new TeachersInCourse(teacher));
-    }
-
-    public boolean addStudentInCourse(Student student) {
-        return this.studentsInCourse.add(new StudentsInCourse(student));
     }
 
     public Set<TeachersInCourse> teachers() {

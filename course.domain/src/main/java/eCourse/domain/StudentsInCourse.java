@@ -1,6 +1,5 @@
 package eCourse.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
@@ -15,9 +14,7 @@ import java.util.Optional;
 @Embeddable
 @EqualsAndHashCode
 public class StudentsInCourse implements ValueObject, Serializable {
-
     private static final long serialVersionUID = 1L;
-
     @XmlElement
     @JsonProperty
     @ManyToOne(optional = false)
@@ -28,16 +25,12 @@ public class StudentsInCourse implements ValueObject, Serializable {
      * ElementCollection annotation. Since hibernate struggles with embeddables contained in other
      * embeddables when using ElementCollection.
      */
+
     @XmlElement
     @JsonProperty
     private final String description;
 
-    public StudentsInCourse(final Student student, final String description) {
-        this.student = student;
-        this.description = description;
-    }
-
-    protected StudentsInCourse() {
+    protected StudentsInCourse(){
         // for ORM only
         student = null;
         description = null;
@@ -49,12 +42,17 @@ public class StudentsInCourse implements ValueObject, Serializable {
         description = null;
     }
 
-    public Student student() {
+    public StudentsInCourse(final Student student, final String description) {
+        Preconditions.noneNull(student, description);
+        this.student = student;
+        this.description = description;
+    }
+
+    public Student student(){
         return student;
     }
 
     public Optional<String> description() {
         return Optional.ofNullable(description);
     }
-
 }
