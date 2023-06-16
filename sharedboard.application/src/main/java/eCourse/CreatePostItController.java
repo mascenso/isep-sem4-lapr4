@@ -24,6 +24,11 @@ public class CreatePostItController {
         return doRegisterPostIt(shBoard, x, y, name, imageStream);
     }
 
+    public SharedBoard registerPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name) {
+        shBoard.addPostItToCell(new PostIt(name), x,y);
+        return repository.save(shBoard);
+    }
+
     private SharedBoard doRegisterPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name,
                                         final InputStream imageStream) throws IOException {
 

@@ -47,7 +47,7 @@ public class CreateAPostItUI extends AbstractUI {
         if (inputStream == null) {
             System.out.println("Could not load image " + imageFilename);
             // fallback to registration without image
-            //theController.register(name, description);
+            theController.registerPostIt(theBoard, x, y, textContent);
         } else {
             try {
                 theController.registerPostIt(theBoard, x, y, textContent , inputStream);
@@ -68,10 +68,8 @@ public class CreateAPostItUI extends AbstractUI {
     }
 
 
-
-
     @Override
     public String headline() {
-        return "Create new course";
+        return "Create new post-It";
     }
 }
