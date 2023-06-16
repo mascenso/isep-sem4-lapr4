@@ -43,13 +43,16 @@ public class GradeOfExam implements AggregateRoot<Long> {
         return idGrade;
     }
 
-    public float getGrade() {
+    public float gradeResult() {
         return grade;
     }
 
-    public SystemUser getStudent() {
+    public SystemUser studentWhoDidExam() {
         return student;
     }
+
+    public Exam theExam() { return exam;}
+
 
 
 }

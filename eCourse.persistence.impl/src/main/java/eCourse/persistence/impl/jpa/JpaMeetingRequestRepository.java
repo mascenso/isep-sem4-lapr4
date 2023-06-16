@@ -27,4 +27,11 @@ public class JpaMeetingRequestRepository extends JpaAutoTxRepository<Participant
         params.put("name", name);
         return match("e.participant.username=:name", params);
     }
+
+    @Override
+    public Iterable<ParticipantsOfMeeting> findByMeeting(Meeting meeting) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("meeting", meeting);
+        return match("e.meeting = :meeting", params);
+    }
 }

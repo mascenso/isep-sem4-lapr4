@@ -3,10 +3,12 @@ package eCourse.course.application;
 import eCourse.domain.Student;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class BulkCsvValidateResult {
-    ArrayList<Student> validStudentsList = new ArrayList<>();
+    Set<Student> validStudentsList = new HashSet<>();
     ArrayList<String> invalidStudentsList = new ArrayList<>();
 
     public void addValidStudent (Student valid){
@@ -18,8 +20,8 @@ public class BulkCsvValidateResult {
         this.invalidStudentsList.add(invalid);
     }
 
-    public List<Student> validStudents(){
-        return  validStudentsList;
+    public Set<Student> validStudents(){
+        return validStudentsList;
     }
     public List<String> invalidStudents(){
         return  invalidStudentsList;
