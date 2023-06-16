@@ -23,6 +23,10 @@ public class ListExamsService {
         return PersistenceContext.repositories().exams().findAll();
     }
 
+    public Iterable<GradeOfExam> allExamGrades(){
+        return PersistenceContext.repositories().gradesForExam().findAll();
+    }
+
     public List<GradeOfExam> examOfLoggedStudent() {
         List<GradeOfExam> loggedStudentExams = new ArrayList<>();
         SystemUser loggedUser = authz.session().get().authenticatedUser();
@@ -48,5 +52,16 @@ public class ListExamsService {
 
     public Iterable<Exam> ExamsUnsolved(){
         return PersistenceContext.repositories().exams().findAll();
+    }
+
+    public List<GradeOfExam> examGradesOfLoggedTeacher() {
+        List<GradeOfExam> loggedTeacherExams = new ArrayList<>();
+        SystemUser loggedUser = authz.session().get().authenticatedUser();
+        for (GradeOfExam gradeOfExam : allExamGrades()) {
+            if (gradeOfExam.theExam().getTeacher().user().equals(loggedUser)) {
+                loggedTeacherExams.add(gradeOfExam);
+            }
+        }
+        return loggedTeacherExams;
     }
 }
