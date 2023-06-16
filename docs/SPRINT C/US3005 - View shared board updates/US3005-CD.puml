@@ -1,0 +1,67 @@
+@startuml
+
+class User
+
+class UpdateSharedBoardUI {
+    +doShow()
+    +showInfo()
+}
+
+class UpdateSharedBoardController {
+    +listOfAllUserBoards()
+    +updateSharedBoard()
+    +changeArchive()
+}
+
+class ListBoardsService {
+    +listBoardsByUser()
+    +listBoardsSharedWithUser()
+    +listOfAllUserBoards()
+}
+
+class ShareBoard {
+    +changeNumberOfRows()
+    +changeNumberOfColumns()
+    +changeColumns()
+    +changeRows()
+    +updateArchive()
+}
+
+
+class Notification {
+}
+
+class NotificationRepository{
+    +save()
+}
+
+class ShareBoardRepository{
+    +save()
+    +findByUsername()
+    +findBoardByTitle()
+}
+
+class ShareBoardUserRepository{
+    +save()
+    +findByUser()
+}
+
+
+class BoardUpdateEvent{
+    -timestamp
+    +createUpdateBoardNotification()
+}
+
+
+User-->UpdateSharedBoardUI
+UpdateSharedBoardUI-->UpdateSharedBoardController
+UpdateSharedBoardController-->ListBoardsService
+UpdateSharedBoardController-->ShareBoard
+UpdateSharedBoardController-->Notification
+UpdateSharedBoardController-->BoardUpdateEvent
+UpdateSharedBoardController-->NotificationRepository
+UpdateSharedBoardController-->ShareBoardRepository
+ListBoardsService-->ShareBoardRepository
+ListBoardsService-->ShareBoardUserRepository
+BoardUpdateEvent-->Notification
+@enduml

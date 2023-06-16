@@ -16,7 +16,7 @@ import java.util.List;
 public class Notification implements AggregateRoot<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
@@ -28,7 +28,7 @@ public class Notification implements AggregateRoot<Long> {
 
     private SharedBoardTitle title;
 
-    private eCourse.domain.enums.AccessType permission;
+    private AccessType permission;
 
     private boolean archive;
 
@@ -47,15 +47,15 @@ public class Notification implements AggregateRoot<Long> {
 
     public Notification(BoardShareEvent event) {
         Preconditions.noneNull(event);
-        this.id = identity();
+        this.id=identity();
         this.user = event.what().boardUser();
         this.title = event.what().hasTitle();
         this.permission = event.what().withPermission();
     }
 
     public Notification(BoardUpdateEvent event, SystemUser user) {
-        Preconditions.noneNull(event);
-        this.id = identity();
+        Preconditions.noneNull(event,user);
+        this.id=identity();
         this.title = event.board().boardTitle();
         this.numberColumns = event.board().numberOfColumns();
         this.numberRows = event.board().numberOfRows();
@@ -66,9 +66,30 @@ public class Notification implements AggregateRoot<Long> {
         this.user = user;
     }
 
-    public Long id() {
-        return id;
+    public SystemUser owner() {
+        return owner;
     }
+
+    public boolean archive() {
+        return archive;
+    }
+
+    public int numberOfColumns() {
+        return numberColumns;
+    }
+
+    public int numberOfRows() {
+        return numberRows;
+    }
+
+    public List<SBColumn> listOfColumns() {
+        return colunas;
+    }
+
+    public List<SBRow> listOfRows() {
+        return linhas;
+    }
+
 
     public SystemUser user() {
         return user;
@@ -76,10 +97,6 @@ public class Notification implements AggregateRoot<Long> {
 
     public eCourse.domain.enums.AccessType permission() {
         return permission;
-    }
-
-    public void setPermission(AccessType permission) {
-        this.permission = permission;
     }
 
     public SharedBoardTitle title() {
@@ -102,7 +119,7 @@ public class Notification implements AggregateRoot<Long> {
                 && title.equals(otherNotification.title);
     }
 
-    @Override
+
     public Long identity() {
         return id;
     }
@@ -113,7 +130,7 @@ public class Notification implements AggregateRoot<Long> {
             return "You have been granted access to board " + title +
                     ", and you have " + permission + " permissions!";
         } else {
-            return "The board " + title + " was updated by " + user.identity() + "!";
+            return "The board " + title + " was updated!";
         }
     }
 }

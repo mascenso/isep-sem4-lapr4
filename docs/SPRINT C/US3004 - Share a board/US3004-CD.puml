@@ -42,7 +42,7 @@ enum AccessType {
 
 class BoardSharedEvent{
     -timestamp
-    +createNotification()
+    +createSharedBoardNotification()
 }
 
 

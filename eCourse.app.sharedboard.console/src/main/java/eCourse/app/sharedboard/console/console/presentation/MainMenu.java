@@ -55,9 +55,9 @@ public class MainMenu extends AbstractUI {
     private static final int LIST_BOARDS_OPTION = 2;
     private static final int BOOK_A_MEAL = 99;
     private static final int SHARE_A_BOARD=3;
-    private static final int BOARD_NOTIFICATION=4;
-    private static final int UPDATE_SHARED_BOARD=5;
-    private static final int CREATE_POST_IT=6;
+    private static final int UPDATE_SHARED_BOARD=4;
+    private static final int CREATE_POST_IT=5;
+    private static final int BOARD_NOTIFICATION=6;
 
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
@@ -138,7 +138,7 @@ public class MainMenu extends AbstractUI {
 
         menu.addItem(CREATE_POST_IT, "Create post-it", new CreateAPostItUI()::show);
 
-        menu.addItem(BOOK_A_MEAL, "BookaMealExampleCafet", new BookAMealThruKioskUI()::show);
+       // menu.addItem(BOOK_A_MEAL, "BookaMealExampleCafet", new BookAMealThruKioskUI()::show);
         menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
         return menu;
     }
