@@ -9,4 +9,6 @@ public interface MeetingRequestRepository extends DomainRepository<Username, Par
     Iterable<ParticipantsOfMeeting> pendingMeetingRequests();
 
     Iterable<ParticipantsOfMeeting> findByUsername(final Username name);
+
+    Iterable<ParticipantsOfMeeting> findByMeeting(final Meeting meeting);
 }
