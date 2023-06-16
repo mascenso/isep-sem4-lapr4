@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Component
 @UseCaseController
-public class ShareABoardController {
+public class ShareABoardController extends Thread {
 
     private Object mutex = new Object(); // Mutex object for synchronization
 

@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Component
 @UseCaseController
-public class UpdateSharedBoardController {
+public class UpdateSharedBoardController extends Thread {
 
     @Autowired
     private ListSharedBoardService listSharedBoardService = new ListSharedBoardService();
