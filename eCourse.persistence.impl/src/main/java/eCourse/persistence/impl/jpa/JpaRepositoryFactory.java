@@ -20,6 +20,7 @@
  */
 package eCourse.persistence.impl.jpa;
 
+import eCourse.domain.repositories.SignupRequestRepository;
 import eCourse.repositories.*;
 
 import eCourse.Application;
@@ -138,6 +139,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public GradesRepository gradesForExam() {
 		return new JpaGradesOfExamRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public SharedBoardCellRepository sharedBoardCells() {
+		return new JpaSharedBoardCellRepository(Application.settings().getPersistenceUnitName());
 	}
 
 }

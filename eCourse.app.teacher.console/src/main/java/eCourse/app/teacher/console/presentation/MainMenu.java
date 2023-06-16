@@ -37,9 +37,7 @@ import eCourse.app.teacher.console.presentation.exam.UpdateExamUI;
 import eCourse.app.teacher.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.teacher.console.presentation.question.AddExamQuestionsUI;
 import eCourse.app.teacher.console.presentation.question.UpdateExamQuestionsUI;
-import eCourse.app.teacher.console.presentation.sharedBoard.NotificationUI;
-import eCourse.app.teacher.console.presentation.sharedBoard.ShareABoardUI;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -93,13 +91,6 @@ public class MainMenu extends AbstractUI {
     //QUESTION
     private static final int ADD_QUESTIONS_OPTION = 1;
     private static final int UPDATE_QUESTIONS_OPTION = 2;
-
-    //SHAREDBOARD
-    private static final int CREATE_BOARD_OPTION = 1;
-    private static final int LIST_BOARDS_OPTION = 2;
-    private static final int SHARE_A_BOARD=3;
-    private static final int BOARD_NOTIFICATION=4;
-
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
@@ -183,10 +174,7 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(MEETING_OPTION, classesMenu);
         }
 
-        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.TEACHER)) {
-            final Menu SharedBoardMenu =buildSharedBoardMenu();
-            mainMenu.addSubMenu(SHAREDBOARD_OPTION,SharedBoardMenu);
-        }
+
 
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
@@ -245,17 +233,7 @@ public class MainMenu extends AbstractUI {
         return teacherMenu;
     }
 
-    private Menu buildSharedBoardMenu() {
-        final Menu menu = new Menu("Boards >");
 
-        //menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
-        //menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
-        menu.addItem(SHARE_A_BOARD, "Share a Board", new ShareABoardUI()::show);
-        menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
-        menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
-
-        return menu;
-    }
 
 
 }

@@ -28,11 +28,10 @@ import eCourse.Application;
 import eCourse.app.student.console.presentation.Courses.ListCoursesStudentUI;
 import eCourse.app.student.console.presentation.Courses.RequestEnrollmentCoursesStudentUI;
 import eCourse.app.student.console.presentation.Exams.ListExamsUI;
+import eCourse.app.student.console.presentation.Exams.TakeAutomaticExamUI;
 import eCourse.app.student.console.presentation.Exams.TakeExamUI;
 import eCourse.app.student.console.presentation.meetings.ScheduleMeetingsUI;
-import eCourse.app.student.console.presentation.sharedBoard.NotificationUI;
-import eCourse.app.student.console.presentation.sharedBoard.ShareABoardUI;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -69,14 +68,6 @@ public class MainMenu extends AbstractUI {
     private static final int VIEW_STUDENT_EXAMS_LIST_OPTION = 2;
     private static final int SIGNUP_FOR_A_CURSE_OPTION = 2;
 
-
-    //SHAREDBOARD
-    private static final int CREATE_BOARD_OPTION = 1;
-    private static final int LIST_BOARDS_OPTION = 2;
-    private static final int SHARE_A_BOARD=3;
-    private static final int BOARD_NOTIFICATION=4;
-
-
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
     private final Menu menu;
@@ -85,6 +76,7 @@ public class MainMenu extends AbstractUI {
 
     //Take exam menu
     private static final int TAKE_EXAME = 1;
+    private static final int TAKE_AUTOMATIC_EXAME = 2;
     // Courses Menu
     private static final int COURSE_OPEN = 1;
 
@@ -139,12 +131,10 @@ public class MainMenu extends AbstractUI {
             final Menu examsMenu = buildExamsMenu();
             final Menu MeetingsMenu = buildMeetingMenu();
             final Menu takeExamMenu = buildTakeExamMenu();
-            final Menu SharedBoardMenu =buildSharedBoardMenu();
 
             mainMenu.addSubMenu(STUDENT_COURSES_OPTION, coursesMenu);
             mainMenu.addSubMenu(STUDENT_EXAMS_OPTION, examsMenu);
             mainMenu.addSubMenu(STUDENT_MEETING_OPTION, MeetingsMenu);
-            mainMenu.addSubMenu(SHAREDBOARD_OPTION,SharedBoardMenu);
             mainMenu.addSubMenu(TAKE_EXAM, takeExamMenu);
         }
 
@@ -161,6 +151,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildTakeExamMenu() {
         final Menu studentMenu = new Menu("TakeExam  >");
         studentMenu.addItem(TAKE_EXAME, "Take a Exam", new TakeExamUI()::show);
+        studentMenu.addItem(TAKE_AUTOMATIC_EXAME, "Take A AUTOMATIC Exam", new TakeAutomaticExamUI()::show);
         studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return studentMenu;
@@ -190,18 +181,6 @@ public class MainMenu extends AbstractUI {
         studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return studentMenu;
-    }
-
-    private Menu buildSharedBoardMenu() {
-        final Menu menu = new Menu("Boards >");
-
-        //menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
-        //menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
-        menu.addItem(SHARE_A_BOARD, "Share a Board", new ShareABoardUI()::show);
-        menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
-        menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
-
-        return menu;
     }
 
 }

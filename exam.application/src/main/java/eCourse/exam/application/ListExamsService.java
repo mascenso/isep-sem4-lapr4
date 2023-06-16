@@ -45,4 +45,8 @@ public class ListExamsService {
         return examListByCourse;
     }
 
+
+    public Iterable<Exam> ExamsUnsolved(){
+        return PersistenceContext.repositories().exams().findAll();
+    }
 }

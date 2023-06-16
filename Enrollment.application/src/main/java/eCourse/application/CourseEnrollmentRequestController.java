@@ -8,15 +8,22 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.Username;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+
+import javax.persistence.EntityManager;
 
 @UseCaseController
 public class CourseEnrollmentRequestController {
 
     StudentUserRepository studentRepository = PersistenceContext.repositories().studentUsers();
 
+    CourseEnrollmentRequestService service = new CourseEnrollmentRequestService();
+
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public CourseEnrollmentRequest courseEnrollment(Course course) {
+    @Transactional
+    public boolean courseEnrollment(Course course) {
 
         Username username = authz.session().get().authenticatedUser().username();
 
@@ -29,7 +36,13 @@ public class CourseEnrollmentRequestController {
 
         final var newCourseEnrollment = new CourseEnrollmentRequestBuilder().theCourse(course).theStudent(student).build();
 
-        return PersistenceContext.repositories().courseEnrollmentRequests().save(newCourseEnrollment);
+        if(service.validateCourseEnrollmentRequest(student, course)) {
+            PersistenceContext.repositories().courseEnrollmentRequests().save(newCourseEnrollment);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }

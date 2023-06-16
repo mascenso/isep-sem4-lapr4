@@ -3,6 +3,7 @@ package eCourse.app.backoffice.console.presentation.students;
 import eCourse.course.application.BulkCsvValidateResult;
 import eCourse.course.application.EnrollStudentController;
 import eCourse.domain.Course;
+import eCourse.domain.CourseState;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.io.IOException;
@@ -41,11 +42,15 @@ public class EnrollStudentsUI extends AbstractUI {
         return false;
     }
 
+    // show courses with state = Enroll
     private Course showAllCourses(Iterable<Course> allCourses) {
         //copy of list
         List<Course> courses = new ArrayList<>();
         for (Course course : allCourses) {
-            courses.add(course);
+            CourseState state = course.state();
+            if (state != null && state.getActualState().equals("Enroll")) {
+                courses.add(course);
+            }
         }
 
 

@@ -22,49 +22,69 @@ public class TakeExamUI extends AbstractUI {
         @Override
         protected boolean doShow() {
 
-            List<Exam> ListOfExams = theController.getExams();
-            Exam examSelected = showListExams(ListOfExams);
-            CharStream charStream = null;
-            try {
-                charStream = CharStreams.fromFileName("./"+examSelected.getExamFile());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            ExamSpecificationLexer examLexer = new ExamSpecificationLexer(charStream);
-            CommonTokenStream commonTokenStream = new CommonTokenStream(examLexer);
-            ExamSpecificationParser examParser = new ExamSpecificationParser(commonTokenStream);
-            ParseTree parseTree = examParser.exam();
+            List<Exam> ListOfExams = theController.ExamsUnsolved();
+            Boolean examValidToSubmit = false;
 
-            Map<String, Map<String, Object>> exam = theController.buildExameForTaken(parseTree);
-            Map<String, Object> header = exam.get("Header");
+            if(!ListOfExams.isEmpty()) {
+                Exam examSelected = showListExams(ListOfExams);
+                examValidToSubmit = theController.ValidateIfExamIsOpenToSubmit(examSelected);
 
-            //max grade for exam
-            final float maxExamGrade = Float.parseFloat(header.get("MaxExamGrade").toString());
-            float studentGrade = 0;
-            //begin exam
-            //header
-            System.out.printf("Let's begin the %s\n", header.get("examTitle"));
-            System.out.println("--------------------------------------------------------------------------------");
-            System.out.printf("This exam has the %s and the %s.\n", header.get("feedbackType"), header.get("gradeType"));
-            System.out.println("--------------------------------------------------------------------------------");
-            System.out.printf("\nLet's begin the section %s.\n", header.get("sectionTitle"));
+                if (examValidToSubmit) {
+                    CharStream charStream = null;
+                    try {
+                        charStream = CharStreams.fromFileName("./" + examSelected.getExamFile());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    ExamSpecificationLexer examLexer = new ExamSpecificationLexer(charStream);
+                    CommonTokenStream commonTokenStream = new CommonTokenStream(examLexer);
+                    ExamSpecificationParser examParser = new ExamSpecificationParser(commonTokenStream);
+                    ParseTree parseTree = examParser.exam();
 
-            for (Map.Entry<String, Map<String, Object>> entry : exam.entrySet()) {
-                if (!entry.getKey().equalsIgnoreCase("Header")) {
-                    studentGrade += makeQuestionForUser(entry);
-                    System.out.println(studentGrade);
+                    Map<String, Map<String, Object>> exam = theController.buildExameForTaken(parseTree);
+                    Map<String, Object> header = exam.get("Header");
+
+                    //max grade for exam
+                    final float maxExamGrade = Float.parseFloat(header.get("MaxExamGrade").toString());
+                    float studentGrade = 0;
+                    //begin exam
+                    //header
+                    System.out.printf("Let's begin the %s\n", header.get("examTitle"));
+                    System.out.println("--------------------------------------------------------------------------------");
+                    System.out.printf("This exam has the %s and the %s.\n", header.get("feedbackType"), header.get("gradeType"));
+                    System.out.println("--------------------------------------------------------------------------------");
+                    System.out.printf("\nLet's begin the section %s.\n", header.get("sectionTitle"));
+
+                    for (Map.Entry<String, Map<String, Object>> entry : exam.entrySet()) {
+                        if (!entry.getKey().equalsIgnoreCase("Header")) {
+                            studentGrade += makeQuestionForUser(entry);
+                            System.out.println(studentGrade);
+                        }
+
+                    }
+                    System.out.printf("You got %.0f%% of exam right.\n", theController.getExamGradeOnPercentage(studentGrade, maxExamGrade));
+                    System.out.printf("You had %.2f of %.2f possible points.\n", studentGrade, maxExamGrade);
+
+                    theController.saveGrade(theController.getExamGradeOnPercentage(studentGrade, maxExamGrade), examSelected);
+                } else {
+                    System.out.println("The submission period for this exam has already expired.");
                 }
-
+            }else{
+                System.out.println("=========================");
+                System.out.println("Dont exist exams to take.");
+                System.out.println("=========================");
+                System.out.println();
             }
-
-            System.out.printf("You got %.0f%% of exam right.\n", theController.getExamGradeOnPercentage(studentGrade, maxExamGrade));
-            System.out.printf("You had %.2f of %.2f possible points.\n", studentGrade, maxExamGrade);
-
-            theController.saveGrade(theController.getExamGradeOnPercentage(studentGrade, maxExamGrade),examSelected);
         return true;
     }
 
     private Exam showListExams(List<Exam> listOfExams) {
+            if(listOfExams.isEmpty()){
+                System.out.println("=========================");
+                System.out.println("Dont exist exams to take.");
+                System.out.println("=========================");
+                return null;
+            }else{
             Scanner scanner = new Scanner(System.in);
             int selectedOption = -1;
             do {
@@ -76,7 +96,7 @@ public class TakeExamUI extends AbstractUI {
                     System.out.println("Select a valid exam.");
                 }
             }while (selectedOption<0 || selectedOption >= listOfExams.size());
-            return listOfExams.get(selectedOption);
+            return listOfExams.get(selectedOption);}
     }
 
     @Override

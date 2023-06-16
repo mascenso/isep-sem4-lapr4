@@ -1,19 +1,23 @@
 package eCourse.domain;
 
+import eCourse.domain.enums.AccessType;
+import eCourse.domain.postit.PostIt;
+import eCourse.domain.valueobjects.SBColumn;
+import eCourse.domain.valueobjects.SBRow;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.*;
 
-@Component
 @Entity
 public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
     @EmbeddedId
+    @Column(name="title")
     private SharedBoardTitle title;
 
     @Column
@@ -21,16 +25,14 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @Column
     private int numberColumns;
 
-    /*@Embedded
-    private SharedBoardColumnAndRow position;*/
+    @OneToMany(mappedBy="sharedboard", cascade = CascadeType.ALL)
+    private List<SharedBoardCell> matrixCells = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "SHARED_BOARD_TITLE")
-    private List<Linha> linhas;
+    @ElementCollection
+    private List<SBRow> linhas;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "SHARED_BOARD_TITLE")
-    private List<Coluna> colunas;
+    @ElementCollection
+    private List<SBColumn> colunas;
 
     @ManyToOne
     @JoinColumn()
@@ -40,18 +42,18 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     private boolean archive;
 
     @OneToMany
-    private List<SharedBoardUser> usersList=new ArrayList<>();
+    private List<SharedBoardUser> usersList = new ArrayList<>();
 
 
-    public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner, List<Coluna> columns, List<Linha> rows) {
+    public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner, List<SBColumn> columns, List<SBRow> rows) {
         if (title == null) {
             throw new IllegalArgumentException();
         }
         if ((numberColumns < 1) || (numberColumns > 10)) {
-            throw new IllegalArgumentException("Column value must be between 1 and 10");
+            throw new IllegalArgumentException("SBColumn value must be between 1 and 10");
         }
         if ((numberRows < 1) || (numberRows > 20)) {
-            throw new IllegalArgumentException("Row value must be between 1 and 20");
+            throw new IllegalArgumentException("SBRow value must be between 1 and 20");
         }
         this.title = title;
         this.numberColumns = numberColumns;
@@ -60,21 +62,31 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         this.archive = archive;
         this.colunas = columns;
         this.linhas = rows;
+        this.matrixCells = newEmptyBoard(numberRows, numberColumns);
+    }
+
+    private List<SharedBoardCell> newEmptyBoard(int numberRows, int numberColumns) {
+        List<SharedBoardCell> matrixCells = new ArrayList<>();
+        for (int i = 0; i < numberRows; i++) {
+            for (int j = 0; j < numberColumns; j++) {
+                matrixCells.add(new SharedBoardCell(this, "_" + i + "," + j));
+            }
+        }
+        return matrixCells;
     }
 
     public SharedBoard(int numberRows, int numberColumns) {
         if ((numberColumns < 1) || (numberColumns > 10)) {
-            throw new IllegalArgumentException("Column value must be between 1 and 10");
+            throw new IllegalArgumentException("SBColumn value must be between 1 and 10");
         }
         if ((numberRows < 1) || (numberRows > 20)) {
-            throw new IllegalArgumentException("Row value must be between 1 and 20");
+            throw new IllegalArgumentException("SBRow value must be between 1 and 20");
         }
         this.numberRows = numberRows;
         this.numberColumns = numberColumns;
     }
 
     protected SharedBoard() {
-
     }
 
 
@@ -90,19 +102,19 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return archive;
     }
 
-    public List<Coluna> colunas() {
+    public List<SBColumn> colunas() {
         return colunas;
     }
 
-    public void setColunas(List<Coluna> colunas) {
+    public synchronized void changeColumns(List<SBColumn> colunas) {
         this.colunas = colunas;
     }
 
-    public List<Linha> linhas() {
+    public List<SBRow> linhas() {
         return linhas;
     }
 
-    public void setLinhas(List<Linha> linhas) {
+    public synchronized void changeRows(List<SBRow> linhas) {
         this.linhas = linhas;
     }
 
@@ -134,10 +146,6 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return this.title;
     }
 
-    public boolean isArchive() {
-        return true;
-    }
-
     public int numberOfColumns() {
         return numberColumns;
     }
@@ -146,11 +154,25 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return numberRows;
     }
 
+    public synchronized void changeNumberOfRows(int numberRows) {
+        this.numberRows = numberRows;
+    }
 
-    public SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
-        SharedBoardUser boardUser=new SharedBoardUser(user, boardID, access);
+    public synchronized void changeNumberOfColumns(int numberColumns) {
+        this.numberColumns = numberColumns;
+    }
+
+    public synchronized SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
+        SharedBoardUser boardUser = new SharedBoardUser(user, boardID, access);
         this.usersList.add(boardUser);
-            return boardUser;
+        return boardUser;
+    }
+
+    public PostIt addPostItToCell(PostIt postIt, int row, int column) {
+
+        this.matrixCells.get(row * this.numberColumns + column).addPostIt(postIt);
+
+        return postIt;
     }
 
 }

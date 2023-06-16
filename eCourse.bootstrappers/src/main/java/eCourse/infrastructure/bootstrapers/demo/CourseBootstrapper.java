@@ -1,5 +1,6 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
+import eCourse.AddTeacherController;
 import eCourse.domain.Teacher;
 import eCourse.TeacherService;
 import eCourse.course.application.ListCoursesService;
@@ -7,12 +8,10 @@ import eCourse.course.application.SetTeachersOfCourseController;
 import eCourse.course.application.UpdateCourseStateController;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
@@ -26,9 +25,8 @@ public class CourseBootstrapper implements Action {
     SetTeachersOfCourseController setTeachersOfCourseController = new SetTeachersOfCourseController();
     ListCoursesService listCoursesService = new ListCoursesService();
     TeacherService teacherService = new TeacherService();
+    private final AddTeacherController userManagementService = new AddTeacherController();
 
-
-    private final UserManagementService userManagementService = AuthzRegistry.userService();
     @Override
     public boolean execute() {
         RegisterCourse("Course for developers", "Informatica","2022/2023","Open",4);
@@ -39,7 +37,7 @@ public class CourseBootstrapper implements Action {
         updateCourseStateController.updateCourseState("Informatica", "Open");
         updateCourseStateController.updateCourseState("Inteligencia Artificial", "Open");
         //updateCourseStateController.updateCourseState("LPROG", "Open");
-       // updateCourseStateController.updateCourseState("RCOMP", "Open");
+        // updateCourseStateController.updateCourseState("RCOMP", "Open");
 
         Optional<Course> c = listCoursesService.findCourseByDesignation(Designation.valueOf("Informatica"));
         Optional<Teacher> t = teacherService.findTeacherByAcronym(Acronym.valueOf("abc"));
@@ -54,7 +52,9 @@ public class CourseBootstrapper implements Action {
     private boolean RegisterCourse(final String description, final String name, final String edition, final String state, int number){
         final Set<Role> roleTypes = new HashSet<>();
         roleTypes.add(ECourseRoles.TEACHER);
-        SystemUser user = userManagementService.registerNewUser("teacher"+number, "Password1", "John", "Doe", "teacher1@isep.ipp.pt",roleTypes);
+        Teacher t = userManagementService.addTeacher("teacher"+number, "Password1", "John", "Doe", "teacher"+ number + "@isep.ipp.pt",roleTypes, "ab"+ (char) (number+99));
+        SystemUser user = t.user();
+
         final Course newCourse = new CourseBuilder().descriptioned(Description.valueOf(description)).named(Designation.valueOf(name))
                 .edition(CourseEdition.valueOf(edition)).teacherCoordinator(user).build();
         PersistenceContext.repositories().courses().save(newCourse);

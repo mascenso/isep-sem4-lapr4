@@ -8,6 +8,8 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +61,19 @@ public class TakeExameController {
         PersistenceContext.repositories().gradesForExam().save(grade);
     }
 
-    public List<Exam> getExams() {
-        return (List<Exam>) listExamService.allExams();
+    public List<Exam> ExamsUnsolved() {
+        List<Exam> listExams = (List<Exam>) listExamService.ExamsUnsolved();
+        List<Exam> listExamsToSend = new ArrayList<>();
+        Date date = new Date(0);
+        for (int i = 0; i < listExams.size(); i++) {
+            if(listExams.get(i).getExamCloseDate().getTime() !=date.getTime() && listExams.get(i).getExamOpenDate().getTime() != date.getTime()){
+                listExamsToSend.add(listExams.get(i));
+            }
+        }
+        return listExamsToSend;
+    }
+
+    public Boolean ValidateIfExamIsOpenToSubmit(Exam examSelected) {
+        return service.ValidateIfExamIsOpenToSubmit(examSelected);
     }
 }
