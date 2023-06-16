@@ -43,13 +43,6 @@ public class Course implements AggregateRoot<Designation> {
     @ElementCollection(fetch = FetchType.EAGER)
     private final Set<StudentsInCourse> students = new HashSet<>();
 
-    /*@ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "Course_Student",
-            joinColumns = {@JoinColumn(name = "IDCOURSE")},
-            inverseJoinColumns = {@JoinColumn(name = "NUMBER")}
-    )
-    Set<Student> students = new HashSet<>();*/
     protected Course (final Designation name, final Description description, final CourseEdition edition, SystemUser teacherCordinator){
         Preconditions.noneNull(name,description,edition);
 
