@@ -34,7 +34,11 @@ public class CreateAPostItUI extends AbstractUI {
         selectorBoard.show();
         final SharedBoard theBoard = selectorBoard.selectedElement();
 
-        final String imageFilename = Console.readLine("Img filename:");
+        final String textContent = Console.readLine("Text Content (Optional):");
+        final String imageFilename = Console.readLine("Img filename (Optional):");
+
+        Integer x = Integer.parseInt(Console.readLine("X:"));
+        Integer y = Integer.parseInt(Console.readLine("Y:"));
 
         final InputStream inputStream = this.getClass()
                 .getClassLoader()
@@ -46,7 +50,7 @@ public class CreateAPostItUI extends AbstractUI {
             //theController.register(name, description);
         } else {
             try {
-                theController.registerPostIt(theBoard, "ksjdlak" , inputStream);
+                theController.registerPostIt(theBoard, x, y, textContent , inputStream);
                 System.out.println("PostIt created successfully");
 
                 //System.out.println(postIt.toString());

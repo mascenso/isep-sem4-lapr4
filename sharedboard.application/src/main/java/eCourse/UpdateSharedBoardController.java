@@ -2,18 +2,16 @@ package eCourse;
 
 import eCourse.domain.*;
 import eCourse.domain.enums.AccessType;
-import eCourse.domain.valueobjects.SBColumn;
-import eCourse.domain.valueobjects.SBRow;
+import eCourse.domain.SBColumn;
+import eCourse.domain.SBRow;
 import eCourse.domain.valueobjects.SharedBoardTitle;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 

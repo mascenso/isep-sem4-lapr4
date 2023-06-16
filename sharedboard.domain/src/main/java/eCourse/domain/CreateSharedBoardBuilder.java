@@ -1,7 +1,5 @@
 package eCourse.domain;
 
-import eCourse.domain.valueobjects.SBColumn;
-import eCourse.domain.valueobjects.SBRow;
 import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
