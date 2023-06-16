@@ -40,6 +40,10 @@ public class Course implements AggregateRoot<Designation> {
     @ElementCollection(fetch = FetchType.EAGER)
     private final Set<TeachersInCourse> teachers = new HashSet<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private final Set<StudentsInCourse> studentsInCourse = new HashSet<>();
+
+
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
@@ -71,7 +75,7 @@ public class Course implements AggregateRoot<Designation> {
 
     public CourseEdition edition (){return edition;}
 
-    public String cordinator (){return teacherCoordinator.name().toString();}
+    public String coordinator (){return teacherCoordinator.name().toString();}
 
     /*public CourseState updateState(CourseState newState) {
         if (!this.state.equals(newState)) {
@@ -143,6 +147,10 @@ public class Course implements AggregateRoot<Designation> {
      */
     public boolean addTeacher(Teacher teacher) {
         return this.teachers.add(new TeachersInCourse(teacher));
+    }
+
+    public boolean addStudentInCourse(Student student) {
+        return this.studentsInCourse.add(new StudentsInCourse(student));
     }
 
     public Set<TeachersInCourse> teachers() {
