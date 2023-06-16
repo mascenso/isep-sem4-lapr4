@@ -31,7 +31,7 @@ import eCourse.app.teacher.console.presentation.RecurringLessons.CreateRecurring
 import eCourse.app.teacher.console.presentation.RecurringLessons.UpdateScheduleRecurringLessonUI;
 import eCourse.app.teacher.console.presentation.exam.CreateAutomaticExamUI;
 import eCourse.app.teacher.console.presentation.exam.CreateExamUI;
-import eCourse.app.teacher.console.presentation.exam.TeacherListExamsUI;
+import eCourse.app.teacher.console.presentation.exam.TeacherListExamGradesUI;
 import eCourse.app.teacher.console.presentation.exam.ListExamsCourseUI;
 import eCourse.app.teacher.console.presentation.exam.UpdateExamUI;
 import eCourse.app.teacher.console.presentation.meetings.ScheduleMeetingsUI;
@@ -206,7 +206,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(UPDATE_EXAM_OPTION, "Update Exam", new UpdateExamUI()::show);
         menu.addItem(ADD_NEW_AUTOMATIC_EXAM_OPTION, "Create Automatic Exam", new CreateAutomaticExamUI()::show);
         menu.addItem(LIST_EXAMS_COURSE_OPTION, "List Exams", new ListExamsCourseUI()::show);
-        menu.addItem(LIST_TEACHER_EXAM_GRADES_OPTION, "View Exam Grades", new TeacherListExamsUI()::show);
+        menu.addItem(LIST_TEACHER_EXAM_GRADES_OPTION, "View Exam Grades", new TeacherListExamGradesUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
         return menu;
     }

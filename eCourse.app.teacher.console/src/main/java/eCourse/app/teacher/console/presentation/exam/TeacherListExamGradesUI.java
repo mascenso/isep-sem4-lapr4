@@ -1,13 +1,13 @@
 package eCourse.app.teacher.console.presentation.exam;
 
 import eCourse.domain.Exam;
-import eCourse.exam.application.ListExamsController;
+import eCourse.exam.application.ListStudentExamGradesController;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
 
-public class TeacherListExamsUI extends AbstractListUI {
+public class TeacherListExamGradesUI extends AbstractListUI {
 
-    private final ListExamsController listExamsController = new ListExamsController();
+    private final ListStudentExamGradesController listExamsController = new ListStudentExamGradesController();
 
 
     @Override

@@ -1,13 +1,13 @@
 package eCourse.exam.application;
 
 import eCourse.domain.Exam;
+import eCourse.domain.GradeOfExam;
 import eapli.framework.application.UseCaseController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @UseCaseController
-public class ListExamsController {
+public class ListStudentExamGradesController {
 
     private final ListExamsService service = new ListExamsService();
 
@@ -16,8 +16,7 @@ public class ListExamsController {
         return service.allExams();
     }
 
-    public Iterable<Exam> getOpenExams() {
-
-        return service.getOpenExams();
+    public Iterable<GradeOfExam> examOfLoggedStudent() {
+        return service.examOfLoggedStudent();
     }
 }
