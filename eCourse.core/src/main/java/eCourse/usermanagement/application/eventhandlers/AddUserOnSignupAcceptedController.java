@@ -24,7 +24,7 @@
 package eCourse.usermanagement.application.eventhandlers;
 
 
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eCourse.domain.UserBuilderHelper;
 import eCourse.domain.events.NewUserRegisteredFromSignupEvent;
 import eCourse.domain.events.SignupAcceptedEvent;

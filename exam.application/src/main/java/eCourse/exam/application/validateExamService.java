@@ -1,8 +1,10 @@
 package eCourse.exam.application;
 
 import eCourse.antlrExam.ExamVisitor;
+import eCourse.domain.Exam;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -100,5 +102,10 @@ public class validateExamService {
             gradeToSubmit = (studentGrade/maxExamGrade)*100;
         }
         return gradeToSubmit;
+    }
+
+    public Boolean ValidateIfExamIsOpenToSubmit(Exam examSelected) {
+        Date date = new Date();
+        return examSelected.getExamOpenDate().before(date) && examSelected.getExamCloseDate().after(date);
     }
 }

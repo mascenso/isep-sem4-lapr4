@@ -6,55 +6,91 @@ autonumber
 actor Student as Actor
 activate Actor
 participant RequestEnrollmentUI as UI <<Presentation>>
-control CourseEnrollmentController as Controller <<Application>>
+control ListCoursesStudentController as ListController <<Application>>
+control CourseEnrollmentRequestController as Controller <<Application>>
+participant ListCoursesService as ListService <<Applciation>>
 participant CourseEnrollmentService as Service <<Application>>
-database CourseRepository as CourseRepository <<Repository>>
-participant CourseEnrollmentRequestBuilder as Builder <<Application>>
-participant "theCourseEnrollment:CourseEnrollment" as CourseEnrollment <<Domain>>
 participant PersistenceContext as Persistence <<persistence>>
 participant RepositoryFactory as Factory <<factory>>
+database CourseRepository as CourseRepository <<Repository>>
+participant Course as Course <<Domain>>
+participant CourseEnrollmentRequestBuilder as Builder <<Application>>
+participant "serviço:AuthorizationService" as Authz <<Domain>>
+participant "theCourseEnrollment:CourseEnrollment" as CourseEnrollment <<Domain>>
+database StudentRepository as studentRepository <<repository>>
 database CourseEnrollmentRepository as Repository <<Repository>>
 
 
 Actor -> UI: Select the option to \nrequest the enrollment in courses
 activate UI
-UI -> Controller: listEnrollingCourses()
-activate Controller
-Controller -> Service: listEnrollingCourses()
-activate Service
-Service -> CourseRepository: listEnrollingCourses()
-deactivate Service
-activate CourseRepository
-CourseRepository -> Controller: course.ENROLL
-deactivate CourseRepository
-Controller -> UI: course.ENROLL
-UI -> Actor: course.ENROLL
-Actor -> UI: Student selects the course he wishes\n to enroll
-UI -> Controller: createCourseEnrollmentRequest(course, student)
-Controller -> Builder: buildOrThrow()
-activate Builder
-Builder -> CourseEnrollment: CourseEnrollment(course, student)
-activate CourseEnrollment
-CourseEnrollment -> Builder: CourseEnrollment
-deactivate CourseEnrollment
-Builder -> Controller: CourseEnrollment
-deactivate Builder
-Controller -> Persistence: repositories()
+UI -> ListController: allCoursesEnrollment()
+activate ListController
+ListController -> ListService: listEnrollingCourses()
+activate ListService
+ListService -> ListService: List<Course> enrollCourses
+ListService -> Persistence: repositories()
 activate Persistence
-Persistence -> Factory: newInstance()
-Activate Factory
-Factory -> Persistence: CourseEnrollment
+Persistence -> Factory: courses()
+activate Factory
+Factory -> CourseRepository: findAll()
+activate CourseRepository
+CourseRepository -> Factory: Iterable<Course>
+deactivate CourseRepository
+deactivate CourseRepository
+Factory -> Persistence: Iterable<Course>
 deactivate Factory
-Persistence -> Controller: CourseEnrollment
+Persistence -> ListService: Iterable<Course>
 deactivate Persistence
-Controller -> Repository: save(courseEnrollment)
-activate Repository
-Repository -> Controller: courseEnrollment
-deactivate Repository
-Controller -> UI: courseEnrollment
-deactivate Controller
-Actor <- UI: Back to menu
-deactivate UI
-
-
+    loop Iterable<Course>
+        ListService -> Course: getCourseState().getActualState().equals("Enroll")
+        activate Course
+        Course -> ListService: course
+        deactivate Course
+        ListService -> ListService: add(course)
+    end
+ListService -> ListController: List<Course> enrollCourses
+deactivate ListService
+ListController -> UI:  List<Course> enrollCourses
+deactivate ListController
+UI -> Actor: Shows the list of Courses open for enroll
+Actor -> UI: Selects one Course to make enrollment
+UI -> Controller: selCourse
+activate Controller
+Controller -> Authz: session().get().authenticatedUser().username()
+activate Authz
+Authz -> Controller: username
+deactivate Authz
+Controller -> studentRepository: findByUsername(username)
+activate studentRepository
+studentRepository -> Controller: student
+deactivate studentRepository
+Controller -> Builder: CourseEnrollmentRequestBuilder()
+activate Builder
+Builder -> Controller: newCourseEnrollment
+deactivate Builder
+alt#Gold #LightBlue Fist enrollment request
+    Controller -> Service: validateCourseEnrollmentRequest(student, course)
+    activate Service
+    Service -> Controller: true
+    deactivate Service
+    Controller -> Persistence: repositories()
+    activate Persistence
+    Persistence -> Factory: save()
+    activate Factory
+    Factory -> Persistence: newCourseEnrollment
+    deactivate Factory
+    Persistence -> Controller: newCourseEnrollment
+    deactivate Persistence
+    Controller -> UI: true
+    UI -> Actor: Enrollment request submitted successfully.
+else #Pink Already existing Request
+    Controller -> Service: validateCourseEnrollmentRequest(student, course)
+    activate Service
+    Service -> Controller: false
+    deactivate Service
+    Controller -> UI: false
+    deactivate Controller
+    UI -> Actor: You have already requested enrollment in this course.
+    deactivate UI
+end
 @enduml

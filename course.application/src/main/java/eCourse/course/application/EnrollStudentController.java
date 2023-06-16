@@ -6,7 +6,7 @@ import eCourse.domain.Student;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.CourseRepository;
 import eCourse.repositories.StudentUserRepository;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;

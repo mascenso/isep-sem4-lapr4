@@ -18,6 +18,8 @@ public class NotificationTest {
     private Notification notification2;
     private BoardShareEvent boardShareEvent1;
     private BoardShareEvent boardShareEvent2;
+    private BoardUpdateEvent boardUpdateEvent1;
+    private BoardUpdateEvent boardUpdateEvent2;
 
     private SharedBoardUser sharedBoardUser1;
     private SharedBoardUser sharedBoardUser2;
@@ -30,6 +32,8 @@ public class NotificationTest {
     private SystemUser other;
     private SharedBoard board1;
     private SharedBoard board2;
+    private SharedBoard board3;
+
 
     @BeforeEach
     public void setUp() {
@@ -45,7 +49,8 @@ public class NotificationTest {
         other = userBuilder.with("other", "Password1", "Tom", "Riddle", "horcrux@mail.com").createdOn(CurrentTimeCalendars.now()).withRoles(roles2).build();
 
         board1 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 1")).withNumberOfColumns(1).withNumberOfRows(1).withArchive(false).withOwner(owner).withColumns(null).withRows(null).build();
-        board2 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 2")).withNumberOfColumns(1).withNumberOfRows(1).withArchive(false).withOwner(other).withColumns(null).withRows(null).build();
+        board2 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 2")).withNumberOfColumns(2).withNumberOfRows(2).withArchive(false).withOwner(other).withColumns(null).withRows(null).build();
+        board3 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 3")).withNumberOfColumns(2).withNumberOfRows(2).withArchive(true).withOwner(other).withColumns(null).withRows(null).build();
 
     }
 
@@ -107,6 +112,69 @@ public class NotificationTest {
         assertEquals(sharedBoardUser1.hasPermission(), notification1.permission());
         assertNotEquals(sharedBoardUser1.hasPermission(), notification2.permission());
         assertNotEquals(sharedBoardUser2.hasPermission(), notification1.permission());
+    }
+
+    @Test
+    public void ensureNumberOfColumnsIsCorrect() {
+
+        boardUpdateEvent1 = new BoardUpdateEvent(board1, owner);
+        boardUpdateEvent2 = new BoardUpdateEvent(board2, other);
+        notification1 = new Notification(boardUpdateEvent1, owner);
+        notification2 = new Notification(boardUpdateEvent2, other);
+
+        assertEquals(board1.numberOfColumns(), notification1.numberOfColumns());
+        assertEquals(board2.numberOfColumns(), notification2.numberOfColumns());
+        assertNotEquals(board2.numberOfColumns(), notification1.numberOfColumns());
+        assertNotEquals(board1.numberOfColumns(), notification2.numberOfColumns());
+
+    }
+
+
+    @Test
+    public void ensureNumberOfRowsIsCorrect() {
+
+        boardUpdateEvent1 = new BoardUpdateEvent(board1, owner);
+        boardUpdateEvent2 = new BoardUpdateEvent(board2, other);
+        notification1 = new Notification(boardUpdateEvent1, owner);
+        notification2 = new Notification(boardUpdateEvent2, other);
+
+        assertEquals(board1.numberOfRows(), notification1.numberOfRows());
+        assertEquals(board2.numberOfRows(), notification2.numberOfRows());
+        assertNotEquals(board2.numberOfRows(), notification1.numberOfRows());
+        assertNotEquals(board1.numberOfRows(), notification2.numberOfRows());
+
+    }
+
+
+    @Test
+    public void ensureArchiveIsCorrect() {
+
+        boardUpdateEvent1 = new BoardUpdateEvent(board1, owner);
+        boardUpdateEvent2 = new BoardUpdateEvent(board2, other);
+        notification1 = new Notification(boardUpdateEvent1, owner);
+        notification2 = new Notification(boardUpdateEvent2, other);
+
+        assertEquals(board1.archive(), notification1.archive());
+        assertEquals(board2.archive(), notification2.archive());
+        assertNotEquals(board3.archive(), notification1.archive());
+        assertNotEquals(board3.archive(), notification2.archive());
+
+    }
+
+
+    @Test
+    public void ensureOwnerIsCorrect() {
+
+        boardUpdateEvent1 = new BoardUpdateEvent(board1, owner);
+        boardUpdateEvent2 = new BoardUpdateEvent(board2, other);
+        notification1 = new Notification(boardUpdateEvent1, owner);
+        notification2 = new Notification(boardUpdateEvent2, other);
+
+        assertEquals(board1.owner(), notification1.owner());
+        assertEquals(board2.owner(), notification2.owner());
+        assertNotEquals(board2.owner(), notification1.owner());
+        assertNotEquals(board1.owner(), notification2.owner());
+
     }
 
 
