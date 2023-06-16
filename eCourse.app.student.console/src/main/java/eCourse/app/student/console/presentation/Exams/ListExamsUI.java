@@ -2,7 +2,7 @@ package eCourse.app.student.console.presentation.Exams;
 
 import eCourse.app.common.console.ExamPrinter;
 import eCourse.domain.Exam;
-import eCourse.domain.SharedBoard;
+import eCourse.domain.GradeOfExam;
 import eCourse.exam.application.ListExamsController;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
@@ -24,13 +24,12 @@ public class ListExamsUI extends AbstractListUI {
 
 
     @Override
-    protected Iterable<Exam> elements() {
-        return listExamsController.allExams();
-
+    protected Iterable<GradeOfExam> elements() {
+        return listExamsController.examOfLoggedStudent();
     }
 
     @Override
-    protected Visitor<Exam> elementPrinter() {
+    protected Visitor<GradeOfExam> elementPrinter() {
         return new ExamPrinter();
     }
 
@@ -41,6 +40,6 @@ public class ListExamsUI extends AbstractListUI {
 
     @Override
     protected String listHeader() {
-        return String.format("#  %-30s%-20s%-20s%-20s%-20s", "Exam Name", "Course", "NumberRows", "Grade", "Student Name");
+        return String.format("#  %-30s%-20s%-20s%-20s", "Exam Name", "Course", "Grade", "Student Name");
     }
 }
