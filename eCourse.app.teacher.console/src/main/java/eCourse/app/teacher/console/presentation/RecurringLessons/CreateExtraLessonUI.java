@@ -1,11 +1,8 @@
 package eCourse.app.teacher.console.presentation.RecurringLessons;
 
 import eCourse.app.common.console.teachers.StudentPrinter;
-import eCourse.domain.SignupRequest;
 import eCourse.domain.Student;
-import eCourse.domain.Teacher;
 import eCourse.lesson.application.CreateExtraLessonController;
-import eCourse.lesson.domain.model.ParticipantsOfRecurringLesson;
 import eCourse.lesson.domain.model.RecurringLesson;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;

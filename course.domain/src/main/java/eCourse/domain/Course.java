@@ -72,7 +72,7 @@ public class Course implements AggregateRoot<Designation> {
 
     public CourseEdition edition (){return edition;}
 
-    public String cordinator (){return teacherCoordinator.name().toString();}
+    public String coordinator (){return teacherCoordinator.name().toString();}
 
     /*public CourseState updateState(CourseState newState) {
         if (!this.state.equals(newState)) {

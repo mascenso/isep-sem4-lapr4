@@ -46,7 +46,6 @@ import eapli.framework.validations.Preconditions;
  * follows the Single Responsibility Pattern.
  *
  * @author Jorge Santos ajs@isep.ipp.pt
- *
  */
 @Entity
 public class SignupRequest implements AggregateRoot<Username> {
@@ -56,7 +55,7 @@ public class SignupRequest implements AggregateRoot<Username> {
     @Version
     private Long version;
 
-    @Id
+    @EmbeddedId
     private Username username;
     private Password password;
     private Name name;
@@ -70,8 +69,8 @@ public class SignupRequest implements AggregateRoot<Username> {
     private Calendar createdOn;
 
     /* package */ SignupRequest(final Username username, final Password password, final Name name,
-            final EmailAddress email, final MecanographicNumber mecanographicNumber,
-            final Calendar createdOn) {
+                                final EmailAddress email, final MecanographicNumber mecanographicNumber,
+                                final Calendar createdOn) {
         Preconditions.noneNull(username, password, name, email, mecanographicNumber);
 
         this.username = username;
