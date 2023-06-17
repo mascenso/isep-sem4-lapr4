@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 
 public class CreateAPostItUI extends AbstractUI {
 
@@ -28,8 +29,11 @@ public class CreateAPostItUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
-
         final Iterable<SharedBoard> boards = theController.allSharedBoards();
+        if (((Collection<?>) boards).size() == 0) {
+            System.out.println("You have no Boards to share!");
+            return false;
+        }
         final SelectWidget<SharedBoard> selectorBoard = new SelectWidget<>("Select a board", boards, new SystemBoardPrinter());
         selectorBoard.show();
         final SharedBoard theBoard = selectorBoard.selectedElement();
@@ -57,8 +61,7 @@ public class CreateAPostItUI extends AbstractUI {
 
             } catch (final IntegrityViolationException | ConcurrencyException e) {
                 System.out.println("That postIt already exists");
-                // ignoring exception. assuming it is just a primary key violation
-                // due to the tentative of inserting a duplicated entry
+
             } catch (final IOException e) {
                 System.out.println("There was a problem loading the image file");
             }

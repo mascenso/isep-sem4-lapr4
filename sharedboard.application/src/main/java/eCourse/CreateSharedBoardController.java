@@ -22,9 +22,14 @@ import java.util.Optional;
 @Component
 @UseCaseController
 public class CreateSharedBoardController {
+
+    Integer maxColumnsSharedBoard = Application.settings().getMaxColumnsSharedBoard();
+    Integer maxRowsSharedBoard = Application.settings().getMaxRowsSharedBoard();
+
     private final RepositoryFactory repositoryFactory = PersistenceContext.repositories();
     private final TransactionalContext tx = repositoryFactory.newTransactionalContext();
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
+
 
     public void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<SBColumn> columnNames, List<SBRow> rowNames) throws IntegrityViolationException, ConcurrencyException {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER, ECourseRoles.PROJECT_MANAGER, ECourseRoles.TEACHER, ECourseRoles.STUDENT, ECourseRoles.POWER_USER);
