@@ -2,7 +2,10 @@ package shareboardHttpServer;
 
 
 
+import com.google.gson.Gson;
 import eCourse.domain.ECoursePasswordPolicy;
+import eCourse.domain.Notification;
+import eCourse.domain.SharedBoard;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -16,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import static eapli.framework.infrastructure.authz.application.AuthzRegistry.authenticationService;
 
@@ -85,7 +89,7 @@ public final class SBPServer  {
 
                 }
 
-            } catch (IOException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 System.out.println("An error occurred while receiving the data, please contact the administrator.");
                 throw new RuntimeException(e);
             } finally {
@@ -99,7 +103,7 @@ public final class SBPServer  {
         }
     }
 
-    private byte[] readMessageData(Socket clientSocket, boolean isPassword) throws IOException {
+    private byte[] readMessageData(Socket clientSocket, boolean isPassword) throws IOException, ClassNotFoundException {
         //read mensage
         int version = inputStream.readUnsignedByte();
         int code = inputStream.readUnsignedByte();
@@ -117,7 +121,7 @@ public final class SBPServer  {
         return data;
     }
 
-    private byte[] ResponseGenerator(int code, byte[] data, Socket clientSocket) throws IOException {
+    private byte[] ResponseGenerator(int code, byte[] data, Socket clientSocket) throws IOException, ClassNotFoundException {
         switch (code){
             case 0:
                 COMMIT_Response(clientSocket);
@@ -135,12 +139,58 @@ public final class SBPServer  {
                 AUTH_Response(data,clientSocket);
                 break;
             case 5:
-                REQUEST_Response(data);
+                Save_Board(data);
+                break;
+            case 6:
+                Save_Notification(data);
+                break;
+            case 7:
+                findAllNotification();
+                break;
+            case 8:
+                findAllUSers();
+                break;
+            case 9:
+                findAllBoardsByUSer();
                 break;
             default:
                 SendErrorInvalidCode();
         }
         return data;
+    }
+
+    private void findAllBoardsByUSer() throws IOException {
+        System.out.println("\n==============================================\n A request to return all boards by user was received.\n==============================================\n");
+        sendRequest(2,new byte[0]);
+    }
+
+    private void findAllUSers() throws IOException {
+        System.out.println("\n==============================================\n A request to return all users was received.\n==============================================\n");
+        sendRequest(2,new byte[0]);
+    }
+
+    private void findAllNotification() throws IOException {
+        System.out.println("\n==============================================\n A request so show all notification was received\n==============================================\n");
+        sendRequest(2,new byte[0]);
+    }
+
+    private void Save_Notification(byte[] data) throws IOException {
+        System.out.println("\n==============================================\n A notification was received to be saved in the DB\n==============================================\n");
+        sendRequest(2,new byte[0]);
+    }
+
+    private void Save_Board(byte[] data) throws IOException {
+        System.out.println("\n==============================================\n A Board was received to be saved in the DB\n==============================================\n");
+        sendRequest(2,new byte[0]);
+    }
+
+    private Object deserializeObject(byte[] data) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream byteInputStream = new ByteArrayInputStream(data);
+        ObjectInputStream ObjectOutput = new ObjectInputStream(byteInputStream);
+        Object object = ObjectOutput.readObject();
+        ObjectOutput.close();
+        byteInputStream.close();
+        return object;
     }
 
     private void REQUEST_Response(byte[] data) throws IOException {

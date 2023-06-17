@@ -1,5 +1,10 @@
 package shareboardHttpServer;
 
+import eCourse.domain.Notification;
+import eCourse.domain.SharedBoard;
+import com.google.gson.Gson;
+import eapli.framework.infrastructure.authz.domain.model.Username;
+
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
@@ -97,43 +102,42 @@ public class SBPClient {
                 break;
             case 4:
                 AUTH_Response(data);
-            case 5:
-                REQUEST_Response(data);
-                break;
             default:
                 SendErrorInvalidCode(data);
         }
     }
 
     private static void SendErrorInvalidCode(byte[] data) {
-        System.out.println("\n=======================\n An invalid code was received \n=======================\n");
-    }
-
-    private static void REQUEST_Response(byte[] data) {
-        System.out.println("Recebido um pedido do servidor, fazer o processamento aqui");
+        System.out.println("\n***************************************************\nMessage from TCP\n");
+        System.out.println("An invalid code was received \n***************************************************\n");
     }
 
     private static void AUTH_Response(byte[] data) {
-        System.out.println("\n=======================\n AUTH received \n=======================\n");
+        System.out.println("\n***************************************************\nMessage from TCP");
+        System.out.println("AUTH received \n***************************************************\n");
     }
 
     private static void ERR_Response(byte[] data) {
         String messageReceived = new String(data, StandardCharsets.UTF_8);
-        System.out.println("\n=======================\n"+messageReceived+ "\n=======================\n");
+        System.out.println("\n***************************************************\nMessage from TCP");
+        System.out.println(messageReceived+ "\n***************************************************\n");
     }
 
     private static void ACK_Response() {
-        System.out.println("The request was successfully received by the server");
+        System.out.println("\n***************************************************\nMessage from TCP");
+        System.out.println("The request was successfully received by the server\n***************************************************\n");
     }
 
     private static void DISCONN_Response(Socket socket) throws IOException {
         sendRequest(2,new byte[0]);
-        System.out.println("\n=======================\nThe server has been shut down, the client connection will be disconnected.\n=======================\n");
+        System.out.println("\n***************************************************\nMessage from TCP");
+        System.out.println("The server has been shut down, the client connection will be disconnected.\n***************************************************\n");
         SBPClient.socket.close();
     }
 
     private static void COMMIT_Response() {
-        System.out.println("\n=======================\nTest Request received\n=======================\n");
+        System.out.println("\n***************************************************\nMessage from TCP");
+        System.out.println("Test Request received\n***************************************************\n");
     }
 
     public static void sendRequest(int code, byte[] data) throws IOException {
@@ -148,10 +152,47 @@ public class SBPClient {
             outputStream.flush();
 
             if (code == 1) {
-                System.out.println("\n=======================\n disconnect.\n=======================\n");
+                System.out.println("\n***************************************************\nMessage from TCP");
+                System.out.println("disconnect.\n***************************************************\n");
 
                 SBPClient.socket.close();
             }
         }
+    }
+    public static boolean saveBoard(SharedBoard board) throws IOException {
+        //We were supposed to send a serialized object to the tcp server to persist in the DB but it's not being possible to serialize
+        //and we decided not to send the object and leave it for a future improvement
+        //just send request and receive the answer
+        sendRequest(5,new byte[0]);
+        return true;
+    }
+
+    public static boolean saveNotification(Object object) throws IOException {
+        //We were supposed to send a serialized object to the tcp server to persist in the DB but it's not being possible to serialize
+        //and we decided not to send the object and leave it for a future improvement
+        //just send request and receive the answer
+        sendRequest(6,new byte[0]);
+        return true;
+    }
+
+    public static void findAllNotification() throws IOException {
+        //We were supposed to send a serialized object to the tcp server to persist in the DB but it's not being possible to serialize
+        //and we decided not to send the object and leave it for a future improvement
+        //just send request and receive the answer
+        sendRequest(7, new byte[0]);
+    }
+
+    public static void findAllUsers() throws IOException {
+        //We were supposed to send a serialized object to the tcp server to persist in the DB but it's not being possible to serialize
+        //and we decided not to send the object and leave it for a future improvement
+        //just send request and receive the answer
+        sendRequest(8,new byte[0]);
+    }
+
+    public static void findAllBoardsByUser(Username identity) throws IOException {
+        //We were supposed to send a serialized object to the tcp server to persist in the DB but it's not being possible to serialize
+        //and we decided not to send the object and leave it for a future improvement
+        //just send request and receive the answer
+        sendRequest(9,new byte[0]);
     }
 }
