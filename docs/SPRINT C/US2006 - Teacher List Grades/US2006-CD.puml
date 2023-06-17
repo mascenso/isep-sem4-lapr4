@@ -1,15 +1,15 @@
 @startuml
 
-class ListExamsUI {
+class TeacherListExamGradesUI {
     +headline()
     +emptyMessage()
     +elements()
     +elementPrinter()
-    elementName()
-    listHeader()
+    +elementName()
+    +listHeader()
 }
 
-class ListStudentExamGradesController {
+class ListTeacherExamGradesController {
     +examOfLoggedStudent()
 }
 
@@ -31,7 +31,7 @@ class SystemUser {
 
 class ListExamsService {
     +allExams()
-    +examOfLoggedStudent()
+    +examGradesOfLoggedTeacher()
 }
 
 class RepositoryFactory {
@@ -45,11 +45,11 @@ class ExamRepository {
     +findAll()
 }
 
-ListExamsUI --> ListStudentExamGradesController
-ListStudentExamGradesController --> PersistenceContext
-ListStudentExamGradesController --> ListExamsService
-ListStudentExamGradesController --> AuthorizationService
-ListStudentExamGradesController --> GradesOfExam
+TeacherListExamGradesUI --> ListTeacherExamGradesController
+ListTeacherExamGradesController --> PersistenceContext
+ListTeacherExamGradesController --> ListExamsService
+ListTeacherExamGradesController --> AuthorizationService
+ListTeacherExamGradesController --> GradesOfExam
 AuthorizationService --> SystemUser
 PersistenceContext --> RepositoryFactory
 RepositoryFactory --> GradesOfExamRepository
