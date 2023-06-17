@@ -139,10 +139,10 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     }
 
     public boolean updateArchive(boolean archive, SystemUser user) {
-        boolean auth=false;
+        boolean auth = false;
         if (user.sameAs(owner) && !this.archive) {
             this.archive = archive;
-            auth=true;
+            auth = true;
         }
         return auth;
     }
