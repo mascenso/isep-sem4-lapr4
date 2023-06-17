@@ -1,19 +1,27 @@
 package shareboardHttpServer;
 
-import eCourse.app.common.console.BaseApplication;
+
+
+import eCourse.domain.ECoursePasswordPolicy;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.pubsub.EventDispatcher;
+import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class SBPServer extends BaseApplication {
+import static eapli.framework.infrastructure.authz.application.AuthzRegistry.authenticationService;
+
+
+
+public final class SBPServer  {
     private ServerSocket serverSocket;
     private Map<String, String> userCredentials = new HashMap<>();
 
@@ -21,14 +29,16 @@ public class SBPServer extends BaseApplication {
     static DataOutputStream outputStream;
     static Socket socket;
 
-    @Override
-    protected void doMain(String[] args) {
+    private AuthenticationService authenticationService = authenticationService();
+    public static void main(String[] args) {
+        AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
+                new PlainTextEncoder());
+
         if (args.length != 1) {
             System.out.println("Port number is required as an argument");
             System.exit(1);
         }
 
-        PersistenceContext.repositories().courses();
         try {
             int port = Integer.parseInt(args[0]);
             SBPServer server = new SBPServer();
@@ -57,20 +67,6 @@ public class SBPServer extends BaseApplication {
     }
 
 
-    @Override
-    protected String appTitle() {
-        return "TCP SERVER";
-    }
-
-    @Override
-    protected String appGoodbye() {
-        return "TCP SERVER DISCONECT";
-    }
-
-    @Override
-    protected void doSetupEventHandlers(EventDispatcher dispatcher) {
-
-    }
 
     class SharedBoardServerThread {
 
@@ -81,11 +77,6 @@ public class SBPServer extends BaseApplication {
 
                 //First response
                 byte [] data = readMessageData(clientSocket, false);
-
-                //AUTHZ
-                //PersistenceContext.repositories().courses().findAll();
-                readMessageData(clientSocket,false);
-
 
                 while (!clientSocket.isClosed()) {
 
@@ -129,7 +120,7 @@ public class SBPServer extends BaseApplication {
     private byte[] ResponseGenerator(int code, byte[] data, Socket clientSocket) throws IOException {
         switch (code){
             case 0:
-                COMMIT_Response();
+                COMMIT_Response(clientSocket);
                 break;
             case 1:
                 DISCONN_Response(clientSocket);
@@ -163,32 +154,51 @@ public class SBPServer extends BaseApplication {
     }
 
     private void SendErrorInvalidCode() {
-        System.out.println("\n=======================\n An invalid code was received \n=======================\n");
+        System.out.println("\n==============================================\n An invalid code was received \n==============================================\n");
     }
 
     private void AUTH_Response(byte[] data, Socket clientSocket) throws IOException {
-        final AuthenticationService authenticationService = AuthzRegistry.authenticationService();
 
         sendRequest(2,new byte[0]);
         String username = new String(data, StandardCharsets.UTF_8);
 
-        data = readMessageData(clientSocket,true);
-        String password = new String(data, StandardCharsets.UTF_8);
+        // TODO: 17/06/2023  adicionar forma de validar a password
+        //data = readMessageData(clientSocket,true);
+        //String password = new String(data, StandardCharsets.UTF_8);
 
-        if (authenticationService.authenticate(username, password).isPresent()) {
-           // PersistenceContext.repositories().users();
+        //If user exist show the user who has just entered and send ACK
+        if (validateIfUserExist(username)) {
+            sendRequest(2,new byte[0]);
             System.out.println("Recebi um AUTH com o user "+ username);
-
         } else {
-            System.out.printf("Wrong username or password. The connection will be disconnected");
+            //show error on server
+            System.out.printf("\n==============================================\nWrong username or password. The client will be disconnected\n==============================================\n");
+
+            //send error to client
+            String errorMessage = "\n==============================================\nCould not connect, user or password is wrong\nThe connection will be disconnected.\n==============================================\n";
+            byte[] messageData = errorMessage.getBytes(StandardCharsets.UTF_8);
+            sendRequest(3,messageData);
+            //close conection
+            sendRequest(1,new byte[0]);
+            clientSocket.close();
         }
 
 
     }
 
+    private boolean validateIfUserExist(String username) {
+        List <SystemUser> listUsers = (List<SystemUser>) PersistenceContext.repositories().users().findAll();
+        for (int i = 0; i < listUsers.size(); i++) {
+            if(listUsers.get(i).username().toString().equalsIgnoreCase(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void ERR_Response(byte[] data) throws IOException {
         sendRequest(2,new byte[0]);
-        System.out.println("\n=======================\n"+data+ "\n=======================\n");
+        System.out.println("\n==============================================\n"+data+ "\n==============================================\n");
     }
 
     private void SUCESS_Response() {
@@ -197,13 +207,13 @@ public class SBPServer extends BaseApplication {
 
     private void DISCONN_Response(Socket clientSocket) throws IOException {
         sendRequest(2,new byte[0]);
-        System.out.println("\n=======================\n The client" + clientSocket.getInetAddress() + " disconnect.\n=======================\n");
+        System.out.println("\n==============================================\n The client" + clientSocket.getInetAddress() + " disconnect.\n==============================================\n");
         clientSocket.close();
     }
 
-    private void COMMIT_Response() throws IOException {
+    private void COMMIT_Response(Socket clientSocket) throws IOException {
         sendRequest(2,new byte[0]);
-        System.out.println("\n=======================\nThe request was successfully received by the client\n=======================\n");
+        System.out.println("\n==============================================\nI started connection with" + clientSocket.getInetAddress()+  "\n==============================================\n");
     }
 
     public static void sendRequest(int code, byte[] data) throws IOException {

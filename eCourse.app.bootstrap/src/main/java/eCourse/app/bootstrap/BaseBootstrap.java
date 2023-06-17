@@ -35,6 +35,8 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
+import java.io.IOException;
+
 
 /**
  * Base Bootstrapping data app
@@ -51,7 +53,7 @@ public final class BaseBootstrap extends BaseApplication {
 	private boolean isToBootstrapDemoData;
 	private boolean isToRunSampleE2E;
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws IOException {
 
 		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
 				new PlainTextEncoder());

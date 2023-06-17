@@ -42,21 +42,25 @@ public class SBPClient {
         sendRequest(0,new byte[0]);
         int num =0;
 
-        String message = "Admin";
+
+        /*teste AUTH
+        String message = "Admi";
         byte[] messageData = message.getBytes(StandardCharsets.UTF_8);
         sendRequest(4,messageData);
         String message2 = "Password1";
         byte[] messageData2 = message2.getBytes(StandardCharsets.UTF_8);
         sendRequest(4,messageData2);
-        //Read and process until close the client side
-        while(!socket.isClosed()){
+        */
 
-            ReadDataOfMessage();
-        }
+        //Read and process until close the client side
+        //while(!socket.isClosed()){
+
+          //  ReadDataOfMessage();
+       // }
 
     }
 
-    private static byte[] ReadDataOfMessage() throws IOException {
+    public static byte[] ReadDataOfMessage() throws IOException {
         //Read message
         int version = inputStream.readUnsignedByte();
         int code = inputStream.readUnsignedByte();
@@ -114,7 +118,8 @@ public class SBPClient {
     }
 
     private static void ERR_Response(byte[] data) {
-        System.out.println("\n=======================\n"+data+ "\n=======================\n");
+        String messageReceived = new String(data, StandardCharsets.UTF_8);
+        System.out.println("\n=======================\n"+messageReceived+ "\n=======================\n");
     }
 
     private static void ACK_Response() {
@@ -144,6 +149,7 @@ public class SBPClient {
 
             if (code == 1) {
                 System.out.println("\n=======================\n disconnect.\n=======================\n");
+
                 SBPClient.socket.close();
             }
         }

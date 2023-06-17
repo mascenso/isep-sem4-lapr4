@@ -12,16 +12,28 @@
 
     <artifactId>sharedboardHttpServer</artifactId>
     <version>0.1.0</version>
+    <packaging>jar</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+
     <dependencies>
+
         <dependency>
             <groupId>isep.sem4.pi</groupId>
             <artifactId>core</artifactId>
             <version>0.1.0</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>impl</artifactId>
+            <version>0.1.0</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
