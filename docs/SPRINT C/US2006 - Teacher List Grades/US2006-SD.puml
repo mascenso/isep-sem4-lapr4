@@ -3,10 +3,10 @@
 
 autonumber
 
-actor Student as Actor
+actor Teacher as Actor
 activate Actor
-participant ListExamsUI as UI <<Presentation>>
-control ListStudentExamGradesController as Controller <<Application>>
+participant TeacherListExamGradesUI as UI <<Presentation>>
+control ListTeacherExamGradesController as Controller <<Application>>
 participant ListExamsService as Service <<Application>>
 participant authorizationService as AuthService <<Application>>
 participant PersistenceContext as Persistence <<persistence>>
@@ -17,9 +17,9 @@ participant elementPrinter as Printer <<Presentation>>
 
 Actor -> UI: Select the option \nto update Course state
 activate UI
-UI -> Controller: examOfLoggedStudent()
+UI -> Controller: examGradesOfLoggedTeacher()
 activate Controller
-Controller -> Service: examOfLoggedStudent()
+Controller -> Service: examGradesOfLoggedTeacher()
 activate Service
 Service -> AuthService: session.get().authenticatedUser()
 activate AuthService
@@ -33,12 +33,10 @@ Repository -> Persistence: Iterable<Exam>
 deactivate Repository
 Persistence -> Service: Iterable<Exam>
 deactivate Persistence
-    loop Iterable<Exam>
-        Service -> Exam: exam.getExamGrades().stream().filter(grade -> grade.studentWhoDidExam().equals(loggedUser)).findFirst().orElse(null);
-        activate Exam
-        Exam -> GradeOfExam: grade.studentWhoDidExam().equals(loggedUser)
-        deactivate Exam
+    loop Iterable<GradeOfExam>
+        Service -> GradeOfExam: exam.getExamGrades().stream().filter(grade -> grade.studentWhoDidExam().equals(loggedUser)).findFirst().orElse(null);
         activate GradeOfExam
+        GradeOfExam -> GradeOfExam: gradeOfExam.theExam().getTeacher().user().equals(loggedUser)
         GradeOfExam -> Service: GradeOfExam
         deactivate GradeOfExam
         Service -> Service: add(GradeOfExam)
@@ -51,7 +49,7 @@ UI -> Printer: elementPrinter()
 activate Printer
 Printer -> UI: Prints each element
 deactivate Printer
-UI -> Actor: Shows the Grade of each exam of the student
+UI -> Actor: Shows the Grade of each exam of the Teacher
 deactivate UI
 
 

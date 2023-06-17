@@ -30,9 +30,8 @@ public class ListExamsService {
     public List<GradeOfExam> examOfLoggedStudent() {
         List<GradeOfExam> loggedStudentExams = new ArrayList<>();
         SystemUser loggedUser = authz.session().get().authenticatedUser();
-        for (Exam exam : allExams()) {
-            GradeOfExam gradeOfExam = exam.getExamGrades().stream().filter(grade -> grade.studentWhoDidExam().equals(loggedUser)).findFirst().orElse(null);
-            if(gradeOfExam != null) {
+        for (GradeOfExam gradeOfExam : allExamGrades()) {
+            if (gradeOfExam.studentWhoDidExam().equals(loggedUser)) {
                 loggedStudentExams.add(gradeOfExam);
             }
         }

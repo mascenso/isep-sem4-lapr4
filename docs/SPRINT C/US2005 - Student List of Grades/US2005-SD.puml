@@ -33,12 +33,10 @@ Repository -> Persistence: Iterable<Exam>
 deactivate Repository
 Persistence -> Service: Iterable<Exam>
 deactivate Persistence
-    loop Iterable<Exam>
-        Service -> Exam: exam.getExamGrades().stream().filter(grade -> grade.studentWhoDidExam().equals(loggedUser)).findFirst().orElse(null);
-        activate Exam
-        Exam -> GradeOfExam: grade.studentWhoDidExam().equals(loggedUser)
-        deactivate Exam
+    loop Iterable<GradeOfExam>
+        Service -> GradeOfExam: gradeOfExam.studentWhoDidExam().equals(loggedUser)
         activate GradeOfExam
+        GradeOfExam -> GradeOfExam: grade.studentWhoDidExam().equals(loggedUser)
         GradeOfExam -> Service: GradeOfExam
         deactivate GradeOfExam
         Service -> Service: add(GradeOfExam)
