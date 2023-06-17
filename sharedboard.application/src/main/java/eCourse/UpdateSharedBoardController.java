@@ -60,8 +60,6 @@ public class UpdateSharedBoardController extends Thread {
                     PersistenceContext.repositories().notifications().save(new Notification(event, board.owner()));
                 }
 
-
-
                 Iterable<SystemUser> users = listSharedBoardService.getUsersWithSharedBoard(board);
                 for (SystemUser sharedUser : users) {
                     if (!sharedUser.sameAs(user) && !sharedUser.sameAs(board.owner())) {
@@ -73,8 +71,11 @@ public class UpdateSharedBoardController extends Thread {
         }).start();
     }
 
-    public void changeArchive(SharedBoard board) {
-        board.updateArchive(true);
-
+    public void changeArchive(SharedBoard board, SystemUser user) {
+        board.updateArchive(true, user);
+        BoardUpdateEvent event = new BoardUpdateEvent(board, user);
+        Notification userNotification = new Notification(event, user);
+        PersistenceContext.repositories().sharedBoards().save(board);
+        PersistenceContext.repositories().notifications().save(userNotification);
     }
 }

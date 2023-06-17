@@ -8,7 +8,9 @@ import eapli.framework.time.util.CurrentTimeCalendars;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -27,6 +29,8 @@ public class SharedBoardUserTest {
     private SystemUser other;
     private SharedBoard board1;
     private SharedBoard board2;
+    private List<SBColumn> columnList=new ArrayList<>();
+    private List<SBRow> rowList=new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
@@ -41,8 +45,11 @@ public class SharedBoardUserTest {
         owner = userBuilder.with("owner", "Password1", "Harry", "Potter", "leviosa@mail.com").createdOn(CurrentTimeCalendars.now()).withRoles(roles1).build();
         other = userBuilder.with("other", "Password1", "Tom", "Riddle", "horcrux@mail.com").createdOn(CurrentTimeCalendars.now()).withRoles(roles2).build();
 
-        board1 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 1")).withNumberOfColumns(1).withNumberOfRows(1).withArchive(false).withOwner(owner).withColumns(null).withRows(null).build();
-        board2 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 2")).withNumberOfColumns(1).withNumberOfRows(1).withArchive(false).withOwner(other).withColumns(null).withRows(null).build();
+        columnList.add(new SBColumn("C"));
+        rowList.add(new SBRow("R"));
+
+        board1 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 1")).withNumberOfColumns(1).withNumberOfRows(1).withArchive(false).withOwner(owner).withColumns(columnList).withRows(rowList).build();
+        board2 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 2")).withNumberOfColumns(1).withNumberOfRows(1).withArchive(false).withOwner(other).withColumns(columnList).withRows(rowList).build();
 
     }
 
