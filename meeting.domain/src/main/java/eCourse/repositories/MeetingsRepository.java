@@ -17,4 +17,6 @@ public interface MeetingsRepository extends DomainRepository<Long, Meeting> {
 
     Iterable<Meeting> findByUsername(final Username name);
 
+
+
 }
