@@ -258,7 +258,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Enrollments >");
 
         menu.addItem(ENROLLMENT_CSV, "Enrollment from csv file", new EnrollStudentsUI()::show);
-        menu.addItem(APPROVE_OR_REJECT_ENROLLMENTS, "Approve or Reject Enrollments", new ApproveAndRejectEnrollmentsUI()::show);
+        menu.addItem(APPROVE_OR_REJECT_ENROLLMENTS, "Students Enrollments Request", new ApproveAndRejectEnrollmentsUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

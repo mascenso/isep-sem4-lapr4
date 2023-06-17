@@ -27,26 +27,35 @@ public class ApproveAndRejectEnrollmentsUI extends AbstractUI {
     protected boolean doShow() {
 
         List<Course> enrollCourses = service.getEnrollmentCourses();
-        final Map<Integer, Designation> courseMap = new HashMap<>();
-        System.out.println("Select the Course:");
 
-        int selectedOption = showInfo(enrollCourses, courseMap);
-        final Course selectedCourse = enrollCourses.get(selectedOption - 1);
+        if (enrollCourses.size() != 0) {
+            final Map<Integer, Designation> courseMap = new HashMap<>();
+            System.out.println("Select the Course:");
 
-
-        List<Student> studentsRequests = theController.studentsCourseEnrollment(selectedCourse);
-
-        Set<Student> approvals = new HashSet<>();
-        Set<Student> rejections = new HashSet<>();
-        showAllUsers(studentsRequests, approvals, rejections);
-
-        theController.approveStudentsEnrollment(approvals,selectedCourse);
-
-        theController.rejectStudentsEnrollment(rejections,selectedCourse);
-        //enrollService.validateCourseEnrollmentRequest();
+            int selectedOption = showInfo(enrollCourses, courseMap);
+            final Course selectedCourse = enrollCourses.get(selectedOption - 1);
 
 
-        return false;
+            List<Student> studentsRequests = theController.studentsCourseEnrollment(selectedCourse);
+
+            Set<Student> approvals = new HashSet<>();
+            Set<Student> rejections = new HashSet<>();
+
+            if (studentsRequests.size() != 0) {
+                showAllUsers(studentsRequests, approvals, rejections);
+
+                theController.approveStudentsEnrollment(approvals, selectedCourse);
+
+                theController.rejectStudentsEnrollment(rejections, selectedCourse);
+                return false;
+            } else {
+                System.out.println("There's no student enrollment request for this course!");
+                return false;
+            }
+        } else {
+            System.out.println("There's no course in ENROLL state!");
+            return false;
+        }
     }
 
 
@@ -89,13 +98,13 @@ public class ApproveAndRejectEnrollmentsUI extends AbstractUI {
             int option = Console.readOption(1, 2, 0);
 
             if (option == 1) {
-                approvals.add(allUsers.get(choice-1));
+                approvals.add(allUsers.get(choice - 1));
             } else {
                 rejections.add(allUsers.get(choice));
             }
 
             if (choice > 0 && choice <= users.size()) {
-                users.remove(choice-1);
+                users.remove(choice - 1);
             } else {
                 System.out.println("Invalid selection. Try again.");
             }
