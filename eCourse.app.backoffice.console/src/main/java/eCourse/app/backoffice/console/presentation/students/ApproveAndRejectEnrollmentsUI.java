@@ -4,14 +4,16 @@ import eCourse.application.CourseEnrollmentRequestService;
 import eCourse.course.application.ApproveAndRejectEnrollmentsController;
 import eCourse.course.application.ListCoursesService;
 import eCourse.domain.Course;
+import eCourse.domain.EnrollmentStatus;
 import eCourse.domain.SharedBoard;
+import eCourse.domain.Student;
+import eCourse.domain.enums.AccessType;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ApproveAndRejectEnrollmentsUI extends AbstractUI {
 
@@ -25,18 +27,35 @@ public class ApproveAndRejectEnrollmentsUI extends AbstractUI {
     protected boolean doShow() {
 
         List<Course> enrollCourses = service.getEnrollmentCourses();
-        final Map<Integer, Designation> courseMap = new HashMap<>();
-        System.out.println("Select the Course:");
 
-        int selectedOption = showInfo(enrollCourses, courseMap);
-        final Course selectedCourse = enrollCourses.get(selectedOption - 1);
+        if (enrollCourses.size() != 0) {
+            final Map<Integer, Designation> courseMap = new HashMap<>();
+            System.out.println("Select the Course:");
 
-        //enrollService.validateCourseEnrollmentRequest();
-
-
+            int selectedOption = showInfo(enrollCourses, courseMap);
+            final Course selectedCourse = enrollCourses.get(selectedOption - 1);
 
 
-        return false;
+            List<Student> studentsRequests = theController.studentsCourseEnrollment(selectedCourse);
+
+            Set<Student> approvals = new HashSet<>();
+            Set<Student> rejections = new HashSet<>();
+
+            if (studentsRequests.size() != 0) {
+                showAllUsers(studentsRequests, approvals, rejections);
+
+                theController.approveStudentsEnrollment(approvals, selectedCourse);
+
+                theController.rejectStudentsEnrollment(rejections, selectedCourse);
+                return false;
+            } else {
+                System.out.println("There's no student enrollment request for this course!");
+                return false;
+            }
+        } else {
+            System.out.println("There's no course in ENROLL state!");
+            return false;
+        }
     }
 
 
@@ -48,6 +67,49 @@ public class ApproveAndRejectEnrollmentsUI extends AbstractUI {
             index++;
         }
         return Console.readOption(1, index - 1, 0);
+    }
+
+    private void showAllUsers(List<Student> allUsers, Set<Student> approvals, Set<Student> rejections) {
+        //copies the list
+        List<Student> users = new ArrayList<>();
+        for (Student user : allUsers) {
+            users.add(user);
+        }
+
+        //Scanner to read option from user
+        Scanner scanner = new Scanner(System.in);
+
+        //show a list of users and ask to choose users
+        while (!users.isEmpty()) {
+            System.out.println("Select Student or 0 to exit:");
+            int index = 1;
+            for (Student user : users) {
+                System.out.println(index + ". " + user.identity() + " - " + user.user().username());
+                index++;
+            }
+            int choice = scanner.nextInt();
+            if (choice == 0) {
+                break;
+            }
+
+            System.out.println("Choose an option, 0 to exit:");
+            System.out.println("1. Approve Enrollment");
+            System.out.println("2. Reject Enrollment");
+            int option = Console.readOption(1, 2, 0);
+
+            if (option == 1) {
+                approvals.add(allUsers.get(choice - 1));
+            } else {
+                rejections.add(allUsers.get(choice));
+            }
+
+            if (choice > 0 && choice <= users.size()) {
+                users.remove(choice - 1);
+            } else {
+                System.out.println("Invalid selection. Try again.");
+            }
+        }
+
     }
 
     @Override

@@ -122,7 +122,7 @@ public class Course implements AggregateRoot<Designation> {
         return DomainEntities.areEqual(this, o);
     }
 
-    public boolean addStudent(Student student) {
+    public boolean studentsEnrolled(Student student) {
         return this.students.add(new StudentsInCourse(student));
     }
 

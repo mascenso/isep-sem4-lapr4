@@ -1,0 +1,16 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Teacher
+activate Teacher
+
+Teacher -> System: Request to view the options regarding Exams
+System --> Teacher: Shows the options regarding exams
+Teacher -> System: Request to view the grades of the exams he created
+System --> Teacher: Shows all the student grades for that course
+
+deactivate Teacher
+
+@enduml
