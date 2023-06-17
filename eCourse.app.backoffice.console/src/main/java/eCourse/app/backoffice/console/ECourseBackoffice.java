@@ -37,10 +37,6 @@ import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
 
-/**
- *
- * @author Paulo Gandra Sousa
- */
 @SuppressWarnings("squid:S106")
 public final class ECourseBackoffice extends BaseApplication {
 

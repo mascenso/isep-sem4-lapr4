@@ -1,9 +1,8 @@
-package tcpCliSrv;
+package shareboardHttpServer;
 
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 
 public class SBPClient {
     static InetAddress serverIP;

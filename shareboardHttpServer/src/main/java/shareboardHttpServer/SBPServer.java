@@ -1,19 +1,19 @@
-package tcpCliSrv;
+package shareboardHttpServer;
 
-import eCourse.domain.Course;
+import eCourse.app.common.console.BaseApplication;
 import eCourse.infrastructure.persistence.PersistenceContext;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.infrastructure.authz.domain.model.Username;
-import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
+import eapli.framework.infrastructure.authz.application.AuthenticationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.pubsub.EventDispatcher;
+
 
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class SBPServer {
+public class SBPServer extends BaseApplication {
     private ServerSocket serverSocket;
     private Map<String, String> userCredentials = new HashMap<>();
 
@@ -21,12 +21,14 @@ public class SBPServer {
     static DataOutputStream outputStream;
     static Socket socket;
 
-    public static void main(String[] args) {
+    @Override
+    protected void doMain(String[] args) {
         if (args.length != 1) {
             System.out.println("Port number is required as an argument");
             System.exit(1);
         }
 
+        PersistenceContext.repositories().courses();
         try {
             int port = Integer.parseInt(args[0]);
             SBPServer server = new SBPServer();
@@ -54,6 +56,22 @@ public class SBPServer {
         }
     }
 
+
+    @Override
+    protected String appTitle() {
+        return "TCP SERVER";
+    }
+
+    @Override
+    protected String appGoodbye() {
+        return "TCP SERVER DISCONECT";
+    }
+
+    @Override
+    protected void doSetupEventHandlers(EventDispatcher dispatcher) {
+
+    }
+
     class SharedBoardServerThread {
 
         public SharedBoardServerThread(Socket clientSocket) {
@@ -61,9 +79,17 @@ public class SBPServer {
                 inputStream = new DataInputStream(clientSocket.getInputStream());
                 outputStream = new DataOutputStream(clientSocket.getOutputStream());
 
+                //First response
+                byte [] data = readMessageData(clientSocket, false);
+
+                //AUTHZ
+                //PersistenceContext.repositories().courses().findAll();
+                readMessageData(clientSocket,false);
+
+
                 while (!clientSocket.isClosed()) {
 
-                    byte [] data = readMessageData(clientSocket, false);
+                     data = readMessageData(clientSocket, false);
 
 
                 }
@@ -141,14 +167,23 @@ public class SBPServer {
     }
 
     private void AUTH_Response(byte[] data, Socket clientSocket) throws IOException {
+        final AuthenticationService authenticationService = AuthzRegistry.authenticationService();
+
         sendRequest(2,new byte[0]);
         String username = new String(data, StandardCharsets.UTF_8);
 
         data = readMessageData(clientSocket,true);
         String password = new String(data, StandardCharsets.UTF_8);
 
-        PersistenceContext.repositories().courses().findAll();
-        System.out.println("Recebi um AUTH com o user"+ username + "e palavra pass" + password);
+        if (authenticationService.authenticate(username, password).isPresent()) {
+           // PersistenceContext.repositories().users();
+            System.out.println("Recebi um AUTH com o user "+ username);
+
+        } else {
+            System.out.printf("Wrong username or password. The connection will be disconnected");
+        }
+
+
     }
 
     private void ERR_Response(byte[] data) throws IOException {
