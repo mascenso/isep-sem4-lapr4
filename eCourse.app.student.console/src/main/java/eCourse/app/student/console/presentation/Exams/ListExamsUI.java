@@ -39,6 +39,6 @@ public class ListExamsUI extends AbstractListUI {
 
     @Override
     protected String listHeader() {
-        return String.format("#  %-30s%-20s%-20s%-20s", "Exam Name", "Course", "Grade", "Student Name");
+        return String.format("#  %-30s%-20s%-20s%-20s", "Course", "Exam Name", "Grade", "Student Name");
     }
 }

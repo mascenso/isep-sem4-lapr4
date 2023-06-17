@@ -11,7 +11,7 @@ public class ExamPrinter implements Visitor<Exam> {
 
     @Override
     public void visit(final Exam visitee) {
-        System.out.printf("%-30s%-20s%-20s%-30s%-20s%n", visitee.getExamCourse().identity().toString(), visitee.getExamTitle().toString(), visitee.getTeacher().user().name().toString(), visitee.getExamOpenDate().toString(), visitee.getExamCloseDate().toString());
+        System.out.printf("%-30s%-20s%-20s%-30s%-20s", visitee.getExamCourse().identity().toString(), visitee.getExamTitle().toString(), visitee.getTeacher().user().name().toString(), visitee.getExamOpenDate().toString(), visitee.getExamCloseDate().toString());
     }
 
 }

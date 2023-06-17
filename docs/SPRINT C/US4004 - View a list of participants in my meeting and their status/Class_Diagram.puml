@@ -3,25 +3,33 @@
 
 class ListMeetingsUI {
     + doShow()
+    + showMyMeetings()
+    + showParticipants()
 }
 
 class ListMeetingsController {
     + listMeetingsByUser()
+    + participantsOfMeeting()
 }
 
 class ListMeetingsService {
     + getMeetingsByUser()
+    + getParticipantsOfMeeting()
 }
 
 class MeetingsRepository {
+}
+
+class MeetingRequestRepository {
 }
 
 class RepositoryFactory {
 }
 
 ListMeetingsUI -down-> ListMeetingsController   : uses the controller
-ListMeetingsController --> ListMeetingsService  : get the List
+ListMeetingsController --> ListMeetingsService
 ListMeetingsService --> RepositoryFactory
-ListMeetingsService --> MeetingsRepository      : find Meetings By Username
+ListMeetingsService --> MeetingsRepository      : getMeetingsByUser
+ListMeetingsService --> MeetingRequestRepository: getParticipantsOfMeeting
 
 @enduml

@@ -50,7 +50,7 @@ public class ListMeetingsUI extends AbstractUI {
     }
 
     private ParticipantsOfMeeting showParticipants (Meeting meetingSelected){
-        Iterable<ParticipantsOfMeeting> participants = listMeetingsController.participantsByMeeting(meetingSelected);
+        Iterable<ParticipantsOfMeeting> participants = listMeetingsController.participantsOfMeeting(meetingSelected);
 
         if (participants == null){
             System.out.println("No participants");

@@ -1,0 +1,59 @@
+@startuml
+
+class TeacherListExamGradesUI {
+    +headline()
+    +emptyMessage()
+    +elements()
+    +elementPrinter()
+    +elementName()
+    +listHeader()
+}
+
+class ListTeacherExamGradesController {
+    +examOfLoggedStudent()
+}
+
+class GradesOfExamRepository {
+}
+
+class PersistenceContext {
+    -GradeOfExamRepository: GradesOfExamRepository
+    +repositories()
+}
+
+class AuthorizationService {
+    +session()
+}
+
+class SystemUser {
+    +authenticatedUser()
+}
+
+class ListExamsService {
+    +allExams()
+    +examGradesOfLoggedTeacher()
+}
+
+class RepositoryFactory {
+    +create()
+}
+
+class GradesOfExam {
+}
+
+class ExamRepository {
+    +findAll()
+}
+
+TeacherListExamGradesUI --> ListTeacherExamGradesController
+ListTeacherExamGradesController --> PersistenceContext
+ListTeacherExamGradesController --> ListExamsService
+ListTeacherExamGradesController --> AuthorizationService
+ListTeacherExamGradesController --> GradesOfExam
+AuthorizationService --> SystemUser
+PersistenceContext --> RepositoryFactory
+RepositoryFactory --> GradesOfExamRepository
+RepositoryFactory --> ExamRepository
+ListExamsService --> PersistenceContext
+
+@enduml
