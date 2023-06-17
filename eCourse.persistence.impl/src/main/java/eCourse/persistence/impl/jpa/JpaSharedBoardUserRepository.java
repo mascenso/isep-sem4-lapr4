@@ -1,6 +1,7 @@
 package eCourse.persistence.impl.jpa;
 
 import eCourse.Application;
+import eCourse.domain.SharedBoard;
 import eCourse.domain.valueobjects.SharedBoardTitle;
 import eCourse.domain.SharedBoardUser;
 import eCourse.repositories.SharedBoardUserRepository;
@@ -37,6 +38,14 @@ public class JpaSharedBoardUserRepository extends JpaAutoTxRepository<SharedBoar
         final Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         return match("e.title=:name", params);
+    }
+
+    @Override
+    public Optional<SharedBoardUser> findUser(SharedBoardTitle name, Username username) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        params.put("username", username);
+        return matchOne("e.title=:name AND e.user.username=:username", params);
     }
 
     @Override

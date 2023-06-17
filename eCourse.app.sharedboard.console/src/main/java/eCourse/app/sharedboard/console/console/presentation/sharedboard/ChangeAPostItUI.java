@@ -1,5 +1,6 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
+import eCourse.ChangePostItController;
 import eCourse.CreatePostItController;
 import eCourse.domain.SharedBoard;
 import eCourse.domain.SharedBoardCell;
@@ -22,52 +23,71 @@ move the post into a free cell.
 public class ChangeAPostItUI extends AbstractUI {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChangeAPostItUI.class);
-    private final CreatePostItController theController = new CreatePostItController();
+    private final ChangePostItController theController = new ChangePostItController();
 
     @Override
     protected boolean doShow() {
 
-        final Iterable<SharedBoard> boards = theController.allSharedBoards();
-        if (((Collection<?>) boards).size() == 0) {
-            System.out.println("No boards available!");
+        /* Shows all the cells owned by the user */
+        final Iterable<SharedBoardCell> cells = theController.ownedSharedBoardCells();
+        if (((Collection<?>) cells).size() == 0) {
+            System.out.println("No cells available!");
             return false;
         }
-        final SelectWidget<SharedBoard> selectorBoard = new SelectWidget<>("Select a board", boards, new SystemBoardPrinter());
-        selectorBoard.show();
-        final SharedBoard theBoard = selectorBoard.selectedElement();
+        final SelectWidget<SharedBoardCell> selectorCell = new SelectWidget<>("Select a cell", cells);
+        selectorCell.show();
+        final SharedBoardCell theCell = selectorCell.selectedElement();
 
-        final Iterable<SharedBoardCell> cells = theController.sharedBoardCells(theBoard);
+        /* Shows cell content */
+        theController.showCellContent(theCell);
 
-        final String textContent = Console.readLine("Text Content (Optional):");
-        final String imageFilename = Console.readLine("Img filename (Optional):");
-
-        Integer x = Integer.parseInt(Console.readLine("X:"));
-        Integer y = Integer.parseInt(Console.readLine("Y:"));
-
-        final InputStream inputStream = this.getClass()
-                .getClassLoader()
-                .getResourceAsStream(imageFilename);
-
-        if (inputStream == null) {
-            System.out.println("Could not load image " + imageFilename);
-            // fallback to registration without image
-            theController.registerPostIt(theBoard, x, y, textContent);
-        } else {
-            try {
-                theController.registerPostIt(theBoard, x, y, textContent , inputStream);
-                System.out.println("PostIt created successfully");
-
-                //System.out.println(postIt.toString());
-
-            } catch (final IntegrityViolationException | ConcurrencyException e) {
-                System.out.println("That postIt already exists");
-
-            } catch (final IOException e) {
-                System.out.println("There was a problem loading the image file");
-            }
+        switch (Console.readInteger("1. Change post\n2. Move post\n0. Exit")) {
+            case 1:
+                /* Change post */
+                changePost(theCell);
+                break;
+            case 2:
+                /* Move post */
+                movePost(theCell);
+                break;
+            case 0:
+                return false;
+            default:
+                System.out.println("Invalid option!");
+                break;
         }
-
         return false;
+    }
+
+    private void movePost(SharedBoardCell theCell) {
+        /* Shows all the cells owned by the user */
+        final Iterable<SharedBoardCell> cells = theController.freeSharedBoardCells();
+        if (((Collection<?>) cells).size() == 0) {
+            System.out.println("No cells available!");
+            return;
+        }
+        final SelectWidget<SharedBoardCell> selectorCell = new SelectWidget<>("Select a cell", cells);
+        selectorCell.show();
+        final SharedBoardCell newCell = selectorCell.selectedElement();
+
+        /* Moves post */
+        try {
+            theController.movePost(theCell, newCell);
+        } catch (ConcurrencyException | IntegrityViolationException e) {
+            LOGGER.error(e.getMessage());
+        }
+    }
+
+    private void changePost(SharedBoardCell theCell) {
+        /* Asks for new post content */
+        String newContent = Console.readLine("New content: ");
+
+        /* Changes post content */
+        try {
+            theController.changePost(theCell, newContent);
+        } catch (ConcurrencyException | IntegrityViolationException e) {
+            LOGGER.error(e.getMessage());
+        }
     }
 
 

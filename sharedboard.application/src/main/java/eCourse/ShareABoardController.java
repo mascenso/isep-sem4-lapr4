@@ -46,4 +46,17 @@ public class ShareABoardController extends Thread {
             }
         }).start();
     }
+
+    public void createShareBoardUsersNoThread(Map<SystemUser, AccessType> usersWithPermissions, SharedBoard board) {
+
+                for (Map.Entry<SystemUser, AccessType> user : usersWithPermissions.entrySet()) {
+                    SharedBoardUser boardShared = board.createShareBoardUsers(user.getKey(), board.identity(), user.getValue());
+                    BoardShareEvent event = new BoardShareEvent(boardShared);
+                    Notification notif = new Notification(event);
+
+                    PersistenceContext.repositories().notifications().save(notif);
+                    PersistenceContext.repositories().sharedBoardUser().save(boardShared);
+                }
+            }
+
 }

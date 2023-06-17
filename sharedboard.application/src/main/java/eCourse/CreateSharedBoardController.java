@@ -31,7 +31,7 @@ public class CreateSharedBoardController {
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
 
-    public void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<SBColumn> columnNames, List<SBRow> rowNames) throws IntegrityViolationException, ConcurrencyException {
+    public SharedBoard addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<SBColumn> columnNames, List<SBRow> rowNames) throws IntegrityViolationException, ConcurrencyException {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER, ECourseRoles.PROJECT_MANAGER, ECourseRoles.TEACHER, ECourseRoles.STUDENT, ECourseRoles.POWER_USER);
 
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
@@ -44,7 +44,7 @@ public class CreateSharedBoardController {
                 .withColumns(columnNames)
                 .withRows(rowNames)
                 .build();
-        PersistenceContext.repositories().sharedBoards().save(createdSharedBoard);
+        return PersistenceContext.repositories().sharedBoards().save(createdSharedBoard);
     }
 
 }

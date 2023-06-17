@@ -58,7 +58,7 @@ public class MainMenu extends AbstractUI {
     private static final int CREATE_POST_IT=5;
     private static final int CHANGE_POST_IT=6;
 
-    private static final int BOARD_NOTIFICATION=6;
+    private static final int BOARD_NOTIFICATION=7;
 
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();

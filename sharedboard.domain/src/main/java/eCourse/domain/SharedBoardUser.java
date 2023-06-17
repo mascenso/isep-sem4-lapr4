@@ -31,7 +31,7 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
     @OneToMany(cascade = CascadeType.ALL)
     private final Set<AbstractBoardShareEvent> events = new HashSet<>();
 
-    protected SharedBoardUser(SystemUser user, SharedBoardTitle boardID, eCourse.domain.enums.AccessType access) {
+    protected SharedBoardUser(SystemUser user, SharedBoardTitle boardID, AccessType access) {
         Preconditions.noneNull(user, boardID, access);
 
         this.user = user;

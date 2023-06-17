@@ -1,50 +1,56 @@
 package eCourse;
 
+import eCourse.domain.Position;
 import eCourse.domain.SharedBoard;
-import eCourse.domain.SharedBoardCell;
+import eCourse.domain.SharedBoardUser;
 import eCourse.domain.postit.PostIt;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.SharedBoardRepository;
+import eCourse.repositories.SharedBoardUserRepository;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 
 public class CreatePostItController {
 
     private ListSharedBoardService listSharedBoardService = new ListSharedBoardService();
     SharedBoardRepository repository = PersistenceContext.repositories().sharedBoards();
+    SharedBoardUserRepository repoUsers = PersistenceContext.repositories().sharedBoardUser();
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
 
     public Iterable<SharedBoard> allSharedBoards() {
         return listSharedBoardService.listBoardsByUser();
     }
 
-    public SharedBoard registerPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name,
-                                 final InputStream imageStream) throws IOException {
-        return doRegisterPostIt(shBoard, x, y, name, imageStream);
-    }
 
     public SharedBoard registerPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name) {
-        shBoard.addPostItToCell(new PostIt(name), x,y);
+
+        Optional<Username> username = authz.session().map(s -> s.authenticatedUser().identity());
+        Optional<SharedBoardUser> sharedBoardUser = repoUsers.findUser(shBoard.boardTitle(), username.get());
+
+        shBoard.addPostItToCell(new PostIt(name), Position.valueOf(x, y), sharedBoardUser.get());
         return repository.save(shBoard);
     }
 
-    private SharedBoard doRegisterPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name,
-                                        final InputStream imageStream) throws IOException {
+    public SharedBoard registerPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name,
+                                         final InputStream imageStream) throws IOException {
+
+        Optional<Username> username = authz.session().map(s -> s.authenticatedUser().identity());
+        Optional<SharedBoardUser> sharedBoardUser = repoUsers.findUser(shBoard.boardTitle(), username.get());
 
         final PostIt newPostIt = new PostIt(name);
         if (imageStream != null) {
             newPostIt.changeImage(IOUtils.toByteArray(imageStream));
         }
 
-        shBoard.addPostItToCell(newPostIt, x,y);
+        shBoard.addPostItToCell(newPostIt, Position.valueOf(x, y), sharedBoardUser.get());
 
         return repository.save(shBoard);
-    }
-
-
-    public Iterable<SharedBoardCell> sharedBoardCells(SharedBoard shBoard) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
