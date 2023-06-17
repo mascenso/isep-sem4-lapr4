@@ -54,11 +54,10 @@ public class MainMenu extends AbstractUI {
     private static final int LIST_BOARDS_OPTION = 2;
     private static final int SHARE_A_BOARD=3;
     private static final int VIEW_BOARD=4;
-    private static final int UPDATE_SHARED_BOARD=5;
-    private static final int CREATE_POST_IT=6;
-    private static final int CHANGE_POST_IT=7;
-    private static final int ARCHIVE_BOARD=8;
-    private static final int BOARD_NOTIFICATION=9;
+    private static final int CREATE_POST_IT=5;
+    private static final int CHANGE_POST_IT=6;
+    private static final int ARCHIVE_BOARD=7;
+    private static final int BOARD_NOTIFICATION=8;
 
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
