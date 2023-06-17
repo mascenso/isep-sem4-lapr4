@@ -133,8 +133,8 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
         menu.addItem(SHARE_A_BOARD, "Share a board", new ShareABoardUI()::show);
         menu.addItem(UPDATE_SHARED_BOARD,"Update a board", new UpdateSharedBoardUI()::show);
-        menu.addItem(ARCHIVE_BOARD,"Archive a board", new ArchiveABoardUI()::show);
         menu.addItem(CREATE_POST_IT, "Create post-it", new CreateAPostItUI()::show);
+        menu.addItem(ARCHIVE_BOARD,"Archive a board", new ArchiveABoardUI()::show);
         menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
 
        // menu.addItem(BOOK_A_MEAL, "BookaMealExampleCafet", new BookAMealThruKioskUI()::show);

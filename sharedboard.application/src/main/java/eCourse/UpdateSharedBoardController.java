@@ -60,7 +60,6 @@ public class UpdateSharedBoardController extends Thread {
                     PersistenceContext.repositories().notifications().save(new Notification(event, board.owner()));
                 }
 
-
                 Iterable<SystemUser> users = listSharedBoardService.getUsersWithSharedBoard(board);
                 for (SystemUser sharedUser : users) {
                     if (!sharedUser.sameAs(user) && !sharedUser.sameAs(board.owner())) {
