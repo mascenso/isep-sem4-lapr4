@@ -6,6 +6,8 @@ import eCourse.domain.SBRow;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
+
+import java.io.IOException;
 import java.util.*;
 
 public class SharedBoardBootstrapper implements Action {
@@ -34,11 +36,19 @@ public class SharedBoardBootstrapper implements Action {
         linhas2.add(new SBRow("Coco"));
         linhas2.add(new SBRow("Meet the team"));
 
-        createSharedBoardController.addSharedBoard(
-                "Treino Canino", 3, 3, colunas, linhas);
+        try {
+            createSharedBoardController.addSharedBoard(
+                    "Treino Canino", 3, 3, colunas, linhas);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        createSharedBoardController.addSharedBoard(
-                "Treino Equino", 2, 2, colunas, linhas);
+        try {
+            createSharedBoardController.addSharedBoard(
+                    "Treino Equino", 2, 2, colunas, linhas);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }
 

@@ -5,6 +5,7 @@ import eCourse.domain.postit.PostIt;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.SharedBoardRepository;
 import org.apache.commons.io.IOUtils;
+import shareboardHttpServer.SBPClient;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +16,7 @@ public class CreatePostItController {
     SharedBoardRepository repository = PersistenceContext.repositories().sharedBoards();
 
 
-    public Iterable<SharedBoard> allSharedBoards() {
+    public Iterable<SharedBoard> allSharedBoards() throws IOException {
         return listSharedBoardService.listBoardsByUser();
     }
 
@@ -24,8 +25,11 @@ public class CreatePostItController {
         return doRegisterPostIt(shBoard, x, y, name, imageStream);
     }
 
-    public SharedBoard registerPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name) {
+    public SharedBoard registerPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name) throws IOException {
         shBoard.addPostItToCell(new PostIt(name), x,y);
+        //make a request to save board
+        SBPClient.saveBoard(shBoard);
+        SBPClient.ReadDataOfMessage();
         return repository.save(shBoard);
     }
 
@@ -38,6 +42,10 @@ public class CreatePostItController {
         }
 
         shBoard.addPostItToCell(newPostIt, x,y);
+
+        //make a request to save board
+        SBPClient.saveBoard(shBoard);
+        SBPClient.ReadDataOfMessage();
 
         return repository.save(shBoard);
     }

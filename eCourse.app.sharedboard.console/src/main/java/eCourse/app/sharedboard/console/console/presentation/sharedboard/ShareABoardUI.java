@@ -7,6 +7,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.io.IOException;
 import java.util.*;
 
 public class ShareABoardUI extends AbstractUI {
@@ -16,7 +17,12 @@ public class ShareABoardUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
-        Iterable<SharedBoard> myBoards = theController.getMyBoards();
+        Iterable<SharedBoard> myBoards = null;
+        try {
+            myBoards = theController.getMyBoards();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         if (((Collection<?>) myBoards).size() == 0) {
             System.out.println("You have no Boards to share!");
@@ -30,7 +36,12 @@ public class ShareABoardUI extends AbstractUI {
 
         SharedBoard boardID = hashmap.get(selectedOption);
 
-        Iterable<SystemUser> systemUsers = theController.allUsers();
+        Iterable<SystemUser> systemUsers = null;
+        try {
+            systemUsers = theController.allUsers();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         Map<Integer, AccessType> access =theController.getAccessTypes();
 
         Map<SystemUser,AccessType> usersWithPermissions=showAllUsers(systemUsers,access);

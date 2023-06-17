@@ -29,12 +29,7 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>isep.sem4.pi</groupId>
-            <artifactId>impl</artifactId>
-            <version>0.1.0</version>
-            <scope>runtime</scope>
-        </dependency>
+
 
     </dependencies>
 

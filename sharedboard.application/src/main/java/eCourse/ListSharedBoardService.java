@@ -12,7 +12,9 @@ import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.stereotype.Component;
+import shareboardHttpServer.SBPClient;
 
+import java.io.IOException;
 import java.util.*;
 
 @Component
@@ -21,9 +23,11 @@ public class ListSharedBoardService {
 
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public Iterable<SharedBoard> listBoardsByUser() {
+    public Iterable<SharedBoard> listBoardsByUser() throws IOException {
         authz.session().map(s -> s.authenticatedUser().identity());
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
+        SBPClient.findAllBoardsByUser(user.get().identity());
+        SBPClient.ReadDataOfMessage();
         Iterable<SharedBoard> boardIterable = PersistenceContext.repositories().sharedBoards().findByUsername(user.get().identity());
         List<SharedBoard> boardListByUser = IteratorUtils.toList(boardIterable.iterator());
 
@@ -52,7 +56,7 @@ public class ListSharedBoardService {
     }
 
 
-    public Set<SharedBoard> listOfAllUserBoards(Map<SharedBoardTitle, AccessType> map) {
+    public Set<SharedBoard> listOfAllUserBoards(Map<SharedBoardTitle, AccessType> map) throws IOException {
         Iterable<SharedBoard> boardsOwned = listBoardsByUser();
         Iterable<SharedBoard> sharedBoards = listBoardsSharedWithUser(map);
 
