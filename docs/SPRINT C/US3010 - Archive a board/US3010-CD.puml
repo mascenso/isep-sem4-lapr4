@@ -1,0 +1,55 @@
+@startuml
+
+class User
+
+class ArchiveABoardUI {
+    +doShow()
+    +showInfo()
+}
+
+class ArchiveABoardController {
+    +listBoardsByUser()
+    +showInfo()
+    +changeArchive()
+    +archiveBoard()
+}
+
+class ListSharedBoardService {
+    +listBoardsByUser()
+}
+
+class ShareBoard {
+    +updateArchive()
+}
+
+
+class Notification {
+}
+
+class NotificationRepository{
+    +save()
+}
+
+class ShareBoardRepository{
+    +save()
+    +findByUsername()
+}
+
+
+class BoardUpdateEvent{
+    -timestamp
+    +createUpdateBoardNotification()
+}
+
+
+User-->ArchiveABoardUI
+ArchiveABoardUI-->ArchiveABoardController
+ArchiveABoardController-->ListSharedBoardService
+ArchiveABoardController-->ShareBoard
+ArchiveABoardController-->Notification
+ArchiveABoardController-->BoardUpdateEvent
+ArchiveABoardController-->NotificationRepository
+ArchiveABoardController-->ShareBoardRepository
+ListSharedBoardService-->ShareBoardRepository
+BoardUpdateEvent-->Notification
+@enduml

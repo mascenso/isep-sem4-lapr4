@@ -14,7 +14,7 @@ import java.util.*;
 public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
     @EmbeddedId
-    @Column(name="title")
+    @Column(name = "title")
     private SharedBoardTitle title;
 
     @Column
@@ -22,7 +22,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @Column
     private int numberColumns;
 
-    @OneToMany(mappedBy="sharedboard", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sharedboard", cascade = CascadeType.ALL)
     private List<SharedBoardCell> matrixCells = new ArrayList<>();
 
     @ElementCollection
@@ -40,6 +40,9 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<SharedBoardUser> usersList = new ArrayList<>();
+
+    @Transient
+    private final Object mutex = new Object(); // For synchronization
 
 
     public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner, List<SBColumn> columns, List<SBRow> rows) {
@@ -149,8 +152,13 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         this.linhas = linhas;
     }
 
-    public void updateArchive(boolean archive) {
-        this.archive = archive;
+    public boolean updateArchive(boolean archive, SystemUser user) {
+        boolean auth = false;
+        if (user.sameAs(owner) && !this.archive) {
+            this.archive = archive;
+            auth = true;
+        }
+        return auth;
     }
 
     @Override
