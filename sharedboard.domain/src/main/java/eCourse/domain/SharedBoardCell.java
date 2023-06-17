@@ -14,11 +14,15 @@ public class SharedBoardCell implements AggregateRoot<String> {
     }
 
     @Id
-   // @GeneratedValue(strategy = GenerationType.AUTO)
     private String id; //custom SBtitle_1,2
+
+    private Position position;
 
     @Enumerated(EnumType.STRING)
     private CellState state;
+
+    @ManyToOne
+    private SharedBoardUser user;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="sharedboard_title")
@@ -27,10 +31,10 @@ public class SharedBoardCell implements AggregateRoot<String> {
     @Embedded
     private PostIt postit;
 
-    protected SharedBoardCell(SharedBoard matrix, String id) {
+    protected SharedBoardCell(SharedBoard matrix, Position position) {
         this.sharedboard = matrix;
         this.state = CellState.EMPTY;
-        this.id = matrix.boardTitle().toString() + "_" + id;
+        this.id = matrix.boardTitle().toString() + "_" + position.toString();
         this.postit = null;
     }
 
@@ -63,5 +67,10 @@ public class SharedBoardCell implements AggregateRoot<String> {
     @Override
     public String identity() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return id + ":::" + state.toString() + ":::" + postit.toString();
     }
 }

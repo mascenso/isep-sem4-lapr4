@@ -61,7 +61,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         List<SharedBoardCell> matrixCells = new ArrayList<>();
         for (int i = 0; i < numberRows; i++) {
             for (int j = 0; j < numberColumns; j++) {
-                matrixCells.add(new SharedBoardCell(this, "_" + i + "," + j));
+                matrixCells.add(new SharedBoardCell(this, new Position(i, j)));
             }
         }
         return matrixCells;
@@ -198,6 +198,19 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
                     return postIt;
                 }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SharedBoard{title=").append(title);
+
+        for (SharedBoardCell cell : matrixCells) {
+            sb.append(cell.toString());
+        }
+
+        return sb.toString();
+    }
+
 
 }
 

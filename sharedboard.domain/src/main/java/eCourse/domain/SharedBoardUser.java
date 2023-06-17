@@ -26,7 +26,7 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private eCourse.domain.enums.AccessType permission;
+    private AccessType permission;
 
     @OneToMany(cascade = CascadeType.ALL)
     private final Set<AbstractBoardShareEvent> events = new HashSet<>();

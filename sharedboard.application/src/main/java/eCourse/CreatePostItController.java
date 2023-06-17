@@ -1,6 +1,7 @@
 package eCourse;
 
 import eCourse.domain.SharedBoard;
+import eCourse.domain.SharedBoardCell;
 import eCourse.domain.postit.PostIt;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.SharedBoardRepository;
@@ -43,4 +44,7 @@ public class CreatePostItController {
     }
 
 
+    public Iterable<SharedBoardCell> sharedBoardCells(SharedBoard shBoard) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

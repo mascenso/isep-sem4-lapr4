@@ -39,10 +39,7 @@ public class Position implements ValueObject, Comparable<Position> {
 
     @Override
     public String toString() {
-        return "Position{" +
-                "rowIndex=" + rowIndex +
-                ", columnIndex=" + columnIndex +
-                '}';
+        return String.format("{%d,%d}", rowIndex, columnIndex);
     }
 
     public Integer rowIndex() {
