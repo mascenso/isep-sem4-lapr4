@@ -55,7 +55,7 @@ public class UpdateSharedBoardUI extends AbstractUI {
                 System.out.println("Do you want to archive the board?");
                 answer = Console.readLine("Type yes or no");
                 if (answer.equalsIgnoreCase("yes")) {
-                    theController.changeArchive(board);
+                    theController.changeArchive(board,user.get());
                     return false;
                 }
             }
