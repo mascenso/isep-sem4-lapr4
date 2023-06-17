@@ -32,7 +32,8 @@ public class ShareABoardController extends Thread {
     }
 
     public void createShareBoardUsers(Map<SystemUser, AccessType> usersWithPermissions, SharedBoard board) {
-        Thread shareThread = new Thread(() -> {
+
+        new Thread(() -> {
             synchronized (mutex) {
                 for (Map.Entry<SystemUser, AccessType> user : usersWithPermissions.entrySet()) {
                     SharedBoardUser boardShared = board.createShareBoardUsers(user.getKey(), board.identity(), user.getValue());
@@ -43,7 +44,6 @@ public class ShareABoardController extends Thread {
                     PersistenceContext.repositories().sharedBoardUser().save(boardShared);
                 }
             }
-        });
-        shareThread.start();
+        }).start();
     }
 }

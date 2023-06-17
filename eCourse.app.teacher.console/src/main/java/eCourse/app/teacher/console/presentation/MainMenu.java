@@ -65,7 +65,6 @@ public class MainMenu extends AbstractUI {
     private static final int QUESTIONS_OPTION = 4;
     private static final int COURSES_OPTION = 5;
     private static final int MEETING_OPTION = 6;
-    private static final int SHAREDBOARD_OPTION=7;
 
     //MEETING
     private static final int SCHEDULE_MEETING_OPTION = 1;

@@ -36,6 +36,7 @@ import eCourse.app.backoffice.console.presentation.meetings.CancelMeetingUI;
 import eCourse.app.backoffice.console.presentation.meetings.ListMeetingsUI;
 import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.app.backoffice.console.presentation.students.AddStudentUI;
+import eCourse.app.backoffice.console.presentation.students.ApproveAndRejectEnrollmentsUI;
 import eCourse.app.backoffice.console.presentation.students.EnrollStudentsUI;
 import eCourse.app.backoffice.console.presentation.teachers.AddTeacherUI;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
@@ -88,20 +89,15 @@ public class MainMenu extends AbstractUI {
     private static final int TEACHERS_OPTION = 4;
     private static final int SETTINGS_OPTION = 5;
     private static final int COURSE_OPTION = 6;
-    private static final int SHAREDBOARD_OPTION = 7;
-    private static final int MEETING_OPTION = 8 ;
-    private static final int ENROLLMENT_OPTION = 9;
+    private static final int MEETING_OPTION = 7;
+    private static final int ENROLLMENT_OPTION = 8;
 
     //COURSE
 
     private static final int LIST_ALL_COURSES =1;
     private static final int ADD_NEW_COURSE =2;
     private static final int UPDATE_COURSE_STATE =3;
-
-    private static final int COURSE_ENROLLMENT_OPTION = 2;
-
-    private static final int REQUEST_COURSE_ENROLLMENT_OPTION = 1;
-    private static final int SET_TEACHERS_OF_COURSE = 5;
+    private static final int SET_TEACHERS_OF_COURSE = 4;
 
 
     private static final String SEPARATOR_LABEL = "--------------";
@@ -117,6 +113,7 @@ public class MainMenu extends AbstractUI {
 
     //ENROLLMENT
     private static final int ENROLLMENT_CSV = 1;
+    private static final int APPROVE_OR_REJECT_ENROLLMENTS = 2;
 
     @Override
     public boolean show() {
@@ -261,6 +258,7 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Enrollments >");
 
         menu.addItem(ENROLLMENT_CSV, "Enrollment from csv file", new EnrollStudentsUI()::show);
+        menu.addItem(APPROVE_OR_REJECT_ENROLLMENTS, "Approve or Reject Enrollments", new ApproveAndRejectEnrollmentsUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

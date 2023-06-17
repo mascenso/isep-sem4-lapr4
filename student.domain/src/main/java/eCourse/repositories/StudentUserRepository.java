@@ -53,7 +53,7 @@ public interface StudentUserRepository
         return ofIdentity(number);
     }
 
-    public Iterable<Student> findAllActive();
+     Iterable<Student> findAllActive();
 
     Optional<Student> findMaxMecNumber();
 }
