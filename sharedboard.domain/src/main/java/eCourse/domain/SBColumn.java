@@ -1,4 +1,4 @@
-package eCourse.domain.valueobjects;
+package eCourse.domain;
 
 import javax.persistence.Embeddable;
 
@@ -20,7 +20,11 @@ public class SBColumn {
         return name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
+    }
+
+    protected void setIndex(int index) {
+        this.index = index;
     }
 }

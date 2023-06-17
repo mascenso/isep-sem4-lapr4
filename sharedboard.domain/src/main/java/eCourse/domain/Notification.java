@@ -1,8 +1,6 @@
 package eCourse.domain;
 
 import eCourse.domain.enums.AccessType;
-import eCourse.domain.valueobjects.SBColumn;
-import eCourse.domain.valueobjects.SBRow;
 import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;

@@ -1,8 +1,8 @@
 package eCourse;
 
 import eCourse.domain.*;
-import eCourse.domain.valueobjects.SBColumn;
-import eCourse.domain.valueobjects.SBRow;
+import eCourse.domain.SBColumn;
+import eCourse.domain.SBRow;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.persistence.RepositoryFactory;
 import eCourse.domain.ECourseRoles;

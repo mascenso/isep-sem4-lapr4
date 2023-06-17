@@ -19,12 +19,12 @@ public class CreatePostItController {
         return listSharedBoardService.listBoardsByUser();
     }
 
-    public SharedBoard registerPostIt(final SharedBoard shBoard, final String name,
+    public SharedBoard registerPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name,
                                  final InputStream imageStream) throws IOException {
-        return doRegisterPostIt(shBoard, name, imageStream);
+        return doRegisterPostIt(shBoard, x, y, name, imageStream);
     }
 
-    private SharedBoard doRegisterPostIt(final SharedBoard shBoard, final String name,
+    private SharedBoard doRegisterPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name,
                                         final InputStream imageStream) throws IOException {
 
         final PostIt newPostIt = new PostIt(name);
@@ -32,7 +32,7 @@ public class CreatePostItController {
             newPostIt.changeImage(IOUtils.toByteArray(imageStream));
         }
 
-        shBoard.addPostItToCell(newPostIt, 0,0);
+        shBoard.addPostItToCell(newPostIt, x,y);
 
         return repository.save(shBoard);
     }

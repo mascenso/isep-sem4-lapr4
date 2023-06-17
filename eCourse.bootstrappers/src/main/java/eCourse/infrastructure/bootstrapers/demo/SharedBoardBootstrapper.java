@@ -1,8 +1,8 @@
 package eCourse.infrastructure.bootstrapers.demo;
 
 import eCourse.CreateSharedBoardController;
-import eCourse.domain.valueobjects.SBColumn;
-import eCourse.domain.valueobjects.SBRow;
+import eCourse.domain.SBColumn;
+import eCourse.domain.SBRow;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;

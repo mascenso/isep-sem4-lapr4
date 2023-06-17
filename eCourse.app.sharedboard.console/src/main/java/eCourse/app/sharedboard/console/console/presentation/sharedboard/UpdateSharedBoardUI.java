@@ -11,10 +11,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class UpdateSharedBoardUI extends AbstractUI {
 
@@ -26,7 +23,7 @@ public class UpdateSharedBoardUI extends AbstractUI {
     protected boolean doShow() {
 
         Map<SharedBoardTitle, AccessType> map=new HashMap<>();
-        Iterable<SharedBoard> myBoards = theController.listOfAllUserBoards(map);
+        Set<SharedBoard> myBoards = theController.listOfAllUserBoards(map);
 
         if (((Collection<?>) myBoards).size() == 0) {
             System.out.println("You have no Boards!");
@@ -94,7 +91,7 @@ public class UpdateSharedBoardUI extends AbstractUI {
         return false;
     }
 
-    protected int showInfo(Iterable<SharedBoard> myBoards, Map<Integer, SharedBoard> map) {
+    protected int showInfo(Set<SharedBoard> myBoards, Map<Integer, SharedBoard> map) {
         int index = 1;
         for (SharedBoard sb : myBoards) {
             map.put(index, sb);

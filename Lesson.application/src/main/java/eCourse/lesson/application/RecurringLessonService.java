@@ -1,12 +1,10 @@
 package eCourse.lesson.application;
 
-import eCourse.domain.Course;
 import eCourse.domain.Teacher;
 import eCourse.infrastructure.persistence.PersistenceContext;
+import eCourse.lesson.domain.model.ExtraLesson;
 import eCourse.lesson.domain.model.RecurringLesson;
-import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +36,16 @@ public class RecurringLessonService {
         LocalDate day = recurringLesson.occurrences();
         for (RecurringLesson lesson : allRecurringLessons()) {
             if (lesson.responsibleTeacher().equals(teacher) && lesson.occurrences().equals(recurringLesson.occurrences()) && lesson.startTime().equals(recurringLesson.startTime())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validateExtraLesson(Teacher teacher, ExtraLesson extraLesson) {
+        LocalDate day = extraLesson.occurrences();
+        for (RecurringLesson lesson : allRecurringLessons()) {
+            if (lesson.responsibleTeacher().equals(teacher) && lesson.occurrences().equals(extraLesson.occurrences()) && lesson.startTime().equals(extraLesson.startTime())) {
                 return false;
             }
         }
