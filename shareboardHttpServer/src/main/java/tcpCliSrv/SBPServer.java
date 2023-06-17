@@ -1,9 +1,16 @@
 package tcpCliSrv;
 
+import eCourse.domain.Course;
+import eCourse.infrastructure.persistence.PersistenceContext;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.domain.model.Username;
+import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
+
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SBPServer {
@@ -48,6 +55,7 @@ public class SBPServer {
     }
 
     class SharedBoardServerThread {
+
         public SharedBoardServerThread(Socket clientSocket) {
             try {
                 inputStream = new DataInputStream(clientSocket.getInputStream());
@@ -55,19 +63,8 @@ public class SBPServer {
 
                 while (!clientSocket.isClosed()) {
 
-                    //read mensage
-                    int version = inputStream.readUnsignedByte();
-                    int code = inputStream.readUnsignedByte();
-                    int dataLength1 = inputStream.readUnsignedByte();
-                    int dataLength2 = inputStream.readUnsignedByte();
+                    byte [] data = readMessageData(clientSocket, false);
 
-                    //create a array of bytes as it says in the protocol
-                    //read Data
-                    byte[] data = new byte[dataLength1 + 256 * dataLength2];
-                    inputStream.readFully(data);
-
-                    //processar o pedido e gerar uma resposta
-                    byte[] response = ResponseGenerator(code, data, clientSocket);
 
                 }
 
@@ -84,6 +81,25 @@ public class SBPServer {
             }
         }
     }
+
+    private byte[] readMessageData(Socket clientSocket, boolean isPassword) throws IOException {
+        //read mensage
+        int version = inputStream.readUnsignedByte();
+        int code = inputStream.readUnsignedByte();
+        int dataLength1 = inputStream.readUnsignedByte();
+        int dataLength2 = inputStream.readUnsignedByte();
+
+        //create a array of bytes as it says in the protocol
+        //read Data
+        byte[] data = new byte[dataLength1 + 256 * dataLength2];
+        inputStream.readFully(data);
+        if(!isPassword) {
+            //processar o pedido e gerar uma resposta
+            byte[] response = ResponseGenerator(code, data, clientSocket);
+        }
+        return data;
+    }
+
     private byte[] ResponseGenerator(int code, byte[] data, Socket clientSocket) throws IOException {
         switch (code){
             case 0:
@@ -99,7 +115,8 @@ public class SBPServer {
                 ERR_Response(data);
                 break;
             case 4:
-                AUTH_Response(data);
+                AUTH_Response(data,clientSocket);
+                break;
             case 5:
                 REQUEST_Response(data);
                 break;
@@ -123,9 +140,15 @@ public class SBPServer {
         System.out.println("\n=======================\n An invalid code was received \n=======================\n");
     }
 
-    private void AUTH_Response(byte[] data) throws IOException {
+    private void AUTH_Response(byte[] data, Socket clientSocket) throws IOException {
         sendRequest(2,new byte[0]);
-        System.out.println("Recebi um AUTH com o user"+ data);
+        String username = new String(data, StandardCharsets.UTF_8);
+
+        data = readMessageData(clientSocket,true);
+        String password = new String(data, StandardCharsets.UTF_8);
+
+        PersistenceContext.repositories().courses().findAll();
+        System.out.println("Recebi um AUTH com o user"+ username + "e palavra pass" + password);
     }
 
     private void ERR_Response(byte[] data) throws IOException {

@@ -1,3 +1,4 @@
+
 import eCourse.domain.Course;
 import eCourse.domain.CourseBuilder;
 import eCourse.domain.CourseEdition;

@@ -43,8 +43,15 @@ public class SBPClient {
         sendRequest(0,new byte[0]);
         int num =0;
 
+        String message = "Admin";
+        byte[] messageData = message.getBytes(StandardCharsets.UTF_8);
+        sendRequest(4,messageData);
+        String message2 = "Password1";
+        byte[] messageData2 = message2.getBytes(StandardCharsets.UTF_8);
+        sendRequest(4,messageData2);
         //Read and process until close the client side
         while(!socket.isClosed()){
+
             ReadDataOfMessage();
         }
 

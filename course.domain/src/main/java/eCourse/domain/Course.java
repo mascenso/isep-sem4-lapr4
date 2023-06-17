@@ -67,12 +67,12 @@ public class Course implements AggregateRoot<Designation> {
 
     public String coordinator (){return teacherCoordinator.name().toString();}
 
-    /*public CourseState updateState(CourseState newState) {
+    public CourseState updateState(CourseState newState) {
         if (!this.state.equals(newState)) {
             this.state = newState;
         }
         return newState;
-    }*/
+    }
 
     @Override
     public boolean sameAs(Object other) {
