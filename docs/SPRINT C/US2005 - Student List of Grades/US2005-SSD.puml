@@ -8,8 +8,6 @@ activate Student
 
 
 Student -> System: Request to view his course grades
-System --> Student: Shows the Course the student is enrolled
-Student -> System: Selects the course he desires to view the grades
 System --> Student: Shows all the student grades for that course
 
 deactivate Student
