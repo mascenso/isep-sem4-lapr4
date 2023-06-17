@@ -3,10 +3,13 @@ package tcpCliSrv;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class SBPClient {
     static InetAddress serverIP;
-    static Socket sock;
+    static Socket socket;
+    static  DataOutputStream outputStream;
+    static DataInputStream inputStream;
 
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {
@@ -21,103 +24,122 @@ public class SBPClient {
             System.exit(1);
         }
 
+
         try {
-            sock = new Socket(serverIP, Integer.parseInt(args[1]));
+            socket = new Socket(serverIP, Integer.parseInt(args[1]));
+
         } catch (IOException ex) {
             System.out.println("Failed to establish TCP connection");
             System.exit(1);
         }
 
+        System.out.println("Established connection with TCP server.");
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        DataOutputStream sOut = new DataOutputStream(sock.getOutputStream());
-        DataInputStream inputStream = new DataInputStream(sock.getInputStream());
+         outputStream = new DataOutputStream(socket.getOutputStream());
+         inputStream = new DataInputStream(socket.getInputStream());
 
+        //send a test request (COMMTEST)
+        sendRequest(0,new byte[0]);
+        int num =0;
 
-        String phrase;
-        int num;
+        //Read and process until close the client side
+        while(!socket.isClosed()){
+            ReadDataOfMessage();
+        }
 
-        System.out.print("Enter username: ");
-        String username = in.readLine();
-        System.out.print("Enter password: ");
-        String password = in.readLine();
-        int usernameLength = username.length();
-        int passwordLength = password.length();
+    }
 
-        do {
-            num = -1;
-            while (num < 0) {
-                System.out.print("Enter a positive integer to SUM (zero to terminate): ");
-                phrase = in.readLine();
-                try {
-                    num = Integer.parseInt(phrase);
-                } catch (NumberFormatException ex) {
-                    num = -1;
-                }
-                if (num < 0)
-                    System.out.println("Invalid number");
+    private static byte[] ReadDataOfMessage() throws IOException {
+        //Read message
+        int version = inputStream.readUnsignedByte();
+        int code = inputStream.readUnsignedByte();
+        int dataLength1 = inputStream.readUnsignedByte();
+        int dataLength2 = inputStream.readUnsignedByte();
+
+        //this codes dont have data
+        if(code == 3 || code == 5 ){
+            //read all data
+            byte [] data = new byte[dataLength1 + 256 * dataLength2];
+            inputStream.readFully(data);
+            //response
+            responseProcess(code,data,socket);
+            return data;
+        }
+
+        responseProcess(code,new byte[0],socket);
+        return new byte[0];
+    }
+
+    private static void responseProcess(int code, byte[] data, Socket socket) throws IOException {
+        switch (code){
+            case 0:
+                COMMIT_Response();
+                break;
+            case 1:
+                DISCONN_Response(socket);
+                break;
+            case 2:
+                ACK_Response();
+                break;
+            case 3:
+                ERR_Response(data);
+                break;
+            case 4:
+                AUTH_Response(data);
+            case 5:
+                REQUEST_Response(data);
+                break;
+            default:
+                SendErrorInvalidCode(data);
+        }
+    }
+
+    private static void SendErrorInvalidCode(byte[] data) {
+        System.out.println("\n=======================\n An invalid code was received \n=======================\n");
+    }
+
+    private static void REQUEST_Response(byte[] data) {
+        System.out.println("Recebido um pedido do servidor, fazer o processamento aqui");
+    }
+
+    private static void AUTH_Response(byte[] data) {
+        System.out.println("\n=======================\n AUTH received \n=======================\n");
+    }
+
+    private static void ERR_Response(byte[] data) {
+        System.out.println("\n=======================\n"+data+ "\n=======================\n");
+    }
+
+    private static void ACK_Response() {
+        System.out.println("The request was successfully received by the server");
+    }
+
+    private static void DISCONN_Response(Socket socket) throws IOException {
+        sendRequest(2,new byte[0]);
+        System.out.println("\n=======================\nThe server has been shut down, the client connection will be disconnected.\n=======================\n");
+        SBPClient.socket.close();
+    }
+
+    private static void COMMIT_Response() {
+        System.out.println("\n=======================\nTest Request received\n=======================\n");
+    }
+
+    public static void sendRequest(int code, byte[] data) throws IOException {
+        if(code <0 || code >5){
+            System.out.println("This code dont exist, please insert a valid one");
+        }else {
+            outputStream.writeByte(1);
+            outputStream.writeByte(code);
+            outputStream.writeByte(data.length % 256);
+            outputStream.writeByte(data.length / 256);
+            outputStream.write(data);
+            outputStream.flush();
+
+            if (code == 1) {
+                System.out.println("\n=======================\n disconnect.\n=======================\n");
+                SBPClient.socket.close();
             }
-
-            byte[] sbpMessage = new byte[8]; // Um para cada field (version, data, d_length, byte mais significativo,...)
-
-            // Calcula o comprimento total do campo DATA
-            int dataLength = usernameLength + passwordLength;
-
-            byte dLength1 = (byte) (dataLength % 256);
-            byte dLength2 = (byte) (dataLength / 256);
-
-            sbpMessage[0] = 1; // VERSION
-            sbpMessage[1] = 0; // CODE
-            sbpMessage[2] = dLength1; // D_LENGTH_1
-            sbpMessage[3] = dLength2; // D_LENGTH_2
-
-            byte[] usernameBytes = username.getBytes(StandardCharsets.US_ASCII);
-            byte[] passwordBytes = password.getBytes(StandardCharsets.US_ASCII);
-
-            //byte[] sbpMessage = new byte[8 + usernameBytes.length + passwordBytes.length];
-
-            byte[] sbpMessageWithUserData = new byte[8 + usernameBytes.length + passwordBytes.length];
-
-
-            //System.arraycopy(usernameBytes, 0, sbpMessage, 4, usernameLength);
-            //System.arraycopy(passwordBytes, 0, sbpMessage, 4 + usernameLength, passwordLength);
-
-            System.arraycopy(sbpMessage, 0, sbpMessageWithUserData, 0, sbpMessage.length); // Copy the first 4 fields
-            System.arraycopy(usernameBytes, 0, sbpMessageWithUserData, 8, usernameBytes.length); // Copy the username
-            System.arraycopy(passwordBytes, 0, sbpMessageWithUserData, 8 + usernameBytes.length, passwordBytes.length); // Copy the password
-
-
-            // DATA
-            // Converte o num em um array de bytes (com deslocamentos à direita) e armazena no index 4 a 7 do sbpMessage.
-            sbpMessage[4] = (byte) (num >>> 24); //3 bytes
-            sbpMessage[5] = (byte) (num >>> 16); //2 bytes
-            sbpMessage[6] = (byte) (num >>> 8); //1 byte
-            sbpMessage[7] = (byte) num;
-
-            // Envia a msg
-            sOut.write(sbpMessage);
-
-            // Recebe a resposta e processa a mesma
-            byte[] response = new byte[5];  // um para cada field (version, data, d_length, ...)
-            inputStream.readFully(response);
-
-            // Parse da resposta
-            int responseCode = response[1] & 0xFF; // Converte o 2º byte do array response num inteiro sem sinal (unsigned). O & garante que o resultado é sempre um inteiro sem sinal compreendido entre 0 a 255.
-            int responseData = ((response[1] & 0xFF) << 24) | ((response[2] & 0xFF) << 16) | ((response[3] & 0xFF) << 8) | (response[4] & 0xFF); //Combina os bytes 2, 3, 4 e 5 do array response para obter um inteiro.
-
-            if (responseCode == 2) {
-                //Autenticação bem sucedida
-                System.out.println("SUM RESULT = " + responseData);
-            } else if (responseCode == 3) {// ERR – Error response message
-                if (response[4] == 65 && response[5] == 85) {
-                    System.out.println("Authentication failed: Invalid username or password");
-                } else {
-                    System.out.println("Error: " + new String(response, 2, 2));
-                }
-            }
-
-        } while (num != 0);
-
-        sock.close();
+        }
     }
 }

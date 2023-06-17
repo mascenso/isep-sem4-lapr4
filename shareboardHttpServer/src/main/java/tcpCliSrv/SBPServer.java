@@ -10,6 +10,10 @@ public class SBPServer {
     private ServerSocket serverSocket;
     private Map<String, String> userCredentials = new HashMap<>();
 
+    static DataInputStream inputStream;
+    static DataOutputStream outputStream;
+    static Socket socket;
+
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("Port number is required as an argument");
@@ -31,12 +35,11 @@ public class SBPServer {
             serverSocket = new ServerSocket(port);
             System.out.println("Server started and listening on port " + port);
 
-            userCredentials.put("admin", "Password1");
-            userCredentials.put("teacher", "Password2");
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                new Thread(new SharedBoardServerThread(clientSocket)).start();
+                Thread clientThread = new Thread(() -> new SharedBoardServerThread(clientSocket));
+                clientThread.start();
             }
         } catch (IOException ex) {
             System.out.println("Failed to open server socket");
@@ -44,71 +47,114 @@ public class SBPServer {
         }
     }
 
-    class SharedBoardServerThread implements Runnable {
-        private Socket socket;
-        private DataOutputStream outStream;
-        private DataInputStream inputStream;
-
+    class SharedBoardServerThread {
         public SharedBoardServerThread(Socket clientSocket) {
-            socket = clientSocket;
-        }
-
-        public void run() {
-            InetAddress clientIP = socket.getInetAddress();
-            System.out.println("New client connection from " + clientIP.getHostAddress() +
-                    ", port number " + socket.getPort());
-
             try {
-                outStream = new DataOutputStream(socket.getOutputStream());
-                inputStream = new DataInputStream(socket.getInputStream());
+                inputStream = new DataInputStream(clientSocket.getInputStream());
+                outputStream = new DataOutputStream(clientSocket.getOutputStream());
 
-                while (true) {
+                while (!clientSocket.isClosed()) {
 
-                    byte[] request = new byte[5]; // um para cada field (version, data, d_length, ...)
-                    inputStream.readFully(request);
+                    //read mensage
+                    int version = inputStream.readUnsignedByte();
+                    int code = inputStream.readUnsignedByte();
+                    int dataLength1 = inputStream.readUnsignedByte();
+                    int dataLength2 = inputStream.readUnsignedByte();
 
-                    // Parse the request
-                    int requestCode = request[1] & 0xFF; // Convert the byte to an unsigned integer
-                    int requestData = (request[4] << 24) | (request[5] << 16) | (request[6] << 8) | (request[7]);
+                    //create a array of bytes as it says in the protocol
+                    //read Data
+                    byte[] data = new byte[dataLength1 + 256 * dataLength2];
+                    inputStream.readFully(data);
 
-                    // Process the request and prepare the response
-                    byte[] response = new byte[8]; // um para cada field (version, data, d_length, byte mais significativo,...)
+                    //processar o pedido e gerar uma resposta
+                    byte[] response = ResponseGenerator(code, data, clientSocket);
 
-                    if (requestCode == 0) {
-                        // COMMTEST, responde com o ACK = 2;
-                        response[1] = 2;
-                    } else if (requestCode == 1) {
-                        // DISCONN request, responde com o ACK = 2 e fecha a conecção
-                        response[1] = 2;
-                        socket.close();
-                        System.out.println("Client " + clientIP.getHostAddress() + ", port number: " + socket.getPort() +
-                                " disconnected");
-                        break; // Para fechar a thread
-                    } else if (requestCode == 4) {
-
-                        byte[] usernameBytes = new byte[request[2]];
-                        byte[] passwordBytes = new byte[request[3]];
-                        System.arraycopy(request, 4, usernameBytes, 0, request[2]);
-                        System.arraycopy(request, 4 + request[2], passwordBytes, 0, request[3]);
-                        String username = new String(usernameBytes, StandardCharsets.US_ASCII);
-                        String password = new String(passwordBytes, StandardCharsets.US_ASCII);
-
-                        if (userCredentials.containsKey(username) && userCredentials.get(username).equals(password)) {
-                            response[1] = 2; // ACK - Autenticação bem-sucedida
-                        } else {
-                            response[1] = 3; // ERR - Autenticação falhou
-                            response[4] = 'A'; // Example error message, first character
-                            response[5] = 'U'; // Example error message, second character
-                        }
-                    }
-
-                    // Send the response
-                    outStream.write(response);
                 }
-            } catch (IOException ex) {
-                System.out.println("IOException");
+
+            } catch (IOException e) {
+                System.out.println("An error occurred while receiving the data, please contact the administrator.");
+                throw new RuntimeException(e);
+            } finally {
+                try {
+                    //close the conection with client
+                    clientSocket.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
+    }
+    private byte[] ResponseGenerator(int code, byte[] data, Socket clientSocket) throws IOException {
+        switch (code){
+            case 0:
+                COMMIT_Response();
+                break;
+            case 1:
+                DISCONN_Response(clientSocket);
+                break;
+            case 2:
+                SUCESS_Response();
+                break;
+            case 3:
+                ERR_Response(data);
+                break;
+            case 4:
+                AUTH_Response(data);
+            case 5:
+                REQUEST_Response(data);
+                break;
+            default:
+                SendErrorInvalidCode();
+        }
+        return data;
+    }
+
+    private void REQUEST_Response(byte[] data) throws IOException {
+        //ACK
+        sendRequest(2,new byte[0]);
+
+        //decode the message from bytes to String
+        String messageReceived = new String(data, StandardCharsets.UTF_8);
+
+        System.out.println("Recebi um pedido, " + messageReceived +" vou processar a resposta");
+    }
+
+    private void SendErrorInvalidCode() {
+        System.out.println("\n=======================\n An invalid code was received \n=======================\n");
+    }
+
+    private void AUTH_Response(byte[] data) throws IOException {
+        sendRequest(2,new byte[0]);
+        System.out.println("Recebi um AUTH com o user"+ data);
+    }
+
+    private void ERR_Response(byte[] data) throws IOException {
+        sendRequest(2,new byte[0]);
+        System.out.println("\n=======================\n"+data+ "\n=======================\n");
+    }
+
+    private void SUCESS_Response() {
+        System.out.println("Recebi um sucess");
+    }
+
+    private void DISCONN_Response(Socket clientSocket) throws IOException {
+        sendRequest(2,new byte[0]);
+        System.out.println("\n=======================\n The client" + clientSocket.getInetAddress() + " disconnect.\n=======================\n");
+        clientSocket.close();
+    }
+
+    private void COMMIT_Response() throws IOException {
+        sendRequest(2,new byte[0]);
+        System.out.println("\n=======================\nThe request was successfully received by the client\n=======================\n");
+    }
+
+    public static void sendRequest(int code, byte[] data) throws IOException {
+        outputStream.writeByte(1);
+        outputStream.writeByte(code);
+        outputStream.writeByte(data.length % 256);
+        outputStream.writeByte(data.length / 256);
+        outputStream.write(data);
+        outputStream.flush();
     }
 }
 

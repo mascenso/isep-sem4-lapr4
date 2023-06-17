@@ -1,7 +1,7 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
-import eCourse.domain.valueobjects.SBColumn;
-import eCourse.domain.valueobjects.SBRow;
+import eCourse.domain.SBColumn;
+import eCourse.domain.SBRow;
 import eCourse.domain.SharedBoard;
 
 

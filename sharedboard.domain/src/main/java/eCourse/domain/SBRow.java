@@ -1,4 +1,4 @@
-package eCourse.domain.valueobjects;
+package eCourse.domain;
 
 import javax.persistence.*;
 
@@ -21,5 +21,9 @@ public class SBRow {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    protected void setIndex(int index) {
+        this.index = index;
     }
 }
