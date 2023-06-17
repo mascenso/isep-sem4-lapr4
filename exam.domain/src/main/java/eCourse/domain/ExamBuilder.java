@@ -56,6 +56,10 @@ public class ExamBuilder implements DomainFactory<Exam> {
             theExam = new Exam(examTitle, theCourse, theTeacher, openDate, closeDate, file);
             return theExam;
         }
+        if (examTitle != null && theCourse != null && theTeacher != null && file != null) {
+            theExam = new Exam(examTitle, theCourse, theTeacher, file);
+            return theExam;
+        }
         throw new IllegalStateException();
     }
 

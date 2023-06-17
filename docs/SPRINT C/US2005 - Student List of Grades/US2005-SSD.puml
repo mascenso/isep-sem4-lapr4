@@ -1,0 +1,15 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Student
+activate Student
+
+
+Student -> System: Request to view his course grades
+System --> Student: Shows all the student grades for that course
+
+deactivate Student
+
+@enduml

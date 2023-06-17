@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import eCourse.infrastructure.bootstrapers.UsersBootstrapperBase;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
@@ -38,17 +38,13 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
 
     @Override
     public boolean execute() {
-        registerTeacher("teacher", PASSWORD1, "Mick", "Jagger", "jagger@emai.l.com");
-        registerProjectManager("pm", PASSWORD1, "Michael", "Jackson", "pmmichael@emai.l.com");
         registerManager("manager", PASSWORD1, "Patty", "Smith", "patty@emai.l.com");
-        registerStudent("student", PASSWORD1, "Jay", "Z", "jayz@isep.ipp.pt");
-        registerStudent("isep959", "Password1", "Mary", "Smith", "mary@smith.com");
 
         return true;
     }
 
     private void registerTeacher(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                 final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.TEACHER);
 
@@ -56,7 +52,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     }
 
     private void registerProjectManager(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                        final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.PROJECT_MANAGER);
 
@@ -64,7 +60,7 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     }
 
     private void registerManager(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                 final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.MANAGER);
 
@@ -72,10 +68,10 @@ public class BackofficeUsersBootstrapper extends UsersBootstrapperBase implement
     }
 
     private void registerStudent(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
+                                 final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
         roles.add(ECourseRoles.STUDENT);
 
-        registerStudent(username, password, firstName, lastName, email, roles);
+        registerUser(username, password, firstName, lastName, email, roles);
     }
 }

@@ -30,7 +30,7 @@ import eCourse.domain.Student;
 import eCourse.domain.StudentBuilder;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.StudentUserRepository;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
@@ -38,6 +38,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Optional;
 
 /**
@@ -79,16 +80,14 @@ public class StudentUserService {
     /**
      * Creates a new Student for the given SystemUser, and saves it to the
      * repository.
-     *
-     * @param newUser
-     * @return
      */
     @Transactional /* Generates a new mec number and saves it to the repository */
-    public Student createStudentUser(final SystemUser newUser, final String taxPayNumber) {
+    public Student createStudentUser(final SystemUser newUser, final String taxPayNumber, final LocalDate birthDate) {
         final StudentBuilder studentUserBuilder = new StudentBuilder();
         studentUserBuilder
                 .withSystemUser(newUser)
-                .withTaxPayNumber(taxPayNumber);
+                .withTaxPayNumber(taxPayNumber)
+                .withBirthDate(birthDate);
 
         final Optional<MecanographicNumber> maxMecNumber = findMaxMecNumber();
 

@@ -1,33 +1,12 @@
 package eCourse.app.teacher.console.presentation.exam;
 
-import eCourse.domain.Exam;
 import eCourse.domain.GradeOfExam;
-import eCourse.domain.Teacher;
-import eCourse.infrastructure.persistence.PersistenceContext;
-import eCourse.repositories.TeacherRepository;
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.application.UserSession;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.visitor.Visitor;
-import org.springframework.beans.factory.annotation.Autowired;
 
-public class TeacherExamGradesPrinter implements Visitor<Exam> {
-
-    private static final AuthorizationService authz = AuthzRegistry.authorizationService();
+public class TeacherExamGradesPrinter implements Visitor<GradeOfExam> {
 
     @Override
-    public void visit(final Exam visitee) {
-
-        SystemUser loggedUser = authz.session().get().authenticatedUser();
-
-        if (visitee.getTeacher().user().equals(loggedUser)) {
-            for (GradeOfExam gradeOfExam : visitee.getExamGrades()) {
-                System.out.printf("%-30s%-20s%-20s%-20.2f%-20s%n",
-                        visitee.getExamTitle(), visitee.getExamCourse().identity().toString(),
-                        visitee.identity().getExamName(), gradeOfExam.getGrade(), gradeOfExam.getStudent().name());
-            }
-        }
+    public void visit(final GradeOfExam visitee) {
+                System.out.printf("%-30s%-20s%-20s%-20.2f%-20s", visitee.theExam().getExamCourse().identity().toString(), visitee.theExam().getExamTitle().toString(), visitee.theExam().getTeacher().user().name().toString(), visitee.gradeResult(), visitee.studentWhoDidExam().name().toString());
     }
 }

@@ -8,6 +8,8 @@ activate Teacher
 
 
 Teacher -> System: Asks to create a Recurring Lesson
+System --> Teacher: Shows the teacher course list
+Teacher -> System: Selects one of the courses to create\n the Recurring Lesson
 System --> Teacher: Ask for title of Recurring Lesson
 Teacher -> System: Insert title
 System --> Teacher: Asks start date of the Recurring Lesson

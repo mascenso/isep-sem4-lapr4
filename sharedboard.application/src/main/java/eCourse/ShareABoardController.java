@@ -1,21 +1,18 @@
 package eCourse;
 
 import eCourse.domain.*;
+import eCourse.domain.enums.AccessType;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.UseCaseController;
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import java.util.Map;
 
 @Component
 @UseCaseController
-public class ShareABoardController {
+public class ShareABoardController extends Thread {
 
     private Object mutex = new Object(); // Mutex object for synchronization
 
@@ -35,7 +32,8 @@ public class ShareABoardController {
     }
 
     public void createShareBoardUsers(Map<SystemUser, AccessType> usersWithPermissions, SharedBoard board) {
-        Thread shareThread = new Thread(() -> {
+
+        new Thread(() -> {
             synchronized (mutex) {
                 for (Map.Entry<SystemUser, AccessType> user : usersWithPermissions.entrySet()) {
                     SharedBoardUser boardShared = board.createShareBoardUsers(user.getKey(), board.identity(), user.getValue());
@@ -46,7 +44,6 @@ public class ShareABoardController {
                     PersistenceContext.repositories().sharedBoardUser().save(boardShared);
                 }
             }
-        });
-        shareThread.start();
+        }).start();
     }
 }

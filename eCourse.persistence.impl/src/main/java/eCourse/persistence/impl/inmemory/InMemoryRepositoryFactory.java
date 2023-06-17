@@ -20,6 +20,7 @@
  */
 package eCourse.persistence.impl.inmemory;
 
+import eCourse.domain.repositories.SignupRequestRepository;
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
 import eCourse.repositories.*;
 import eCourse.infrastructure.bootstrapers.BaseBootstrapper;
@@ -134,6 +135,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public GradesRepository gradesForExam() {
+		return null;
+	}
+
+	@Override
+	public SharedBoardCellRepository sharedBoardCells() {
 		return null;
 	}
 

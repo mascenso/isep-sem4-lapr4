@@ -1,9 +1,9 @@
 package eCourse.domain;
 
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
-import javax.persistence.Column;
 import java.util.List;
 
 public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
@@ -19,8 +19,8 @@ public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
 
     private SystemUser owner;
 
-    private List<Coluna> columns;
-    private List<Linha> rows;
+    private List<SBColumn> columns;
+    private List<SBRow> rows;
 
 
     public CreateSharedBoardBuilder withTile(final String title) {
@@ -49,12 +49,12 @@ public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
         return this;
     }
 
-    public CreateSharedBoardBuilder withColumns(List<Coluna> columns) {
+    public CreateSharedBoardBuilder withColumns(List<SBColumn> columns) {
         this.columns = columns;
         return this;
     }
 
-    public CreateSharedBoardBuilder withRows(List<Linha> rows) {
+    public CreateSharedBoardBuilder withRows(List<SBRow> rows) {
         this.rows = rows;
         return this;
     }

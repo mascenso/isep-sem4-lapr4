@@ -35,16 +35,13 @@ import eCourse.app.backoffice.console.presentation.meetings.AcceptRejectMeetingU
 import eCourse.app.backoffice.console.presentation.meetings.CancelMeetingUI;
 import eCourse.app.backoffice.console.presentation.meetings.ListMeetingsUI;
 import eCourse.app.backoffice.console.presentation.meetings.ScheduleMeetingsUI;
-import eCourse.app.backoffice.console.presentation.sharedboard.ListSharedBoardUI;
-import eCourse.app.backoffice.console.presentation.sharedboard.NotificationUI;
-import eCourse.app.backoffice.console.presentation.sharedboard.ShareABoardUI;
-import eCourse.app.backoffice.console.presentation.sharedboard.SharedBoardUI;
 import eCourse.app.backoffice.console.presentation.students.AddStudentUI;
+import eCourse.app.backoffice.console.presentation.students.ApproveAndRejectEnrollmentsUI;
 import eCourse.app.backoffice.console.presentation.students.EnrollStudentsUI;
 import eCourse.app.backoffice.console.presentation.teachers.AddTeacherUI;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
-import eCourse.usermanagement.application.ECourseRoles;
+import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -92,33 +89,20 @@ public class MainMenu extends AbstractUI {
     private static final int TEACHERS_OPTION = 4;
     private static final int SETTINGS_OPTION = 5;
     private static final int COURSE_OPTION = 6;
-    private static final int SHAREDBOARD_OPTION = 7;
-    private static final int MEETING_OPTION = 8 ;
-    private static final int ENROLLMENT_OPTION = 9;
+    private static final int MEETING_OPTION = 7;
+    private static final int ENROLLMENT_OPTION = 8;
 
     //COURSE
 
     private static final int LIST_ALL_COURSES =1;
     private static final int ADD_NEW_COURSE =2;
     private static final int UPDATE_COURSE_STATE =3;
-
-    private static final int COURSE_ENROLLMENT_OPTION = 2;
-
-    private static final int REQUEST_COURSE_ENROLLMENT_OPTION = 1;
-    private static final int SET_TEACHERS_OF_COURSE = 5;
+    private static final int SET_TEACHERS_OF_COURSE = 4;
 
 
     private static final String SEPARATOR_LABEL = "--------------";
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-
-    //SHAREDBOARD
-    private static final int CREATE_BOARD_OPTION = 1;
-    private static final int LIST_BOARDS_OPTION = 2;
-    private static final int SHARE_A_BOARD=3;
-    private static final int BOARD_NOTIFICATION=4;
-
-
 
     //MEETING
     private static final int SCHEDULE_MEETING = 1;
@@ -129,6 +113,7 @@ public class MainMenu extends AbstractUI {
 
     //ENROLLMENT
     private static final int ENROLLMENT_CSV = 1;
+    private static final int APPROVE_OR_REJECT_ENROLLMENTS = 2;
 
     @Override
     public boolean show() {
@@ -186,11 +171,6 @@ public class MainMenu extends AbstractUI {
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)) {
             final Menu courseMenu = buildCourseMenu();
             mainMenu.addSubMenu(COURSE_OPTION, courseMenu);
-        }
-
-        if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)){
-            final Menu sharedBoardMenu = buildSharedBoardMenu();
-            mainMenu.addSubMenu(SHAREDBOARD_OPTION, sharedBoardMenu);
         }
 
         if (authz.isAuthenticatedUserAuthorizedTo(ECourseRoles.POWER_USER, ECourseRoles.ADMIN)){
@@ -274,22 +254,11 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
-    private Menu buildSharedBoardMenu() {
-        final Menu menu = new Menu("Boards >");
-
-        menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
-        menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
-        menu.addItem(SHARE_A_BOARD, "Share a Board", new ShareABoardUI()::show);
-        menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
-        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
-
-        return menu;
-    }
-
     private Menu buildEnrollmentMenu() {
         final Menu menu = new Menu("Enrollments >");
 
         menu.addItem(ENROLLMENT_CSV, "Enrollment from csv file", new EnrollStudentsUI()::show);
+        menu.addItem(APPROVE_OR_REJECT_ENROLLMENTS, "Students Enrollments Request", new ApproveAndRejectEnrollmentsUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

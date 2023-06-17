@@ -1,0 +1,56 @@
+@startuml
+
+
+class TakeAutomaticExamController {
+    AutomaticExamsUnsolved()
+    saveGrade()
+    getExamGradeOnPercentage()
+    validateMissingWordQuestion()
+    validateMultipleChoiceQuestion()
+    validateMatchingQuestion()
+    validateNumericalQuestion()
+    validateTheShortAnswer()
+    validateTheAnswerTrueOrFalse()
+    isAValidTrueOrFalseAnswer()
+}
+
+class ExamRepository {
+    ExamByCourse()
+    save()
+}
+
+class CoursesRepository{
+    findCoursesByUser()
+}
+
+class GradesRepository{
+    save()
+}
+
+class ListExamService {
+    examByCourse()
+}
+
+
+class validateExamService{
+    validateExam()
+    getExamGradeOnPercentage()
+    validateMissingWordQuestion()
+    validateMultipleChoiceQuestion()
+    validateMatchingQuestion()
+    validateNumericalQuestion()
+    validateTheShortAnswer()
+    validateTheAnswerTrueOrFalse()
+    validTrueOrFalseOption()
+}
+
+TakeAutomaticExamUI : doShow()
+TakeAutomaticExamUI -down-> TakeAutomaticExamController: uses the controller
+
+ListExamService --> ExamRepository: use to get exam
+ListCourseService --> CoursesRepository: use to get Courses of student
+TakeAutomaticExamController --> validateExamService: use to validate the exam
+TakeAutomaticExamController --> ListCourseService: use to get all the course\n that student are enroll
+TakeAutomaticExamController --> ListExamService: use to get all examm of course
+TakeAutomaticExamController --> GradesRepository: use to persist the grades
+@enduml

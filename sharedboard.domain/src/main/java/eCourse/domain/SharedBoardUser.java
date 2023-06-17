@@ -1,5 +1,7 @@
 package eCourse.domain;
 
+import eCourse.domain.enums.AccessType;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.validations.Preconditions;
@@ -10,6 +12,7 @@ import java.util.Set;
 
 @Entity
 public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,12 +26,12 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AccessType permission;
+    private eCourse.domain.enums.AccessType permission;
 
     @OneToMany(cascade = CascadeType.ALL)
     private final Set<AbstractBoardShareEvent> events = new HashSet<>();
 
-    protected SharedBoardUser(SystemUser user, SharedBoardTitle boardID, AccessType access) {
+    protected SharedBoardUser(SystemUser user, SharedBoardTitle boardID, eCourse.domain.enums.AccessType access) {
         Preconditions.noneNull(user, boardID, access);
 
         this.user = user;
@@ -42,7 +45,7 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
     protected SharedBoardUser() {
     }
 
-    public static SharedBoardUser valueOf(SystemUser user, SharedBoardTitle boardID, AccessType access) {
+    public static SharedBoardUser valueOf(SystemUser user, SharedBoardTitle boardID, eCourse.domain.enums.AccessType access) {
         Preconditions.noneNull(user, "The User cannot be empty");
         Preconditions.noneNull(boardID, "The boardID cannot be empty");
         Preconditions.noneNull(access, "The Access cannot be empty");
@@ -53,7 +56,7 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
         return title;
     }
 
-    public AccessType withPermission() {
+    public eCourse.domain.enums.AccessType withPermission() {
         return permission;
     }
 
