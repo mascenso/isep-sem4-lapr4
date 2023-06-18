@@ -26,12 +26,12 @@ public class CreatePostItController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
 
-    public Iterable<SharedBoard> allSharedBoards() {
+    public Iterable<SharedBoard> allSharedBoards() throws IOException {
         return listSharedBoardService.listBoardsByUser();
     }
 
 
-    public SharedBoard registerPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name) {
+    public SharedBoard registerPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name) throws IOException {
 
         Optional<Username> username = authz.session().map(s -> s.authenticatedUser().identity());
         List<SharedBoardUser> sharedBoardUser = repoUsers.findListUser(shBoard.boardTitle(), username.get());

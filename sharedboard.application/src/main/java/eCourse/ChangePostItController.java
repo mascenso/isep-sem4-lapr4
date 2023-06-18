@@ -25,7 +25,7 @@ public class ChangePostItController {
     SharedBoardCellRepository repo = PersistenceContext.repositories().sharedBoardCells();
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public Iterable<SharedBoard> allSharedBoards() {
+    public Iterable<SharedBoard> allSharedBoards() throws IOException {
         return listSharedBoardService.listBoardsByUser();
     }
 

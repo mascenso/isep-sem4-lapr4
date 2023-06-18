@@ -55,12 +55,22 @@ public class SharedBoardBootstrapper implements Action {
         linhas.add(new SBRow("Linha3"));
         linhas2.add(new SBRow("LinhaA"));
         linhas2.add(new SBRow("LinhaB"));
+/*
+        SharedBoard sharedBoard = null;
+        try {
+            sharedBoard = createSharedBoardController.addSharedBoard(
+                    "Warm Board", 3, 3, colunas, linhas);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        SharedBoard sharedBoard = createSharedBoardController.addSharedBoard(
-                "Warm Board", 3, 3, colunas, linhas);
-
-        SharedBoard sharedBoard2 = createSharedBoardController.addSharedBoard(
-                "Cool Board", 2, 2, colunas2, linhas2);
+        SharedBoard sharedBoard2 = null;
+        try {
+            sharedBoard2 = createSharedBoardController.addSharedBoard(
+                    "Cool Board", 2, 2, colunas2, linhas2);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         addSharedBoardUsers(sharedBoard);
         addSharedBoardUsers(sharedBoard2);
@@ -71,15 +81,13 @@ public class SharedBoardBootstrapper implements Action {
 
         addPostIt(sharedBoard2, 1, 0, "Sao Joao Sao Joao");
         addPostIt(sharedBoard2, 1, 1, "Postei");
-
-
+ */
 
         return true;
     }
 
     private SystemUser getUser(final Username name) {
-        SystemUser u = userManagementService.userOfIdentity(name).orElseThrow(IllegalStateException::new);
-        return u;
+        return userManagementService.userOfIdentity(name).orElseThrow(IllegalStateException::new);
     }
 
     private void addSharedBoardUsers(SharedBoard sharedBoard){
@@ -126,7 +134,7 @@ public class SharedBoardBootstrapper implements Action {
         try {
             createPostItController.registerPostIt(theBoard, x, y, textContent);
             LOGGER.info(textContent + " registered.");
-        } catch (final IntegrityViolationException | ConcurrencyException e) {
+        } catch (final IntegrityViolationException | ConcurrencyException | IOException e) {
             // ignoring exception. assuming it is just a primary key violation
             // due to the tentative of inserting a duplicated user
             LOGGER.warn("Assuming {} already exists (activate trace log for details)", textContent);
