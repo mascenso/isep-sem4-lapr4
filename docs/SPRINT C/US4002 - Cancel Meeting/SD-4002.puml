@@ -1,0 +1,25 @@
+@startuml
+actor User as Actor
+participant CancelMeetingUI as UI <<presentation>>
+participant CancelMeetingUIMeetingController as Controller <<aplication>>
+participant Meeting as Domain <<domain>>
+participant ListMeetingsService as Service <<service>>
+database MeetingRepository as MeetingRepository <<repository>>
+
+note right of Controller:Some steps have been skipped in order to facilitate reading \n namely Persistence Context and Repository factor \n for an example with these steps see US1002
+Actor -> UI: Cancel Meeting
+activate UI
+    UI --> Actor: List of meetings that User created
+    UI -> Controller: ListMeetingsOfUser(user)
+    Controller -> Service: ListMeetingOfUser(user)
+    Service --> Controller: List<Meeting>
+    Controller --> UI: List<Meeting>
+    UI -> UI: Show list of meeting
+    Actor -> UI: select meeting
+    UI -> Controller: CancelMeeting(meeting)
+    Controller -> Domain: CancelMeeting
+    Controller -> MeetingRepository: save(meeting)
+    Controller --> UI: meeting cancel
+    UI --> Actor: meeting cancel
+
+@enduml
