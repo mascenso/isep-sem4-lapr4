@@ -53,6 +53,8 @@
 		<module>infrastructure.persistence</module>
 		<module>teacher.domain</module>
 		<module>teacher.application</module>
+		<module>student.domain</module>
+		<module>student.application</module>
 		<module>systemusers.domain</module>
 		<module>shareboardHttpServer</module>
 
@@ -130,7 +132,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-    </dependencies>
+	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>

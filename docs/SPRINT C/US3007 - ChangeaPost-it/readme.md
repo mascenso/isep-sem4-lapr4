@@ -1,68 +1,140 @@
-# US 1001
+# US 3007 : As User, I want to change a post-it on a board
 
-*This is an example template*
+## 1. Requirements Engineering
 
-## 1. Context
+### 1.1. User Story Description
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+As a User, I want to create a post-it-on a board
 
-## 2. Requirements
+**From the specifications document:**
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies).*
+The User - manager, student or teacher - should be able to change a Post-it from a Board if he has the write permission
+This use case is necessary to manage the ShareBoard, specifically change a post-it on a board.
 
-*Example*
+To change a Post-it, the user can choose within 2 options:
+- change its content
+- move it to another cell
 
-**US G002** As {Ator} I Want...
+This actions is only possible if the Post-it is in a Board with NOT_ARCHIVED status, 
+and the user as WRITE Access on it.
 
-- G002.1. Blá Blá Blá ...
 
-- G002.2. Blá Blá Blá ...
+To change a Post-it, the user should first choose 1 of the cell on which he has write access, 
+then choose the Post-it he wants to change.
 
-*Regarding this requirement we understand that it relates to...*
+If no Board or Post-it is available to choose, the system displays an error message.
+
+After showing the Post-its available, the user chooses: change content, or move it to another cell.
+Each option has specific requirements:
+
+After the change, it saves the new information on a DataBase and keep a history of the change.
+
+**From the client clarifications:**
+
+> **Question:**
+> **Answer:**
+>
+>
+### 1.4. Found out Dependencies
+
+* [US-3002] "Create a Board"
+* [US-3005] "Share a Board"
+* [US-3006] "Create a Post-it"
+
+* It is also necessary to have:
+* Being logged as a user
+* Connection to the dataBase
+* To have write permission on the cell (the user has to already have write on the cell)
+* the board should have the NON_ARCHIVED status
+* SharedBoard Protocol should be implemented
+* Communication TCP should be implemented, as well as an IP and a port being used
+
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+* Selected data
+* A cell on which the user has write permission
+* Choose to change content or move the post-it
+* Cell on which he wants to move the post-it
+
+**Typed Data:**
+* Post-it content (text or image)
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+* Several clients will try to concurrently change a post-it. Considering that, a solution design and implementation must be based on threads, condition variables and mutexes.
+* Authentication of the user is done in the SharedBoardApp
+* Communication between client and server is TCP based.
+* Both Server and Client will have a keystore.
+* It should follow the SBP - SharedBoard Protocol - communication
 
-## 4. Design
+![arch](arch.png)
+
+SharedBoardApp: UIs and Menu options to Manage the SharedBoards, among other options, the "As User, I want to change a post-it" US.
+SharedBoardServer: Connect the SharedBoardApp and DataBase. The module SharedBoardServer control the multiple access to a board and it´s post-its, using the Tcp service-client, threads and mutex.
+Relational Database Server: Database
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![dm_us3007](dm_us3007.png)
+
+
+## 3. Design - User Story Realization
 
 *In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
 
-### 4.1. Realization
+**SSD**
 
-### 4.2. Class Diagram
+### Systematization ##
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
 
-### 4.3. Applied Patterns
+## 3.2. Sequence Diagram (SD)
 
-### 4.4. Tests
+![sd_us3007](sd_us3007.svg)
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+## 3.3. Class Diagram (CD)
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
-````
+![cd_us3007](cd_us3007.svg)
 
-## 5. Implementation
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+## 4. Communication protocol
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+* Tcp connection must be established
+* Uses the client-server model. The client application (Shared Board App) is the one that takes
+  the initiative of requesting a TCP connection establishment with the counterpart server
+  application, which should accept incoming connection requests.
+* Once established, the TCP connection between the client and the server is kept alive and is used
+  for all required data exchanges while the client application is running
+* Every request (sent by the client or the server) has a mandatory response (correspondingly sent
+  by the server or the client).
 
-## 6. Integration/Demonstration
+### Message Format
+| Field      | Offset (bytes) | Length (bytes) | Description                                                                                                                                                                                                                                                                                               |
+|------------|----------------|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Version    | 0              | 1              | SBP message format version. This field is a single byte and should be interpreted as an unsigned integer (0 to 255). The present message format version number is one                                                                                                                                     |
+| Code       | 1              | 1              | This field identifies the type of request or response, it should be interpreted as an unsigned integer (0 to 255)                                                                                                                                                                                         |
+| D_LENGTH_1 | 2              | 1              | These field is used to specify the length in bytes of the DATA field. Both these fields are to be interpreted as unsigned integer numbers (0 to 555). he length of the DATA field is to be calculated as: _LENGTH_1 + 256 x D_LENGTH_2 he length of the DATA field may be zero, meaning it does not exist |
+| D_LENGTH_2 | 3              | 1              | Same as D_LENGTH_1                                                                                                                                                                                                                                                                                        |
+| Data       | 4              | -              | Contains data to meet the specific needs of the participating applications, the content depends on the message code.                                                                                                                                                                                      |
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+### Message code
+| Code | Meaning  | Description                                                                                                                                                                                                                                                                                            |
+|------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 0    | COMMTEST | Communications test request with no other effect on the counterpart application than the response with a code two message (ACK). This request has no data                                                                                                                                              |
+| 1    | DISCONN  | End of session request. The counterpart application is supposed to respond with a code two message, afterwards both applications are expected to close the session (TCP connection). This request has no data.                                                                                         |
+| 2    | ACK      | Generic acknowledgment and success response message. Used in response to successful requests. This response contains no data.                                                                                                                                                                          |
+| 3    | ERR      | Error response message. Used in response to unsuccessful requests that caused an error. This response message may carry a human readable phrase explaining the error. If used, the phrase explaining is carried in the DATA field as string of ASICII codes, it’s not required  to be null terminated. |
+| 4    | AUTH     | User authentication request. Described ahead.                                                                                                                                                                                                                                                          |
 
-## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
+### 5. Tests
 
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
+**Test 1:** ensure that a title is changed
 
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+**Test 2:** ensure that a description is changed
+
+**Test 4:** ensure that a post-it can change from a cell to another
