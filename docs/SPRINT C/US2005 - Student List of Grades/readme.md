@@ -1,90 +1,198 @@
-# US 1003 - As Manager, I want to open and close enrollments in courses
+# US2005 - As Student, I want to view a list of my grades
 
-## 1. Context
+## 1. Requirements Engineering
 
-This task is to develop a new functionality to the system.
-It is not related to a bug fix or an incomplete task from a previous sprint.
-The team has been assigned this task for the first time.
-It's an important task to be able to open and close the enrollment in courses.
 
-## 2. Requirements
+### 1.1. User Story Description
 
-**US 1003** As {Ator} I want to open and close enrollments in courses
+The student want to view the list of his grades.
 
-    FRC02 - Open/Close Enrollments in Course - Only managers are able to execute this functionality.
+### 1.2. Customer Specifications and Clarifications
 
-The user needs to be logged in the application. 
-In the menu created for the purpose of changing course states, the user is first shown all the courses in the system.
-When a course is selected the user is show its current state. The user is then able to change the course state to Enroll
-if the previous state was Open, or change it to Progress if the previous state was Enroll.
 
-This US is dependent on:
-*US1002 - Create Courses*
+**From the specifications document:**
+* The student want to view the list of his grades.
 
-## 3. Analysis
+**From the client clarifications:**
 
-* User Interface - This class is named UpdateCourseStateUI where it will allow a manager to view available courses and be able to open or close enrollment.
-* Controller     - This class is named UpdateCourseStateController where will be responsible for managing UI requests and performing the necessary actions to open or close enrollment in courses.
-* Repository     - This class is named CoursesRepository where it will store the data about the Courses
-* Service        - There will be two services. ListCourseService that lists the available courses and UpdateCourseStateService that updates the state of the course.  
+> **Question**
+>
+>  **Answer**
 
-*Below is the use case diagram to show the interactions between the manager and the system when open and close courses*
+### 1.3. Acceptance Criteria
 
-![Use Case Diagram](US1003-UCD.svg "US1003 Use Case Diagram")
+* **FRE05:** The system displays to a students his/her grades
 
-## 4. Design
+The user needs to be logged in the application as a Student.
 
-*In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
 
-### 4.1. Realization
+### 1.4. Found out Dependencies
 
-### 4.2. Class Diagram
+* There is a dependency to "US1001" - As Manager, I want to be able to register, disable/enable, and list users of the system (Teachers and Students, as well as Managers)
+* There is a dependency to "US1002" - As Manager, I want to create courses
+* There is a dependency to "US1003" - As Manager, I want to open and close enrollements in courses
+* There is a dependency to "US1008" - As Student, I want to request my enrollment in a course
+* There is a dependency to "US1009" - As Manager, I want to approve or reject students applications to courses
+* There is a dependenct to "US2001" - As Teacher, I want to create/update an exam
 
-![class diagram](US1003-CD.svg "US1003 Class Diagram")
+### 1.5 Input and Output Data
 
-### 4.3 Sequence Diagran
 
-![Sequence Diagram](US1003-Enroll-SD.svg "US1003 Sequence Diagram")
+**Input Data:**
+-/
 
-![Sequence Diagram](US1003-Close-Enroll-SD.svg "US1003 Sequence Diagram")
+**Output Data:**
 
-### 4.4. Applied Patterns
+* Course Enrollment
 
-| Interaction ID | Question: Which class is responsible for... | Answer                      | Justification (with patterns)                                                                                                |
-|:---------------|:--------------------------------------------|:----------------------------|:-----------------------------------------------------------------------------------------------------------------------------|
-| Step 1         | ... interacting with the actor?             | UpdateCourseStateUI         | UI pattern: UpdateCourseStateUI is responsible for interacting with the actor by presenting the list of courses available.   |
-|                | ... coordinating the US?                    | UpdateCourseStateController | Controller pattern: UpdateCourseStateController is responsible for coordinating the use case and invoking necessary classes. |
-| Step 2         | ... Validate User                           | AppSettings                 | Settings pattern: AppSettings is responsible for validating if the user is valid based on application settings.              |
-| Step 3         | .. return list of courses                   | CourseRepository            | Repository pattern: CourseRepository is responsible for retrieving the course from the database.                             |
-| Step 4         | .. show the course state to the user        | UpdateCourseStateUI         | UI pattern: UpdateCourseStateUI is responsible for presenting the course information to the user.                            |
+### Analysis
 
-### 4.5. Tests
+* User Interface - This class is named ListExamsUI where it will allow the Student to view his exams grades
+* Controller     - This class is named ListStudentExamGradesController where will be responsible for managing UI requests and performing the necessary actions to show the grades of the student
+* Service        - ListExamsService prepare the list of all logged student exams
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+*Below is the use case diagram to show the interactions between the manager and the system
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
-````
+![Use Case Diagram](US2005-UCD.svg "US2005 Use Case Diagram")
 
-## 5. Implementation
+### 1.6. Domain Model
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+![US1008](US1008_DM.svg "US1008 Domain Model")
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
+### 1.7. System Sequence Diagram (SSD)
 
-## 6. Integration/Demonstration
+![US2005_SSD](US2005-SSD.svg "US2005 SSD")
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
+### 1.8. Other Relevant Remarks
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
 
-## 7. Observations
+## 3. Design - User Story Realization
 
-*This section should be used to include any content that does not fit any of the previous sections.*
+### 3.1. Rationale
 
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutions or related works*
 
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+| Interaction ID | Question: Which class is responsible for...            | Answer                          | Justification (with patterns)                                                                                                    |
+|:---------------|:-------------------------------------------------------|:--------------------------------|:---------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?                        | ListExamsUI                     | UI pattern: ListExamsService is responsible for interacting with the actor                                                       |
+|                | ... coordinating the US?                               | ListStudentExamGradesController | Controller pattern: ListStudentExamGradesController is responsible for coordinating the use case and invoking necessary classes. |
+| Step 3         | ... Preparing the information about the student grades | ListExamsService                | Service: ListStudentExamGradesController is responsible for listing all the exam grades for the logged student                   |
+| Step 4         | ... Retrieves the information of the logged student    | AuthorizationService            | Service: AuthorizationService is responsible for retrieving the student logged in                                                |
+| Step 7         | ... return the exams                                   | ExamsRepository                 | repository: ExamsRepository returns the Exams in the database                                                                    |
+| Step 12        | ... return the grade of exams                          | GradeOfExamsRepository          | repository: GradeOfExamsRepository returns the GradeOfExams in the database                                                      |
+
+
+
+### Systematization ##
+
+software classes (i.e. Pure Fabrication) identified:
+
+* ListStudentExamGradesController
+* ListExamsService
+
+## 3.2. Sequence Diagram (SD)
+
+![US2005_SD](US2005-SD.svg)
+
+
+## 3.3. Class Diagram (CD)
+
+![US2005_CD](US2005-CD.svg)
+
+# 4. Tests
+
+/-
+
+# 5. Construction (Implementation)
+
+### ListExamGradesUI
+
+    public class ListExamsGradesUI extends AbstractListUI {
+    
+        private final ListStudentExamGradesController listStudentExamGradesController = new ListStudentExamGradesController();
+    
+    
+        @Override
+        public String headline() {
+            return "List Exams Grades";
+        }
+    
+        @Override
+        protected String emptyMessage() {
+            return "No Exams grades available yet.\n";
+        }
+    
+    
+        @Override
+        protected Iterable<GradeOfExam> elements() {
+            return listStudentExamGradesController.examGradesOfLoggedStudent();
+        }
+    
+        @Override
+        protected Visitor<GradeOfExam> elementPrinter() {
+            return new ExamGradePrinter();
+        }
+    
+        @Override
+        protected String elementName() {
+            return "Exam Grades";
+        }
+    
+        @Override
+        protected String listHeader() {
+            return String.format("#  %-30s%-20s%-20s%-20s", "Course", "Exam Name", "Grade", "Student Name");
+        }
+    }
+
+### ListExamGradesController
+
+    public class ListStudentExamGradesController {
+    
+        private final ListExamsService service = new ListExamsService();
+    
+        public Iterable<Exam> allExams() {
+    
+            return service.allExams();
+        }
+    
+        public Iterable<GradeOfExam> examGradesOfLoggedStudent() {
+            return service.examGradesOfLoggedStudent();
+        }
+    }
+
+### ListExamService
+
+    public class ListExamsService {
+    
+        private static final AuthorizationService authz = AuthzRegistry.authorizationService();
+    
+        public Iterable<Exam> allExams(){
+            return PersistenceContext.repositories().exams().findAll();
+        }
+    
+        public Iterable<GradeOfExam> allExamGrades(){
+            return PersistenceContext.repositories().gradesForExam().findAll();
+        }
+    
+        public List<GradeOfExam> examGradesOfLoggedStudent() {
+            List<GradeOfExam> loggedStudentExams = new ArrayList<>();
+            SystemUser loggedUser = authz.session().get().authenticatedUser();
+            for (GradeOfExam gradeOfExam : allExamGrades()) {
+                if (gradeOfExam.studentWhoDidExam().equals(loggedUser)) {
+                    loggedStudentExams.add(gradeOfExam);
+                }
+            }
+            return loggedStudentExams;
+        }
+
+    }
+
+# 6. Integration and Demo
+/-
+
+# 7. Observations
+/-
+
+
+
+
+
