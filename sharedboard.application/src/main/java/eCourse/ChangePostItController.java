@@ -5,6 +5,7 @@ import eCourse.domain.SharedBoard;
 import eCourse.domain.SharedBoardCell;
 import eCourse.domain.SharedBoardUser;
 import eCourse.domain.postit.PostIt;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.repositories.SharedBoardCellRepository;
 import eCourse.repositories.SharedBoardUserRepository;
@@ -16,6 +17,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Optional;
 
 public class ChangePostItController {
@@ -23,6 +25,7 @@ public class ChangePostItController {
     private ListSharedBoardService listSharedBoardService = new ListSharedBoardService();
     private SharedBoardUserRepository repoUser = PersistenceContext.repositories().sharedBoardUser();
     SharedBoardCellRepository repo = PersistenceContext.repositories().sharedBoardCells();
+    SharedBoardUserRepository repoUsers = PersistenceContext.repositories().sharedBoardUser();
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
     public Iterable<SharedBoard> allSharedBoards() throws IOException {
@@ -57,7 +60,8 @@ public class ChangePostItController {
     }
 
     public void changePost(SharedBoardCell theCell, String newContent) {
-
+        theCell.addPostIt(new PostIt(newContent), authenticatedUser(theCell.boardTitle()));
+        repo.save(theCell);
     }
 
     public void movePost(SharedBoardCell theCell, SharedBoardCell newCell) {
@@ -68,5 +72,12 @@ public class ChangePostItController {
     }
 
     public void showCellContent(SharedBoardCell theCell) {
+    }
+
+    private SharedBoardUser authenticatedUser(SharedBoardTitle shBoard){
+        authz.session().map(s -> s.authenticatedUser().identity());
+        Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
+        List<SharedBoardUser> sharedBoardUser = repoUsers.findListUser(shBoard, user.get().username());
+        return sharedBoardUser.get(0);
     }
 }

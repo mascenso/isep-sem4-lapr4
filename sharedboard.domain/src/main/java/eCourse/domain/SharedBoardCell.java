@@ -1,6 +1,7 @@
 package eCourse.domain;
 
 import eCourse.domain.postit.PostIt;
+import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
@@ -52,6 +53,10 @@ public class SharedBoardCell implements AggregateRoot<String> {
         this.postit = postIt;
         this.state = CellState.FILLED;
         this.owner = newOwner;
+    }
+
+    public SharedBoardTitle boardTitle() {
+        return sharedboard.boardTitle();
     }
 
     @Override
