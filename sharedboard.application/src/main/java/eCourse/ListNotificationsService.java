@@ -10,7 +10,9 @@ import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.stereotype.Component;
+import shareboardHttpServer.SBPClient;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +22,11 @@ public class ListNotificationsService {
 
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public Iterable<Notification> allNotifications(){
+    public Iterable<Notification> allNotifications() throws IOException {
+
+        //Make request
+        SBPClient.findAllNotification();
+        SBPClient.ReadDataOfMessage();
         return PersistenceContext.repositories().notifications().findAll();
     }
 

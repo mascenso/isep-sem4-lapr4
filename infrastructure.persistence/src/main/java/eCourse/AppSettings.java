@@ -44,6 +44,9 @@ public class AppSettings {
     private static final String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
     private static final String SCHEMA_GENERATION_KEY = "javax.persistence.schema-generation.database.action";
     private static final String ACRONYM_NUM_LETTERS = "acronymLetters";
+    private static final String MAX_ROWS_SHARED_BOARD = "MaxRowsSharedBoard";
+    private static final String MAX_COLUMNS_SHARED_BOARD = "MaxColumnsSharedBoard";
+
 
     private final Properties applicationProperties = new Properties();
 
@@ -74,6 +77,8 @@ public class AppSettings {
         this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli"
                 + ".base");
         this.applicationProperties.setProperty(ACRONYM_NUM_LETTERS, "3");
+        this.applicationProperties.setProperty(MAX_ROWS_SHARED_BOARD, "20");
+        this.applicationProperties.setProperty(MAX_COLUMNS_SHARED_BOARD, "10");
     }
 
     public Boolean isMenuLayoutHorizontal() {
@@ -89,8 +94,16 @@ public class AppSettings {
         return this.applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
     }
 
-    public Integer getHighCaloriesDishLimit() {
+    public Integer getMaxAcronymLetters() {
         return Integer.valueOf(this.applicationProperties.getProperty(ACRONYM_NUM_LETTERS));
+    }
+
+    public Integer getMaxRowsSharedBoard() {
+        return Integer.valueOf(this.applicationProperties.getProperty(MAX_ROWS_SHARED_BOARD));
+    }
+
+    public Integer getMaxColumnsSharedBoard() {
+        return Integer.valueOf(this.applicationProperties.getProperty(MAX_COLUMNS_SHARED_BOARD));
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

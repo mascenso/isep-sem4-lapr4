@@ -27,7 +27,9 @@ import eCourse.app.common.console.presentation.authz.MyUserMenu;
 import eCourse.Application;
 import eCourse.app.student.console.presentation.Courses.ListCoursesStudentUI;
 import eCourse.app.student.console.presentation.Courses.RequestEnrollmentCoursesStudentUI;
+import eCourse.app.student.console.presentation.Exams.ListExamsGradesUI;
 import eCourse.app.student.console.presentation.Exams.ListExamsUI;
+import eCourse.app.student.console.presentation.Exams.TakeAutomaticExamUI;
 import eCourse.app.student.console.presentation.Exams.TakeExamUI;
 import eCourse.app.student.console.presentation.meetings.ScheduleMeetingsUI;
 import eCourse.domain.ECourseRoles;
@@ -59,12 +61,11 @@ public class MainMenu extends AbstractUI {
     private static final int STUDENT_COURSES_OPTION = 2;
     private static final int STUDENT_EXAMS_OPTION= 3;
     private static final int STUDENT_MEETING_OPTION= 4;
-    private static final int SHAREDBOARD_OPTION=5;
-
-    private static final int TAKE_EXAM= 6;
+    private static final int TAKE_EXAM= 5;
 
 
-    private static final int VIEW_STUDENT_EXAMS_LIST_OPTION = 2;
+    private static final int VIEW_STUDENT_EXAMS_LIST_OPTION = 1;
+    private static final int VIEW_STUDENT_EXAMS_GRADES_LIST_OPTION = 2;
     private static final int SIGNUP_FOR_A_CURSE_OPTION = 2;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
@@ -75,6 +76,7 @@ public class MainMenu extends AbstractUI {
 
     //Take exam menu
     private static final int TAKE_EXAME = 1;
+    private static final int TAKE_AUTOMATIC_EXAME = 2;
     // Courses Menu
     private static final int COURSE_OPEN = 1;
 
@@ -149,6 +151,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildTakeExamMenu() {
         final Menu studentMenu = new Menu("TakeExam  >");
         studentMenu.addItem(TAKE_EXAME, "Take a Exam", new TakeExamUI()::show);
+        studentMenu.addItem(TAKE_AUTOMATIC_EXAME, "Take A AUTOMATIC Exam", new TakeAutomaticExamUI()::show);
         studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return studentMenu;
@@ -173,8 +176,8 @@ public class MainMenu extends AbstractUI {
 
     private Menu buildExamsMenu() {
         final Menu studentMenu = new Menu("Exams  >");
-
         studentMenu.addItem(VIEW_STUDENT_EXAMS_LIST_OPTION, "View my Exams", new ListExamsUI()::show);
+        studentMenu.addItem(VIEW_STUDENT_EXAMS_GRADES_LIST_OPTION, "View my Exams Grades", new ListExamsGradesUI()::show);
         studentMenu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);
 
         return studentMenu;

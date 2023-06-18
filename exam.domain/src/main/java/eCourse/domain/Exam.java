@@ -23,6 +23,16 @@ public class Exam implements AggregateRoot<ExamTitle> {
     @ManyToOne
     private Teacher teacher;
 
+    public Exam(ExamTitle examTitle, Course theCourse, Teacher theTeacher, File file) {
+        Preconditions.noneNull(examTitle, theCourse, file);
+        this.title =examTitle;
+        this.course = theCourse;
+        this.teacher = theTeacher;
+        this.file=file;
+        this.closeDate=new Date(0);
+        this.openDate=new Date(0);
+    }
+
     public Set<GradeOfExam> getExamGrades() {
         return examGrades;
     }
@@ -34,10 +44,10 @@ public class Exam implements AggregateRoot<ExamTitle> {
     @Column(nullable = false)
     private File file;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date openDate;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date closeDate;
 
     protected Exam(final ExamTitle examTitle ,final Course course, final Teacher teacher, final Date openDate, final Date endDate,  final File examFile ) {

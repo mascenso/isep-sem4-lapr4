@@ -30,5 +30,9 @@ public class ParticipantMeetingService {
         return  meetingListByUser;
     }
 
+    /*public Iterable<ParticipantsOfMeeting> getParticipants(){
+        Iterable<ParticipantsOfMeeting>
+    }*/
+
 
 }

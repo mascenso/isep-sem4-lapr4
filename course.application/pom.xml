@@ -60,6 +60,12 @@
             <version>0.1.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>isep.sem4.pi</groupId>
+            <artifactId>Enrollment.application</artifactId>
+            <version>0.1.0</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 </project>

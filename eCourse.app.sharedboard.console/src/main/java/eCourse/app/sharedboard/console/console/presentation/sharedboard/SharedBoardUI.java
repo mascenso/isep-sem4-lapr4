@@ -1,15 +1,16 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 
-import eCourse.domain.valueobjects.SBColumn;
+import eCourse.domain.SBColumn;
 import eCourse.CreateSharedBoardController;
-import eCourse.domain.valueobjects.SBRow;
+import eCourse.domain.SBRow;
 import eCourse.domain.SharedBoard;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +49,8 @@ public class SharedBoardUI extends AbstractUI {
             createSharedBoardController.addSharedBoard(title, numberOfColumns, numberOfRows, columns, rows);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("This title is already in use");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         return false;

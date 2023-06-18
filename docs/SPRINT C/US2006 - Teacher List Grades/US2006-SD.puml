@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor Teacher as Actor
+activate Actor
+participant TeacherListExamGradesUI as UI <<Presentation>>
+control ListTeacherExamGradesController as Controller <<Application>>
+participant ListExamsService as Service <<Application>>
+participant authorizationService as AuthService <<Application>>
+participant PersistenceContext as Persistence <<persistence>>
+database ExamsRepository as Repository <<Repository>>
+participant "theExam:Exam" as Exam <<Domain>>
+participant "theGradeOfExam:GradeOfExam" as GradeOfExam <<Domain>>
+participant elementPrinter as Printer <<Presentation>>
+
+Actor -> UI: Select the option \nto update Course state
+activate UI
+UI -> Controller: examGradesOfLoggedTeacher()
+activate Controller
+Controller -> Service: examGradesOfLoggedTeacher()
+activate Service
+Service -> AuthService: session.get().authenticatedUser()
+activate AuthService
+AuthService -> Service: loggedUser
+deactivate AuthService
+Service -> Persistence: findAll()
+activate Persistence
+Persistence -> Repository: findall()
+activate Repository
+Repository -> Persistence: Iterable<Exam>
+deactivate Repository
+Persistence -> Service: Iterable<Exam>
+deactivate Persistence
+    loop Iterable<GradeOfExam>
+        Service -> GradeOfExam: exam.getExamGrades().stream().filter(grade -> grade.studentWhoDidExam().equals(loggedUser)).findFirst().orElse(null);
+        activate GradeOfExam
+        GradeOfExam -> GradeOfExam: gradeOfExam.theExam().getTeacher().user().equals(loggedUser)
+        GradeOfExam -> Service: GradeOfExam
+        deactivate GradeOfExam
+        Service -> Service: add(GradeOfExam)
+    end
+Service -> Controller: loggedStudentExams
+deactivate Service
+Controller -> UI: loggedStudentExams
+deactivate Controller
+UI -> Printer: elementPrinter()
+activate Printer
+Printer -> UI: Prints each element
+deactivate Printer
+UI -> Actor: Shows the Grade of each exam of the Teacher
+deactivate UI
+
+
+@enduml

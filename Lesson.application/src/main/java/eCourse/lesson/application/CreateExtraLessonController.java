@@ -1,8 +1,10 @@
 package eCourse.lesson.application;
 
 import eCourse.domain.Course;
+import eCourse.domain.Student;
 import eCourse.domain.Teacher;
 import eCourse.infrastructure.persistence.PersistenceContext;
+import eCourse.lesson.domain.model.ExtraLesson;
 import eCourse.lesson.domain.model.RecurringLesson;
 import eCourse.lesson.domain.model.RecurringLessonBuilder;
 import eCourse.lesson.domain.repositories.RecurringLessonRepository;
@@ -31,61 +33,24 @@ import java.util.*;
 public class CreateExtraLessonController {
 
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
-    TeacherRepository teacherRepository = PersistenceContext.repositories().teachers();
-    CourseRepository courseRepository = PersistenceContext.repositories().courses();
-    private RecurringLessonRepository recurringLessonRepository;
-    private ListRecurringLessonsService service = new ListRecurringLessonsService();
+    private RecurringLessonRepository repository = PersistenceContext.repositories().recurringLessons();
+    private ListRecurringLessonsService listService = new ListRecurringLessonsService();
+    RecurringLessonService RLessonService = new RecurringLessonService();
 
     public Set<RecurringLesson> allRecurringLessons() {
-        return service.allRecurringLessonsId();
+        return listService.allRecurringLessonsId();
     }
 
-    public Teacher getCurrentTeacher() {
-        Username username = authz.session().get().authenticatedUser().username();
 
-        return authz.session()
-                .map(UserSession::authenticatedUser)
-                .flatMap(systemUser -> teacherRepository.findByUsername(username))
-                .orElse(null);
-    }
+    public void createExtraLesson(RecurringLesson theRecurringLesson, Set<Student> participantsInExtraClass, Calendar startDate, LocalTime startTime, int duration) {
 
-    public Iterable<Course> getTeacherCourses() {
-        Teacher teacher = getCurrentTeacher();
-        Iterable<Course> courses = courseRepository.findByTeacher(teacher);
-        if (!courses.iterator().hasNext()){
-            throw new IllegalStateException("No courses found for the teacher");
+        ExtraLesson extraLesson = new ExtraLesson(theRecurringLesson, startDate, startTime, duration);
+
+        if(RLessonService.validateRecurringLesson(extraLesson.responsibleTeacher(), extraLesson)) {
+            this.repository.save(extraLesson);
         }
-        return courses;
-    }
-
-    @Transactional
-    public void createRecurringLesson(final Course course, final Designation title, final Calendar startDate, final Calendar endDate, final LocalTime startTime, final int duration, final int frequency) {
-
-        Username username = authz.session().get().authenticatedUser().username();
-
-        RecurringLessonService service = new RecurringLessonService();
-
-        Teacher teacher = authz.session()
-                .map(UserSession::authenticatedUser)
-                .flatMap(systemUser -> teacherRepository.findByUsername(username))
-                .orElse(null);
-
-        List<Calendar> dayOfOccurrence = service.generateRecurringLessons(startDate, endDate, frequency);
-
-        for (Calendar calendar : dayOfOccurrence) {
-
-            LocalDate day = calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-            final var newRecurringLesson = new RecurringLessonBuilder().responsible(teacher).teachedAt(course).titled(title)
-                    .starting(startDate).ending(endDate).startingAt(startTime)
-                    .lasts(duration).ocurringAt(frequency).happensAt(day).build();
-
-            if(service.validateRecurringLesson(teacher, newRecurringLesson)) {
-                PersistenceContext.repositories().recurringLessons().save(newRecurringLesson);
-            } else {
-                throw new IllegalStateException("Invalid recurring lesson");
-            }
-            //return recurringLessonRepository.save(newRecurringLesson);
+        else {
+            throw new IllegalStateException("The recurring lesson is not valid");
         }
 
     }

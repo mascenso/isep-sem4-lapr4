@@ -40,14 +40,8 @@ public class Course implements AggregateRoot<Designation> {
     @ElementCollection(fetch = FetchType.EAGER)
     private final Set<TeachersInCourse> teachers = new HashSet<>();
 
-
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "Course_Student",
-            joinColumns = {@JoinColumn(name = "IDCOURSE")},
-            inverseJoinColumns = {@JoinColumn(name = "NUMBER")}
-    )
-    Set<Student> students = new HashSet<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private final Set<StudentsInCourse> students = new HashSet<>();
 
     protected Course (final Designation name, final Description description, final CourseEdition edition, SystemUser teacherCordinator){
         Preconditions.noneNull(name,description,edition);
@@ -71,14 +65,14 @@ public class Course implements AggregateRoot<Designation> {
 
     public CourseEdition edition (){return edition;}
 
-    public String cordinator (){return teacherCoordinator.name().toString();}
+    public String coordinator (){return teacherCoordinator.name().toString();}
 
-    /*public CourseState updateState(CourseState newState) {
+    public CourseState updateState(CourseState newState) {
         if (!this.state.equals(newState)) {
             this.state = newState;
         }
         return newState;
-    }*/
+    }
 
     @Override
     public boolean sameAs(Object other) {
@@ -128,12 +122,18 @@ public class Course implements AggregateRoot<Designation> {
         return DomainEntities.areEqual(this, o);
     }
 
-    public boolean addStudent(Student student) {
-        return this.students.add(student);
+    public boolean studentsEnrolled(Student student) {
+        return this.students.add(new StudentsInCourse(student));
     }
 
-    public boolean addAllStudent(List<Student> students) {
-        return this.students.addAll(students);
+    public Set<StudentsInCourse> students(){
+        return students;
+    }
+
+    public void addStudents (Set<Student> studentsOfCourse) {
+        for (Student student : studentsOfCourse) {
+            this.students.add(new StudentsInCourse(student));
+        }
     }
 
     /**

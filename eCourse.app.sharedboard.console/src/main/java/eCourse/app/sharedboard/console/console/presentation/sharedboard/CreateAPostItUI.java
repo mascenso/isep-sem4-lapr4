@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 
 public class CreateAPostItUI extends AbstractUI {
 
@@ -28,13 +29,25 @@ public class CreateAPostItUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
-
-        final Iterable<SharedBoard> boards = theController.allSharedBoards();
+        final Iterable<SharedBoard> boards;
+        try {
+            boards = theController.allSharedBoards();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (((Collection<?>) boards).size() == 0) {
+            System.out.println("You have no Boards to share!");
+            return false;
+        }
         final SelectWidget<SharedBoard> selectorBoard = new SelectWidget<>("Select a board", boards, new SystemBoardPrinter());
         selectorBoard.show();
         final SharedBoard theBoard = selectorBoard.selectedElement();
 
-        final String imageFilename = Console.readLine("Img filename:");
+        final String textContent = Console.readLine("Text Content (Optional):");
+        final String imageFilename = Console.readLine("Img filename (Optional):");
+
+        Integer x = Integer.parseInt(Console.readLine("X:"));
+        Integer y = Integer.parseInt(Console.readLine("Y:"));
 
         final InputStream inputStream = this.getClass()
                 .getClassLoader()
@@ -43,18 +56,21 @@ public class CreateAPostItUI extends AbstractUI {
         if (inputStream == null) {
             System.out.println("Could not load image " + imageFilename);
             // fallback to registration without image
-            //theController.register(name, description);
+            try {
+                theController.registerPostIt(theBoard, x, y, textContent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             try {
-                theController.registerPostIt(theBoard, "ksjdlak" , inputStream);
+                theController.registerPostIt(theBoard, x, y, textContent , inputStream);
                 System.out.println("PostIt created successfully");
 
                 //System.out.println(postIt.toString());
 
             } catch (final IntegrityViolationException | ConcurrencyException e) {
                 System.out.println("That postIt already exists");
-                // ignoring exception. assuming it is just a primary key violation
-                // due to the tentative of inserting a duplicated entry
+
             } catch (final IOException e) {
                 System.out.println("There was a problem loading the image file");
             }
@@ -64,10 +80,8 @@ public class CreateAPostItUI extends AbstractUI {
     }
 
 
-
-
     @Override
     public String headline() {
-        return "Create new course";
+        return "Create new post-It";
     }
 }

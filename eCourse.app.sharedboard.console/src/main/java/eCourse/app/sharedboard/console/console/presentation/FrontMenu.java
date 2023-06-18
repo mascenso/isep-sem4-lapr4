@@ -32,6 +32,8 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
+import java.io.IOException;
+
 /**
  * @author Paulo Gandra Sousa
  */
@@ -54,7 +56,11 @@ public class FrontMenu extends AbstractUI {
         final Menu menu = new Menu();
         menu.addItem(LOGIN_OPTION, "Login", new ChainedAction(new LoginUI(
                 )::show, () -> {
-            new MainMenu().mainLoop();
+            try {
+                new MainMenu().mainLoop();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return true;
         }));
         //TODO: instead of leaving the app, return to the main menu again

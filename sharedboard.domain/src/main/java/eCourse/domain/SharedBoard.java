@@ -2,22 +2,19 @@ package eCourse.domain;
 
 import eCourse.domain.enums.AccessType;
 import eCourse.domain.postit.PostIt;
-import eCourse.domain.valueobjects.SBColumn;
-import eCourse.domain.valueobjects.SBRow;
 import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
+public class SharedBoard extends Thread implements AggregateRoot<SharedBoardTitle> {
 
     @EmbeddedId
-    @Column(name="title")
+    @Column(name = "title")
     private SharedBoardTitle title;
 
     @Column
@@ -25,7 +22,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @Column
     private int numberColumns;
 
-    @OneToMany(mappedBy="sharedboard", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sharedboard", cascade = CascadeType.ALL)
     private List<SharedBoardCell> matrixCells = new ArrayList<>();
 
     @ElementCollection
@@ -44,17 +41,15 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     @OneToMany
     private List<SharedBoardUser> usersList = new ArrayList<>();
 
+    @Transient
+    private final Object mutex = new Object(); // For synchronization
+
 
     public SharedBoard(final SharedBoardTitle title, int numberColumns, int numberRows, boolean archive, final SystemUser owner, List<SBColumn> columns, List<SBRow> rows) {
-        if (title == null) {
-            throw new IllegalArgumentException();
-        }
-        if ((numberColumns < 1) || (numberColumns > 10)) {
-            throw new IllegalArgumentException("SBColumn value must be between 1 and 10");
-        }
-        if ((numberRows < 1) || (numberRows > 20)) {
-            throw new IllegalArgumentException("SBRow value must be between 1 and 20");
-        }
+
+        shValidate(numberColumns, numberRows, title);
+        arrangeHeaderIndexes(columns, rows);
+
         this.title = title;
         this.numberColumns = numberColumns;
         this.numberRows = numberRows;
@@ -89,6 +84,31 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
     protected SharedBoard() {
     }
 
+    private void arrangeHeaderIndexes(List<SBColumn> columns, List<SBRow> rows) {
+        int i = 0;
+        for (SBColumn column : columns) {
+            column.setIndex(i);
+            i++;
+        }
+        i = 0;
+        for (SBRow row : rows) {
+            row.setIndex(i);
+            i++;
+        }
+    }
+
+    private void shValidate(int numberColumns, int numberRows, SharedBoardTitle title) {
+        if (title == null) {
+            throw new IllegalArgumentException();
+        }
+        if ((numberColumns < 1) || (numberColumns > 10)) {
+            throw new IllegalArgumentException("SBColumn value must be between 1 and 10");
+        }
+        if ((numberRows < 1) || (numberRows > 20)) {
+            throw new IllegalArgumentException("SBRow value must be between 1 and 20");
+        }
+    }
+
 
     public SharedBoardTitle title() {
         return title;
@@ -106,7 +126,7 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return colunas;
     }
 
-    public synchronized void changeColumns(List<SBColumn> colunas) {
+    public void changeColumns(List<SBColumn> colunas) {
         this.colunas = colunas;
     }
 
@@ -114,12 +134,17 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return linhas;
     }
 
-    public synchronized void changeRows(List<SBRow> linhas) {
+    public void changeRows(List<SBRow> linhas) {
         this.linhas = linhas;
     }
 
-    public void updateArchive(boolean archive) {
-        this.archive = archive;
+    public boolean updateArchive(boolean archive, SystemUser user) {
+        boolean auth = false;
+        if (user.sameAs(owner) && !this.archive) {
+            this.archive = archive;
+            auth = true;
+        }
+        return auth;
     }
 
     @Override
@@ -154,15 +179,15 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
         return numberRows;
     }
 
-    public synchronized void changeNumberOfRows(int numberRows) {
+    public void changeNumberOfRows(int numberRows) {
         this.numberRows = numberRows;
     }
 
-    public synchronized void changeNumberOfColumns(int numberColumns) {
+    public void changeNumberOfColumns(int numberColumns) {
         this.numberColumns = numberColumns;
     }
 
-    public synchronized SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
+    public SharedBoardUser createShareBoardUsers(SystemUser user, SharedBoardTitle boardID, AccessType access) {
         SharedBoardUser boardUser = new SharedBoardUser(user, boardID, access);
         this.usersList.add(boardUser);
         return boardUser;
@@ -170,9 +195,17 @@ public class SharedBoard implements AggregateRoot<SharedBoardTitle> {
 
     public PostIt addPostItToCell(PostIt postIt, int row, int column) {
 
-        this.matrixCells.get(row * this.numberColumns + column).addPostIt(postIt);
-
-        return postIt;
+        if (row < 0 || row >= numberRows || column < 0 || column >= numberColumns) {
+            throw new IllegalArgumentException("Invalid cell");
+        } else {
+            SharedBoardCell cell = matrixCells.get(row * numberColumns + column);
+            cell.addPostIt(postIt);
+            return postIt;
+        }
     }
 
 }
+
+
+
+

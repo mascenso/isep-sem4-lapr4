@@ -21,13 +21,13 @@ public class ListExamsCourseUI extends AbstractUI {
     }
 
     protected String listHeader() {
-        return String.format("#  %-30s%-20s%-20s%-20s%-20s", "Title", "NumberColumns", "NumberRows", "Owner", "Archive");
+        return String.format("#  %-30s%-20s%-20s%-30s%-20s", "Course", "Title", "Teacher", "Open Date", "Close Date");
     }
 
     @Override
     public boolean doShow() {
 
-        final Iterable<Course> allCoursesOpen = theController.allCoursesOpen();
+        final Iterable<Course> allCoursesOpen = theController.allCoursesInProgress();
 
         if (!allCoursesOpen.iterator().hasNext()) {
             System.out.println("There are no registered Courses");

@@ -67,4 +67,11 @@ public class ListMeetingsService {
 
         return  meetingListByUser;
     }
+
+    public Iterable<ParticipantsOfMeeting> getParticipantsOfMeeting(Meeting meeting) {
+        Iterable<ParticipantsOfMeeting> participantsOfMeetingsIterable = PersistenceContext.repositories().meetingResquests().findByMeeting(meeting);
+        List<ParticipantsOfMeeting> participantsOfMeetingsList = IteratorUtils.toList(participantsOfMeetingsIterable.iterator());
+
+        return participantsOfMeetingsList;
+    }
 }
