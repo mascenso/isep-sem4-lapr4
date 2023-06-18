@@ -1,26 +1,98 @@
 @startuml
 
 class ListExamsUI {
-    doShow()
+    +headline()
+    +emptyMessage()
+    +elements()
+    +elementPrinter()
+    +elementName()
+    +listHeader()
 }
 
-class ListExamsController {
-    getOpenExams()
+class ListStudentExamsController {
+    +examOfLoggedStudent()
+    +loggedStudent()
 }
 
 class ListExamsService {
-    getOpenCourses()
+    +allExams()
+    +examOfLoggedStudent(Student student)
+    +getExamByCourse(Course course)
+}
+
+class AuthorizationService {
+    +session()
 }
 
 class ExamRepository {
 }
 
-class Exam {
+class StudentUserRepository {
+    +findByUsername()
 }
 
-ListExamsUI --> ListExamsController
-ListExamsController --> ListExamsService
-ListExamsService --> ExamRepository
-ListExamsController --> Exam
+class SystemUser {
+    +authenticatedUser()
+}
+
+class Username {
+    +username()
+}
+
+class PersistenceContext {
+    +repositories()
+}
+
+class ExamRepository {
+    +create()
+    +findAll()
+}
+
+class CourseRepository {
+    +findAll()
+}
+
+class Student {
+    +user()
+    +mecanographicNumber()
+    +identity()
+    +taxPayNumber()
+    +birthdate()
+}
+
+class Course {
+    +getActualState()
+}
+
+class CourseEnrollmentRequestService {
+    +getStudentEnrollment(student, course)
+}
+
+class CourseEnrollmentRequestRepository {
+    +findByStudentAndCourse(user, course)
+}
+
+class CourseEnrollmentRequest {
+    +courseEnrollmentStatus()
+}
+
+
+ListExamsUI --> ListStudentExamsController
+ListStudentExamsController --> ListExamsService
+ListStudentExamsController --> AuthorizationService
+AuthorizationService --> SystemUser
+SystemUser --> Username
+Username --> PersistenceContext
+PersistenceContext --> repositories
+repositories --> ExamRepository
+repositories --> StudentUserRepository
+ListStudentExamsController --> Student
+ListExamsService --> PersistenceContext
+repositories --> CourseRepository
+ListStudentExamsController --> Course
+ListStudentExamsController --> CourseEnrollmentRequestService
+CourseEnrollmentRequestService --> PersistenceContext
+repositories --> CourseEnrollmentRequestRepository
+ListStudentExamsController --> CourseEnrollmentRequest
 
 @enduml
