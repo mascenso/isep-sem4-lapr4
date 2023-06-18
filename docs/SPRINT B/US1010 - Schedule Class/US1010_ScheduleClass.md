@@ -122,12 +122,15 @@ The user needs to be logged in the application as a teacher.
 **SSD - Alternative 1 is adopted.**
 
 
-| Interaction ID | Question: Which class is responsible for... | Answer                    | Justification (with patterns)                                                                                                                        |
-|:---------------|:--------------------------------------------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| Step 1         | ... interacting with the actor?             | CreateRecurringLessonUI   | UI pattern: CreateRecurringLessonUI is responsible for interacting with the actor                     |
-|                | ... coordinating the US?                    | RecurringLessonController | Controller pattern: RecurringLessonController is responsible for coordinating the use case and invoking necessary classes.                           |
-| Step 2         | .. return list of courses                   | RecurringLessonRepository | Repository pattern: RecurringLessonRepository is responsible for saving the recurring lesson in the database.                                        |
-| Step 3         | .. propagates the lesson and validates      | ScheduleLessonService     | Service: ScheduleRecurringLesson is responsible propagating the lesson for a certain frequency and validates the teacher availability for the lesson |
+| Interaction ID | Question: Which class is responsible for... | Answer                          | Justification (with patterns)                                                                                                                       |
+|:---------------|:--------------------------------------------|:--------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?             | CreateRecurringLessonUI         | UI pattern: CreateRecurringLessonUI is responsible for interacting with the actor                                                                   |
+|                | ... coordinating the US?                    | CreateRecurringLessonController | Controller pattern: CreateRecurringLessonController is responsible for coordinating the use case and invoking necessary classes.                    |
+| step 9         | ... getting the logged teacher              | AuthorizationService            | Service: AuthorizationService is responsible for retrieving the logged teacher object.                                                              |
+| Step 13        | .. return the courses of the teacher        | CourseRepository                | Repository pattern: CourseRepository is responsible for saving the courses in the database.                                                         |
+| Step 15        | .. propagates the lesson and validates      | RecurringLessonService          | Service: RecurringLessonService is responsible propagating the lesson for a certain frequency and validates the teacher availability for the lesson |
+| Step 17        | .. builds the Recurring Lesson              | RecurringLessonBuilder          | Builder pattern: RecurringLessonBuilder is responsible for building the RecurringLesson Object                                                      |
+| Step 27        | .. saves the RecurringLesson                | RecurringLessonRepository       | Repository pattern: RecurringLessonRepository is responsible for saving the RecurringLesson in the database.                                        |
 
 
 ### Systematization ##
