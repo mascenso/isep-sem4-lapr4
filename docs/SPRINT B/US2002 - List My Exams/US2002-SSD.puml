@@ -1,0 +1,16 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Student
+activate Student
+
+Student -> System: Selects the option "Exams"
+System --> Student: Shows the possible options for Exams
+Student -> System: Request to view his Exams for the \ncourses he is enrolled
+System --> Student: Shows the list with all the student Exams
+
+deactivate Student
+
+@enduml

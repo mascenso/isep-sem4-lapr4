@@ -4,8 +4,9 @@
 
 actor Student
     Student -down-> (Authenticates to the system)
-    (Authenticates to the system) --> (Select the option to View Exams)
-    (Select the option to View Exams) --> (The Exams for the courses he is enrolled are shown)
+    (Authenticates to the system) --> (Select the option Exams)
+    (Select the option Exams) --> (Selects the option to view His exams)
+    (Selects the option to view His exams) --> (The Exams for the courses he is enrolled are shown)
 
 
 @enduml
