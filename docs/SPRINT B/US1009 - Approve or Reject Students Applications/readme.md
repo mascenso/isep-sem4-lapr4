@@ -17,6 +17,22 @@ The manager has access to all courses and respective enrollments requests.
 
 - Approve/Reject Enlistment in Course A manager approves or rejects a students’ application to a course.
 
+### System Specification
+"Managers (they can be also named as Administrators) manage all the users of the system as well as courses and students enrollment"
+"Courses may have a minimum and a maximum number of enrolled students"
+"Only managers are able to execute this functionality."
+"The Admin app is used by managers to manage courses, users and enrollment of students."
+
+### Client Specification
+*  Question: "The US1009 tells us that a manager can either approve or reject enrollmetnts requests. These enrollments are made during a time where the course is in a enroll state.
+However, if a manager decides to close the enrollments (change its state to in_progress) what happens to the enrollments requests?
+Can the manager still approve/reject them? Would they, for example, be automatically rejected."
+   Answer: "Por favor siga o processo que indiquei em https://moodle.isep.ipp.pt/mod/forum/discuss.php?d=22571#p28540 antes de colocar a questão."
+
+*  Question: "We would like to know what are the requirements for a student to be accepted or rejected from an application  to a course."
+   Answer: " think that decision can not be automatically taken by the system, it is a decision of the manager. The responsibility is of the manager according to course rules that ar out of the scope of this implementation. I think the system should only register the reason for the decision."
+
+
 ## 3. Analysis
 
 *In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
@@ -89,7 +105,7 @@ layer between the domain code and the data storage.
 ### 4.4. Tests
 
 **Test 1:** * Verifies that it is not possible to approve or reject an enrollment without a course.
-**Test 2:** * Verifies that it is not possible to approve or reject an enrollment without a student application.
+**Test 2:** * Verifies that it is not possible to approve or reject an enrollment without a student.
 
 ```
     

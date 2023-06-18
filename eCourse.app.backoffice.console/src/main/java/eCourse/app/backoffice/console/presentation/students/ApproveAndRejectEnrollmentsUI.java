@@ -2,14 +2,9 @@ package eCourse.app.backoffice.console.presentation.students;
 
 import eCourse.application.CourseEnrollmentRequestService;
 import eCourse.course.application.ApproveAndRejectEnrollmentsController;
-import eCourse.course.application.ListCoursesService;
 import eCourse.domain.Course;
-import eCourse.domain.EnrollmentStatus;
-import eCourse.domain.SharedBoard;
 import eCourse.domain.Student;
-import eCourse.domain.enums.AccessType;
 import eapli.framework.general.domain.model.Designation;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
@@ -19,14 +14,12 @@ public class ApproveAndRejectEnrollmentsUI extends AbstractUI {
 
     private ApproveAndRejectEnrollmentsController theController = new ApproveAndRejectEnrollmentsController();
 
-    private ListCoursesService service = new ListCoursesService();
-
     private CourseEnrollmentRequestService enrollService = new CourseEnrollmentRequestService();
 
     @Override
     protected boolean doShow() {
 
-        List<Course> enrollCourses = service.getEnrollmentCourses();
+        List<Course> enrollCourses = theController.getEnrollmentCourses();
 
         if (enrollCourses.size() != 0) {
             final Map<Integer, Designation> courseMap = new HashMap<>();
