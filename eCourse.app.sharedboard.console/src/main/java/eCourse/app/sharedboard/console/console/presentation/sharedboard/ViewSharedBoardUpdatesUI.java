@@ -7,6 +7,7 @@ import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.io.IOException;
 import java.util.*;
 
 public class ViewSharedBoardUpdatesUI extends AbstractUI {
@@ -17,7 +18,12 @@ public class ViewSharedBoardUpdatesUI extends AbstractUI {
     protected boolean doShow() {
 
         Map<SharedBoardTitle, AccessType> map = new HashMap<>();
-        Set<SharedBoard> myBoards = theController.listOfAllUserBoards(map);
+        Set<SharedBoard> myBoards = null;
+        try {
+            myBoards = theController.listOfAllUserBoards(map);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         if (((Collection<?>) myBoards).size() == 0) {
             System.out.println("You have no Boards!");

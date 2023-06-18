@@ -29,7 +29,12 @@ public class CreateAPostItUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
-        final Iterable<SharedBoard> boards = theController.allSharedBoards();
+        final Iterable<SharedBoard> boards;
+        try {
+            boards = theController.allSharedBoards();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         if (((Collection<?>) boards).size() == 0) {
             System.out.println("You have no Boards to share!");
             return false;
@@ -51,7 +56,11 @@ public class CreateAPostItUI extends AbstractUI {
         if (inputStream == null) {
             System.out.println("Could not load image " + imageFilename);
             // fallback to registration without image
-            theController.registerPostIt(theBoard, x, y, textContent);
+            try {
+                theController.registerPostIt(theBoard, x, y, textContent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             try {
                 theController.registerPostIt(theBoard, x, y, textContent , inputStream);

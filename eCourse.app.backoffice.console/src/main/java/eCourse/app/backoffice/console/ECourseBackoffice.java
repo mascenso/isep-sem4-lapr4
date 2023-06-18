@@ -36,11 +36,9 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 
+import java.io.IOException;
 
-/**
- *
- * @author Paulo Gandra Sousa
- */
+
 @SuppressWarnings("squid:S106")
 public final class ECourseBackoffice extends BaseApplication {
 
@@ -53,8 +51,7 @@ public final class ECourseBackoffice extends BaseApplication {
 	/**
 	 * @param args the command line arguments
 	 */
-	public static void main(final String[] args) {
-
+	public static void main(final String[] args) throws IOException {
 		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
 				new PlainTextEncoder());
 

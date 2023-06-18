@@ -15,7 +15,9 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.stereotype.Component;
+import shareboardHttpServer.SBPClient;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +33,7 @@ public class CreateSharedBoardController {
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
 
-    public void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<SBColumn> columnNames, List<SBRow> rowNames) throws IntegrityViolationException, ConcurrencyException {
+    public void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<SBColumn> columnNames, List<SBRow> rowNames) throws IntegrityViolationException, ConcurrencyException, IOException {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER, ECourseRoles.PROJECT_MANAGER, ECourseRoles.TEACHER, ECourseRoles.STUDENT, ECourseRoles.POWER_USER);
 
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
@@ -44,7 +46,13 @@ public class CreateSharedBoardController {
                 .withColumns(columnNames)
                 .withRows(rowNames)
                 .build();
+
+        //request to tcp server
+        SBPClient.saveBoard(createdSharedBoard);
+        SBPClient.ReadDataOfMessage();
         PersistenceContext.repositories().sharedBoards().save(createdSharedBoard);
+
+
     }
 
 }
