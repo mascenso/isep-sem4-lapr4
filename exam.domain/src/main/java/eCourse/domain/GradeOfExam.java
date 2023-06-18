@@ -61,6 +61,8 @@ public class GradeOfExam implements AggregateRoot<Long> {
 
     public Exam theExam() { return exam;}
 
+    public AutomaticExame theAutomaticExam() { return automaticExame;}
+
 
 
 }
