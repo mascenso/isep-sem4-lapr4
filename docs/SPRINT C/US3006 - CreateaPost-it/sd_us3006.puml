@@ -1,0 +1,105 @@
+@startuml
+participant Actor
+
+participant CreateAPostItUI
+participant CreatePostItController
+participant ListSharedBoardService
+participant PersistenceContext
+participant Application
+participant RepositoryFactory
+participant SharedBoardRepository
+participant SharedBoard
+participant SharedBoardCell
+participant PostIt
+participant PostItService
+participant SharedBoardCellRepository
+database "DB" as DB
+
+Actor -> CreateAPostItUI : Starts to create a new post-it
+activate CreateAPostItUI
+
+
+
+CreateAPostItUI -> CreatePostItController : listBoardsByUser
+activate CreatePostItController
+CreatePostItController -> ListSharedBoardService : listBoardsByUser
+activate ListSharedBoardService
+ListSharedBoardService -> ListSharedBoardService : s ->
+activate ListSharedBoardService
+ListSharedBoardService --> ListSharedBoardService
+deactivate ListSharedBoardService
+ListSharedBoardService -> PersistenceContext : repositories
+activate PersistenceContext
+PersistenceContext -> Application : settings
+activate Application
+Application --> PersistenceContext
+deactivate Application
+PersistenceContext --> ListSharedBoardService
+deactivate PersistenceContext
+ListSharedBoardService -> RepositoryFactory : sharedBoards
+activate RepositoryFactory
+RepositoryFactory --> ListSharedBoardService
+deactivate RepositoryFactory
+ListSharedBoardService -> SharedBoardRepository : findByUsername
+activate SharedBoardRepository
+SharedBoardRepository --> ListSharedBoardService
+deactivate SharedBoardRepository
+ListSharedBoardService --> CreatePostItController : User's Boards List
+deactivate ListSharedBoardService
+CreatePostItController --> CreateAPostItUI : Board's List
+CreateAPostItUI -> Actor : Shows Board's List and asks for a board
+
+deactivate CreatePostItController
+
+deactivate CreateAPostItUI
+Actor -> CreateAPostItUI : Chooses a board
+activate CreateAPostItUI
+
+CreateAPostItUI -> CreatePostItController : listFreeCells(boardTitle)
+activate CreatePostItController
+CreatePostItController -> ListSharedBoardService : listFreeCells(boardTitle)
+activate ListSharedBoardService
+
+deactivate SharedBoard
+ListSharedBoardService -> SharedBoardCellRepository : findFreeCells(boardTitle)
+activate SharedBoardCellRepository
+SharedBoardCellRepository --> ListSharedBoardService
+deactivate SharedBoardCellRepository
+ListSharedBoardService --> CreatePostItController : User's free cells List
+deactivate ListSharedBoardService
+CreatePostItController --> CreateAPostItUI : User's free cells List
+CreateAPostItUI -> Actor : Shows free cells and asks to choose 1
+deactivate CreatePostItController
+
+deactivate CreateAPostItUI
+Actor -> CreateAPostItUI : Chooses a free cell
+activate CreateAPostItUI
+
+CreateAPostItUI -> Actor : Asks for post-it's content
+Actor -> CreateAPostItUI : types  requested  data
+
+CreateAPostItUI -> CreatePostItController  : registerPostIt(content,boardCell)
+
+    activate CreatePostItController
+        CreatePostItController ->PostItService :registerPostIt(content,boardCell)
+           activate PostItService
+           create PostIt
+           PostItService -> PostIt : new
+           PostItService -> SharedBoardCellRepository : save(boardCell)
+           activate SharedBoardCellRepository
+                        SharedBoardCellRepository -> DB
+                        activate DB
+
+                          DB --> SharedBoardCellRepository
+                        deactivate DB
+                             SharedBoardCellRepository --> PostItService
+                deactivate SharedBoardCellRepository
+                 PostItService -->  CreatePostItController
+           deactivate PostItService
+           CreatePostItController --> CreateAPostItUI
+    deactivate CreatePostItController
+CreateAPostItUI --> Actor : informs operation success
+deactivate CreateAPostItUI
+
+return
+@enduml

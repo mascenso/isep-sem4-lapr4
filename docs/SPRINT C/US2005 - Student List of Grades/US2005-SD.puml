@@ -6,14 +6,16 @@ autonumber
 actor Student as Actor
 activate Actor
 participant ListExamsUI as UI <<Presentation>>
-control ListStudentExamGradesController as Controller <<Application>>
-participant ListExamsService as Service <<Application>>
-participant authorizationService as AuthService <<Application>>
+control ListStudentExamGradesController as Controller <<application>>
+participant ListExamsService as Service <<application>>
+participant authorizationService as AuthService <<application>>
 participant PersistenceContext as Persistence <<persistence>>
-database ExamsRepository as Repository <<Repository>>
-participant "theExam:Exam" as Exam <<Domain>>
-participant "theGradeOfExam:GradeOfExam" as GradeOfExam <<Domain>>
-participant elementPrinter as Printer <<Presentation>>
+participant Factory as Factory <<factory>>
+database ExamsRepository as Repository <<repository>>
+database GradeOfExamRepository as gradeOfExamRepository <<repository>>
+participant "theExam:Exam" as Exam <<domain>>
+participant "theGradeOfExam:GradeOfExam" as GradeOfExam <<domain>>
+participant elementPrinter as Printer <<presentation>>
 
 Actor -> UI: Select the option \nto update Course state
 activate UI
@@ -34,6 +36,18 @@ deactivate Repository
 Persistence -> Service: Iterable<Exam>
 deactivate Persistence
     loop Iterable<GradeOfExam>
+        Service -> Persistence: findAll()
+        activate Persistence
+        Persistence -> Factory: repositories()
+        activate Factory
+        Factory -> gradeOfExamRepository: findAll()
+        activate gradeOfExamRepository
+        gradeOfExamRepository -> Factory: Iterable<GradeOfExam>
+        deactivate gradeOfExamRepository
+        Factory -> Persistence: Iterable<GradeOfExam>
+        deactivate Factory
+        Persistence -> Service: Iterable<GradeOfExam>
+        deactivate Persistence
         Service -> GradeOfExam: gradeOfExam.studentWhoDidExam().equals(loggedUser)
         activate GradeOfExam
         GradeOfExam -> GradeOfExam: grade.studentWhoDidExam().equals(loggedUser)

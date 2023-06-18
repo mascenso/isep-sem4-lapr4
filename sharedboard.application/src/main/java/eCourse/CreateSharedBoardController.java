@@ -3,7 +3,6 @@ package eCourse;
 import eCourse.domain.*;
 import eCourse.domain.SBColumn;
 import eCourse.domain.SBRow;
-import eCourse.domain.enums.AccessType;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.persistence.RepositoryFactory;
 import eCourse.domain.ECourseRoles;

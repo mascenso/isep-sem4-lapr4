@@ -32,7 +32,6 @@ import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.ExitWithMessageAction;
 import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;

@@ -1,4 +1,7 @@
 @startuml
+
+autonumber
+
 actor Student as Actor
 participant ListExamsUI as UI <<presentation>>
 participant ListExamsController as Controller <<aplication>>
@@ -9,6 +12,8 @@ participant PersistenceContext as Persistence <<persistence>>
 participant RepositoryFactory as Factory <<factory>>
 database StudentRepository as studentRepository <<repository>>
 database ExamsRepository as Repository <<repository>>
+database CourseRepository as courseRepository <<repository>>
+database CourseEnrollmentRequestRepository as CERRepository <<repository>>
 participant "theCourse:Course" as Course <<Domain>>
 
 Actor -> UI: elements()
@@ -29,10 +34,10 @@ Service -> Persistence: Repositories()
 activate Persistence
 Persistence -> Factory: Courses()
 activate Factory
-Factory -> Repository: findAll()
-activate Repository
-Repository -> Factory: Iterable<Course> enrolledCourses
-deactivate Repository
+Factory -> courseRepository: findAll()
+activate courseRepository
+courseRepository -> Factory: Iterable<Course> enrolledCourses
+deactivate courseRepository
 Factory -> Persistence: Iterable<Course> enrolledCourses
 deactivate Factory
 Persistence -> Service: Iterable<Course> enrolledCourses
@@ -43,8 +48,12 @@ deactivate Persistence
         activate CERService
         CERService -> Persistence: repositories()
         activate Persistence
-        Persistence -> Factory: indByStudentAndCourse(user, course)
+        Persistence -> Factory: findByStudentAndCourse(user, course)
         activate Factory
+        Factory -> CERRepository: findByStudentAndCourse(user, course)
+        activate CERRepository
+        CERRepository -> Factory: CourseEnrollmentRequest
+        deactivate CERRepository
         Factory -> Persistence: CourseEnrollmentRequest
         deactivate Factory
         Persistence -> CERService: CourseEnrollmentRequest
@@ -57,6 +66,10 @@ deactivate Persistence
         activate Persistence
         Persistence -> Factory: findAll()
         activate Factory
+        Factory -> ExamsRepository: findAll()
+        activate ExamsRepository
+        ExamsRepository -> Factory: exams
+        deactivate ExamsRepository
         Factory -> Persistence: exams
         deactivate Factory
         Persistence -> Service: exams

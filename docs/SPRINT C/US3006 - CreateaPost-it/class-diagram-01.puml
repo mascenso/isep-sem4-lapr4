@@ -1,13 +1,30 @@
 @startuml
 
-class A {
+class CreatePostItUI <<presentation>>
+class CreatePostItController <<application>>
+class PostIt <<domain-valueobject>>
+class SharedBoardCell <<domain>>
+class SharedBoardCellRepository <<repository>>
+class SharedBoardCellService <<service>>
 
-}
+CreatePostItUI --> CreatePostItController : theController
 
-class B {
+CreatePostItController ..> SharedBoardCellService : use
 
-}
+SharedBoardCellService ..> SharedBoardCellRepository : use
 
-A -> B
+SharedBoardCellService -> PostIt : create
+SharedBoardCellRepository -> SharedBoardCell : save
+
+'function:
+CreatePostItController : getsCellsAvailable(shareBoard)
+SharedBoardCell : addPostIt(postit)
+CreatePostItController : registerPostIt(title,description,shareBoard,row,column)
+SharedBoardCellService : getCellAvailableByShareBoard(shareBoard)
+SharedBoardCellService : getBoardColumns(shareBoard)
+SharedBoardCellRepository : findPostItByShareBoard(shareBoard)
+SharedBoardCellService : registerPostIt(title,description,shareBoard,row,column)
+SharedBoardCellRepository : save(postit)
+
 
 @enduml

@@ -1,6 +1,5 @@
 package eCourse;
 
-import eCourse.domain.Meeting;
 import eCourse.domain.Notification;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.ApplicationService;
