@@ -3,8 +3,8 @@ package eCourse.exam.application;
 import eCourse.course.application.ListCoursesService;
 import eCourse.domain.*;
 import eCourse.infrastructure.persistence.PersistenceContext;
+import eCourse.repositories.AutomaticExamRepository;
 import eCourse.repositories.CourseRepository;
-import eCourse.repositories.ExamRepository;
 import eCourse.repositories.TeacherRepository;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
-import java.util.Date;
 import java.util.List;
 
 @UseCaseController
@@ -26,7 +25,7 @@ public class CreateAutomaticExamController {
     private ListCoursesService courseService = new ListCoursesService();
 
     @Autowired
-    private ExamRepository examRepository;
+    private AutomaticExamRepository examRepository;
 
     @Autowired
     private CourseRepository courseRepository;
@@ -47,11 +46,11 @@ public class CreateAutomaticExamController {
 
 
     @Transactional
-    public Exam createExam(final Course course, final Teacher teacher, final String title, final File file) {
+    public AutomaticExame createExam(final Course course, final Teacher teacher, final String title, final File file) {
 
         ExamTitle examTitle=ExamTitle.valueOf(title);
-        final Exam newExam = new ExamBuilder().theCourse(course).theTeacher(teacher).theExamTitle(examTitle).theFile(file).build();
-        return PersistenceContext.repositories().exams().save(newExam);
+        final AutomaticExame automaticExame = new AutomaticExame(examTitle,course,teacher,file);
+        return PersistenceContext.repositories().automaticExams().save(automaticExame);
     }
 
     public List<Course> getOpenCourses() {

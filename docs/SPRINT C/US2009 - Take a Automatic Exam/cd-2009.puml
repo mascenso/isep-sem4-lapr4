@@ -14,7 +14,7 @@ class TakeAutomaticExamController {
     isAValidTrueOrFalseAnswer()
 }
 
-class ExamRepository {
+class AutomaticExamRepository {
     ExamByCourse()
     save()
 }
@@ -27,7 +27,7 @@ class GradesRepository{
     save()
 }
 
-class ListExamService {
+class ListAutomaticExamService {
     examByCourse()
 }
 
@@ -47,10 +47,10 @@ class validateExamService{
 TakeAutomaticExamUI : doShow()
 TakeAutomaticExamUI -down-> TakeAutomaticExamController: uses the controller
 
-ListExamService --> ExamRepository: use to get exam
+ListAutomaticExamService --> AutomaticExamRepository: use to get exam
 ListCourseService --> CoursesRepository: use to get Courses of student
 TakeAutomaticExamController --> validateExamService: use to validate the exam
 TakeAutomaticExamController --> ListCourseService: use to get all the course\n that student are enroll
-TakeAutomaticExamController --> ListExamService: use to get all examm of course
+TakeAutomaticExamController --> ListAutomaticExamService: use to get all examm of course
 TakeAutomaticExamController --> GradesRepository: use to persist the grades
 @enduml
