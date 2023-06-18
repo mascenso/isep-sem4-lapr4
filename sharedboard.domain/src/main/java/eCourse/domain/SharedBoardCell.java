@@ -55,8 +55,19 @@ public class SharedBoardCell implements AggregateRoot<String> {
         this.owner = newOwner;
     }
 
+    public void changePostItContent(String newContent) {
+        if (newContent == null) {
+            throw new IllegalArgumentException();
+        }
+        this.postit = new PostIt(newContent);
+    }
+
     public SharedBoardTitle boardTitle() {
         return sharedboard.boardTitle();
+    }
+
+    public boolean isFree() {
+        return state == CellState.EMPTY;
     }
 
     @Override
@@ -80,6 +91,8 @@ public class SharedBoardCell implements AggregateRoot<String> {
 
     @Override
     public String toString() {
-        return id + ":::" + state.toString() + ":::" + postit.toString();
+
+        return this.isFree() ? id + ":::" + state.toString() + ":::" :
+                id + ":::" + state.toString() + ":::" + postit.toString();
     }
 }
