@@ -6,45 +6,23 @@ actor User as U
 participant "UpdateSharedBoardUI" as UI
 participant "UpdateSharedBoardController" as C
 participant "ListBoardsService" as S
-participant "ShareBoard" as SB
-participant "SharedBoardUser" as SBU
-participant "BoardUpdateEvent" as E
-participant "Notification" as N
-database "UsersRepository" as UR
 database "ShareBoardRepository" as SBR
-database "NotificationRepository" as NR
 database "ShareBoardUserRepository" as SBRU
 
 
-U -> UI:Update a board
+U -> UI:View a board
 UI -> C:listOfAllUserBoards()
 C->S:listOfAllUserBoards()
-S->SBR: findByUsername()
+S->SBR: listBoardsByUser()
 SBR-->S: listOfOwnedBoards
-S->SBRU:findByUser()
+S->SBRU:listBoardsSharedWithUser()
 SBRU-->S:listOfSharedBoards
 S-->C: myBoards
 C-->UI: myBoards
 UI->UI:Show boards
 UI-->U: Select Board
-U->UI: board
+U->UI: Board
+UI-->U: Shows board
 
-
-note right of UI: Only owners of the board may archive the board, and only users with write permissions may update the board
-UI-->U: Shows current board info, and asks for new one
-U->UI: Insert new board info
-activate C
-UI-->C: updateSharedBoard()
-C->SB: changeNumberRows(), changeNumberColumns(), changeColumns(), changeRows()
-SB-->C: updatedSharedBoard
-activate E
-C-->E: create
-E->N:createUpdateBoardNotification()
-deactivate E
-activate C
-C->SBR: save(updatedSharedBoard)
-C->NR: save(notification)
-
-deactivate C
 
 @enduml

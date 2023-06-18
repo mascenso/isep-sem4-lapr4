@@ -3,6 +3,9 @@ package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 import eCourse.ShareABoardController;
 import eCourse.domain.enums.AccessType;
 import eCourse.domain.SharedBoard;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
@@ -12,6 +15,7 @@ import java.util.*;
 public class ShareABoardUI extends AbstractUI {
 
     private ShareABoardController theController = new ShareABoardController();
+    private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
     @Override
     protected boolean doShow() {
@@ -30,12 +34,19 @@ public class ShareABoardUI extends AbstractUI {
 
         SharedBoard boardID = hashmap.get(selectedOption);
 
-        Iterable<SystemUser> systemUsers = theController.allUsers();
-        Map<Integer, AccessType> access =theController.getAccessTypes();
+        authz.session().map(s -> s.authenticatedUser().identity());
+        Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
 
-        Map<SystemUser,AccessType> usersWithPermissions=showAllUsers(systemUsers,access);
+        if (boardID.owner().sameAs(user)) {
+            Iterable<SystemUser> systemUsers = theController.allUsers();
+            Map<Integer, AccessType> access = theController.getAccessTypes();
 
-        theController.createShareBoardUsers(usersWithPermissions, boardID);
+            Map<SystemUser, AccessType> usersWithPermissions = showAllUsers(systemUsers, access);
+
+            theController.createShareBoardUsers(usersWithPermissions, boardID);
+        }else{
+            System.out.printf("You cannot share a board you don't own!");
+        }
 
         return false;
     }
