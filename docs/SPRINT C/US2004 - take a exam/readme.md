@@ -66,6 +66,8 @@ The exam cannot be taken outside the submission period.
 
 SSD fo helping on analise:
 
+![a class diagram](ssd-student-2004.png "A Class Diagram")
+
 ## 4. Design
 
 ## Class diagram
