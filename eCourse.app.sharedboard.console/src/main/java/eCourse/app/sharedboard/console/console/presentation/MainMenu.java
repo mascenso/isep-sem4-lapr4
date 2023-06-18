@@ -39,7 +39,6 @@ import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
-import shareboardHttpServer.SBPClient;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -106,7 +105,6 @@ public class MainMenu extends AbstractUI {
     private Menu buildMainMenu() throws IOException {
         //send the AUTH to server
         String user  = authz.session().get().authenticatedUser().username().toString();
-        SBPClient.sendRequest(4,user.getBytes(StandardCharsets.UTF_8));
 
         final Menu mainMenu = new Menu();
 

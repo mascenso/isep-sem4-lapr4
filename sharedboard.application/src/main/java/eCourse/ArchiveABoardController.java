@@ -9,7 +9,6 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import shareboardHttpServer.SBPClient;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -41,14 +40,6 @@ public class ArchiveABoardController extends Thread {
                 Notification userNotification = new Notification(event, user);
                 PersistenceContext.repositories().sharedBoards().save(board);
                 PersistenceContext.repositories().notifications().save(userNotification);
-                try {
-                    SBPClient.saveBoard(board);
-                    SBPClient.ReadDataOfMessage();
-                    SBPClient.saveNotification(userNotification);
-                    SBPClient.ReadDataOfMessage();
-                } catch (IOException e) {
-                    System.out.println("Exist a error , the data may not have been saved successfully.");
-                }
 
             }
         }).start();

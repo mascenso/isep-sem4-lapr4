@@ -26,7 +26,6 @@ import org.apache.logging.log4j.Logger;
 import eCourse.Application;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
-import shareboardHttpServer.SBPClient;
 
 import java.io.IOException;
 
@@ -69,8 +68,6 @@ public abstract class BaseApplication {
 
 		try{
 			// exiting the application, closing all threads
-			SBPClient.sendRequest(1,new byte[0]);
-			byte []  data = SBPClient.ReadDataOfMessage();
 			System.exit(0);
 		}catch (final Exception e){
 			System.out.println();

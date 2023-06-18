@@ -11,7 +11,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.apache.commons.io.IOUtils;
-import shareboardHttpServer.SBPClient;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,9 +37,6 @@ public class CreatePostItController {
         List<SharedBoardUser> sharedBoardUser = repoUsers.findListUser(shBoard.boardTitle(), username.get());
 
         shBoard.addPostItToCell(new PostIt(name), Position.valueOf(x, y), sharedBoardUser.get(0));
-        //make a request to save board
-        SBPClient.saveBoard(shBoard);
-        SBPClient.ReadDataOfMessage();
         return repository.save(shBoard);
     }
 
@@ -55,9 +52,6 @@ public class CreatePostItController {
         }
 
         shBoard.addPostItToCell(newPostIt, Position.valueOf(x, y), sharedBoardUser.get(0));
-        //make a request to save board
-        SBPClient.saveBoard(shBoard);
-        SBPClient.ReadDataOfMessage();
         return repository.save(shBoard);
     }
 }

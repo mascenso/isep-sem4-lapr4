@@ -7,7 +7,6 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import shareboardHttpServer.SBPClient;
 
 import java.io.IOException;
 import java.util.Map;
@@ -26,8 +25,6 @@ public class ShareABoardController extends Thread {
     }
 
     public Iterable<SystemUser> allUsers() throws IOException {
-        SBPClient.findAllUsers();
-        SBPClient.ReadDataOfMessage();
         return PersistenceContext.repositories().users().findAll();
     }
 
@@ -44,12 +41,7 @@ public class ShareABoardController extends Thread {
                     BoardShareEvent event = new BoardShareEvent(boardShared);
                     Notification notif = new Notification(event);
 
-                    try {
-                        SBPClient.saveBoard(board);
-                        SBPClient.ReadDataOfMessage();
-                    } catch (IOException e) {
-                        System.out.println("ERROR the data may not have been saved successfully");
-                    }
+
                     PersistenceContext.repositories().notifications().save(notif);
                     PersistenceContext.repositories().sharedBoardUser().save(boardShared);
                 }

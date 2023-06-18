@@ -12,7 +12,6 @@ import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.stereotype.Component;
-import shareboardHttpServer.SBPClient;
 
 import java.io.IOException;
 import java.util.*;
@@ -26,8 +25,6 @@ public class ListSharedBoardService {
     public Iterable<SharedBoard> listBoardsByUser() throws IOException {
         authz.session().map(s -> s.authenticatedUser().identity());
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
-        SBPClient.findAllBoardsByUser(user.get().identity());
-        SBPClient.ReadDataOfMessage();
         Iterable<SharedBoard> boardIterable = PersistenceContext.repositories().sharedBoards().findByUsername(user.get().identity());
         List<SharedBoard> boardListByUser = IteratorUtils.toList(boardIterable.iterator());
 
