@@ -23,12 +23,12 @@ import java.util.Collection;
 
 public class CreateAPostItUI extends AbstractUI {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CreateAPostItUI.class);
     private final CreatePostItController theController = new CreatePostItController();
 
     @Override
     protected boolean doShow() {
 
+        /* Show boards of the user */
         final Iterable<SharedBoard> boards;
         try {
             boards = theController.allSharedBoards();
@@ -43,15 +43,21 @@ public class CreateAPostItUI extends AbstractUI {
         selectorBoard.show();
         final SharedBoard theBoard = selectorBoard.selectedElement();
 
-        final String textContent = Console.readLine("Text Content (Optional):");
-        final String imageFilename = Console.readLine("Img filename (Optional):");
-
         Integer x = Integer.parseInt(Console.readLine("X:"));
         Integer y = Integer.parseInt(Console.readLine("Y:"));
 
-        final InputStream inputStream = this.getClass()
-                .getClassLoader()
-                .getResourceAsStream(imageFilename);
+        final String textContent = Console.readLine("Text Content (Optional):");
+        final String imageFilename = Console.readLine("Img filename (Optional):");
+
+        final InputStream inputStream;
+
+        if (imageFilename.isEmpty()) {
+            inputStream = null;
+        } else {
+            inputStream = this.getClass()
+                    .getClassLoader()
+                    .getResourceAsStream(imageFilename);
+        }
 
         if (inputStream == null) {
             System.out.println("Could not load image " + imageFilename);

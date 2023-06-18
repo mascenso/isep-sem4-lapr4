@@ -130,7 +130,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<dependencyManagement>
 		<dependencies>

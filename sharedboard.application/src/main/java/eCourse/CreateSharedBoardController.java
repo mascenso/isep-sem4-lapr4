@@ -3,6 +3,7 @@ package eCourse;
 import eCourse.domain.*;
 import eCourse.domain.SBColumn;
 import eCourse.domain.SBRow;
+import eCourse.domain.enums.AccessType;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.persistence.RepositoryFactory;
 import eCourse.domain.ECourseRoles;
@@ -33,10 +34,11 @@ public class CreateSharedBoardController {
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
 
-    public void addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<SBColumn> columnNames, List<SBRow> rowNames) throws IntegrityViolationException, ConcurrencyException, IOException {
+    public SharedBoard addSharedBoard(String title, int numberOfColumns, int numberOfrows, List<SBColumn> columnNames, List<SBRow> rowNames) throws IntegrityViolationException, ConcurrencyException, IOException {
         authz.ensureAuthenticatedUserHasAnyOf(ECourseRoles.ADMIN, ECourseRoles.MANAGER, ECourseRoles.PROJECT_MANAGER, ECourseRoles.TEACHER, ECourseRoles.STUDENT, ECourseRoles.POWER_USER);
 
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
+
         SharedBoard createdSharedBoard = new CreateSharedBoardBuilder()
                 .withTile(title)
                 .withNumberOfColumns(numberOfColumns)
@@ -50,9 +52,7 @@ public class CreateSharedBoardController {
         //request to tcp server
         SBPClient.saveBoard(createdSharedBoard);
         SBPClient.ReadDataOfMessage();
-        PersistenceContext.repositories().sharedBoards().save(createdSharedBoard);
-
-
+        return PersistenceContext.repositories().sharedBoards().save(createdSharedBoard);
     }
 
 }
