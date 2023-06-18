@@ -6,12 +6,13 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 public class SharedBoardCell implements AggregateRoot<String> {
     private static final long serialVersionUID = 1L;
 
-    private enum CellState {
+    enum CellState {
         EMPTY, FILLED
     }
 
@@ -82,6 +83,10 @@ public class SharedBoardCell implements AggregateRoot<String> {
         }
 
         return identity().equals(that.identity()) && state.equals(that.state);
+    }
+
+    public Optional<PostIt> content() {
+        return Optional.ofNullable(postit);
     }
 
     @Override

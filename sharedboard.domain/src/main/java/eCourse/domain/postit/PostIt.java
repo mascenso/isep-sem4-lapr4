@@ -52,4 +52,19 @@ public class PostIt implements ValueObject{
         return String.format("PostIt with text content %s; has image? %s", textContent, hasImage());
     }
 
+    @Override
+    public int hashCode() {
+        return textContent.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof PostIt)) {
+            return false;
+        }
+
+        final PostIt other = (PostIt) obj;
+        return this.textContent.equals(other.textContent);
+    }
+
 }
