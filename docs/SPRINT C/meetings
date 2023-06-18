@@ -1,0 +1,55 @@
+22/05/2023
+O Miguel Cardoso ficou de colocar as US no Jira.
+Discussão das funcionalidades a mostrar nas avaliações e porque ordem. Decidimos que o Miguel Cardoso apresentaria.
+
+23/05/2023
+Analise das novas US e das que ficaram para trás.
+Divisão dos trabalhos tendo em consideração o que estava pendente do Sprint anterior, e as US por disciplina.
+Foi tido em considerção ausências (ferias).
+Prioridade novas US, exceto quando dependentes de outras do Sprint anterior e for uma feature muito relevante. Caso contrario, US antigas que não sejam implementadas neste sprint,
+criar bootstrap.
+Discussão das US a abadicar/negociar com o professor de LAPR4. Neste caso optamos por pedir exclusão da US3009 e US3010 devido às prioridades definidas pelo cliente.
+A Patrícia ficou de enviar email ao professor.
+
+25/05/2023
+Todos os ids automaticos têm de ser alterados para GenerationType.Auto de modo a funcionar na base de dados remota.
+O Duarte ficou de avaliar melhor a ligaçao das Celulas com a SharedBoard no Modelo de Dominio.
+O Miguel Seixsa ficou de avaliar o agragado enrollment.
+
+28/05/2023
+Vai ser necessario criar uma app à parte apenas para as Shared Boards. A Mariana e o Miguel Cardoso ficaram de analisar para depois ser possivel relacionar com os servers e HTTP.
+A Patrícia ficou de terminar a gramatica em ANTLR para validar com o professor de LPROG na aula.
+
+02/06/2023
+Miguel Cardoso ficou de analisar o TCP disponibilizado pelo professor de RCOMP para ver como incorporar na N/ applicaçao.
+A Mariana ficará de volta do HTTP.
+
+03/06/2023
+Decisão de remover o FULL ACCESS do ACCESS TYPE de uma board. Quem têm WRITE ACCESS pode ver o conteudo da board pelo que seria redundante.
+Decisão tomada sobre ligar lessons a courses e os participantes do courses serem os mesmos para as lessons.
+Mariana ficou de reconfigurar StudentUsers e TeacherUsers para Student e Teacher.
+
+06/06/2023
+Bootstrapper de criar exam comentado. Para resolver mais à frente. Com a associação do Teacher ao Exam, deixou de poder ser feito daquela forma.
+
+09/06/2023
+Discussão das slots para a avaliação de LAPR o Miguel Cardoso ficou de enviar email.
+A Patrícia ficou de dar seguimento ao HTTP e analisar o protocolo disponibilizado pelo professor de RCOMP para o TCP.
+
+10/06/2023
+Decisão de alterar as colunas e linhas de uma board para Value Object em vez de Entity.
+
+12/06/2023
+Decisão, toda a gente usa, a partir de hoje, a base de dados remota para testar ao longo da semana.
+O Miguel Seixas vai analisar o TCP em conjunto com a Patrícia.
+
+15/06/2023
+O Miguel Cardoso vai dar continuidade ao TCP server.
+
+17/06/2023
+Decisão de  deixar de usar a base de dados remota para testar.
+
+
+
+
+
