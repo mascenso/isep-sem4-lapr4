@@ -9,6 +9,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.io.IOException;
 import java.util.*;
 
 public class ArchiveABoardUI extends AbstractUI {
@@ -20,7 +21,12 @@ public class ArchiveABoardUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
-        List<SharedBoard> myBoards = (List<SharedBoard>) theController.listBoardsByUser();
+        List<SharedBoard> myBoards = null;
+        try {
+            myBoards = (List<SharedBoard>) theController.listBoardsByUser();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         if (((Collection<?>) myBoards).size() == 0) {
             System.out.println("You have no Boards!");
