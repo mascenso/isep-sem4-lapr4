@@ -9,6 +9,7 @@ import eCourse.repositories.CourseEnrollmentRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.Optional;
 
@@ -60,7 +61,11 @@ public class JpaCourseEnrollmentRequestRepository extends JpaAutoTxRepository<Co
         query.setParameter("student", student);
         query.setParameter("course", course);
 
-        return query.getSingleResult();
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // No matching enrollment request found
+        }
 
     }
 
