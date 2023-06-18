@@ -7,7 +7,6 @@
 
 ### 1.1. Customer Specifications and Clarifications
 **From the client clarifications:**
-
 >- **Question**:
    Em relação a esta US deveríamos simplesmente considerar os "meeting request" que não foram aceites ou rejeitados?
    Um "meeting request" que já foi aceite ou rejeitado poderá ser alterado, depois?
