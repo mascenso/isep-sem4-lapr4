@@ -60,7 +60,7 @@ public class ChangePostItController {
     }
 
     public void changePost(SharedBoardCell theCell, String newContent) {
-        theCell.addPostIt(new PostIt(newContent), authenticatedUser(theCell.boardTitle()));
+        theCell.changePostItContent(newContent);
         repo.save(theCell);
     }
 
