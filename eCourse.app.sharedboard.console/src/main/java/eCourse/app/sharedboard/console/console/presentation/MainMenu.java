@@ -38,7 +38,7 @@ import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
-import shareboardTCPServer.SBPClient;
+import shareboardHttpServer.SBPClient;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

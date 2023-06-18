@@ -13,7 +13,7 @@ import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.stereotype.Component;
-import shareboardTCPServer.SBPClient;
+import shareboardHttpServer.SBPClient;
 
 import java.io.IOException;
 import java.util.*;

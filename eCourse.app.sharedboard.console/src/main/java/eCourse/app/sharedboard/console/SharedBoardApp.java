@@ -27,7 +27,7 @@ import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
-import shareboardTCPServer.SBPClient;
+import shareboardHttpServer.SBPClient;
 
 
 @SuppressWarnings("squid:S106")

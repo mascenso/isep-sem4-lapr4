@@ -13,7 +13,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.apache.commons.io.IOUtils;
-import shareboardTCPServer.SBPClient;
+import shareboardHttpServer.SBPClient;
 
 import java.io.IOException;
 import java.io.InputStream;
