@@ -5,6 +5,7 @@ import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.validations.Preconditions;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -26,12 +27,12 @@ public class SharedBoardUser implements AggregateRoot<SharedBoardTitle> {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private eCourse.domain.enums.AccessType permission;
+    private AccessType permission;
 
     @OneToMany(cascade = CascadeType.ALL)
     private final Set<AbstractBoardShareEvent> events = new HashSet<>();
 
-    protected SharedBoardUser(SystemUser user, SharedBoardTitle boardID, eCourse.domain.enums.AccessType access) {
+    protected SharedBoardUser(SystemUser user, SharedBoardTitle boardID, AccessType access) {
         Preconditions.noneNull(user, boardID, access);
 
         this.user = user;

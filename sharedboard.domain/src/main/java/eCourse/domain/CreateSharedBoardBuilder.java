@@ -1,5 +1,6 @@
 package eCourse.domain;
 
+import eCourse.domain.enums.AccessType;
 import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
@@ -60,7 +61,9 @@ public class CreateSharedBoardBuilder implements DomainFactory<SharedBoard> {
     }
 
     public SharedBoard build() {
-        return new SharedBoard(title, numberColumns, numberRows, archive, owner,  columns, rows);
+        SharedBoard sharedBoard = new SharedBoard(title, numberColumns, numberRows, archive, owner,  columns, rows);
+        sharedBoard.createShareBoardUsers(owner, title, AccessType.WRITE);
+        return sharedBoard;
     }
 
 

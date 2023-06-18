@@ -57,12 +57,12 @@ public class MainMenu extends AbstractUI {
     //SHAREDBOARD
     private static final int CREATE_BOARD_OPTION = 1;
     private static final int LIST_BOARDS_OPTION = 2;
-    private static final int BOOK_A_MEAL = 99;
     private static final int SHARE_A_BOARD=3;
     private static final int VIEW_BOARD=4;
     private static final int CREATE_POST_IT=5;
-    private static final int ARCHIVE_BOARD=6;
-    private static final int BOARD_NOTIFICATION=7;
+    private static final int CHANGE_POST_IT=6;
+    private static final int ARCHIVE_BOARD=7;
+    private static final int BOARD_NOTIFICATION=8;
 
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
@@ -140,8 +140,9 @@ public class MainMenu extends AbstractUI {
         menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
         menu.addItem(SHARE_A_BOARD, "Share a board", new ShareABoardUI()::show);
         menu.addItem(VIEW_BOARD,"View a board", new ViewSharedBoardUpdatesUI()::show);
-        menu.addItem(CREATE_POST_IT, "Create post-it", new CreateAPostItUI()::show);
         menu.addItem(ARCHIVE_BOARD,"Archive a board", new ArchiveABoardUI()::show);
+        menu.addItem(CREATE_POST_IT, "Create post-it", new CreateAPostItUI()::show);
+        menu.addItem(CHANGE_POST_IT, "Change post-it", new ChangeAPostItUI()::show);
         menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
 
        // menu.addItem(BOOK_A_MEAL, "BookaMealExampleCafet", new BookAMealThruKioskUI()::show);
