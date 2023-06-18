@@ -1,0 +1,24 @@
+@startuml
+autonumber
+
+autoactivate on
+
+actor Student
+activate Student
+
+
+Student -> System: Asks to take a AutomaticExam
+System --> Student: Shows all Courses that are enrolled
+Student -> System: Select course
+System --> Student: shows all AutomaticExam for this course that are unsolved
+Student -> System: Select a AutomaticExam to unsolved
+System --> Student: Begin AutomaticExam
+loop until have question to make
+System --> Student: make question
+Student -> System: Answer the question
+end
+System --> Student: Show grade and feedback
+
+deactivate Student
+
+@enduml
