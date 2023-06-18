@@ -91,6 +91,8 @@ public class SharedBoardCell implements AggregateRoot<String> {
 
     @Override
     public String toString() {
-        return id + ":::" + state.toString() + ":::";
+
+        return this.isFree() ? id + ":::" + state.toString() + ":::" :
+                id + ":::" + state.toString() + ":::" + postit.toString();
     }
 }
