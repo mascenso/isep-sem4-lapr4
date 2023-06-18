@@ -43,7 +43,7 @@ public class ShareABoardUI extends AbstractUI {
         authz.session().map(s -> s.authenticatedUser().identity());
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
 
-        if (boardID.owner().sameAs(user)) {
+        if (boardID.owner().sameAs(user.get())) {
             Iterable<SystemUser> systemUsers = null;
             try {
                 systemUsers = theController.allUsers();

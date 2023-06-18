@@ -1,0 +1,70 @@
+Exam "Math Exam" {
+
+  Header "This exam covers various math topics." {
+      FeedbackType: AfterClosing
+      GradeType: OnSubmission
+  }
+
+  Section "Algebra" {
+    Description: "Answer the following algebra questions."
+
+    Questions {
+
+        TrueFalse: "The capital of Canada is Ottawa." {
+            Answer: True
+            Grade: 2
+        }
+
+        TrueFalse: "The Great Wall of China is visible from space." {
+            Answer: False
+            Grade: 1
+        }
+
+        Numerical: "What is (3 + 5 * 2 - 3) / 2" {
+            Acceptance Error = 0.1
+            Option 13
+            Option 10
+            Option 5
+            Answer: 5
+            Grade: 1
+        }
+
+        Matching: "Match the fruits with their colors." {
+            List One: "Apple" "Banana" "Orange" "Grape"
+            List Two: "Red" "Yellow" "Purple" "Orange" "White"
+            Answer: "Red" "Yellow" "Orange" "Purple"
+            Grade: 0.5 0.5 0.5 0.5
+        }
+
+        Matching: "Match the animals with their habitats." {
+            List One: "Lion" "Elephant" "Monkey" "Penguin"
+            List Two: "Moon" "Jungle" "Savannah" "Ocean" "Arctic"
+            Answer: "Savannah" "Jungle" "Jungle" "Arctic"
+            Grade: 0.5 0.5 0.5 0.5
+        }
+
+        MultipleChoice: "What is the largest ocean in the world?"" {
+            Option: "Atlantic Ocean"
+            Option: "Indian Ocean"
+            Option: "Arctic Ocean"
+            Option: "Pacific Ocean"
+            Answer: "Pacific Ocean"
+            Grade: 1
+        }
+
+        Select Missing Words: "The _______ is the primary source of energy for all living _______."{
+            Missing Word: {"Moon" "Water" "Sun" "Stars" "Organisms" "Plants"}
+            Answer: "Sun" "Organisms"
+            Number of attempts: 3
+            Grade: 1 1
+        }
+
+        Select Missing Words: "The _______ is the largest continent on _______.""{
+            Missing Word: {"Europe" "Australia" "Africa" "Antarctica" "Earth" "Asia"}
+            Answer: "Asia" "Earth"
+            Number of attempts: 3
+            Grade: 1 1
+        }
+    }
+  }
+}
