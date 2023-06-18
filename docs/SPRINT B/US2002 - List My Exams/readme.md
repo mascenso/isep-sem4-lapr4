@@ -1,20 +1,32 @@
 # US 2002: As Student, I want to view a list of my future exams
 
-## 1. Context
+## 1. Requirements Engineering
 
-This task is to develop a new functionality to the system. 
-It is not related to a bug fix or an incomplete task from a previous sprint. 
-The team has been assigned this task for the first time.
-Is an important task to be able to list the exams of the student
-## 2. Requirements
 
-**US 2002** As {Ator} I want to list all the exams that are available to me
+### 1.1. User Story Description
 
-    FRE02 - List Exams - The system displays to a student his/her future exams
+As Student, I want to view a list of my future exams
 
-The user needs to be logged in the application. In the menu created for the porpuse of listing exams, the user is able
-to view all the exams for the courses they are enrolled.
-This US is dependent on:
+### 1.2. Customer Specifications and Clarifications
+
+
+**From the specifications document:**
+* The system displays to a student his/her future exams
+
+**From the client clarifications:**
+
+> **Question**
+>
+>  **Answer**
+
+### 1.3. Acceptance Criteria
+
+* **FRE02** - List Exams - The system displays to a student his/her future exams
+
+The user needs to be logged in the application as a student.
+
+### 1.4. Found out Dependencies
+
 *US1002 - Create Courses*
 *US1003 - Open and close enrollment in courses*
 *US1008 - Request Enrollment in courses*
@@ -24,45 +36,65 @@ This US is dependent on:
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison 
-that was done in order to take the best design decisions for the requirement. 
-This section should also include supporting diagrams/artifacts 
-(such as domain model; use case diagrams, etc.),*
+* User Interface - This class is named ListExamsUI where it will allow the student to view the exams for the courses he is enrolled.
+* Controller     - This class is named ListStudentExamsController where will be responsible for managing UI requests and performing the necessary actions to create the exams list.
+* Repository     - In order to prepare the list of exams for the student we need to access the StudentUserRepository, the CourseRepository and CourseEnrollmentRequestRepository.
+* Service        - ListStudentExamsService that prepare the data to only show a list with the exams for that particular student
 
-To design the new functionality, we conducted an analysis of the requirements, using use case diagrams and sequence diagrams. 
-We also identified the necessary classes and their relationships, creating a class diagram to represent the structure of the system.
+*Below is the use case diagram to show the interactions between the manager and the system when open and close courses*
 
-## 4. Design
+![Use Case Diagram](US2002-UCD.svg "US2002 Use Case Diagram")
+
+### 1.6 Domain Model
+
+![US1010_DM](DM_US1010.svg)
+
+### 1.7. System Sequence Diagram (SSD)
+
+![US2002_SSD](US2002-SSD.svg)
+
+### 1.8 Other Relevant Remarks
 
 
+## 3. Design - User Story Realization
+
+### 3.1. Rationale
+
+**SSD - Alternative 1 is adopted.**
 
 
-| Interaction ID | Question: Which class is responsible for... | Answer              | Justification (with patterns)                                                                                        |
-|:---------------|:--------------------------------------------|:--------------------|:---------------------------------------------------------------------------------------------------------------------|
-| Step 1         | ... interacting with the actor?             | ListExamsUI         | UI pattern: ListExamsUI is responsible for interacting with the actor by presenting the list of exams.               |
-|                | ... coordinating the US?                    | ListExamsController | Controller pattern: ListExamsController is responsible for coordinating the use case and invoking necessary classes. |
-| Step 2         | ... Validate User                           | AppSettings         | Settings pattern: AppSettings is responsible for validating if the user is valid based on application settings.      |
-| Step 3         | .. return list of courses                   | ExamsRepository     | Repository pattern: ExamsRepository is responsible for retrieving the list of exams from the database.               |
-| Step 4         | .. show the course to the user              | ListExamsUI         | UI pattern: ListExamsUI is responsible for presenting the exams to the user.                                         |
+| Interaction ID | Question: Which class is responsible for... | Answer                    | Justification (with patterns)                                                                                                                        |
+|:---------------|:--------------------------------------------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?             | CreateRecurringLessonUI   | UI pattern: CreateRecurringLessonUI is responsible for interacting with the actor                     |
+|                | ... coordinating the US?                    | RecurringLessonController | Controller pattern: RecurringLessonController is responsible for coordinating the use case and invoking necessary classes.                           |
+| Step 2         | .. return list of courses                   | RecurringLessonRepository | Repository pattern: RecurringLessonRepository is responsible for saving the recurring lesson in the database.                                        |
+| Step 3         | .. propagates the lesson and validates      | ScheduleLessonService     | Service: ScheduleRecurringLesson is responsible propagating the lesson for a certain frequency and validates the teacher availability for the lesson |
 
-### 4.1. Realization
 
-### 4.2. Class Diagram
+### Systematization ##
 
-![a class diagram](US2002-SD.puml "A SD Diagram")
+According to the taken rationale, the conceptual classes promoted to software classes are:
 
-### 4.3. Applied Patterns
+* RecurringLesson
 
-### 4.4. Tests
+Other software classes (i.e. Pure Fabrication) identified:
 
-**ShowAllCourses:** *Make sure that all courses are shown when we choose the course list option.*
+* CreateRecurringLessonController
+* ScheduleLessonService
+* RecurringLessonRepository
 
-```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
-````
+## 3.2. Sequence Diagram (SD)
+
+![US2002_SD](US2002-SD.svg)
+
+
+## 3.3. Class Diagram (CD)
+
+![US2002_CD](US2002-CD.svg)
+
+# 4. Tests
+
+...
 
 ## 5. Implementation
 

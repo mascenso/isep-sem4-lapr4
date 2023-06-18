@@ -93,6 +93,6 @@ public class ChangeAPostItUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "Create new post-It";
+        return "Change a post-It";
     }
 }
