@@ -30,6 +30,8 @@ import eapli.framework.infrastructure.pubsub.EventDispatcher;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.io.IOException;
+
 /**
  *
  * @author Paulo Gandra Sousa
@@ -45,7 +47,7 @@ public class TeacherApp extends BaseApplication {
 	private TeacherApp() {
 	}
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws IOException {
 		System.out.println();
 
 		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),

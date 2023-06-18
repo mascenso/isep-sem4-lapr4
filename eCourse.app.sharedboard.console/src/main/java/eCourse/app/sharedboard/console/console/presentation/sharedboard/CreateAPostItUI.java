@@ -23,13 +23,18 @@ import java.util.Collection;
 
 public class CreateAPostItUI extends AbstractUI {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CreateAPostItUI.class);
     private final CreatePostItController theController = new CreatePostItController();
 
     @Override
     protected boolean doShow() {
 
-        final Iterable<SharedBoard> boards = theController.allSharedBoards();
+        /* Show boards of the user */
+        final Iterable<SharedBoard> boards;
+        try {
+            boards = theController.allSharedBoards();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         if (((Collection<?>) boards).size() == 0) {
             System.out.println("You have no Boards to share!");
             return false;
@@ -38,20 +43,30 @@ public class CreateAPostItUI extends AbstractUI {
         selectorBoard.show();
         final SharedBoard theBoard = selectorBoard.selectedElement();
 
-        final String textContent = Console.readLine("Text Content (Optional):");
-        final String imageFilename = Console.readLine("Img filename (Optional):");
-
         Integer x = Integer.parseInt(Console.readLine("X:"));
         Integer y = Integer.parseInt(Console.readLine("Y:"));
 
-        final InputStream inputStream = this.getClass()
-                .getClassLoader()
-                .getResourceAsStream(imageFilename);
+        final String textContent = Console.readLine("Text Content (Optional):");
+        final String imageFilename = Console.readLine("Img filename (Optional):");
+
+        final InputStream inputStream;
+
+        if (imageFilename.isEmpty()) {
+            inputStream = null;
+        } else {
+            inputStream = this.getClass()
+                    .getClassLoader()
+                    .getResourceAsStream(imageFilename);
+        }
 
         if (inputStream == null) {
             System.out.println("Could not load image " + imageFilename);
             // fallback to registration without image
-            theController.registerPostIt(theBoard, x, y, textContent);
+            try {
+                theController.registerPostIt(theBoard, x, y, textContent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             try {
                 theController.registerPostIt(theBoard, x, y, textContent , inputStream);

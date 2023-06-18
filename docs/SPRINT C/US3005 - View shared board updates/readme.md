@@ -9,8 +9,8 @@
 This US allows the user with access to a shared board to view, in real-time, the updates of that board.
 These updates may be made by other user, and only one user at a time may update the board. This way, it's assured that all user
 have access to an updated board and no information is lost between updates.
-When an update is done regarding the board, a notification must be sent to the users.
-Only users with permissions to WRITE, may update the board.
+The user must be able to see the board updates in real-time, without refreshing the web page.
+
 
 ## 2. Requirements
 
@@ -27,6 +27,7 @@ Only users with permissions to WRITE, may update the board.
     * US3003 - As User, I want to create a board.
     * US3004 - As User, I want to share a board.
 
+### System Specification
 "Boards are one of the main used tools for teaching."
 "The project aims to implement the concept of shared board, as a board that can be used to share and organize ideas and information."
 "(...) several clients will try to concurrently update boards."
@@ -36,11 +37,28 @@ Only users with permissions to WRITE, may update the board.
 "As such, all clients are able to maintain a "realtime" clone of the shared boards."
 "The Shared Board App implements a "small" HTTP server that serves a page that displays a board view."
 
+### Client Specification
+*  Question: "O cliente pretende que seja necessária a autenticação de um utilizador no browser antes da visualização da board?
+Ou esta autenticação estaria relacionada com a autenticação que é feita na Shared Board App(SBPApp), consequentemente a visualização da board seria apenas e só possível se o utilizador estiver a usar SBPApp ao mesmo tempo"
+   Answer: "Sim, do ponto de vista do cliente a solução que propõe é aceitável."
+
+*  Question: "O cliente pretende que seja apenas desenvolvida uma página web para a visualização das boards e autenticação na linha de comandos(cli), como demonstrado na página 11 da especificação do projeto, ou então também, aceitaria uma aplicação totalmente desenvolvida numa página web (com autenticação executada na mesma)"
+   Answer: "Como cliente, e se percebi bem, a primeira opção será o que eu pretendo. Ou seja, todas as funcionalidades da Shared Board App são realizadas na aplicação do tipo "consola" em java com a exceção da parte relativa à visualização em tempo real dos boards.
+Notem que esta US tem requisitos não funcionais especificos de RCOMP e devem, em termos de solução técnica, seguir as orientações dos docentes dessa unidade curricular."
+
+*  Question: "-Who can see the board's updates?
+--All users associated to a board are able to see the updates;
+--All users with Write permissions in a board are able tto see its updates;
+--Only the owner of a board is able to see its updates."
+   Answer: " "The user that creates the board is its owner. The owner can share the board with other users. Users may have read or write access to the board.". If a user shares the board with other users (either read or write) these users should be able to see the updates (otherwise what are we sharing?). Only users with write permissions are able to update the board.
+When a user shares a board he/she must specify the users and, for each user, if the access is read or write. I think it makes sense to notify current users of a board when some update is done regarding access to the board."
+
+
 ## 3. Analysis
 
 *In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
 
-- At anytime, the application user (authorized) may want to view or update a board that he/she has access to.
+- At anytime, the application user (authorized) may want to view a board that he/she has access to.
 For that matter, a repository for shareBoards and shareBoardsUsers needs to exist in others to assure the business domain and an abstraction 
 layer between the domain code and the data storage.
 
@@ -50,15 +68,9 @@ layer between the domain code and the data storage.
 * Selected data:
   * board.
 
-* Typed data:
-  * column(s),
-  * row(s),
-  * column name(s),
-  * row name(s).
-
 **Output Data:**
 
-* an updated shared board.
+* a shared board.
 
 
 **Domain Model Excerpt**
@@ -80,20 +92,15 @@ layer between the domain code and the data storage.
 
 **Rationale**
 
-| Interaction ID                                                   | Question: Which class is responsible for... | Answer                      | Justification (with patterns)                                                                                   |
-|:-----------------------------------------------------------------|:--------------------------------------------|:----------------------------|:----------------------------------------------------------------------------------------------------------------|
-| Step 1 - Asks to update a board                                  | ... interacting with the actor?             | UpdateSharedBoardUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-|                                                                  | ... coordinating the US?                    | UpdateSharedBoardController | Controller.                                                                                                     |
-| Step 2 - Shows list of owned/shared boards                       | ... having the requested information?       | SharedBoardRepository AND   |                                                                                                                 |
-|                                                                  |                                             | SharedBoardUserRepository   | Abstracts data access by providing an abstraction layer between the domain code and the data storage mechanism. |
-|                                                                  | ... interacting with the actor?             | UpdateSharedBoardUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-|                                                                  | ... managing the information?               | ListBoardsService           | Encapsulate a specific set of functionalities and allows for more manageable and incremental updates.           |
-| Step 4 - Asks for the new board's information                    | ... interacting with the actor?             | UpdateSharedBoardUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-| Step 6 - Creates a notification to users and saving the updates  | ... interacting with the actor?             | NotificationUI              | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-|                                                                  | ... creating the notification?              | BoardSharedEvent            | Low coupling.                                                                                                   |
-|                                                                  | ... saving the update?                      | UpdateSharedBoardController | Controller.                                                                                                     |
-
-
+| Interaction ID                             | Question: Which class is responsible for... | Answer                      | Justification (with patterns)                                                                                   |
+|:-------------------------------------------|:--------------------------------------------|:----------------------------|:----------------------------------------------------------------------------------------------------------------|
+| Step 1 - Asks to update a board            | ... interacting with the actor?             | UpdateSharedBoardUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+|                                            | ... coordinating the US?                    | UpdateSharedBoardController | Controller.                                                                                                     |
+| Step 2 - Shows list of owned/shared boards | ... having the requested information?       | SharedBoardRepository AND   |                                                                                                                 |
+|                                            |                                             | SharedBoardUserRepository   | Abstracts data access by providing an abstraction layer between the domain code and the data storage mechanism. |
+|                                            | ... interacting with the actor?             | UpdateSharedBoardUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+|                                            | ... managing the information?               | ListBoardsService           | Encapsulate a specific set of functionalities and allows for more manageable and incremental updates.           |
+| Step 3 - Selects the board                 | ... interacting with the actor?             | UpdateSharedBoardUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
 
 **Sequence Diagram (SD)**
 
@@ -113,17 +120,10 @@ layer between the domain code and the data storage.
     - Repository Factory
     - Repository
     - Service
-    - Event
     
 ### 4.4. Tests
 
-**Test 1:** * Verifies that it is not possible to update a board with READ access type.
-**Test 2:** * Verifies that it is possible to update the number of column in a board that the user as access.
-**Test 3:** * Verifies that it is possible to update the number of row in a board that the user as access.
-**Test 4:** * Verifies that it is possible to update the column name of a board that the user as access.
-**Test 5:** * Verifies that it is possible to update the row name of a board that the user as access.
-**Test 6:** * Verifies that a notification must be sent to all users with access to the board when the board is updated.
-**Test 7:** * Verifies that only the owner of the board may archive the board.
+**Test 1:** * Verifies that it is only users with access to the board may see the board.
 
 ```
 

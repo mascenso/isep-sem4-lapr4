@@ -1,6 +1,9 @@
 package eCourse.domain;
 import eapli.framework.domain.model.ValueObject;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Position implements ValueObject, Comparable<Position> {
 
     private Integer rowIndex;
@@ -37,12 +40,16 @@ public class Position implements ValueObject, Comparable<Position> {
         return result;
     }
 
+    public Position(String coordEncoded) { //1,2
+        String pos[] = coordEncoded.split(",");
+        rowIndex = Integer.parseInt(pos[0]);
+        columnIndex = Integer.parseInt(pos[1]);
+    }
+
+
     @Override
     public String toString() {
-        return "Position{" +
-                "rowIndex=" + rowIndex +
-                ", columnIndex=" + columnIndex +
-                '}';
+        return String.format("{%d,%d}", rowIndex, columnIndex);
     }
 
     public Integer rowIndex() {

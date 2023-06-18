@@ -85,4 +85,8 @@ public class ListExamsService {
         }
         return loggedTeacherExams;
     }
+
+    public List<AutomaticExame> AutomaticExamsUnsolved() {
+        return (List<AutomaticExame>) PersistenceContext.repositories().automaticExams().findAll();
+    }
 }

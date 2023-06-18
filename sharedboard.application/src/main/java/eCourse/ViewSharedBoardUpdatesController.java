@@ -11,6 +11,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -21,7 +22,7 @@ public class ViewSharedBoardUpdatesController{
     @Autowired
     private ListSharedBoardService listSharedBoardService = new ListSharedBoardService();
 
-    public Set<SharedBoard> listOfAllUserBoards(Map<SharedBoardTitle, AccessType> map) {
+    public Set<SharedBoard> listOfAllUserBoards(Map<SharedBoardTitle, AccessType> map) throws IOException {
         return listSharedBoardService.listOfAllUserBoards(map);
     }
 }

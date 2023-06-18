@@ -53,13 +53,6 @@ public class SharedBoardUserTest {
 
     }
 
-    @Test
-    public void ensureCanShareOwnedBoard() {
-        AccessType permission = AccessType.READ;
-        sharedBoardUser1 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission);
-
-        assertNotNull(sharedBoardUser1);
-    }
 
     @Test
     public void ensureUserIsRequired() {

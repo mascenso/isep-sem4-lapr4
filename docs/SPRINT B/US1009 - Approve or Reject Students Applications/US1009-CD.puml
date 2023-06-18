@@ -1,58 +1,73 @@
 @startuml
 
 class Manager
-class ApproveRejectEnrollmentUI {
+class ApproveAndRejectEnrollmentsUI {
     +doshow()
+    +showAllUsers()
 }
 
-class ApproveRejectEnrollmentController {
-    +getEnrollStateCourses()
-    +getRequestsEnrollment()
-    +updateEnrollments()
-}
-
-
-class ApproveRejectEnrollmentService {
-    +getRequestsEnrollment()
+class ApproveAndRejectEnrollmentsController {
+    +allStudents()
+    +allRequests()
+    +studentsCourseEnrollment()
+    +approveStudentsEnrollment()
+    +rejectStudentsEnrollment()
+    +getEnrollmentCourses()
 }
 
 
 class CourseEnrollmentRequest {
-    - userName
-    - name
-    - email
-    - approvalStatus
-    - createdOn
-    - courseName
-    - edition
-    - courseState
-    +updateEnrollments()
+    -course
+    -student
+    -enrollmentStatus
+    -createdOn
+    +approveEnrollment()
+    +rejectEnrollment()
+}
+
+class StudentUserRepository{
+    +findByUsername()
 }
 
 class ListCoursesService {
-    +getEnrollStateCourses()
+    +getEnrollmentCourses()
     +allCourses()
 }
 
+class ListStudentsService {
+    +allUsers()
+    +findAllStudents()
+}
+
 class CourseEnrollmentRequestRepository{
-    +getRequestsEnrollment()
+    +pendingCourseEnrollmentRequests()
+    +findByStudentAndCourse()
     +save()
 }
 
 class CourseRepository {
     +save()
-    +findByDesignation()
-    +findAllCourses()
+    +findAll()
 }
 
+class CourseEnrollmentRequestService{
+    +getStudentEnrollment()
+    +pendingCourseEnrollmentRequests()
+}
 
-Manager --> ApproveRejectEnrollmentUI
-ApproveRejectEnrollmentUI-->ApproveRejectEnrollmentController
-ApproveRejectEnrollmentController-->ListCoursesService
-ApproveRejectEnrollmentController-->ApproveRejectEnrollmentService
-ApproveRejectEnrollmentService-->CourseEnrollmentRequestRepository
-ApproveRejectEnrollmentController-->CourseEnrollmentRequestRepository
-ApproveRejectEnrollmentController-->CourseEnrollmentRequest
+class UserRepository{
+    +findAll()
+}
+
+Manager --> ApproveAndRejectEnrollmentsUI
+ApproveAndRejectEnrollmentsUI-->ApproveAndRejectEnrollmentsController
+ApproveAndRejectEnrollmentsController-->ListCoursesService
+ApproveAndRejectEnrollmentsController-->ListStudentsService
+ListStudentsService-->UserRepository
+ListStudentsService-->StudentUserRepository
+ApproveAndRejectEnrollmentsController-->CourseEnrollmentRequestService
+CourseEnrollmentRequestService-->CourseEnrollmentRequestRepository
 ListCoursesService-->CourseRepository
-
+ApproveAndRejectEnrollmentsController-->CourseEnrollmentRequest
+ApproveAndRejectEnrollmentsController-->CourseEnrollmentRequestRepository
 @enduml

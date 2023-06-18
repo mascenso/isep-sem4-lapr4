@@ -9,8 +9,6 @@ class UpdateSharedBoardUI {
 
 class UpdateSharedBoardController {
     +listOfAllUserBoards()
-    +updateSharedBoard()
-    +changeArchive()
 }
 
 class ListBoardsService {
@@ -19,21 +17,6 @@ class ListBoardsService {
     +listOfAllUserBoards()
 }
 
-class ShareBoard {
-    +changeNumberOfRows()
-    +changeNumberOfColumns()
-    +changeColumns()
-    +changeRows()
-    +updateArchive()
-}
-
-
-class Notification {
-}
-
-class NotificationRepository{
-    +save()
-}
 
 class ShareBoardRepository{
     +save()
@@ -47,21 +30,10 @@ class ShareBoardUserRepository{
 }
 
 
-class BoardUpdateEvent{
-    -timestamp
-    +createUpdateBoardNotification()
-}
-
 
 User-->UpdateSharedBoardUI
 UpdateSharedBoardUI-->UpdateSharedBoardController
 UpdateSharedBoardController-->ListBoardsService
-UpdateSharedBoardController-->ShareBoard
-UpdateSharedBoardController-->Notification
-UpdateSharedBoardController-->BoardUpdateEvent
-UpdateSharedBoardController-->NotificationRepository
-UpdateSharedBoardController-->ShareBoardRepository
 ListBoardsService-->ShareBoardRepository
 ListBoardsService-->ShareBoardUserRepository
-BoardUpdateEvent-->Notification
 @enduml

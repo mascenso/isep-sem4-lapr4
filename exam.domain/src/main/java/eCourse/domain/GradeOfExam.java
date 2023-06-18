@@ -19,6 +19,9 @@ public class GradeOfExam implements AggregateRoot<Long> {
     @ManyToOne
     private Exam exam;
 
+    @ManyToOne
+    private AutomaticExame automaticExame;
+
     private Date date;
 
     private float grade;
@@ -30,7 +33,12 @@ public class GradeOfExam implements AggregateRoot<Long> {
         this.student = student;
         this.grade = grade;
         this.exam = exam;
-
+    }
+    public GradeOfExam(SystemUser student,Float grade, AutomaticExame exam){
+        this.date = new Date();
+        this.student = student;
+        this.grade = grade;
+        this.automaticExame = exam;
     }
 
     @Override

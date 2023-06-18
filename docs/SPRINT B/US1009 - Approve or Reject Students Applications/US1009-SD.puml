@@ -6,8 +6,9 @@ autoactivate on
 actor Manager as M
 participant "ApproveRejectEnrollmentUI" as UI
 participant "ApproveRejectEnrollmentController" as C
-participant "ApproveRejectEnrollmentService" as S
 participant "ListCoursesService" as CS
+participant "ListStudentsService" as SS
+participant "CourseEnrollmentRequestService" as ES
 participant "CourseEnrollmentRequest" as E
 database "CourseEnrollmentRequestRepository" as R
 database "CourseRepository" as CR
@@ -16,26 +17,24 @@ database "CourseRepository" as CR
 
 M->UI: Asks to see enrollments requests
 UI->C:create
-UI->C:getEnrollStateCourses()
-C->CS:getEnrollStateCourses()
-CS->CR:getAll()
+UI->C:getEnrollmentCourses()
+C->CS:getEnrollmentCourses()
+CS->CR:getEnrollmentCourses()
+CR-->CS:lisfOfEnrollStateCourses
+deactivate CR
 CS-->C: lisfOfEnrollStateCourses
 C-->UI: lisfOfEnrollStateCourses
 UI-->M: Shows a list of courses
 M->UI: Chooses course
-UI->C: getRequestsEnrollment(course)
-C->S:getRequestsEnrollment(course)
-S->R:getRequestsEnrollment(course)
-R-->S: listOfEnrollmentsRequestByCourse
-S-->C: listOfEnrollmentsRequestByCourse
-C-->UI:listOfEnrollmentsRequestByCourse
-UI-->M: Shows list of students
-loop number of students requests
-M->UI: approve/reject
-UI->C: updateEnrollments(student,course,approvalStatus)
-C->E:updateEnrollments(student,course,approvalStatus)
-E-->C: enrollmentsUpdate
-C->R:save(enrollmentsUpdate)
-end
+UI->C: studentsCourseEnrollment(course)
+C->SS: allUsers(), findAllStudents()
+SS-->C :allStudents
+UI->UI:showAllUsers()
+M->UI: approve, reject
+UI->C:approveStudentsEnrollment(approvals,selectedCourse), rejectStudentsEnrollment(rejections,selectedCourse)
+C->ES:getStudentEnrollment(user, course)
+ES-->E: approveEnrollment(user)
+ES-->C: requestUpdate
+C->R:save(requestUpdate)
 
 @enduml
