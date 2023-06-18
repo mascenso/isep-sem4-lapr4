@@ -24,8 +24,20 @@ By default, all the users have read permissions. When an update is done regardin
     * US3001 - As Project Manager, I want the team to prepare the communication infrastruture for the Shared Boards and the depoyment of the solution.
     * US3003 - As User, I want to create a board.
 
+### System Specification
 "Boards are one of the main used tools for teaching."
 "The project aims to implement the concept of shared board, as a board that can be used to share and organize ideas and information."
+"A user shares a board it owns with other users."
+
+### Client Specification
+*  Question: "As I'm sharing the board, I have to do which of these?
+--give permissions to the users to Write on it immediately
+--only share it with Read permissions and afterwards have the possibility to give the user write permissions
+--only share it with Read permissions and lock those permissions as Read
+-After sharing the board with someone, should it be considered an update to be listed on User Story 3005?"
+   Answer: ""The user that creates the board is its owner. The owner can share the board with other users. Users may have read or write access to the board.". If a user shares the board with other users (either read or write) these users should be able to see the updates (otherwise what are we sharing?). Only users with write permissions are able to update the board.
+When a user shares a board he/she must specify the users and, for each user, if the access is read or write. I think it makes sense to notify current users of a board when some update is done regarding access to the board."
+
 
 ## 3. Analysis
 
@@ -103,11 +115,9 @@ layer between the domain code and the data storage.
     
 ### 4.4. Tests
 
-**Test 1:** * Verifies that it is possible to share a board that the user owns.
-**Test 2:** * Verifies that at least a user must be specified when sharing a board.
-**Test 3:** * Verifies that the permissions must be specified when sharing a board with a user.
-**Test 4:** * Verifies that a board must be specified when sharing a board.
-**Test 5:** * Verifies that the event must be specified when creating a notification.
+**Test 1:** * Verifies that at the user must be specified when sharing a board.
+**Test 2:** * Verifies that the permissions must be specified when sharing a board with a user.
+**Test 3:** * Verifies that a board must be specified when sharing a board.
 
 
 ```

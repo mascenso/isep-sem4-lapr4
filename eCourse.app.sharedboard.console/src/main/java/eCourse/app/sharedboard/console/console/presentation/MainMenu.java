@@ -32,12 +32,17 @@ import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.ExitWithMessageAction;
 import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
+import shareboardHttpServer.SBPClient;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class MainMenu extends AbstractUI {
 
@@ -65,8 +70,7 @@ public class MainMenu extends AbstractUI {
     private final Menu menu;
     private final MenuRenderer renderer;
 
-
-    public MainMenu() {
+    public MainMenu() throws IOException {
         menu = buildMainMenu();
         renderer = getRenderer(menu);
     }
@@ -99,7 +103,11 @@ public class MainMenu extends AbstractUI {
                 .orElse("Base [ ==Anonymous== ]");
     }
 
-    private Menu buildMainMenu() {
+    private Menu buildMainMenu() throws IOException {
+        //send the AUTH to server
+        String user  = authz.session().get().authenticatedUser().username().toString();
+        SBPClient.sendRequest(4,user.getBytes(StandardCharsets.UTF_8));
+
         final Menu mainMenu = new Menu();
 
         final Menu myUserMenu = new MyUserMenu(ECourseRoles.STUDENT);

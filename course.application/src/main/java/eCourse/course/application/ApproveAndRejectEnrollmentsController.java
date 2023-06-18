@@ -19,7 +19,7 @@ public class ApproveAndRejectEnrollmentsController {
 
     private CourseEnrollmentRequestService enrollService = new CourseEnrollmentRequestService();
 
-    private CourseEnrollmentRequest request = new CourseEnrollmentRequest();
+    private ListCoursesService service = new ListCoursesService();
 
 
     public List<Student> allStudents() {
@@ -72,5 +72,9 @@ public class ApproveAndRejectEnrollmentsController {
             requestUpdate.rejectEnrollment(user);
             PersistenceContext.repositories().courseEnrollmentRequests().save(requestUpdate);
         }
+    }
+
+    public List<Course> getEnrollmentCourses() {
+        return service.getEnrollmentCourses();
     }
 }

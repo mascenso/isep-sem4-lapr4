@@ -111,4 +111,6 @@ public interface RepositoryFactory {
     GradesRepository gradesForExam();
 
     SharedBoardCellRepository sharedBoardCells();
+
+    AutomaticExamRepository automaticExams();
 }

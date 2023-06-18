@@ -16,7 +16,7 @@ public class ListStudentExamGradesController {
         return service.allExams();
     }
 
-    public Iterable<GradeOfExam> examOfLoggedStudent() {
-        return service.examOfLoggedStudent();
+    public Iterable<GradeOfExam> examGradesOfLoggedStudent() {
+        return service.examGradesOfLoggedStudent();
     }
 }

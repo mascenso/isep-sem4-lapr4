@@ -27,6 +27,7 @@ import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
+import shareboardHttpServer.SBPClient;
 
 
 @SuppressWarnings("squid:S106")
@@ -37,11 +38,15 @@ public final class SharedBoardApp extends BaseApplication {
 	private SharedBoardApp(){
 	}
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws Exception {
 		System.out.println();
 
 		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
 				new PlainTextEncoder());
+
+		//conection TCPclient
+		//SBPClient client = new SBPClient();
+		SBPClient.main(new String[]{"localhost", "8081"});
 
 		new SharedBoardApp().run(args);
 	}

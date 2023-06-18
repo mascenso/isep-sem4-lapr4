@@ -59,6 +59,10 @@ public class CreateExamController {
         return courseService.getOpenCourses();
     }
 
+    public List<Course> getInProgressCourses() {
+        return courseService.inProgressCourses();
+    }
+
     public ExamTitle getExamTitle(String title) {
         return ExamTitle.valueOf(title);
     }

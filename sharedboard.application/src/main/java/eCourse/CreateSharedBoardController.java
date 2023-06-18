@@ -15,7 +15,9 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.stereotype.Component;
+import shareboardHttpServer.SBPClient;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +46,9 @@ public class CreateSharedBoardController {
                 .withColumns(columnNames)
                 .withRows(rowNames)
                 .build();
+        //request to tcp server
+        SBPClient.saveBoard(createdSharedBoard);
+        SBPClient.ReadDataOfMessage();
         return PersistenceContext.repositories().sharedBoards().save(createdSharedBoard);
     }
 

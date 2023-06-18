@@ -6,12 +6,10 @@ autoactivate on
 actor User
 activate User
 
-User -> System: Asks to update a board
+User -> System: Asks to view a board
 System --> User: Shows list of owned/shared boards
 User -> System: Select a board
-System --> User: Asks board information
-User -> System: Inserts information
-System --> User: Creates a notification to users
+System --> User: Shows board
 
 deactivate User
 

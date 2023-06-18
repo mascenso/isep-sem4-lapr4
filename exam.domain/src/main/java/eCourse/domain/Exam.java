@@ -15,7 +15,7 @@ public class Exam implements AggregateRoot<ExamTitle> {
     private Long id;
 
     @ManyToOne
-    private Course course;
+    Course course;
 
     @OneToMany(mappedBy = "exam")
     private Set<GradeOfExam> examGrades;
@@ -38,11 +38,11 @@ public class Exam implements AggregateRoot<ExamTitle> {
     }
 
     @Column(unique = true)
-    private ExamTitle title;
+    ExamTitle title;
 
 
     @Column(nullable = false)
-    private File file;
+    File file;
 
     @Column(nullable = true)
     private Date openDate;
