@@ -63,14 +63,14 @@ The automatic Exam is saved on same repository that Exams normal but is saved wi
 ## 4. Design
 
 ## Class diagram
-![a class diagram](cd-2004.png "A Class Diagram")
+![a class diagram](cd-2009.png "A Class Diagram")
 ## Use case diagram
-![use case diagram](uc-2004.png "A Use Case Diagram")
+![use case diagram](uc-2009.png "A Use Case Diagram")
 
 
 ### 4.2. Sequence diagram
 
-![a sequence diagram](sd-2004.png "A Sequence Diagram")
+![a sequence diagram](sd-2009.png "A Sequence Diagram")
 
 ### 4.4. Tests
 
