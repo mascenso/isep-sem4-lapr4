@@ -1,8 +1,8 @@
 package shareboardHttpServer;
 
+
+
 import eCourse.domain.ECoursePasswordPolicy;
-import eCourse.domain.Notification;
-import eCourse.domain.SharedBoard;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -16,7 +16,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 import static eapli.framework.infrastructure.authz.application.AuthzRegistry.authenticationService;
 
@@ -81,9 +80,12 @@ public final class SBPServer  {
 
                 while (!clientSocket.isClosed()) {
 
+                    try{
                      data = readMessageData(clientSocket, false);
-
-
+                    }catch (Exception e){
+                        System.out.println("An error occurred while receiving the data, please contact the administrator.");
+                        throw new RuntimeException(e);
+                    }
                 }
 
             } catch (IOException | ClassNotFoundException e) {

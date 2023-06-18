@@ -10,6 +10,7 @@ public class ListSharedBoardController {
     private ListSharedBoardService sharedBoardService = new ListSharedBoardService();
 
     public Iterable<SharedBoard> listBoardsByUser() throws IOException {
+
         return sharedBoardService.listBoardsByUser();
     }
 

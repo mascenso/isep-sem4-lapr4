@@ -1,9 +1,5 @@
 package shareboardHttpServer;
 
-import eCourse.domain.Notification;
-import eCourse.domain.SharedBoard;
-import eapli.framework.infrastructure.authz.domain.model.Username;
-
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
@@ -140,7 +136,7 @@ public class SBPClient {
     }
 
     public static void sendRequest(int code, byte[] data) throws IOException {
-        if(code <0 || code >5){
+        if(code <0 || code >91){
             System.out.println("This code dont exist, please insert a valid one");
         }else {
             outputStream.writeByte(1);
@@ -158,7 +154,7 @@ public class SBPClient {
             }
         }
     }
-    public static boolean saveBoard(SharedBoard board) throws IOException {
+    public static boolean saveBoard(Object board) throws IOException {
         //We were supposed to send a serialized object to the tcp server to persist in the DB but it's not being possible to serialize
         //and we decided not to send the object and leave it for a future improvement
         //just send request and receive the answer
@@ -188,7 +184,7 @@ public class SBPClient {
         sendRequest(8,new byte[0]);
     }
 
-    public static void findAllBoardsByUser(Username identity) throws IOException {
+    public static void findAllBoardsByUser(Object identity) throws IOException {
         //We were supposed to send a serialized object to the tcp server to persist in the DB but it's not being possible to serialize
         //and we decided not to send the object and leave it for a future improvement
         //just send request and receive the answer
