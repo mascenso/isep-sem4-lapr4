@@ -1,14 +1,17 @@
 package eCourse.app.student.console.presentation.Exams;
 
 import eCourse.app.common.console.ExamGradePrinter;
+import eCourse.app.common.console.ExamPrinter;
+import eCourse.domain.Exam;
 import eCourse.domain.GradeOfExam;
 import eCourse.exam.application.ListStudentExamGradesController;
+import eCourse.exam.application.ListStudentExamsController;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
 
 public class ListExamsUI extends AbstractListUI {
 
-    private final ListStudentExamGradesController listStudentExamGradesController = new ListStudentExamGradesController();
+    private final ListStudentExamsController listStudentExamsController = new ListStudentExamsController();
 
 
     @Override
@@ -23,13 +26,13 @@ public class ListExamsUI extends AbstractListUI {
 
 
     @Override
-    protected Iterable<GradeOfExam> elements() {
-        return listStudentExamGradesController.examOfLoggedStudent();
+    protected Iterable<Exam> elements() {
+        return listStudentExamsController.examOfLoggedStudent();
     }
 
     @Override
-    protected Visitor<GradeOfExam> elementPrinter() {
-        return new ExamGradePrinter();
+    protected Visitor<Exam> elementPrinter() {
+        return new ExamPrinter();
     }
 
     @Override
@@ -39,6 +42,6 @@ public class ListExamsUI extends AbstractListUI {
 
     @Override
     protected String listHeader() {
-        return String.format("#  %-30s%-20s%-20s%-20s", "Course", "Exam Name", "Grade", "Student Name");
+        return String.format("#  %-30s%-20s%-20s%-30s%-20s", "Course", "Exam Name", "Teacher Name", "Start Date", "End Date");
     }
 }

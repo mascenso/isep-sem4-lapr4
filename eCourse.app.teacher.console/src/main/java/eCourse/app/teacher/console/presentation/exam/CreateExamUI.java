@@ -20,7 +20,7 @@ public class CreateExamUI extends AbstractUI {
 
         final String title = Console.readNonEmptyLine("Insert the Exam title:", "The title cannot be empty!");
 
-        List<Course> listOfCourses = theController.getOpenCourses();
+        List<Course> listOfCourses = theController.getInProgressCourses();
 
         final Map<Integer, Designation> hashmap = new HashMap<>();
 
