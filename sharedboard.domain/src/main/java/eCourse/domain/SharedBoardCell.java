@@ -6,12 +6,13 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 public class SharedBoardCell implements AggregateRoot<String> {
     private static final long serialVersionUID = 1L;
 
-    private enum CellState {
+    enum CellState {
         EMPTY, FILLED
     }
 
@@ -55,8 +56,19 @@ public class SharedBoardCell implements AggregateRoot<String> {
         this.owner = newOwner;
     }
 
+    public void changePostItContent(String newContent) {
+        if (newContent == null) {
+            throw new IllegalArgumentException();
+        }
+        this.postit = new PostIt(newContent);
+    }
+
     public SharedBoardTitle boardTitle() {
         return sharedboard.boardTitle();
+    }
+
+    public boolean isFree() {
+        return state == CellState.EMPTY;
     }
 
     @Override
@@ -73,6 +85,10 @@ public class SharedBoardCell implements AggregateRoot<String> {
         return identity().equals(that.identity()) && state.equals(that.state);
     }
 
+    public Optional<PostIt> content() {
+        return Optional.ofNullable(postit);
+    }
+
     @Override
     public String identity() {
         return id;
@@ -80,6 +96,8 @@ public class SharedBoardCell implements AggregateRoot<String> {
 
     @Override
     public String toString() {
-        return id + ":::" + state.toString() + ":::" + postit.toString();
+
+        return this.isFree() ? id + ":::" + state.toString() + ":::" :
+                id + ":::" + state.toString() + ":::" + postit.toString();
     }
 }

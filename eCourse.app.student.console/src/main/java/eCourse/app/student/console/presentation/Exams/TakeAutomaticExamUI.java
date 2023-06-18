@@ -3,7 +3,6 @@ package eCourse.app.student.console.presentation.Exams;
 import eCourse.antlrExam.ExamSpecificationLexer;
 import eCourse.antlrExam.ExamSpecificationParser;
 import eCourse.domain.AutomaticExame;
-import eCourse.domain.Exam;
 import eCourse.exam.application.TakeAutomaticExameController;
 import eapli.framework.presentation.console.AbstractUI;
 import org.antlr.v4.runtime.CharStream;
@@ -12,10 +11,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class TakeAutomaticExamUI extends AbstractUI {
 
@@ -25,6 +21,7 @@ public class TakeAutomaticExamUI extends AbstractUI {
 
             List<AutomaticExame> ListOfExams = theController.AutomaticExamsUnsolved();
             AutomaticExame examSelected = showListExams(ListOfExams);
+            Map<String,Float> feedback = new LinkedHashMap<>();
 
             CharStream charStream = null;
             try {
@@ -51,13 +48,30 @@ public class TakeAutomaticExamUI extends AbstractUI {
             System.out.println("--------------------------------------------------------------------------------");
             System.out.printf("\nLet's begin the section %s.\n", header.get("sectionTitle"));
 
+            //show questions
             for (Map.Entry<String, Map<String, Object>> entry : exam.entrySet()) {
                 if (!entry.getKey().equalsIgnoreCase("Header")) {
-                    studentGrade += makeQuestionForUser(entry);
+                    studentGrade += makeQuestionForUser(entry,feedback);
                     System.out.println(studentGrade);
                 }
 
             }
+
+            //show feedback
+            if(!feedback.isEmpty()){
+                System.out.println();
+                System.out.printf("%-10s%-40s%-20s\n", "Number", "Question", "Grade");
+                int index =1;
+                for (Map.Entry<String, Float> entry : feedback.entrySet()) {
+                    String key = entry.getKey();
+                    Float value = entry.getValue();
+                    System.out.printf("%-10s%-40s%-20s\n", index, key, value);
+                    index++;
+                }
+                System.out.println();
+            }
+
+            //show grades
             System.out.printf("You got %.0f%% of exam right.\n", theController.getExamGradeOnPercentage(studentGrade, maxExamGrade));
             System.out.printf("You had %.2f of %.2f possible points.\n", studentGrade, maxExamGrade);
 
@@ -91,30 +105,30 @@ public class TakeAutomaticExamUI extends AbstractUI {
         return "Take a exam";
     }
 
-    private static float makeQuestionForUser(Map.Entry<String, Map<String, Object>> question) {
+    private static float makeQuestionForUser(Map.Entry<String, Map<String, Object>> question, Map<String, Float> feedback) {
         if(question.getKey().contains("TrueOrFalseQuestion")){
-            return makeTrueFalseQuestion(question);
+            return makeTrueFalseQuestion(question,feedback);
         }
         if(question.getKey().contains("ShortAnswerQuestion")){
-            return makeShortAnswerQuestion(question);
+            return makeShortAnswerQuestion(question,feedback);
         }
         if(question.getKey().contains("NumericalQuestion")){
-            return makeNumericalQuestion(question);
+            return makeNumericalQuestion(question,feedback);
         }
         if(question.getKey().contains("matchingQuestion")){
-            return makeMatchingQuestion(question);
+            return makeMatchingQuestion(question,feedback);
         }
         if(question.getKey().contains("MultipleChoiceQuestion")){
-            return makeMultipleChoiceQuestion(question);
+            return makeMultipleChoiceQuestion(question,feedback);
         }
         if(question.getKey().contains("MissingWordsQuestion")){
-            return makeMissingWordQuestion(question);
+            return makeMissingWordQuestion(question,feedback);
         }
 
         return 0;
     }
 
-    private static float makeMissingWordQuestion(Map.Entry<String, Map<String, Object>> question) {
+    private static float makeMissingWordQuestion(Map.Entry<String, Map<String, Object>> question, Map<String, Float> feedback) {
         List <String> userAnswer = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         int numberOfAttemps = (int)question.getValue().get("numberOfAtemps");
@@ -136,10 +150,14 @@ public class TakeAutomaticExamUI extends AbstractUI {
             }
         }
         while (numberOfAttemps!=0 && theController.validateMissingWordQuestion(userAnswer,question)< (float)question.getValue().get("MaxGrade"));
+
+        //build feedback
+        feedback.put("Missing Word",theController.validateMissingWordQuestion(userAnswer,question));
+
         return theController.validateMissingWordQuestion(userAnswer,question);
     }
 
-    private static float makeMultipleChoiceQuestion(Map.Entry<String, Map<String, Object>> question) {
+    private static float makeMultipleChoiceQuestion(Map.Entry<String, Map<String, Object>> question, Map<String, Float> feedback) {
         List <String> userAnswer = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         List<String> options = (List<String>)question.getValue().get("options");
@@ -152,10 +170,14 @@ public class TakeAutomaticExamUI extends AbstractUI {
         }
         System.out.print("Answer: ");
         userAnswer = List.of(scanner.nextLine().split(" "));
+
+        //build feedback
+        feedback.put(question.getValue().get("Question").toString(),theController.validateMultipleChoiceQuestion(userAnswer,question));
+
         return theController.validateMultipleChoiceQuestion(userAnswer,question);
     }
 
-    private static float makeMatchingQuestion(Map.Entry<String, Map<String, Object>> question) {
+    private static float makeMatchingQuestion(Map.Entry<String, Map<String, Object>> question, Map<String, Float> feedback) {
         List<String> userAnswer = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         List<String> ListOne = (List<String>) question.getValue().get("ListOne");
@@ -180,10 +202,14 @@ public class TakeAutomaticExamUI extends AbstractUI {
             System.out.print("Answer: ");
             userAnswer.add(scanner.nextLine());
         }
+
+        //build feedback
+        feedback.put("Matching question",theController.validateMatchingQuestion(userAnswer,question));
+
         return theController.validateMatchingQuestion(userAnswer,question);
     }
 
-    private static float makeNumericalQuestion(Map.Entry<String, Map<String, Object>> question) {
+    private static float makeNumericalQuestion(Map.Entry<String, Map<String, Object>> question, Map<String, Float> feedback) {
         float userAnswer =0;
         Scanner scanner = new Scanner(System.in);
         System.out.println("--------------------------------------------------------------------------");
@@ -192,10 +218,13 @@ public class TakeAutomaticExamUI extends AbstractUI {
         System.out.print("Answer: ");
         userAnswer = scanner.nextFloat();
 
+        //build feedback
+        feedback.put(question.getValue().get("Question").toString(),theController.validateNumericalQuestion(userAnswer,question));
+
         return theController.validateNumericalQuestion(userAnswer,question);
     }
 
-    private static float makeShortAnswerQuestion(Map.Entry<String, Map<String, Object>> question) {
+    private static float makeShortAnswerQuestion(Map.Entry<String, Map<String, Object>> question, Map<String, Float> feedback) {
         String userAnswer = "";
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n--------------------------------------------------------------------------");
@@ -204,10 +233,13 @@ public class TakeAutomaticExamUI extends AbstractUI {
         System.out.print("Answer: ");
         userAnswer = scanner.nextLine();
 
+        //build feedback
+        feedback.put(question.getValue().get("Question").toString(),theController.validateTheShortAnswer(userAnswer,question));
+
         return theController.validateTheShortAnswer(userAnswer,question);
     }
 
-    private static float makeTrueFalseQuestion(Map.Entry<String, Map<String, Object>> question) {
+    private static float makeTrueFalseQuestion(Map.Entry<String, Map<String, Object>> question, Map<String, Float> feedback) {
         String userAnswer = "";
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n--------------------------------------------------------------------------");
@@ -217,6 +249,9 @@ public class TakeAutomaticExamUI extends AbstractUI {
         System.out.print("Answer: ");
             userAnswer = scanner.nextLine();
         }while(!theController.isAValidTrueOrFalseAnswer(userAnswer));
+
+        //build feedback
+        feedback.put(question.getValue().get("Question").toString(),theController.validateTheAnswerTrueOrFalse(userAnswer,question));
 
         return theController.validateTheAnswerTrueOrFalse(userAnswer,question);
     }

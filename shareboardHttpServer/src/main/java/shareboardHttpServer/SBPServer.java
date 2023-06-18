@@ -1,7 +1,5 @@
 package shareboardHttpServer;
 
-
-
 import eCourse.domain.ECoursePasswordPolicy;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthenticationService;
