@@ -25,4 +25,6 @@ public class CourseEnrollmentRequestService {
     public CourseEnrollmentRequest getStudentEnrollment(Student user, Course course) {
         return PersistenceContext.repositories().courseEnrollmentRequests().findByStudentAndCourse(user, course);
     }
+
+
 }

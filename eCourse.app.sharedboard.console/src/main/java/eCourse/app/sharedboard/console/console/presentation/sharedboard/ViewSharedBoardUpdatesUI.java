@@ -4,10 +4,6 @@ import eCourse.ViewSharedBoardUpdatesController;
 import eCourse.domain.enums.AccessType;
 import eCourse.domain.SharedBoard;
 import eCourse.domain.valueobjects.SharedBoardTitle;
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.application.UserSession;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 

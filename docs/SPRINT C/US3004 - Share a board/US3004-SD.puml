@@ -18,8 +18,8 @@ database "ShareBoardUserRepository" as SBRU
 
 
 U -> UI:Share a board
-UI -> C: getMyBoards(User)
-C->S:listBoardsByUser(User)
+UI -> C: getMyBoards()
+C->S:listBoardsByUser()
 S->SBR: findByUsername()
 SBR-->S: listOfBoards
 S-->C: myBoardsList

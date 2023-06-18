@@ -27,7 +27,7 @@ public class ListExamsCourseUI extends AbstractUI {
     @Override
     public boolean doShow() {
 
-        final Iterable<Course> allCoursesOpen = theController.allCoursesOpen();
+        final Iterable<Course> allCoursesOpen = theController.allCoursesInProgress();
 
         if (!allCoursesOpen.iterator().hasNext()) {
             System.out.println("There are no registered Courses");
