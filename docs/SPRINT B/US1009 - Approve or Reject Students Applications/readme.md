@@ -57,7 +57,7 @@ layer between the domain code and the data storage.
 
 **Domain Model Excerpt**
 
-![US1009-DM](US1009-DM.png "US1009 - Domain Model Excerpt")
+![US1009-DM](DM-Excert.png "US1009 - Domain Model Excerpt")
 
 
 ## 4. Design
