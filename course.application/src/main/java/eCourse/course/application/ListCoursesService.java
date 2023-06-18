@@ -32,6 +32,16 @@ public class ListCoursesService {
         return openCourses;
     }
 
+    public List<Course> inProgressCourses() {
+        List<Course> inProgressCourses = new ArrayList<>();
+        for (Course course : allCourses()) {
+            if (course.getCourseState().getActualState().equals("Progress")) {
+                inProgressCourses.add(course);
+            }
+        }
+        return inProgressCourses;
+    }
+
     public List<Course> getEnrollmentCourses() {
         List<Course> enrollCourses = new ArrayList<>();
         for (Course course : allCourses()) {

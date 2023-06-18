@@ -90,6 +90,8 @@ public class CourseEnrollmentRequest implements AggregateRoot<Long> {
 
     public Student courseEnrollmentRequestStudent() { return student; }
 
+    public EnrollmentStatus courseEnrollmentStatus() {return enrollmentStatus;}
+
     public void approveEnrollment(Student student) {
         this.enrollmentStatus = EnrollmentStatus.ACCEPTED;
         course.studentsEnrolled(student);
