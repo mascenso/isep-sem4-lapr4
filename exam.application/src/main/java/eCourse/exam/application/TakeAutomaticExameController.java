@@ -1,5 +1,6 @@
 package eCourse.exam.application;
 
+import eCourse.domain.AutomaticExame;
 import eCourse.domain.Exam;
 import eCourse.domain.GradeOfExam;
 import eCourse.infrastructure.persistence.PersistenceContext;
@@ -55,25 +56,13 @@ public class TakeAutomaticExameController {
         return service.getExamGradeOnPercentage(studentGrade,maxExamGrade);
     }
 
-    public void saveGrade(float examGradeOnPercentage, Exam examSelected) {
+    public void saveGrade(float examGradeOnPercentage, AutomaticExame examSelected) {
         SystemUser user  = authz.session().get().authenticatedUser();
         GradeOfExam grade = new GradeOfExam(user, examGradeOnPercentage,examSelected);
         PersistenceContext.repositories().gradesForExam().save(grade);
     }
 
-    public Boolean ValidateIfExamIsOpenToSubmit(Exam examSelected) {
-        return service.ValidateIfExamIsOpenToSubmit(examSelected);
-    }
-
-    public List<Exam> AutomaticExamsUnsolved() {
-        List<Exam> listExams = (List<Exam>) listExamService.ExamsUnsolved();
-        List<Exam> listExamsToSend = new ArrayList<>();
-        Date date = new Date(0);
-        for (int i = 0; i < listExams.size(); i++) {
-            if(listExams.get(i).getExamCloseDate().getTime() ==date.getTime() && listExams.get(i).getExamOpenDate().getTime() == date.getTime()){
-                listExamsToSend.add(listExams.get(i));
-            }
-        }
-        return listExamsToSend;
+    public List<AutomaticExame> AutomaticExamsUnsolved() {
+        return listExamService.AutomaticExamsUnsolved();
     }
 }

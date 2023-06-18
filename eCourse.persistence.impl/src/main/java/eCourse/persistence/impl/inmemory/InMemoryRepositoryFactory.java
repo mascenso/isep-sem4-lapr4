@@ -143,5 +143,10 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 		return null;
 	}
 
+	@Override
+	public AutomaticExamRepository automaticExams() {
+		return null;
+	}
+
 
 }

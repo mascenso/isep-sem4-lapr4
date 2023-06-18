@@ -33,6 +33,7 @@
         <class>eCourse.domain.AbstractBoardUpdateEvent</class>
         <class>eCourse.domain.GradeOfExam</class>
         <class>eCourse.domain.SharedBoardCell</class>
+        <class>eCourse.domain.AutomaticExame</class>
 
 
 
