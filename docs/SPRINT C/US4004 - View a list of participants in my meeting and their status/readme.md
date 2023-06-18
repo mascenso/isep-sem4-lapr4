@@ -5,6 +5,16 @@
 
 *The context for this task is the development of a new feature requested by the costumer. The purpose of this user story is to allow user to view a list of participants in my meeting and their status (accept or reject).*
 
+### 1.1. Customer Specifications and Clarifications
+**From the client clarifications:**
+
+>- **Question**:
+ Relativamente a esta user story, o ficheiro excel providenciado refere o seguinte:
+    "As User, I want to view a list of participants in my meeting and their status (accept or reject)". 
+ Isso significa que só devem ser apresentados os participantes que possuam status "accept" or "reject" (portanto não seriam mostrados os participantes com status "pending" ou "owner" por exemplo), ou serve apenas como exemplo para se entender o que refere quando se fala no status?
+>
+>- **Answer** :
+   A ideia é que apareçam todos os participantes e o seu estado. Suponho que quem ainda não respondeu não terá nada no estado ou "pending" ou "unknown".
 ## 2. Requirements
 
 *The requirement is to develop the functionality for view a list of participants in a meeting . This user story is a new feature that has not been implemented before and depends on the implementation of US4001 As User, I want to schedule a meeting*
@@ -42,10 +52,6 @@ Below is the use case diagram to show the interactions between the user and the 
 
 ![Use Case Diagram](Use_Case_Diagram.svg)
 
-
-**Domain Model Excerpt**
-
-![](DomainModel_Excerpt.png "US1004 - Domain Model Excerpt")
 
 ## 4. Design
 

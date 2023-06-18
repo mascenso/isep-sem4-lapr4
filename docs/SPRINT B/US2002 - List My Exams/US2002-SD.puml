@@ -2,32 +2,70 @@
 actor Student as Actor
 participant ListExamsUI as UI <<presentation>>
 participant ListExamsController as Controller <<aplication>>
+participant AuthorizationService as Authz <<Application>>
 participant ListExamsService as Service <<service>>
+participant CourseEnrollmentRequestService as CERService <<service>>
 participant PersistenceContext as Persistence <<persistence>>
 participant RepositoryFactory as Factory <<factory>>
+database StudentRepository as studentRepository <<repository>>
 database ExamsRepository as Repository <<repository>>
+participant "theCourse:Course" as Course <<Domain>>
 
-Actor -> UI: show()
+Actor -> UI: elements()
 activate UI
-    UI -> Controller: getOpenExams()
-        activate Controller
-        Controller -> Service: getOpenExams()
-        activate Service
-        Service -> Persistence: Repositories()
+UI -> Controller: examOfLoggedStudent()
+activate Controller
+Controller -> Authz: session().authenticatedUser().username()
+activate Authz
+Authz -> Controller: username
+deactivate Authz
+Controller -> studentRepository: findByUsername(username)
+activate studentRepository
+studentRepository -> Controller: student
+deactivate studentRepository
+Controller -> Service: examOfLoggedStudent(student)
+activate Service
+Service -> Persistence: Repositories()
+activate Persistence
+Persistence -> Factory: Courses()
+activate Factory
+Factory -> Repository: findAll()
+activate Repository
+Repository -> Factory: Iterable<Course> enrolledCourses
+deactivate Repository
+Factory -> Persistence: Iterable<Course> enrolledCourses
+deactivate Factory
+Persistence -> Service: Iterable<Course> enrolledCourses
+deactivate Persistence
+    loop Iterable<Course>
+        Service -> Course: getActualState().equals("Progress")
+        Service -> CERService: getStudentEnrollment(student, course)
+        activate CERService
+        CERService -> Persistence: repositories()
         activate Persistence
-        Persistence -> Factory: Exams()
-                    activate Factory
-            Factory -> Repository: create
-
-            deactivate Factory
-        Service -> Repository: getOpenExams()
-                activate Repository
-        Repository --> Service
-        deactivate Repository
-        Service--> Controller
-        deactivate Service
-        Controller --> UI: List
-    deactivate Controller
-    UI -> UI:Show
+        Persistence -> Factory: indByStudentAndCourse(user, course)
+        activate Factory
+        Factory -> Persistence: CourseEnrollmentRequest
+        deactivate Factory
+        Persistence -> CERService: CourseEnrollmentRequest
+        deactivate Persistence
+        CERService -> Service: CourseEnrollmentRequest
+        deactivate CERService
+        Service -> CourseEnrollmentRequest: courseEnrollmentStatus()
+        Service -> Service: getExamByCourse(Course course)
+        Service -> Persistence: repositories()
+        activate Persistence
+        Persistence -> Factory: findAll()
+        activate Factory
+        Factory -> Persistence: exams
+        deactivate Factory
+        Persistence -> Service: exams
+        deactivate Persistence
+    end
+Service -> Controller: exams
+deactivate Service
+Controller -> UI: exams
+deactivate Controller
+UI -> Actor: ExamPrinter()
 deactivate UI
 @enduml

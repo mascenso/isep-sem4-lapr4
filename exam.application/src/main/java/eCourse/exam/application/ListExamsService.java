@@ -79,7 +79,10 @@ public class ListExamsService {
         List<GradeOfExam> loggedTeacherExams = new ArrayList<>();
         SystemUser loggedUser = authz.session().get().authenticatedUser();
         for (GradeOfExam gradeOfExam : allExamGrades()) {
-            if (gradeOfExam.theExam().getTeacher().user().equals(loggedUser)) {
+            if (gradeOfExam.theExam() != null && gradeOfExam.theExam().getTeacher().user().equals(loggedUser)) {
+                loggedTeacherExams.add(gradeOfExam);
+            }
+            if (gradeOfExam.theAutomaticExam() != null && gradeOfExam.theAutomaticExam().getTeacher().user().equals(loggedUser)) {
                 loggedTeacherExams.add(gradeOfExam);
             }
         }

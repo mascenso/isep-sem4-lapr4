@@ -5,6 +5,14 @@
 
 *The context for this task is the development of a new feature requested by the costumer. The purpose of this user story is to allow user to view a list of participants in my meeting and their status (accept or reject).*
 
+### 1.1. Customer Specifications and Clarifications
+**From the client clarifications:**
+>- **Question**:
+   Em relação a esta US deveríamos simplesmente considerar os "meeting request" que não foram aceites ou rejeitados?
+   Um "meeting request" que já foi aceite ou rejeitado poderá ser alterado, depois?
+>- **Answer** :
+   a intenção nesta US é fazer exactamente o que está descrito: aceitar ou rejeitar um pedido de reunião. A decisão é tomada uma única vez pelo utilizador.
+
 ## 2. Requirements
 
 *The requirement is to develop the functionality for view a list of participants in a meeting . This user story is a new feature that has not been implemented before and depends on the implementation of US4001 As User, I want to schedule a meeting and US*
@@ -42,10 +50,6 @@ Below is the use case diagram to show the interactions between the user and the 
 ![Use Case Diagram](Use_Case_Diagram.svg)
 
 
-**Domain Model Excerpt**
-
-![](DomainModel_Excerpt.png "US1004 - Domain Model Excerpt")
-
 ## 4. Design
 
 *In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
@@ -79,7 +83,8 @@ Below is the use case diagram to show the interactions between the user and the 
     - Repository
 
 ### 4.5. Tests
-
+* Check if the meeting request can be accepted or rejected when the meeting status is Pending
+* Check if the order status is updated correctly after the accept or reject action.
 
 
 

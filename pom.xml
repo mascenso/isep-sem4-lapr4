@@ -51,15 +51,16 @@
 		<module>meeting.application</module>
 		<module>meeting.domain</module>
 		<module>infrastructure.persistence</module>
-		<module>student.domain</module>
-		<module>student.application</module>
 		<module>teacher.domain</module>
 		<module>teacher.application</module>
+		<module>student.domain</module>
+		<module>student.application</module>
 		<module>systemusers.domain</module>
 		<module>shareboardHttpServer</module>
 
 
-    </modules>
+
+	</modules>
 
 	<dependencies>
 		<!-- EAPLI framework -->
@@ -131,7 +132,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-    </dependencies>
+	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>

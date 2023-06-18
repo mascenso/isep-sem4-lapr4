@@ -1,68 +1,154 @@
-# US 1001
+# US 3006  : As a User I want to create a post-it-on a board.
 
-*This is an example template*
+## 1. Requirements Engineering
 
-## 1. Context
+### 1.1. User Story Description
 
-*Explain the context for this task. It is the first time the task is assigned to be developed or this tasks was incomplete in a previous sprint and is to be completed in this sprint? Are we fixing some bug?*
+As a User, I want to create a post-it-on a board
 
-## 2. Requirements
+**From the specifications document:**
 
-*In this section you should present the functionality that is being developed, how do you understand it, as well as possible correlations to other requirements (i.e., dependencies).*
+* "shared board is a digital implementation of a post-it board. It has a unique
+  title. It is divided into a certain number of columns and rows."
 
-*Example*
+* "Users with write permission may post content to a cell in the board."
 
-**US G002** As {Ator} I Want...
+* "When the server commits a post it also should notify all clients with access
+  to the board of the update. "
 
-- G002.1. Blá Blá Blá ...
+**From the client clarifications:**
 
-- G002.2. Blá Blá Blá ...
+> **Question:**
+> **Answer:**
+> 
+>
+### 1.4. Found out Dependencies
 
-*Regarding this requirement we understand that it relates to...*
+* [US-3002] "Create a Board"
+* [US-3005] "Share a Board"
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+* Selected data
+* A board on which the user has write permission
+* A cell on the board
+
+**Typed Data:**
+* Post-it content (text or image)
 
 ## 3. Analysis
 
-*In this section, the team should report the study/analysis/comparison that was done in order to take the best design decisions for the requirement. This section should also include supporting diagrams/artifacts (such as domain model; use case diagrams, etc.),*
+A user creates a post-it on a board. 
+The user with write permission can add content to a specific cell on the board.
 
-## 4. Design
+* The system shows the shared boards where the user has write permission.
+* The user selects the shared board on which he wants to create a post-it.
+
+
+* The system retrieves the free cells on the board.
+* The user selects the specific cell on the board where they want to place the post-it.
+
+
+* The user specifies the content they want to add to the post-it.
+* *The system posts the post-it on the board.
+
+
+### 1.6. System Sequence Diagram (SSD)
+
+![ssd_us3006](ssd_us3006.svg)
+
+
+### 1.7 Other Relevant Remarks
+
+*
+
+## 2. OO Analysis
+
+### 2.1. Relevant Domain Model Excerpt
+
+![dm_us3006](dm_us3006.png)
+
+## 3. Design - User Story Realization
 
 *In this sections, the team should present the solution design that was adopted to solve the requirement. This should include, at least, a diagram of the realization of the functionality (e.g., sequence diagram), a class diagram (presenting the classes that support the functionality), the identification and rational behind the applied design patterns and the specification of the main tests used to validade the functionality.*
 
-### 4.1. Realization
+**SSD**
 
-### 4.2. Class Diagram
+### Systematization ##
 
-![a class diagram](class-diagram-01.svg "A Class Diagram")
+The conceptual classes promoted to software classes are:
+Shared Board (Entity)
+Shared Board Line Titles (Value Object)
+Shared Board Column Titles (Value Object)
+Shared Board Cell (Entity)
+Post-it (Value Object)
 
-### 4.3. Applied Patterns
+Other software classes (i.e. Pure Fabrication) identified:
+
+* UserStoryUI
+* UserStoryController
+* Builder
+* Repository
+* Service
+
+
+## 3.2. Sequence Diagram (SD)
+
+![sd_us3006](sd_us3006.svg)
+
+## 3.3. Class Diagram (CD)
+
+![cd_us3006](cd_us3006.svg)
+
 
 ### 4.4. Tests
 
-**Test 1:** *Verifies that it is not possible to create an instance of the Example class with null values.*
+* Verify Successful Creation of a Post-it on a Board
+``` 
+A user can successfully create a post-it on a board.
+```
+
+* Verify Proper Placement of Post-it on the Board
+```
+The post-it is placed correctly in the selected cell on the board.
+```
+* Verify Concurrent Post-it Creation
+```
+The system handles concurrent post-it creations by multiple users.
+```
+* Verify Non-Empty Post-it Content
+```
+An IllegalArgumentException is thrown when trying to create a post-it with an empty title.
+```
+
+**Test 7:** Verify Non-Null Boardrow
 
 ```
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullIsNotAllowed() {
-	Example instance = new Example(null, null);
-}
-````
+An IllegalArgumentException is thrown when trying to create a post-it with a null BoardRow.
+```
 
-## 5. Implementation
+**Test 7:** Verify Non-Null Boardcolumn
 
-*In this section the team should present, if necessary, some evidencies that the implementation is according to the design. It should also describe and explain other important artifacts necessary to fully understand the implementation like, for instance, configuration files.*
+```
+An IllegalArgumentException is thrown when trying to create a post-it with a null BoardColumn.
+```
 
-*It is also a best practice to include a listing (with a brief summary) of the major commits regarding this requirement.*
 
-## 6. Integration/Demonstration
+# 5. Construction (Implementation)
 
-*In this section the team should describe the efforts realized in order to integrate this functionality with the other parts/components of the system*
 
-*It is also important to explain any scripts or instructions required to execute an demonstrate this functionality*
+## Class
 
-## 7. Observations
 
-*This section should be used to include any content that does not fit any of the previous sections.*
 
-*The team should present here, for instance, a critical prespective on the developed work including the analysis of alternative solutioons or related works*
+## Class
 
-*The team should include in this section statements/references regarding third party works that were used in the development this work.*
+
+
+# 6. Integration and Demo
+
+
+
+
+# 7. Observations
