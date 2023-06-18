@@ -6,7 +6,9 @@ import eapli.framework.time.util.CurrentTimeCalendars;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -16,6 +18,7 @@ public class NotificationTest {
 
     private Notification notification1;
     private Notification notification2;
+    private Notification notification3;
     private BoardShareEvent boardShareEvent1;
     private BoardShareEvent boardShareEvent2;
     private BoardUpdateEvent boardUpdateEvent1;
@@ -34,6 +37,10 @@ public class NotificationTest {
     private SharedBoard board2;
     private SharedBoard board3;
 
+    private List<SBColumn> columnList=new ArrayList<>();
+    private List<SBRow> rowList=new ArrayList<>();
+
+
 
     @BeforeEach
     public void setUp() {
@@ -48,21 +55,47 @@ public class NotificationTest {
         owner = userBuilder.with("owner", "Password1", "Harry", "Potter", "leviosa@mail.com").createdOn(CurrentTimeCalendars.now()).withRoles(roles1).build();
         other = userBuilder.with("other", "Password1", "Tom", "Riddle", "horcrux@mail.com").createdOn(CurrentTimeCalendars.now()).withRoles(roles2).build();
 
-        board1 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 1")).withNumberOfColumns(1).withNumberOfRows(1).withArchive(false).withOwner(owner).withColumns(null).withRows(null).build();
-        board2 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 2")).withNumberOfColumns(2).withNumberOfRows(2).withArchive(false).withOwner(other).withColumns(null).withRows(null).build();
-        board3 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 3")).withNumberOfColumns(2).withNumberOfRows(2).withArchive(true).withOwner(other).withColumns(null).withRows(null).build();
+        columnList.add(new SBColumn("C"));
+        rowList.add(new SBRow("R"));
+
+        board1 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 1")).withNumberOfColumns(1).withNumberOfRows(1).withArchive(false).withOwner(owner).withColumns(columnList).withRows(rowList).build();
+        board2 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 2")).withNumberOfColumns(2).withNumberOfRows(2).withArchive(false).withOwner(other).withColumns(columnList).withRows(rowList).build();
+        board3 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Board 3")).withNumberOfColumns(2).withNumberOfRows(2).withArchive(true).withOwner(other).withColumns(columnList).withRows(rowList).build();
 
     }
 
     @Test
-    public void ensureEventCannotBeNull() {
-        AccessType permission = AccessType.READ;
-        sharedBoardUser1 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission);
-        boardShareEvent1 = new BoardShareEvent(sharedBoardUser1);
-        notification1 = new Notification(boardShareEvent1);
+    public void ensureShareEventCannotBeNull() {
 
-        assertNotNull(boardShareEvent1);
-        assertNotNull(notification1);
+        assertThrows(NullPointerException.class, () -> {
+            SharedBoardUser nullType = null;
+            new BoardShareEvent(nullType);
+        });
+    }
+
+    @Test
+    public void ensureUserCannotBeNull() {
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            SystemUser nullType = null;
+            new BoardUpdateEvent(board1,nullType);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            BoardShareEvent nullType = null;
+            new Notification(nullType);
+        });
+
+    }
+
+    @Test
+    public void ensureUpdateEventCannotBeNull() {
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            BoardUpdateEvent nullType = null;
+            new Notification(nullType,owner);
+        });
+
     }
 
     @Test
@@ -175,6 +208,37 @@ public class NotificationTest {
         assertNotEquals(board2.owner(), notification1.owner());
         assertNotEquals(board1.owner(), notification2.owner());
 
+    }
+
+    @Test
+    public void ensureSameUpdateNotification() {
+
+        boardUpdateEvent1 = new BoardUpdateEvent(board1, owner);
+        boardUpdateEvent2 = new BoardUpdateEvent(board2, other);
+        notification1 = new Notification(boardUpdateEvent1, owner);
+        notification2 = new Notification(boardUpdateEvent2, other);
+        notification3 = new Notification(boardUpdateEvent1, owner);
+
+        assertTrue(notification1.sameAs(notification3));
+        assertFalse(notification1.sameAs(notification2));
+        assertFalse(notification2.sameAs(notification3));
+    }
+
+    @Test
+    public void ensureSameSharedNotification() {
+        AccessType permission1 = AccessType.READ;
+        AccessType permission2 = AccessType.WRITE;
+        sharedBoardUser1 = board1.createShareBoardUsers(owner, board1.boardTitle(), permission1);
+        sharedBoardUser2 = board2.createShareBoardUsers(other, board2.boardTitle(), permission2);
+        boardShareEvent1 = new BoardShareEvent(sharedBoardUser1);
+        boardShareEvent2 = new BoardShareEvent(sharedBoardUser2);
+        notification1 = new Notification(boardShareEvent1);
+        notification2 = new Notification(boardShareEvent2);
+        notification3 = new Notification(boardShareEvent1);
+
+        assertTrue(notification1.sameAs(notification3));
+        assertFalse(notification1.sameAs(notification2));
+        assertFalse(notification2.sameAs(notification3));
     }
 
 

@@ -25,7 +25,6 @@ package eCourse.app.sharedboard.console.console.presentation;
 
 import eCourse.Application;
 import eCourse.app.common.console.presentation.authz.MyUserMenu;
-import eCourse.app.sharedboard.console.console.presentation.meals.BookAMealThruKioskUI;
 import eCourse.app.sharedboard.console.console.presentation.sharedboard.*;
 import eCourse.domain.ECourseRoles;
 import eapli.framework.actions.Actions;
@@ -55,9 +54,10 @@ public class MainMenu extends AbstractUI {
     private static final int LIST_BOARDS_OPTION = 2;
     private static final int BOOK_A_MEAL = 99;
     private static final int SHARE_A_BOARD=3;
-    private static final int UPDATE_SHARED_BOARD=4;
+    private static final int VIEW_BOARD=4;
     private static final int CREATE_POST_IT=5;
-    private static final int BOARD_NOTIFICATION=6;
+    private static final int ARCHIVE_BOARD=6;
+    private static final int BOARD_NOTIFICATION=7;
 
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
@@ -130,13 +130,11 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Boards >");
         menu.addItem(CREATE_BOARD_OPTION, "Create board", new SharedBoardUI()::show);
         menu.addItem(LIST_BOARDS_OPTION, "List Boards", new ListSharedBoardUI()::show);
-
-
         menu.addItem(SHARE_A_BOARD, "Share a board", new ShareABoardUI()::show);
-        menu.addItem(UPDATE_SHARED_BOARD,"Update a board", new UpdateSharedBoardUI()::show);
-        menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
-
+        menu.addItem(VIEW_BOARD,"View a board", new ViewSharedBoardUpdatesUI()::show);
         menu.addItem(CREATE_POST_IT, "Create post-it", new CreateAPostItUI()::show);
+        menu.addItem(ARCHIVE_BOARD,"Archive a board", new ArchiveABoardUI()::show);
+        menu.addItem(BOARD_NOTIFICATION, "My notifications", new NotificationUI()::show);
 
        // menu.addItem(BOOK_A_MEAL, "BookaMealExampleCafet", new BookAMealThruKioskUI()::show);
         menu.addItem(EXIT_OPTION, "Return", Actions.SUCCESS);

@@ -21,7 +21,11 @@ public class ListMeetingsController {
         return service.getMeetingsByUser();
     }
 
-    public Iterable<ParticipantsOfMeeting> participantsByMeeting(Meeting meeting) {
-        return PersistenceContext.repositories().meetingResquests().findByMeeting(meeting);
+    public Iterable<ParticipantsOfMeeting> participantsOfMeeting(Meeting meeting){
+        return service.getParticipantsOfMeeting(meeting);
     }
+
+    /*public Iterable<ParticipantsOfMeeting> participantsByMeeting(Meeting meeting) {
+        return PersistenceContext.repositories().meetingResquests().findByMeeting(meeting);
+    }*/
 }

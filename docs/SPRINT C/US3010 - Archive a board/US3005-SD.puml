@@ -1,0 +1,49 @@
+@startuml
+
+autoactivate on
+
+actor User as U
+participant "ArchiveABoardUI" as UI
+participant "ArchiveABoardController" as C
+participant "ListBoardsService" as S
+participant "ShareBoard" as SB
+participant "BoardUpdateEvent" as E
+participant "Notification" as N
+database "ShareBoardRepository" as SBR
+database "NotificationRepository" as NR
+
+
+U -> UI:Archive a board
+UI -> C:listBoardsByUser()
+C->S:listBoardsByUser()
+S->SBR: findByUsername()
+SBR-->S: boardListByUser
+S-->C: boardListByUser
+C-->UI: boardListByUser
+UI->UI:Show boards
+UI-->U: Select Board
+U->UI: board
+
+activate C
+note right of UI: If not archived yet
+UI-->C: changeArchive(user, board)
+C->SB: updateArchive(true, user)
+
+note right of SB: Only owners of the board may archive the board.
+SB->C: isUpdated
+deactivate SB
+C-->UI:isUpdated
+deactivate C
+note right of UI: If user is board's owner
+UI->C:archiveBoard(user, board)
+activate E
+C-->E: create
+E->N:createUpdateBoardNotification()
+deactivate E
+activate C
+C->SBR: save(board)
+C->NR: save(notification)
+
+deactivate C
+
+@enduml
