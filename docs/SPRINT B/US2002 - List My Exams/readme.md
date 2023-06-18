@@ -47,7 +47,7 @@ The user needs to be logged in the application as a student.
 
 ### 1.6 Domain Model
 
-![US1010_DM](DM_US1010.svg)
+![US2002_DM](US2002_DM.svg)
 
 ### 1.7. System Sequence Diagram (SSD)
 

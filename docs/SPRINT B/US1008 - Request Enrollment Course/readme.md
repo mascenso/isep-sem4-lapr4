@@ -75,7 +75,7 @@ The user needs to be logged in the application as a Student.
 
 | Interaction ID | Question: Which class is responsible for...  | Answer                            | Justification (with patterns)                                                                                                      |
 |:---------------|:---------------------------------------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|
-| Step 1         | ... interacting with the actor?              | CreateCourseEnrollmentRequestUI   | UI pattern: CreateCourseEnrollmentRequestUI is responsible for interacting with the actor                                          |
+| Step 1         | ... interacting with the actor?              | RequestEnrollmentUI               | UI pattern: RequestEnrollmentUI is responsible for interacting with the actor                                          |
 |                | ... coordinating the US?                     | CourseEnrollmentRequestController | Controller pattern: CourseEnrollmentRequestController is responsible for coordinating the use case and invoking necessary classes. |
 | Step 15        | ... saving the course enrollment information | CourseEnrollmentRepository        | Repository pattern: CourseEnrollmentRepository is responsible for saving the course enrollment data in the database.               |
 | Step 2         | ... lists the courses with enroll state      | ListEnrollingCoursesService       | Service: ListEnrollingCoursesService is responsible for listing all the courses with enroll state                                  |
