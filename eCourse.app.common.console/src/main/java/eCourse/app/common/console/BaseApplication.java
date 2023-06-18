@@ -26,7 +26,7 @@ import org.apache.logging.log4j.Logger;
 import eCourse.Application;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
 import eapli.framework.infrastructure.pubsub.impl.inprocess.service.InProcessPubSub;
-import shareboardHttpServer.SBPClient;
+import shareboardTCPServer.SBPClient;
 
 import java.io.IOException;
 
