@@ -7,7 +7,7 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import shareboardTCPServer.SBPClient;
+import shareboardHttpServer.SBPClient;
 
 import java.io.IOException;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package shareboardTCPServer;
+package shareboardHttpServer;
 
 import java.io.*;
 import java.net.*;

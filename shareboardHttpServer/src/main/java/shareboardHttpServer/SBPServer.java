@@ -1,6 +1,4 @@
-package shareboardTCPServer;
-
-
+package shareboardHttpServer;
 
 import eCourse.domain.ECoursePasswordPolicy;
 import eCourse.infrastructure.persistence.PersistenceContext;
