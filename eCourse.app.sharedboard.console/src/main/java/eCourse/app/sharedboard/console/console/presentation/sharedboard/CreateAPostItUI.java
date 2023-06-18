@@ -1,22 +1,14 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.CreatePostItController;
-import eCourse.app.common.console.myuser.SignupRequestUI;
-import eCourse.app.common.console.teachers.TeacherPrinter;
-import eCourse.domain.Course;
 import eCourse.domain.SharedBoard;
-import eCourse.domain.Teacher;
-import eCourse.domain.postit.PostIt;
+import eCourse.domain.SharedBoardCell;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
-import eapli.framework.visitor.Visitor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -31,7 +23,7 @@ public class CreateAPostItUI extends AbstractUI {
         /* Show boards of the user */
         final Iterable<SharedBoard> boards;
         try {
-            boards = theController.allSharedBoards();
+            boards = theController.listBoardsByUser();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -43,9 +35,23 @@ public class CreateAPostItUI extends AbstractUI {
         selectorBoard.show();
         final SharedBoard theBoard = selectorBoard.selectedElement();
 
+
+        /* Show free cells */
+        final Iterable<SharedBoardCell> cells;
+        cells = theController.listFreeCells(theBoard);
+
+        if (((Collection<?>) cells).size() == 0) {
+            System.out.println("There are no free cells ");
+            return false;
+        }
+        final SelectWidget<SharedBoardCell> selectorCell = new SelectWidget<>("Select a cell", cells, new CellPrinter());
+        selectorCell.show();
+        final SharedBoardCell theCell = selectorCell.selectedElement();
+
+/*
         Integer x = Integer.parseInt(Console.readLine("X:"));
         Integer y = Integer.parseInt(Console.readLine("Y:"));
-
+*/
         final String textContent = Console.readLine("Text Content (Optional):");
         final String imageFilename = Console.readLine("Img filename (Optional):");
 
@@ -63,13 +69,15 @@ public class CreateAPostItUI extends AbstractUI {
             System.out.println("Could not load image " + imageFilename);
             // fallback to registration without image
             try {
-                theController.registerPostIt(theBoard, x, y, textContent);
+                //theController.registerPostIt(theBoard, x, y, textContent);
+                theController.registerPostIt(theCell, textContent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
             try {
-                theController.registerPostIt(theBoard, x, y, textContent , inputStream);
+                //theController.registerPostIt(theBoard, x, y, textContent , inputStream);
+                theController.registerPostIt(theCell, textContent, inputStream);
                 System.out.println("PostIt created successfully");
 
                 //System.out.println(postIt.toString());

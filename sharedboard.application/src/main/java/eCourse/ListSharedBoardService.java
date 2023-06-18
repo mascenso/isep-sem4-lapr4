@@ -1,5 +1,6 @@
 package eCourse;
 
+import eCourse.domain.SharedBoardCell;
 import eCourse.domain.enums.AccessType;
 import eCourse.domain.SharedBoard;
 import eCourse.domain.valueobjects.SharedBoardTitle;
@@ -77,10 +78,15 @@ public class ListSharedBoardService {
     public Iterable<SystemUser> getUsersWithSharedBoard(SharedBoard board) {
         Iterable<SharedBoardUser> allBoardUsers = PersistenceContext.repositories().sharedBoardUser().findUsersBySharedBoard(board.title());
         List<SharedBoardUser> users = IteratorUtils.toList(allBoardUsers.iterator());
-        List<SystemUser> usersList=new ArrayList<>();
-        for (SharedBoardUser user : users){
+        List<SystemUser> usersList = new ArrayList<>();
+        for (SharedBoardUser user : users) {
             usersList.add(user.boardUser());
         }
-            return usersList;
+        return usersList;
     }
+
+    public Iterable<SharedBoardCell> listFreeCells(SharedBoard sb) {
+        return PersistenceContext.repositories().sharedBoardCells().findFreeCells(sb.title());
+    }
+
 }
