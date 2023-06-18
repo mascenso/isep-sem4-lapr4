@@ -3,7 +3,6 @@ package eCourse;
 import eCourse.domain.*;
 import eCourse.domain.SBColumn;
 import eCourse.domain.SBRow;
-import eCourse.domain.enums.AccessType;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eCourse.infrastructure.persistence.RepositoryFactory;
 import eCourse.domain.ECourseRoles;
@@ -16,7 +15,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.stereotype.Component;
-import shareboardHttpServer.SBPClient;
+import shareboardTCPServer.SBPClient;
 
 import java.io.IOException;
 import java.util.List;

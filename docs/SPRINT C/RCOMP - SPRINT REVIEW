@@ -9,6 +9,13 @@ The Shared Board Protocol:
  * SBP message format:
  * SBP message codes;
 
+Five new codes were added to the Protocol request:
+* code 5 --------------- code for request save board
+* code 6 --------------- code for request save Notification
+* code 7 --------------- code for request for return all notifications
+* code 8 --------------- code for request for return all users
+* code 9 --------------- code for request for return all boards of user
+
 User authentication;
 Implement an HTTP server to be able to generate the "views" of the boards. This should be done automatically, without the intervention of the users, by using AJAX.
 
@@ -24,6 +31,7 @@ Regarding the Shared Board Protocol (TCP) we were able to implement it, but it's
 complex objects. However, it is possible to see the server and client connecting, sending and receiving packages.
 
 Although we weren't able to implement everything, it is worth mentioning that:
+* Although we could not implement the HTTP server effectively, the debugs made served to learn a lot, maybe with a few more days we could implement the rest;
 * We all work in cooperation to successfully complete the project on time;
 * Consistent technical decisions among the various group members and meeting the fundamental technical requirements;
 * Good team communication, commitment and coordination, some information was decided early in the sprint;
