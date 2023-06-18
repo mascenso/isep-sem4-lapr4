@@ -1,3 +1,0 @@
-make
-
-java HttpServerChat 1234

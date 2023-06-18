@@ -1,6 +1,5 @@
 package eCourse;
 
-import eCourse.domain.Meeting;
 import eCourse.domain.Notification;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.application.ApplicationService;
@@ -10,7 +9,7 @@ import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.stereotype.Component;
-import shareboardHttpServer.SBPClient;
+import shareboardTCPServer.SBPClient;
 
 import java.io.IOException;
 import java.util.List;
