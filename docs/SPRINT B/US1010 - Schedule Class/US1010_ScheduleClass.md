@@ -122,12 +122,15 @@ The user needs to be logged in the application as a teacher.
 **SSD - Alternative 1 is adopted.**
 
 
-| Interaction ID | Question: Which class is responsible for... | Answer                    | Justification (with patterns)                                                                                                                        |
-|:---------------|:--------------------------------------------|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| Step 1         | ... interacting with the actor?             | CreateRecurringLessonUI   | UI pattern: CreateRecurringLessonUI is responsible for interacting with the actor                     |
-|                | ... coordinating the US?                    | RecurringLessonController | Controller pattern: RecurringLessonController is responsible for coordinating the use case and invoking necessary classes.                           |
-| Step 2         | .. return list of courses                   | RecurringLessonRepository | Repository pattern: RecurringLessonRepository is responsible for saving the recurring lesson in the database.                                        |
-| Step 3         | .. propagates the lesson and validates      | ScheduleLessonService     | Service: ScheduleRecurringLesson is responsible propagating the lesson for a certain frequency and validates the teacher availability for the lesson |
+| Interaction ID | Question: Which class is responsible for... | Answer                          | Justification (with patterns)                                                                                                                       |
+|:---------------|:--------------------------------------------|:--------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?             | CreateRecurringLessonUI         | UI pattern: CreateRecurringLessonUI is responsible for interacting with the actor                                                                   |
+|                | ... coordinating the US?                    | CreateRecurringLessonController | Controller pattern: CreateRecurringLessonController is responsible for coordinating the use case and invoking necessary classes.                    |
+| step 9         | ... getting the logged teacher              | AuthorizationService            | Service: AuthorizationService is responsible for retrieving the logged teacher object.                                                              |
+| Step 13        | .. return the courses of the teacher        | CourseRepository                | Repository pattern: CourseRepository is responsible for saving the courses in the database.                                                         |
+| Step 15        | .. propagates the lesson and validates      | RecurringLessonService          | Service: RecurringLessonService is responsible propagating the lesson for a certain frequency and validates the teacher availability for the lesson |
+| Step 17        | .. builds the Recurring Lesson              | RecurringLessonBuilder          | Builder pattern: RecurringLessonBuilder is responsible for building the RecurringLesson Object                                                      |
+| Step 27        | .. saves the RecurringLesson                | RecurringLessonRepository       | Repository pattern: RecurringLessonRepository is responsible for saving the RecurringLesson in the database.                                        |
 
 
 ### Systematization ##
@@ -416,127 +419,328 @@ Other software classes (i.e. Pure Fabrication) identified:
     @XmlRootElement
     @Entity
     public class RecurringLesson implements AggregateRoot<Designation>, Representationable {
-    /**
-    * The primary key of lesson is the unique title
-    */
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idRecurringLesson;
-
-
-    @XmlElement
-    @JsonProperty
-    private Designation title;
-
-    @ManyToOne
-    private Teacher recurringLessonTeacher;
-
-    @ManyToOne
-    private Course recurringLessonCourse;
-
-    @OneToMany(mappedBy = "recurringLesson", cascade = CascadeType.ALL)
-    private List<ParticipantsOfRecurringLesson> participants;
-
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    private Calendar startDate;
-
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    private Calendar endDate;
-
-    //@Temporal(TemporalType.TIME)
-    @Column(nullable = false)
-    private LocalTime startTime;
-
-    @Column(nullable = false)
-    private int duration;
-
-    @Column(nullable = false)
-    private int frequency;
-
-    private LocalDate occurrences;
-
-    /*
-    @ElementCollection
-    @CollectionTable(name = "occurrence", joinColumns = @JoinColumn(name = "recurring_lesson_id"))
-    @Column(name = "occurrence_datetime", nullable = false)
-    private List<LocalDateTime> occurrences;
-     */
-    protected RecurringLesson(Teacher recurringLessonTeacher, Course recurringLessonCourse, Designation title, Calendar startDate, Calendar endDate, LocalTime startTime, int duration, int frequency, LocalDate occurrences) {
-        Preconditions.noneNull(title, startDate, endDate, startTime, duration, frequency);
-        this.recurringLessonTeacher = recurringLessonTeacher;
-        this.recurringLessonCourse = recurringLessonCourse;
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startTime = startTime;
-        this.duration = duration;
-        this.frequency = frequency;
-        this.occurrences = occurrences;
+      /**
+      * The primary key of lesson is the unique title
+      */
+  
+      @Id
+      @GeneratedValue(strategy = GenerationType.AUTO)
+      private Long idRecurringLesson;
+  
+  
+      @XmlElement
+      @JsonProperty
+      private Designation title;
+  
+      @ManyToOne
+      private Teacher recurringLessonTeacher;
+  
+      @ManyToOne
+      private Course recurringLessonCourse;
+  
+      @OneToMany(mappedBy = "recurringLesson", cascade = CascadeType.ALL)
+      private List<ParticipantsOfRecurringLesson> participants;
+  
+      @Temporal(TemporalType.DATE)
+      @Column(nullable = false)
+      private Calendar startDate;
+  
+      @Temporal(TemporalType.DATE)
+      @Column(nullable = false)
+      private Calendar endDate;
+  
+      //@Temporal(TemporalType.TIME)
+      @Column(nullable = false)
+      private LocalTime startTime;
+  
+      @Column(nullable = false)
+      private int duration;
+  
+      @Column(nullable = false)
+      private int frequency;
+  
+      private LocalDate occurrences;
+  
+      /*
+      @ElementCollection
+      @CollectionTable(name = "occurrence", joinColumns = @JoinColumn(name = "recurring_lesson_id"))
+      @Column(name = "occurrence_datetime", nullable = false)
+      private List<LocalDateTime> occurrences;
+       */
+      protected RecurringLesson(Teacher recurringLessonTeacher, Course recurringLessonCourse, Designation title, Calendar startDate, Calendar endDate, LocalTime startTime, int duration, int frequency, LocalDate occurrences) {
+          Preconditions.noneNull(title, startDate, endDate, startTime, duration, frequency);
+          this.recurringLessonTeacher = recurringLessonTeacher;
+          this.recurringLessonCourse = recurringLessonCourse;
+          this.title = title;
+          this.startDate = startDate;
+          this.endDate = endDate;
+          this.startTime = startTime;
+          this.duration = duration;
+          this.frequency = frequency;
+          this.occurrences = occurrences;
+      }
+  
+      protected RecurringLesson() {
+      }
+  
+      @Override
+      public boolean equals(final Object o) {
+          return DomainEntities.areEqual(this, o);
+      }
+  
+      @Override
+      public int hashCode() {
+          return DomainEntities.hashCode(this);
+      }
+  
+      @Override
+      public boolean sameAs(final Object other) {
+          if (!(other instanceof RecurringLesson)) {
+              return false;
+          }
+  
+          final RecurringLesson that = (RecurringLesson) other;
+          if (this == that) {
+              return true;
+          }
+          return recurringLessonTeacher.equals(that.recurringLessonTeacher) && recurringLessonCourse.equals(that.recurringLessonCourse) && identity().equals(that.identity()) && startDate.equals(that.startDate) && endDate.equals(that.endDate) &&
+          startTime == that.startTime && duration == that.duration && frequency == that.frequency;
+      }
+  
+      @Override
+      public <R> R buildRepresentation(final RepresentationBuilder<R> builder) {
+          return null;
+      }
+  
+      public Teacher responsibleTeacher() { return this.recurringLessonTeacher; }
+  
+      public Course recurringLessonCourse() { return this.recurringLessonCourse; }
+  
+      @Override
+      public Designation identity() { return this.title; }
+  
+      public Designation title() { return this.title;}
+  
+      public Calendar startDate() { return this.startDate;}
+  
+      public Calendar endDate() { return this.endDate;}
+  
+      public LocalTime startTime() { return this.startTime;}
+  
+      public int duration() { return this.duration;}
+  
+      public int frequency() { return this.frequency;}
+  
+      public LocalDate occurrences() { return this.occurrences;}
+  
+      public RecurringLesson updateScheduleOfLesson(Calendar startDate, Calendar endDate, int duration){
+          this.duration = duration;
+          this.startDate = startDate;
+          this.endDate = endDate;
+          return this;
+      }
     }
 
-    protected RecurringLesson() {
+### RecurringLessonBuilder
+
+    public class RecurringLessonBuilder implements DomainFactory<RecurringLesson> {
+  
+      private RecurringLesson theRecurringLesson;
+  
+      private Teacher responsibleTeacher;
+  
+      private Course recurringLessonCourse;
+  
+      private Designation title;
+  
+      private Calendar startDate;
+  
+      private Calendar endDate;
+  
+      private LocalTime startTime;
+  
+      private int duration;
+  
+      private int frequency;
+  
+      private LocalDate occurrences;
+  
+      public RecurringLessonBuilder responsible(final Teacher responsibleTeacher) {
+          this.responsibleTeacher = responsibleTeacher;
+          return this;
+      }
+  
+      public RecurringLessonBuilder teachedAt(final Course recurringLessonCourse) {
+          this.recurringLessonCourse = recurringLessonCourse;
+          return this;
+      }
+  
+      public RecurringLessonBuilder titled(final Designation title) {
+          this.title = title;
+          return this;
+      }
+  
+      public RecurringLessonBuilder starting(final Calendar startDate) {
+          this.startDate = startDate;
+          return this;
+      }
+  
+      public RecurringLessonBuilder ending(final Calendar endDate) {
+          this.endDate = endDate;
+          return this;
+      }
+  
+      public RecurringLessonBuilder startingAt(final LocalTime startTime) {
+          this.startTime = startTime;
+          return this;
+      }
+  
+      public RecurringLessonBuilder lasts(final int duration) {
+          this.duration = duration;
+          return this;
+      }
+  
+      public RecurringLessonBuilder ocurringAt(final int frequency) {
+          this.frequency = frequency;
+          return this;
+      }
+  
+      public RecurringLessonBuilder happensAt(final LocalDate occurrences) {
+          this.occurrences = occurrences;
+          return this;
+      }
+  
+      private RecurringLesson buildOrThrow() {
+          if (theRecurringLesson != null) {
+              return theRecurringLesson;
+          }
+          if (responsibleTeacher != null && recurringLessonCourse != null && title != null && startDate != null && endDate != null && startTime != null  && occurrences != null && duration > 0 && frequency > 0 && frequency < 8) {
+              theRecurringLesson = new RecurringLesson(responsibleTeacher, recurringLessonCourse,title, startDate, endDate, startTime, duration, frequency, occurrences);
+              return theRecurringLesson;
+          }
+          throw new IllegalStateException();
+      }
+  
+      @Override
+      public RecurringLesson build() {
+          final var ret = buildOrThrow();
+          theRecurringLesson = null;
+          return ret;
+      }
     }
 
-    @Override
-    public boolean equals(final Object o) {
-        return DomainEntities.areEqual(this, o);
-    }
+### CreateRecurringLessonController
 
-    @Override
-    public int hashCode() {
-        return DomainEntities.hashCode(this);
-    }
-
-    @Override
-    public boolean sameAs(final Object other) {
-        if (!(other instanceof RecurringLesson)) {
-            return false;
+    public class CreateRecurringLessonController {
+    
+        private static final AuthorizationService authz = AuthzRegistry.authorizationService();
+    
+        TeacherRepository teacherRepository = PersistenceContext.repositories().teachers();
+    
+        CourseRepository courseRepository = PersistenceContext.repositories().courses();
+    
+        private RecurringLessonRepository recurringLessonRepository;
+    
+        public Teacher getCurrentTeacher() {
+            Username username = authz.session().get().authenticatedUser().username();
+    
+            Teacher teacher = authz.session()
+                    .map(UserSession::authenticatedUser)
+                    .flatMap(systemUser -> teacherRepository.findByUsername(username))
+                    .orElse(null);
+    
+            return teacher;
         }
+    
+        public Iterable<Course> getTeacherCourses() {
+            Teacher teacher = getCurrentTeacher();
+            Iterable<Course> courses = courseRepository.findByTeacher(teacher);
+            if (!courses.iterator().hasNext()) {
+                throw new IllegalStateException("No courses found for the teacher");
+            }
+            return courses;
+        }
+    
+        @Transactional
+        public void createRecurringLesson(final Course course, final Designation title, final Calendar startDate, final Calendar endDate, final LocalTime startTime, final int duration, final int frequency) {
+    
+            Username username = authz.session().get().authenticatedUser().username();
+    
+            RecurringLessonService service = new RecurringLessonService();
+    
+            Teacher teacher = authz.session()
+                    .map(UserSession::authenticatedUser)
+                    .flatMap(systemUser -> teacherRepository.findByUsername(username))
+                    .orElse(null);
+    
+            List<Calendar> dayOfOccurrence = service.generateRecurringLessons(startDate, endDate, frequency);
+    
+            for (Calendar calendar : dayOfOccurrence) {
+    
+                LocalDate day = calendar.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    
+                final var newRecurringLesson = new RecurringLessonBuilder().responsible(teacher).teachedAt(course).titled(title)
+                        .starting(startDate).ending(endDate).startingAt(startTime)
+                        .lasts(duration).ocurringAt(frequency).happensAt(day).build();
+    
+                if(service.validateRecurringLesson(teacher, newRecurringLesson)) {
+                    PersistenceContext.repositories().recurringLessons().save(newRecurringLesson);
+                } else {
+                    throw new IllegalStateException("Invalid recurring lesson");
+                }
+                //return recurringLessonRepository.save(newRecurringLesson);
+    
+            }
+    
+        }
+    }
 
-        final RecurringLesson that = (RecurringLesson) other;
-        if (this == that) {
+### RecurringLessonService
+
+    public class RecurringLessonService {
+    
+        public Iterable<RecurringLesson> allRecurringLessons() {
+            return PersistenceContext.repositories().recurringLessons().findAll();
+        }
+    
+        public List<Calendar> generateRecurringLessons(Calendar startDate, Calendar endDate, int frequency) {
+            List<Calendar> daysOfRecurringLesson = new ArrayList<>();
+    
+            Calendar currentLessonDate = startDate;
+            while (!currentLessonDate.after(endDate)) {
+                int day = currentLessonDate.get(Calendar.DAY_OF_WEEK);
+                if (day == frequency) {
+                    // Had to make a clone here or else all days were the same
+                    daysOfRecurringLesson.add((Calendar) currentLessonDate.clone());
+                }
+                currentLessonDate.add(Calendar.DAY_OF_MONTH, 1);
+            }
+    
+            return daysOfRecurringLesson;
+        }
+    
+        public boolean validateRecurringLesson(Teacher teacher, RecurringLesson recurringLesson) {
+            LocalDate day = recurringLesson.occurrences();
+            for (RecurringLesson lesson : allRecurringLessons()) {
+                if (lesson.responsibleTeacher().equals(teacher) && lesson.occurrences().equals(recurringLesson.occurrences()) && lesson.startTime().equals(recurringLesson.startTime())) {
+                    return false;
+                }
+            }
             return true;
         }
-        return recurringLessonTeacher.equals(that.recurringLessonTeacher) && recurringLessonCourse.equals(that.recurringLessonCourse) && identity().equals(that.identity()) && startDate.equals(that.startDate) && endDate.equals(that.endDate) &&
-        startTime == that.startTime && duration == that.duration && frequency == that.frequency;
+    
+        public boolean validateExtraLesson(Teacher teacher, ExtraLesson extraLesson) {
+            LocalDate day = extraLesson.occurrences();
+            for (RecurringLesson lesson : allRecurringLessons()) {
+                if (lesson.responsibleTeacher().equals(teacher) && lesson.occurrences().equals(extraLesson.occurrences()) && lesson.startTime().equals(extraLesson.startTime())) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    
     }
 
-    @Override
-    public <R> R buildRepresentation(final RepresentationBuilder<R> builder) {
-        return null;
-    }
-
-    public Teacher responsibleTeacher() { return this.recurringLessonTeacher; }
-
-    public Course recurringLessonCourse() { return this.recurringLessonCourse; }
-
-    @Override
-    public Designation identity() { return this.title; }
-
-    public Designation title() { return this.title;}
-
-    public Calendar startDate() { return this.startDate;}
-
-    public Calendar endDate() { return this.endDate;}
-
-    public LocalTime startTime() { return this.startTime;}
-
-    public int duration() { return this.duration;}
-
-    public int frequency() { return this.frequency;}
-
-    public LocalDate occurrences() { return this.occurrences;}
-
-    public RecurringLesson updateScheduleOfLesson(Calendar startDate, Calendar endDate, int duration){
-        this.duration = duration;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        return this;
-    }
-}
 
 
 # 6. Integration and Demo 
