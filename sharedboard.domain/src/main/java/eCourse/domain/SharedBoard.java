@@ -38,7 +38,7 @@ public class SharedBoard extends Thread implements AggregateRoot<SharedBoardTitl
     @Column
     private boolean archive;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<SharedBoardUser> usersList = new ArrayList<>();
 
     @Transient
@@ -64,7 +64,7 @@ public class SharedBoard extends Thread implements AggregateRoot<SharedBoardTitl
         List<SharedBoardCell> matrixCells = new ArrayList<>();
         for (int i = 0; i < numberRows; i++) {
             for (int j = 0; j < numberColumns; j++) {
-                matrixCells.add(new SharedBoardCell(this, "_" + i + "," + j));
+                matrixCells.add(new SharedBoardCell(this, new Position(i, j)));
             }
         }
         return matrixCells;
@@ -94,6 +94,20 @@ public class SharedBoard extends Thread implements AggregateRoot<SharedBoardTitl
         for (SBRow row : rows) {
             row.setIndex(i);
             i++;
+        }
+    }
+
+    public SharedBoardCell cellWithPosition(Position pos) {
+        int row = pos.rowIndex();
+        int column = pos.columnIndex();
+
+        if (row < 0 || row >= numberRows || column < 0 || column >= numberColumns)
+        {
+            throw new IllegalArgumentException("Invalid cell");
+        }
+        else
+        {
+            return matrixCells.get(row * numberColumns + column);
         }
     }
 
@@ -193,16 +207,34 @@ public class SharedBoard extends Thread implements AggregateRoot<SharedBoardTitl
         return boardUser;
     }
 
-    public PostIt addPostItToCell(PostIt postIt, int row, int column) {
+    public PostIt addPostItToCell(PostIt postIt, Position pos, SharedBoardUser cellOwner) {
+        int row = pos.rowIndex();
+        int column = pos.columnIndex();
 
-        if (row < 0 || row >= numberRows || column < 0 || column >= numberColumns) {
-            throw new IllegalArgumentException("Invalid cell");
-        } else {
-            SharedBoardCell cell = matrixCells.get(row * numberColumns + column);
-            cell.addPostIt(postIt);
-            return postIt;
-        }
+                if (row < 0 || row >= numberRows || column < 0 || column >= numberColumns)
+                {
+                    throw new IllegalArgumentException("Invalid cell");
+                }
+                else
+                {
+                    SharedBoardCell cell = matrixCells.get(row * numberColumns + column);
+                    cell.addPostIt(postIt, cellOwner);
+                    return postIt;
+                }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SharedBoard{title=").append(title);
+
+        for (SharedBoardCell cell : matrixCells) {
+            sb.append(cell.toString());
+        }
+
+        return sb.toString();
+    }
+
 
 }
 

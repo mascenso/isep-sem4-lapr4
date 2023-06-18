@@ -2,6 +2,7 @@ package eCourse.domain;
 
 import eCourse.domain.postit.PostIt;
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 
 import javax.persistence.*;
 
@@ -14,11 +15,16 @@ public class SharedBoardCell implements AggregateRoot<String> {
     }
 
     @Id
-   // @GeneratedValue(strategy = GenerationType.AUTO)
     private String id; //custom SBtitle_1,2
+
+    @Embedded
+    private Position position;
 
     @Enumerated(EnumType.STRING)
     private CellState state;
+
+    @ManyToOne
+    private SharedBoardUser owner;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="sharedboard_title")
@@ -27,23 +33,25 @@ public class SharedBoardCell implements AggregateRoot<String> {
     @Embedded
     private PostIt postit;
 
-    protected SharedBoardCell(SharedBoard matrix, String id) {
+    protected SharedBoardCell(SharedBoard matrix, Position position) {
         this.sharedboard = matrix;
         this.state = CellState.EMPTY;
-        this.id = matrix.boardTitle().toString() + "_" + id;
-        this.postit = null;
+        this.id = matrix.boardTitle().toString() + "_" + position.toString();
+        this.postit = new PostIt();
+        this.position = position;
     }
 
     public SharedBoardCell() {
         // for ORM only
     }
 
-    public void addPostIt(PostIt postIt) {
+    public void addPostIt(PostIt postIt, SharedBoardUser newOwner) {
         if (postIt == null) {
             throw new IllegalArgumentException();
         }
         this.postit = postIt;
         this.state = CellState.FILLED;
+        this.owner = newOwner;
     }
 
     @Override
@@ -63,5 +71,10 @@ public class SharedBoardCell implements AggregateRoot<String> {
     @Override
     public String identity() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return id + ":::" + state.toString() + ":::" + postit.toString();
     }
 }
