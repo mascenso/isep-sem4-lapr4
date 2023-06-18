@@ -2,9 +2,9 @@ package eCourse.app.student.console.presentation.Exams;
 
 import eCourse.antlrExam.ExamSpecificationLexer;
 import eCourse.antlrExam.ExamSpecificationParser;
+import eCourse.domain.AutomaticExame;
 import eCourse.domain.Exam;
 import eCourse.exam.application.TakeAutomaticExameController;
-import eCourse.exam.application.TakeExameController;
 import eapli.framework.presentation.console.AbstractUI;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -23,8 +23,8 @@ public class TakeAutomaticExamUI extends AbstractUI {
         @Override
         protected boolean doShow() {
 
-            List<Exam> ListOfExams = theController.AutomaticExamsUnsolved();
-            Exam examSelected = showListExams(ListOfExams);
+            List<AutomaticExame> ListOfExams = theController.AutomaticExamsUnsolved();
+            AutomaticExame examSelected = showListExams(ListOfExams);
 
             CharStream charStream = null;
             try {
@@ -65,7 +65,7 @@ public class TakeAutomaticExamUI extends AbstractUI {
         return true;
     }
 
-    private Exam showListExams(List<Exam> listOfExams) {
+    private AutomaticExame showListExams(List<AutomaticExame> listOfExams) {
             if(listOfExams.isEmpty()){
                 System.out.println("=========================");
                 System.out.println("Dont exist exams to take.");
