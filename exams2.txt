@@ -1,0 +1,55 @@
+Exam "Math Exam" {
+
+  Header "This exam covers various math topics." {
+      FeedbackType: AfterClosing
+      GradeType: OnSubmission
+  }
+
+  Section "Algebra" {
+    Description: "Answer the following algebra questions."
+
+    Questions {
+
+        TrueFalse: "Water boils at 100 degrees Celsius." {
+            Answer: True
+            Grade: 4
+        }
+
+        TrueFalse: "The sun rises in the west." {
+            Answer: False
+            Grade: 1
+        }
+
+        Numerical: "What is the square root of 25?" {
+            Acceptance Error = 0.1
+            Option 5
+            Option 6
+            Option 7
+            Answer: 5
+            Grade: 1
+        }
+
+        Matching: "Match the colors." {
+            List One: "Amarelo" "Vermelho" "Branco" "Azul"
+            List Two: "Red" "Yellow" "White" "Blue" "Green"
+            Answer: "Yellow" "Red" "White" "Blue"
+            Grade: 0.5 0.5 0.5 0.5
+        }
+
+        MultipleChoice: "What is the capital of Portugal?" {
+            Option: "Lisboa"
+            Option: "Guimarães"
+            Option: "Porto"
+            Answer: "Braga"
+            Grade: 2
+        }
+
+        Select Missing Words: "The _______ is the largest planet in our solar _______."{
+            Missing Word: {"Moon" "Mars" "Saturn" "Earth" "Jupiter"}
+            Answer: "Jupiter"
+            Number of attempts: 3
+            Grade: 1
+        }
+    }
+  }
+}
