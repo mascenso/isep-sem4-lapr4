@@ -8,6 +8,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,4 +19,6 @@ public interface SharedBoardUserRepository extends DomainRepository<SharedBoardT
     Iterable<SharedBoardUser> findUsersBySharedBoard(final SharedBoardTitle title);
 
     Optional<SharedBoardUser> findUser(SharedBoardTitle name, Username username);
+
+    List<SharedBoardUser> findListUser(SharedBoardTitle name, Username username);
 }

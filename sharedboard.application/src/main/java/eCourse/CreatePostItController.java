@@ -14,6 +14,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Optional;
 
 public class CreatePostItController {
@@ -32,9 +33,9 @@ public class CreatePostItController {
     public SharedBoard registerPostIt(final SharedBoard shBoard, Integer x, Integer y, final String name) {
 
         Optional<Username> username = authz.session().map(s -> s.authenticatedUser().identity());
-        Optional<SharedBoardUser> sharedBoardUser = repoUsers.findUser(shBoard.boardTitle(), username.get());
+        List<SharedBoardUser> sharedBoardUser = repoUsers.findListUser(shBoard.boardTitle(), username.get());
 
-        shBoard.addPostItToCell(new PostIt(name), Position.valueOf(x, y), sharedBoardUser.get());
+        shBoard.addPostItToCell(new PostIt(name), Position.valueOf(x, y), sharedBoardUser.get(0));
         return repository.save(shBoard);
     }
 
@@ -42,14 +43,14 @@ public class CreatePostItController {
                                          final InputStream imageStream) throws IOException {
 
         Optional<Username> username = authz.session().map(s -> s.authenticatedUser().identity());
-        Optional<SharedBoardUser> sharedBoardUser = repoUsers.findUser(shBoard.boardTitle(), username.get());
+        List<SharedBoardUser> sharedBoardUser = repoUsers.findListUser(shBoard.boardTitle(), username.get());
 
         final PostIt newPostIt = new PostIt(name);
         if (imageStream != null) {
             newPostIt.changeImage(IOUtils.toByteArray(imageStream));
         }
 
-        shBoard.addPostItToCell(newPostIt, Position.valueOf(x, y), sharedBoardUser.get());
+        shBoard.addPostItToCell(newPostIt, Position.valueOf(x, y), sharedBoardUser.get(0));
 
         return repository.save(shBoard);
     }
