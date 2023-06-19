@@ -20,6 +20,7 @@
  */
 package eCourse.app.daemon.console;
 import eCourse.ListSharedBoardController;
+import eCourse.app.daemon.console.http.HttpServer;
 import eCourse.app.daemon.console.presentation.ProtocolServer;
 import eCourse.app.daemon.console.server.CsvBookingProtocolMessageParser;
 import eCourse.domain.ECoursePasswordPolicy;
@@ -41,6 +42,9 @@ public class Daemon  {
 
 	// TODO read port number from property file
 	private static final int BOOKING_PORT = 8890;
+	private static final int HTTP_SERVER_PORT=2226;
+	private static final String WEB_ROOT_FOLDER="eCourse.app.daemon.console/src/main/java/www";
+
 
 	private static final Logger LOGGER = LogManager.getLogger(Daemon.class);
 
@@ -60,6 +64,11 @@ public class Daemon  {
 				new PlainTextEncoder());
 
 		LOGGER.info("Starting the server socket on port {}", BOOKING_PORT);
+
+		Thread httpServer=new HttpServer(HTTP_SERVER_PORT, WEB_ROOT_FOLDER);
+		httpServer.start();
+
+
 		final var server = new ProtocolServer(buildServerDependencies());
 		server.start(BOOKING_PORT, true);
 
