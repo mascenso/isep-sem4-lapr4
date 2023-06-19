@@ -4,11 +4,14 @@ import eCourse.domain.postit.PostIt;
 import eCourse.domain.valueobjects.SharedBoardTitle;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.Username;
+import eapli.framework.representations.RepresentationBuilder;
+import eapli.framework.representations.Representationable;
+import eapli.framework.representations.dto.DTOable;
 
 import javax.persistence.*;
 
 @Entity
-public class SharedBoardCell implements AggregateRoot<String> {
+public class SharedBoardCell implements AggregateRoot<String>{
     private static final long serialVersionUID = 1L;
 
     private enum CellState {

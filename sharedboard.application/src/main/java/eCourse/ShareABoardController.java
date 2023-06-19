@@ -1,5 +1,6 @@
 package eCourse;
 
+import eCourse.client.FailedRequestException;
 import eCourse.domain.*;
 import eCourse.domain.enums.AccessType;
 import eCourse.infrastructure.persistence.PersistenceContext;
@@ -20,8 +21,8 @@ public class ShareABoardController extends Thread {
     @Autowired
     private ListSharedBoardService listSharedBoardService = new ListSharedBoardService();
 
-    public Iterable<SharedBoard> getMyBoards() throws IOException {
-        return listSharedBoardService.listBoardsByUser();
+    public Iterable<SharedBoard> getMyBoards() throws IOException, FailedRequestException {
+        return listSharedBoardService.listBoardsByUser("poweruser");
     }
 
     public Iterable<SystemUser> allUsers() throws IOException {

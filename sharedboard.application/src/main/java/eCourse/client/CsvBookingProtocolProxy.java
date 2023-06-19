@@ -18,7 +18,11 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.sharedboard.console.mealbooking.csvprotocol.client;
+package eCourse.client;
+
+import eCourse.domain.SharedBoard;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,9 +33,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Proxy for the CsvBookingProtocol.
@@ -130,13 +131,27 @@ public class CsvBookingProtocolProxy {
 		final var socket = new ClientSocket();
 		socket.connect(getAddress(), getPort());
 
-		final String request = new GetAvailableMealsRequestDTO(theDay, mealType).toRequest();
+		final String request = new GetAvailableMealsRequestDTO(mealType).toRequest();
 		final List<String> response = socket.sendAndRecv(request);
 
 		socket.stop();
 
 		final MarshlerUnmarshler mu = new MarshlerUnmarshler();
 		return mu.parseResponseMessageGetAvailableMeals(response);
+	}
+
+	public Iterable<SharedBoardDTO> boardListByUser(final String mealType)
+			throws IOException, FailedRequestException {
+		final var socket = new ClientSocket();
+		socket.connect(getAddress(), getPort());
+
+		final String request = new GetAvailableMealsRequestDTO(mealType).toRequest();
+		final List<String> response = socket.sendAndRecv(request);
+
+		socket.stop();
+
+		final MarshlerUnmarshler mu = new MarshlerUnmarshler();
+		return mu.parseResponseMessageListBoards(response);
 	}
 
 	private int getPort() {
@@ -149,8 +164,19 @@ public class CsvBookingProtocolProxy {
 		return "127.0.0.1";
 	}
 
+	/**
+	 *
+	 * @param identity
+	 * @param id
+	 * @param password
+	 * @return
+	 * @throws IOException
+	 * @throws FailedRequestException
+	 */
 	public BookingTokenDTO bookMeal(final String identity, final Long id, String password)
 			throws IOException, FailedRequestException {
+		// FIXME username and password are clear text. this is just for demo purposes
+		// and MUST NOT be done like this in production code
 
 		final var socket = new ClientSocket();
 		socket.connect(getAddress(), getPort());

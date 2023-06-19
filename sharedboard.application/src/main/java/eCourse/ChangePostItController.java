@@ -1,5 +1,6 @@
 package eCourse;
 
+import eCourse.client.FailedRequestException;
 import eCourse.domain.Position;
 import eCourse.domain.SharedBoard;
 import eCourse.domain.SharedBoardCell;
@@ -25,8 +26,8 @@ public class ChangePostItController {
     SharedBoardCellRepository repo = PersistenceContext.repositories().sharedBoardCells();
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public Iterable<SharedBoard> allSharedBoards() throws IOException {
-        return listSharedBoardService.listBoardsByUser();
+    public Iterable<SharedBoard> allSharedBoards() throws IOException, FailedRequestException {
+        return listSharedBoardService.listBoardsByUser("poweruser");
     }
 
     public Iterable<SharedBoardCell> ownedSharedBoardCells() {

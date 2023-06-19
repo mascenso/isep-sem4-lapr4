@@ -25,12 +25,9 @@ public class SharedBoardUI extends AbstractUI {
         final int numberOfRows = Integer.parseInt(Console.readLine("Number of Rows"));
         final String[] rowNames = new String[numberOfRows];
 
-        final SharedBoard sharedBoardColumnAndRow = new SharedBoard(numberOfRows, numberOfColumns);
         for (int i = 0; i < numberOfColumns; i++) {
             columnNames[i] = Console.readLine("SBColumn name " + (i+1) + " : ");
         }
-
-
         for (int i = 0; i < numberOfRows; i++) {
             rowNames[i] = Console.readLine("SBRow name " + (i+1) + ": " );
         }
@@ -39,7 +36,6 @@ public class SharedBoardUI extends AbstractUI {
         for (String columnName : columnNames){
             columns.add(new SBColumn(columnName));
         }
-
         List<SBRow> rows = new ArrayList<>();
         for (String rowName : rowNames){
             rows.add(new SBRow(rowName));

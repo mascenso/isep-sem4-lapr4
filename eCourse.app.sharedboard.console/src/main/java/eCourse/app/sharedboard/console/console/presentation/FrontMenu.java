@@ -24,6 +24,7 @@
 package eCourse.app.sharedboard.console.console.presentation;
 
 import eCourse.app.common.console.presentation.authz.LoginUI;
+import eCourse.app.sharedboard.console.authz.CredentialStore;
 import eapli.framework.actions.ChainedAction;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.presentation.console.AbstractUI;

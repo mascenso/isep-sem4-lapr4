@@ -1,5 +1,6 @@
 package eCourse;
 
+import eCourse.client.FailedRequestException;
 import eCourse.domain.Position;
 import eCourse.domain.SharedBoard;
 import eCourse.domain.SharedBoardCell;
@@ -29,8 +30,8 @@ public class CreatePostItController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
 
-    public Iterable<SharedBoard> listBoardsByUser() throws IOException {
-        return listSharedBoardService.listBoardsByUser();
+    public Iterable<SharedBoard> listBoardsByUser() throws IOException, FailedRequestException {
+        return listSharedBoardService.listBoardsByUser("poweruser");
     }
 
     public Iterable<SharedBoardCell> listFreeCells(SharedBoard sb) {

@@ -1,6 +1,7 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.ArchiveABoardController;
+import eCourse.client.FailedRequestException;
 import eCourse.domain.SharedBoard;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -25,6 +26,8 @@ public class ArchiveABoardUI extends AbstractUI {
         try {
             myBoards = (List<SharedBoard>) theController.listBoardsByUser();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (FailedRequestException e) {
             throw new RuntimeException(e);
         }
 

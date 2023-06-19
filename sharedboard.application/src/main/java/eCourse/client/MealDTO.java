@@ -18,19 +18,28 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.sharedboard.console.mealbooking.csvprotocol.client;
-
-import lombok.Data;
+package eCourse.client;
 
 /**
- * @author Paulo Gandra de Sousa 2022.12.15
+ * @author Paulo Gandra de Sousa 2021.05.25
  */
-@Data
-public class BookingTokenDTO {
-	private final String token;
+@SuppressWarnings("java:S1104")
+public class MealDTO {
 
-	@Override
-	public String toString() {
-		return token;
-	}
+    public MealDTO(final long id, final String name, final String type, final long salt, final long calories,
+            final double price) {
+        this.id = id;
+        dishName = name;
+        mealType = type;
+        this.salt = salt;
+        this.calories = calories;
+        this.price = price;
+    }
+
+    public Long id;
+    public String dishName;
+    public String mealType;
+    public Long salt;
+    public Long calories;
+    public double price;
 }

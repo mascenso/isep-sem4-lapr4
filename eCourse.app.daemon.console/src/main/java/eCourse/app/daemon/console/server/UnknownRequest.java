@@ -18,23 +18,21 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.sharedboard.console.console.presentation.meals;
+package eCourse.app.daemon.console.server;
 
-import eapli.framework.presentation.console.AbstractUI;
+/**
+ *
+ * @author Paulo Gandra Sousa 01/06/2020
+ *
+ */
+public class UnknownRequest extends BaseErrorRequest {
 
-
-@SuppressWarnings("squid:S106")
-public abstract class CafeteriaKioskBaseUI extends AbstractUI {
-
-    @Override
-    public String headline() {
-        return "=== SHARED BOARD ===";
+    public UnknownRequest(final String inputLine) {
+        super(inputLine);
     }
 
     @Override
-    protected void drawFormTitle(final String title) {
-        final String titleBorder = BORDER.substring(0, 2) + " " + title;
-        System.out.println(titleBorder);
-        drawFormBorder();
+    protected String messageType() {
+        return "UNKNOWN_REQUEST";
     }
 }

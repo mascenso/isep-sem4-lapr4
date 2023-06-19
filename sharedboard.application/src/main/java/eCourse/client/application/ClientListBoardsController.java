@@ -21,28 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eCourse.app.sharedboard.console.mealbooking.application;
+package eCourse.client.application;
+
+import eCourse.client.CsvBookingProtocolProxy;
+import eCourse.client.SharedBoardDTO;
+import eCourse.domain.SharedBoard;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserSession;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Optional;
 
-import eCourse.app.sharedboard.console.mealbooking.csvprotocol.client.BookingTokenDTO;
-import eCourse.app.sharedboard.console.mealbooking.csvprotocol.client.MealDTO;
-import eCourse.app.sharedboard.console.mealbooking.csvprotocol.client.CsvBookingProtocolProxy;
-import eCourse.app.sharedboard.console.mealbooking.csvprotocol.client.FailedRequestException;
+public class ClientListBoardsController {
 
-public class KioskBookAMealController {
+	private final eCourse.client.CsvBookingProtocolProxy proxy = new CsvBookingProtocolProxy();
+	private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-	private final CsvBookingProtocolProxy proxy = new CsvBookingProtocolProxy();
 
-	/**
-	 * @param theDay
-	 * @param mealType
-	 *
-	 * @return
-	 *
-	 * @throws IOException
-	 */
+	public Iterable<SharedBoardDTO> listBoardsByUser() throws IOException, eCourse.client.FailedRequestException {
+		authz.session().map(s -> s.authenticatedUser().identity());
+		Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
+
+		return proxy.boardListByUser("lala");
+	}
+
+	/*
 	public Iterable<MealDTO> getAvailableMeals(final Calendar theDay, final String mealType)
 			throws IOException, FailedRequestException {
 
@@ -53,4 +59,6 @@ public class KioskBookAMealController {
 			throws IllegalStateException, IOException, FailedRequestException {
 		return proxy.bookMeal(username, meal.id, password);
 	}
+
+	 */
 }

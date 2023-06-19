@@ -32,6 +32,7 @@
 		<module>eCourse.app.bootstrap</module>
 		<module>eCourse.app.sharedboard.console</module>
 		<module>eCourse.bootstrappers</module>
+		<module>eCourse.app.daemon.console</module>
 		<module>eCourse.core</module>
 		<module>eCourse.persistence.impl</module>
 		<module>eCourse.util.ci</module>
@@ -56,6 +57,7 @@
 		<module>teacher.domain</module>
 		<module>teacher.application</module>
 		<module>systemusers.domain</module>
+
 		<!--<module>shareboardHttpServer</module>-->
 
 
@@ -131,7 +133,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-    </dependencies>
+	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>

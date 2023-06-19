@@ -1,5 +1,6 @@
 package eCourse;
 
+import eCourse.client.FailedRequestException;
 import eCourse.domain.BoardUpdateEvent;
 import eCourse.domain.Notification;
 import eCourse.domain.SharedBoard;
@@ -22,8 +23,8 @@ public class ArchiveABoardController extends Thread {
 
     private final Object mutex = new Object(); // For synchronization
 
-    public Iterable<SharedBoard> listBoardsByUser() throws IOException {
-        Iterable<SharedBoard> boardIterable = listSharedBoardService.listBoardsByUser();
+    public Iterable<SharedBoard> listBoardsByUser() throws IOException, FailedRequestException {
+        Iterable<SharedBoard> boardIterable = listSharedBoardService.listBoardsByUser("poweruser");
         return IteratorUtils.toList(boardIterable.iterator());
     }
 

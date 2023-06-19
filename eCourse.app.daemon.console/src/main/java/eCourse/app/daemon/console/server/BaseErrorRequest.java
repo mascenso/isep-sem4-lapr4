@@ -18,23 +18,44 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.sharedboard.console.mealbooking.csvprotocol.client;
+package eCourse.app.daemon.console.server;
 
-import java.util.Calendar;
-
-import eapli.framework.time.util.Calendars;
-import lombok.Value;
+import eapli.framework.csv.CsvRecord;
 
 /**
  *
- * @author Paulo Gandra de Sousa 2021.05.30
+ * @author Paulo Gandra Sousa 03/06/2020
+ *
  */
-@Value
-public class GetAvailableMealsRequestDTO {
-	private final Calendar theDay;
-	private final String mealType;
+public abstract class BaseErrorRequest extends BookingProtocolRequest {
 
-	public String toRequest() {
-		return "GET_AVAILABLE_MEALS, \"" + Calendars.format(theDay, "dd/MM/yyyy") + "\",\"" + mealType + "\"";
-	}
+    private final String errorDescription;
+
+    protected BaseErrorRequest(final String request, final String errorDescription) {
+        super(null, request);
+        this.errorDescription = errorDescription;
+    }
+
+    protected BaseErrorRequest(final String request) {
+        super(null, request);
+        this.errorDescription = null;
+    }
+
+    @Override
+    public String execute() {
+        // nothing to do, just build the response
+        return buildResponse();
+    }
+
+    protected String buildResponse() {
+        final Object[] fields = {
+                messageType(),
+                request,
+                errorDescription
+        };
+        final boolean[] mask = { false, true, true };
+        return CsvRecord.valueOf(fields, mask).toString() + "\n";
+    }
+
+    protected abstract String messageType();
 }

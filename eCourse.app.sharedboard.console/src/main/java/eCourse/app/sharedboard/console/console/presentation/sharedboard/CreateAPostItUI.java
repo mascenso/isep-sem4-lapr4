@@ -1,6 +1,7 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.CreatePostItController;
+import eCourse.client.FailedRequestException;
 import eCourse.domain.SharedBoard;
 import eCourse.domain.SharedBoardCell;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -25,6 +26,8 @@ public class CreateAPostItUI extends AbstractUI {
         try {
             boards = theController.listBoardsByUser();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (FailedRequestException e) {
             throw new RuntimeException(e);
         }
         if (((Collection<?>) boards).size() == 0) {

@@ -1,5 +1,7 @@
 package eCourse;
 
+import eCourse.client.CsvBookingProtocolProxy;
+import eCourse.client.FailedRequestException;
 import eCourse.domain.SharedBoardCell;
 import eCourse.domain.enums.AccessType;
 import eCourse.domain.SharedBoard;
@@ -11,6 +13,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserSession;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.stereotype.Component;
 
@@ -23,14 +26,10 @@ public class ListSharedBoardService {
 
     private static final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public Iterable<SharedBoard> listBoardsByUser() throws IOException {
-        authz.session().map(s -> s.authenticatedUser().identity());
-        Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
-        Iterable<SharedBoard> boardIterable = PersistenceContext.repositories().sharedBoards().findByUsername(user.get().identity());
+    public Iterable<SharedBoard> listBoardsByUser(String username) throws IOException, FailedRequestException {
+        Iterable<SharedBoard> boardIterable = PersistenceContext.repositories().sharedBoards().findByUsername(Username.valueOf(username));
         List<SharedBoard> boardListByUser = IteratorUtils.toList(boardIterable.iterator());
-
         return boardListByUser;
-
     }
 
 
@@ -54,8 +53,8 @@ public class ListSharedBoardService {
     }
 
 
-    public Set<SharedBoard> listOfAllUserBoards(Map<SharedBoardTitle, AccessType> map) throws IOException {
-        Iterable<SharedBoard> boardsOwned = listBoardsByUser();
+    public Set<SharedBoard> listOfAllUserBoards(Map<SharedBoardTitle, AccessType> map) throws IOException, FailedRequestException {
+        Iterable<SharedBoard> boardsOwned = listBoardsByUser("poweruser");
         Iterable<SharedBoard> sharedBoards = listBoardsSharedWithUser(map);
 
         Set<SharedBoard> uniqueBoards = new HashSet<>();

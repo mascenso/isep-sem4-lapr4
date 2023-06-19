@@ -18,7 +18,18 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.sharedboard.console.mealbooking.csvprotocol.client;
+package eCourse.client;
+
+import eCourse.domain.CreateSharedBoardBuilder;
+import eCourse.domain.SBColumn;
+import eCourse.domain.SBRow;
+import eCourse.domain.SharedBoard;
+import eCourse.domain.valueobjects.SharedBoardTitle;
+import eapli.framework.infrastructure.authz.domain.model.NilPasswordPolicy;
+import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
+import eapli.framework.time.util.CurrentTimeCalendars;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +43,9 @@ import java.util.List;
  */
 /* package */ class MarshlerUnmarshler {
 
+	private SystemUserBuilder userBuilder = new SystemUserBuilder(new NilPasswordPolicy(), new PlainTextEncoder());
+
+
 	public Iterable<MealDTO> parseResponseMessageGetAvailableMeals(final List<String> response)
 			throws FailedRequestException {
 		checkForErrorMessage(response);
@@ -43,11 +57,41 @@ import java.util.List;
 		return ret;
 	}
 
+	public Iterable<SharedBoardDTO> parseResponseMessageListBoards(List<String> response)
+			throws FailedRequestException {
+
+		checkForErrorMessage(response);
+
+		//hardcoded pq falta traduzir frase em objeto
+		// SystemUser pow = userBuilder.with("poweruser", "Password1", "Tom", "Riddle", "horcrux@mail.com").createdOn(CurrentTimeCalendars.now()).build();
+		// List<SBColumn> columnList = new ArrayList<>();
+		// List<SBRow> rowList = new ArrayList<>();
+		// SharedBoard board1 = new CreateSharedBoardBuilder().withTitle(SharedBoardTitle.valueOf("Tuty")).withNumberOfColumns(3).withNumberOfRows(1).withArchive(false).withOwner(pow).withColumns(columnList).withRows(rowList).build();
+		//
+
+		final List<SharedBoardDTO> ret = new ArrayList<>();
+		//ret.add(board1);
+
+		response.remove(0); // removes header
+		response.forEach(s -> ret.add(parseResponseMessageLineListBoards(s)));
+		return ret;
+	}
+
+
+
 	private MealDTO parseResponseMessageLineGetAvailableMeals(final String s) {
 		final String[] tokens = s.split(",");
 		return new MealDTO(Long.parseLong(tokens[0]), removeDoubleQuotes(tokens[1]), removeDoubleQuotes(tokens[2]),
 				Long.parseLong(tokens[3]), Long.parseLong(tokens[4]), Double.parseDouble(tokens[5]));
 	}
+
+	private SharedBoardDTO parseResponseMessageLineListBoards(final String s) {
+		final String[] tokens = s.split(",");
+		return new SharedBoardDTO(removeDoubleQuotes(tokens[0]), Integer.parseInt(tokens[1]), Integer.parseInt(tokens[2]),removeDoubleQuotes(tokens[3]), Boolean.parseBoolean(tokens[4]));
+		//return new SharedBoard(1,1);
+	}
+
+
 
 	public BookingTokenDTO parseResponseMessageBookMeal(final List<String> response) throws FailedRequestException {
 		checkForErrorMessage(response);
@@ -69,4 +113,5 @@ import java.util.List;
 			throw new FailedRequestException(messageType + ":" + tokens[tokens.length - 1]);
 		}
 	}
+
 }

@@ -1,5 +1,6 @@
 package eCourse;
 
+import eCourse.client.FailedRequestException;
 import eCourse.domain.*;
 import eCourse.domain.enums.AccessType;
 import eCourse.domain.SBColumn;
@@ -22,7 +23,7 @@ public class ViewSharedBoardUpdatesController{
     @Autowired
     private ListSharedBoardService listSharedBoardService = new ListSharedBoardService();
 
-    public Set<SharedBoard> listOfAllUserBoards(Map<SharedBoardTitle, AccessType> map) throws IOException {
+    public Set<SharedBoard> listOfAllUserBoards(Map<SharedBoardTitle, AccessType> map) throws IOException, FailedRequestException {
         return listSharedBoardService.listOfAllUserBoards(map);
     }
 }

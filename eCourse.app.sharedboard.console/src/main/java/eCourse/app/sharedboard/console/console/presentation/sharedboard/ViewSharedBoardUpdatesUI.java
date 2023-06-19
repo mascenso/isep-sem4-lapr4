@@ -1,6 +1,7 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.ViewSharedBoardUpdatesController;
+import eCourse.client.FailedRequestException;
 import eCourse.domain.enums.AccessType;
 import eCourse.domain.SharedBoard;
 import eCourse.domain.valueobjects.SharedBoardTitle;
@@ -22,6 +23,8 @@ public class ViewSharedBoardUpdatesUI extends AbstractUI {
         try {
             myBoards = theController.listOfAllUserBoards(map);
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (FailedRequestException e) {
             throw new RuntimeException(e);
         }
 

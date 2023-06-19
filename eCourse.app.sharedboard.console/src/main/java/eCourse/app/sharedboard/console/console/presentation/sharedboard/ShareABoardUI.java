@@ -1,6 +1,7 @@
 package eCourse.app.sharedboard.console.console.presentation.sharedboard;
 
 import eCourse.ShareABoardController;
+import eCourse.client.FailedRequestException;
 import eCourse.domain.enums.AccessType;
 import eCourse.domain.SharedBoard;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -26,6 +27,8 @@ public class ShareABoardUI extends AbstractUI {
             myBoards = theController.getMyBoards();
         } catch (IOException e) {
             System.out.println("ERROR the data may not have been saved successfully");
+        } catch (FailedRequestException e) {
+            System.out.println("Problems with request, check message");
         }
 
         if (((Collection<?>) myBoards).size() == 0) {
@@ -43,7 +46,7 @@ public class ShareABoardUI extends AbstractUI {
         authz.session().map(s -> s.authenticatedUser().identity());
         Optional<SystemUser> user = authz.session().map(UserSession::authenticatedUser);
 
-        if (boardID.owner().sameAs(user)) {
+        if (boardID.owner().equals(user.get())) {
             Iterable<SystemUser> systemUsers = null;
             try {
                 systemUsers = theController.allUsers();

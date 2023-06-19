@@ -18,21 +18,21 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.sharedboard.console.mealbooking.csvprotocol.client;
-
-import lombok.Value;
+package eCourse.app.daemon.console.server;
 
 /**
  *
- * @author Paulo Gandra de Sousa 2021.05.30
+ * @author Paulo Gandra Sousa 03/06/2020
+ *
  */
-@Value
-public class BookAMealRequestDTO {
-	private final String who;
-	private final Long mealid;
-	private String password;
+public class BadRequest extends BaseErrorRequest {
 
-	public String toRequest() {
-		return "BOOK_A_MEAL, " + mealid + ", \"" + who + "\"" + ", \"" + password + "\"";
-	}
+    public BadRequest(final String request, final String errorDescription) {
+        super(request, errorDescription);
+    }
+
+    @Override
+    protected String messageType() {
+        return "ERROR_IN_REQUEST";
+    }
 }

@@ -18,63 +18,58 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package eCourse.app.sharedboard.console;
-
-import eCourse.app.common.console.BaseApplication;
-import eCourse.app.sharedboard.console.authz.CredentialStore;
-import eCourse.app.sharedboard.console.console.presentation.FrontMenu;
+package eCourse.app.daemon.console;
+import eCourse.ListSharedBoardController;
+import eCourse.app.daemon.console.presentation.ProtocolServer;
+import eCourse.app.daemon.console.server.CsvBookingProtocolMessageParser;
 import eCourse.domain.ECoursePasswordPolicy;
 import eCourse.infrastructure.persistence.PersistenceContext;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.pubsub.EventDispatcher;
-import eapli.framework.time.util.CurrentTimeCalendars;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.ComponentScan;
 
-import java.io.IOException;
-
-
+/**
+ *
+ * @author Paulo Gandra Sousa
+ */
 @SuppressWarnings("squid:S106")
-public final class SharedBoardApp extends BaseApplication {
-	private static final Logger LOGGER = LogManager.getLogger(SharedBoardApp.class);
+@ComponentScan({"eCourse"})
+public class Daemon  {
+
+	// TODO read port number from property file
+	private static final int BOOKING_PORT = 8890;
+
+	private static final Logger LOGGER = LogManager.getLogger(Daemon.class);
 
 	/**
-	 * Empty constructor is private to avoid instantiation of this class.
+	 * Avoid instantiation of this class.
 	 */
-	private SharedBoardApp(){
+	private Daemon() {
 	}
 
-	public static void main(final String[] args) throws Exception {
-		System.out.println();
 
-		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ECoursePasswordPolicy(),
+	public static void main(final String[] args) {
+		LOGGER.info("Configuring the daemon");
+
+		AuthzRegistry.configure(
+				PersistenceContext.repositories().users(),
+				new ECoursePasswordPolicy(),
 				new PlainTextEncoder());
 
-		//conection TCPclient
-		//SBPClient client = new SBPClient();
+		LOGGER.info("Starting the server socket on port {}", BOOKING_PORT);
+		final var server = new ProtocolServer(buildServerDependencies());
+		server.start(BOOKING_PORT, true);
 
-		new SharedBoardApp().run(args);
+		LOGGER.info("Exiting the daemon");
+		System.exit(0);
 	}
 
-	@Override
-	protected void doMain(String[] args) {
-		new FrontMenu().show();
+	private static CsvBookingProtocolMessageParser buildServerDependencies() {
+		return new CsvBookingProtocolMessageParser(
+				new ListSharedBoardController(),
+				AuthzRegistry.authenticationService());
 	}
-
-	@Override
-	protected String appTitle() {
-		return "eCourse [Shared Board]";
-	}
-
-	@Override
-	protected String appGoodbye() {
-		return "Signing out";
-	}
-
-	@Override
-	protected void doSetupEventHandlers(EventDispatcher dispatcher) {
-		// TODO setup event handlers for your app
-	}
-
 }
