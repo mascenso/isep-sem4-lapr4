@@ -1,0 +1,23 @@
+DAEMON (TCP Server):
+
+Acts as the backend server for the Shared Boards system.
+Implements the shared boards functionality and handles updates from clients.
+Listens for incoming TCP connections from the Shared Board App (clients).
+Executes updates received from clients and notifies other connected clients of these updates in real-time.
+
+
+Shared Board App: CLIENT AND HTTP SERVER
+
+-> Shared Board App (Client):
+
+Acts as a client for the Shared Board Server.
+Connects to the Shared Board Server using TCP to send updates and receive notifications of updates from the server.
+Sends updates (e.g., changes to shared boards) to the Shared Board Server for processing.
+Receives notifications from the server about updates made by other clients and updates its local view of the shared boards accordingly.
+
+-> Shared Board App (HTTP Server):
+
+Acts as an HTTP server to serve the web page that displays the board view.
+When clients access the Shared Board App's web page, the HTTP server responds by serving the necessary HTML, CSS, and JavaScript files required for the board view.
+The served web page allows clients to interact with the shared boards, make changes, and send those changes to the Shared Board Server for processing.
+In summary, the Shared Board Server and the Shared Board App interact through TCP connections, where the Shared Board App acts as both a client to the server for updates and a server to serve the board view web page to clients. This architecture enables real-time collaboration on the shared boards, where updates made by any client are communicated to the server and broadcasted to all connected clients, allowing them to maintain synchronized views of the shared boards.

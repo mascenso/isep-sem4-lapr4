@@ -1,0 +1,32 @@
+@startuml use-case-realization2.svg
+
+participant SharedBoards <<client>>
+
+Daemon -> TCPServer : new
+loop true
+Daemon -> TCPServer: start
+Activate TCPServer
+TCPServer -> TCPServer: accept
+
+SharedBoards --> TCPServer: request
+
+participant HandleClient <<thread>>
+activate HandleClient
+TCPServer -\ HandleClient: start
+deactivate TCPServer
+end
+
+HandleClient -> MessageParser:parse(request)
+create ProtocolRequest <<abstract>>
+MessageParser -> ProtocolRequest:new
+
+HandleClient -> ProtocolRequest: execute
+activate ProtocolRequest
+ProtocolRequest -> ProtocolRequest:buildResponse
+ProtocolRequest --> HandleClient: response
+deactivate ProtocolRequest
+
+HandleClient --> SharedBoards: response
+deactivate HandleClient
+
+@enduml

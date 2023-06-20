@@ -1,0 +1,26 @@
+@startuml use-case-realization.svg
+
+participant Kiosk <<client>>
+
+BookingDaemon -> BookingServer : new
+loop true
+BookingDaemon -> BookingServer: start
+Activate BookingServer
+BookingServer -> BookingServer: accept
+
+Kiosk --> BookingServer
+
+participant HandleClient <<thread>>
+activate HandleClient
+BookingServer -\ HandleClient: start
+deactivate BookingServer
+end
+
+HandleClient -> MessageParser:parse
+HandleClient -> HandleClient: execute
+HandleClient -> MessageBuilder:build
+
+HandleClient --> Kiosk
+deactivate HandleClient
+
+@enduml
